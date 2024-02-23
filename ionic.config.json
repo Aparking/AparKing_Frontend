@@ -1,0 +1,7 @@
+{
+  "name": "AparKing_Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
