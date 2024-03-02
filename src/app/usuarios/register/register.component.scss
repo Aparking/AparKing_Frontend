@@ -1,0 +1,32 @@
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 16px;
+}
+
+ion-card {
+  max-width: 500px;
+  width: 100%;
+}
+
+ion-card-header {
+  text-align: center;
+}
+
+ion-card-content {
+  padding: 16px;
+}
+
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 16px;
+  --inner-padding-start: 16px;
+  --min-height: 50px;
+}
+
+ion-button {
+  margin-top: 16px;
+}
