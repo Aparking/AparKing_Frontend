@@ -5,7 +5,6 @@ import * as Rx from 'rxjs';
   providedIn: 'root',
 })
 export class WebsocketService {
-  constructor() {}
   private subject: Rx.Subject<MessageEvent> | undefined;
   public connect(url: string): Rx.Subject<MessageEvent> {
     if (!this.subject) {

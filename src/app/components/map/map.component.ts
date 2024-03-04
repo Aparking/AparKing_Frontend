@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { Socket } from 'ngx-socket-io';
 import { Location, Parking } from 'src/app/models/parking';
 import { DataManagementService } from 'src/app/service/data-management.service';
 import { LocationService } from 'src/app/service/location.service';
@@ -21,8 +20,7 @@ export class MapComponent implements OnInit {
   constructor(
     private dataManagement: DataManagementService,
     private locationService: LocationService,
-    private websocket: WebsocketService,
-    private socket: Socket
+    private websocket: WebsocketService
   ) {}
 
   ngOnInit() {
