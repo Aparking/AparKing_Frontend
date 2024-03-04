@@ -8,6 +8,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataManagementService } from './service/data-management.service';
+import { WebsocketService } from './service/websocket.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { DataManagementService } from './service/data-management.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     DataManagementService,
     HttpClient,
+    WebsocketService,
   ],
   bootstrap: [AppComponent],
 })
