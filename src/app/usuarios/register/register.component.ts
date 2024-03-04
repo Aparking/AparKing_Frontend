@@ -85,6 +85,10 @@ export class RegisterComponent implements OnInit {
     const element = event.target as HTMLInputElement;
     if (element && element.files && element.files.length > 0) {
       const file = element.files[0];
+      if (file.type !== 'image/png') {
+        alert('Only PNG files are allowed!');
+        return;
+      }
       const reader = new FileReader();
       reader.onload = () => {
         this.registerData.photo = reader.result as string;
