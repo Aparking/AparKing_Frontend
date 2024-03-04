@@ -1,55 +1,91 @@
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Register</ion-card-title>
-    </ion-card-header>
+<ion-card class="content">
+  <ion-card-header>
+    <ion-toolbar class="toolbar">
+      <ion-title class="title">Register</ion-title>
+    </ion-toolbar>
+  </ion-card-header>
 
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input type="text" [(ngModel)]="registerData.username"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" [(ngModel)]="registerData.password"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" [(ngModel)]="registerData.email"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">DNI</ion-label>
-        <ion-input type="text" [(ngModel)]="registerData.dni"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Birth Date</ion-label>
-        <ion-input type="date" [(ngModel)]="registerData.birth_date"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Gender</ion-label>
-        <ion-input type="text" [(ngModel)]="registerData.gender"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Phone</ion-label>
-        <ion-input type="text" [(ngModel)]="registerData.phone"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="floating">Photo URL</ion-label>
-        <ion-input type="text" [(ngModel)]="registerData.photo"></ion-input>
-      </ion-item>
-
-      <ion-button expand="full" (click)="saveRegister()">Submit</ion-button>
-
-      <div *ngIf="submitted">
-        <p>User was registered successfully!</p>
+  <ion-card-content class="card-content">
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Username</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.username" class="input"></ion-input>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorUsername }}
       </div>
-    </ion-card-content>
-  </ion-card>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="registerData.password" class="input"></ion-input>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorPass }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="registerData.email" class="input"></ion-input>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorEmail }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="floating" class="label">DNI</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.dni" class="input"></ion-input>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorDNI }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="fixed" class="label">Birth Date</ion-label>
+      <ion-datetime locale="es-ES" presentation="date" [preferWheel]="true" [showDefaultButtons]="true" displayFormat="MM/DD/YYYY" [(ngModel)]="registerData.birth_date" class="input"></ion-datetime>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorBirthDate }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Gender</ion-label>
+      <ion-select [(ngModel)]="registerData.gender" class="input">
+        <ion-select-option value="M">M</ion-select-option>
+        <ion-select-option value="F">F</ion-select-option>
+        <ion-select-option value="Other">Other</ion-select-option>
+      </ion-select>
+      <div *ngIf="errorGender" class="error-message">
+        {{ errorGender }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Phone</ion-label>
+      <ion-input type="text" [(ngModel)]="registerData.phone" class="input"></ion-input>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorPhone }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="fixed" class="label">Photo</ion-label>
+      <ion-input type="file" (change)="onFileChange($event)" class="input"></ion-input>
+      <div *ngIf="errorPhoto" class="error-message">
+        {{ errorPhoto }}
+      </div>
+    </ion-item>
+
+    <p>
+      Al hacer clic en "Registrarse", usted reconoce que ha leído la
+      <a href="#">Política de privacidad</a> y acepta los
+      <a href="#">Términos de servicio</a>.
+    </p>
+
+    <ion-button expand="full" (click)="saveRegister()" class="button">Submit</ion-button>
+
+    <div *ngIf="submitted" class="submitted">
+      <p class="message">User was registered successfully!</p>
+    </div>
+  </ion-card-content>
+</ion-card>
 </ion-content>

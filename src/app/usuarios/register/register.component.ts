@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendUser } from './models/user.models';
 import { RegisterService } from './register.service';
+import { format, parseISO } from 'date-fns'; // npm install date-fns@2.16.1
 
 @Component({
   selector: 'app-register',
@@ -20,6 +21,14 @@ export class RegisterComponent implements OnInit {
     photo: ''
   };
   submitted = false;
+  errorEmail: string = '';
+  errorPass: string = '';
+  errorUsername: string = '';
+  errorDNI: string = '';
+  errorBirthDate: string = '';
+  errorGender: string = '';
+  errorPhone: string = '';
+  errorPhoto: string = '';
 
   constructor(private registerService: RegisterService) { }
 
@@ -27,12 +36,13 @@ export class RegisterComponent implements OnInit {
   }
 
   saveRegister(): void {
+    console.log(this.registerData.birth_date);
     const data: BackendUser = {
       username: this.registerData.username,
       password: this.registerData.password,
       email: this.registerData.email,
       dni: this.registerData.dni,
-      birth_date: this.registerData.birth_date,
+      birth_date: format(parseISO(this.registerData.birth_date), 'yyyy-MM-dd'),
       gender: this.registerData.gender,
       phone: this.registerData.phone,
       photo: this.registerData.photo
@@ -44,7 +54,17 @@ export class RegisterComponent implements OnInit {
           console.log(res);
           this.submitted = true;
         },
-        error: (e) => console.error(e)
+        error: (e) => {
+          this.errorEmail = e.error.email;
+          this.errorPass = e.error.password;
+          this.errorUsername = e.error.username;
+          this.errorDNI = e.error.dni;
+          this.errorBirthDate = e.error.birth_date;
+          this.errorGender = e.error.gender;
+          this.errorPhone = e.error.phone;
+          this.errorPhoto = e.error.photo;
+          console.error(e);
+        }
       });
   }
 
@@ -60,6 +80,17 @@ export class RegisterComponent implements OnInit {
       phone: '',
       photo: ''
     };
+  }
+  onFileChange(event: Event) {
+    const element = event.target as HTMLInputElement;
+    if (element && element.files && element.files.length > 0) {
+      const file = element.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.registerData.photo = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
 }

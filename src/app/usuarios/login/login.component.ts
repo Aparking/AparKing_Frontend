@@ -14,6 +14,8 @@ export class LoginComponent  implements OnInit {
     password: '',
   };
   submitted = false;
+  errorEmail: string = '';
+  errorPass: string = '';
 
   constructor(private loginService: LoginService) { }
 
@@ -27,13 +29,17 @@ export class LoginComponent  implements OnInit {
     };
 
     this.loginService.loginUser(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
+  .subscribe({
+    next: (res) => {
+      console.log(res);
+      this.submitted = true;
+    },
+    error: (e) => {
+      this.errorEmail = e.error.email;
+      this.errorPass = e.error.password;
+      console.error(e);
+    }
+  });
   }
 
   newLogin(): void {
