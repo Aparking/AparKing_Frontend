@@ -1,0 +1,31 @@
+.submit-form {
+  background-color: #7d6b6b;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.619);
+  margin-top: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #d4d1d1;
+  padding: 10px;
+}
+
+.form-group input {
+  padding: 10px;
+  background-color: #7d6b6b;
+  border: none;
+  border-radius: 10px;
+  color: #d4d1d1;
+}
+
+.form-group input::placeholder {
+  color: #d4d1d1;
+}

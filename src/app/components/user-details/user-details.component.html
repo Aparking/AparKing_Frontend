@@ -1,0 +1,61 @@
+<ion-content>
+  <ion-grid *ngIf="currentUser.id">
+    <ion-row>
+      <ion-col>
+        <ion-title>Usuario</ion-title>
+        <form>
+          <ion-item>
+            <ion-label position="floating">Nombre de usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="currentUser.username"> {{ currentUser.username }}</ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="currentUser.email"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">DNI</ion-label>
+            <ion-input type="text" [(ngModel)]="currentUser.dni"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Fecha de nacimiento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="currentUser.birth_date"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Género</ion-label>
+            <ion-input type="text" [(ngModel)]="currentUser.gender"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Foto</ion-label>
+            <ion-input type="text" [(ngModel)]="currentUser.photo"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Teléfono</ion-label>
+            <ion-input type="text" [(ngModel)]="currentUser.phone"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Es personal</ion-label>
+            <ion-input type="text" [(ngModel)]="currentUser.is_staff"></ion-input>
+          </ion-item>
+
+          <ion-button expand="full" (click)="updateUser()">Actualizar</ion-button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!currentUser">
+    <ion-row>
+      <ion-col>
+        <br />
+        <p>Por favor selecciona un usuario...</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

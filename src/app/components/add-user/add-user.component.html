@@ -1,0 +1,55 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form *ngIf="!submitted">
+          <ion-item>
+            <ion-label position="floating">Nombre de usuario</ion-label>
+            <ion-input type="text" [(ngModel)]="user.username" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input type="email" [(ngModel)]="user.email" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">DNI</ion-label>
+            <ion-input type="text" [(ngModel)]="user.dni"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Fecha de nacimiento</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="user.birth_date"></ion-datetime>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Género</ion-label>
+            <ion-input type="text" [(ngModel)]="user.gender"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Foto</ion-label>
+            <ion-input type="text" [(ngModel)]="user.photo"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Teléfono</ion-label>
+            <ion-input type="text" [(ngModel)]="user.phone"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Es admin</ion-label>
+            <ion-input type="text" [(ngModel)]="user.is_staff"></ion-input>
+          </ion-item>
+
+          <ion-button expand="full" (click)="saveUser()">Confirmar</ion-button>
+        </form>
+
+        <ion-item *ngIf="submitted">
+          <ion-label>¡Creado exitosamente!</ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
