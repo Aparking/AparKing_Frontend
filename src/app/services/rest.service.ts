@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Location, ParkingResponse } from '../models/parking';
 import { WsAstractService } from './ws-astract.service';
+import { Garage } from '../models/garagement';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class RestService extends WsAstractService {
-  serverUrl = 'http://localhost:8000';
+  serverUrl = 'http://127.0.0.1:8000';
   apiPath = '';
   path = this.serverUrl + this.apiPath;
 
@@ -22,8 +24,11 @@ export class RestService extends WsAstractService {
   }
 
   // Garagement
+  async getAllGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/`);
+  }
 
-  async getGarages(): Promise<any> {
+  async getGarageAddress(): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
 
