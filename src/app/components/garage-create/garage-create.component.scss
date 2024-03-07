@@ -1,0 +1,27 @@
+.borde-interior {
+    margin-bottom: 3px;
+    border-radius: 15px;
+  }
+
+.boton-crear{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 15px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition-duration: 0.4s;
+  }
+
+  .boton-crear:hover {
+    background-color: #45a049;
+    color: white;
+}
