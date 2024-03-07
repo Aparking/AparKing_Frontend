@@ -9,6 +9,7 @@ export interface Address {
 }
 
 export interface Garage {
+    id: number | string;
     name: string;
     description: string;
     height: number;

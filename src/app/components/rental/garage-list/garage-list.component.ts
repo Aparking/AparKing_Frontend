@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from "src/app/services/rest.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { ActionSheetController } from '@ionic/angular';
+import { Garage, Image } from 'src/app/models/garagement';
 
 
 @Component({
@@ -14,6 +15,10 @@ export class GarageListComponent implements OnInit {
 
   garages!: any[];
   address!: any[];
+  images!: any[];
+  garage: Garage[] = []; 
+  image: Image[] = []; 
+
 
   constructor(
     private restService: RestService,
@@ -21,10 +26,10 @@ export class GarageListComponent implements OnInit {
     private actionSheetController: ActionSheetController
     ) {}
 
-  addressId: string = '';
 
   ngOnInit(): void {
     this.retrieveAllGarages();
+    this.getAllImages(); 
   }
 
   retrieveAllGarages() {
@@ -34,7 +39,15 @@ export class GarageListComponent implements OnInit {
     });
   }
 
+  getImage(garage: Garage): Image | undefined {
+    return this.images.find(image => image.garageId === garage.id);
+  }
 
-
+  getAllImages() {
+    this.restService.getAllImages().then((images) => {
+        this.images = images;
+        console.log(this.images);
+    });
+  }
 
 }

@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { GarageDetailComponent } from './components/rental/garage-detail/garage-detail.component';
 import { GarageListComponent } from './components/rental/garage-list/garage-list.component';
 import { IonicModule } from '@ionic/angular'; 
+import { CommonModule } from '@angular/common'; 
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    IonicModule,
+    IonicModule, CommonModule, 
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]

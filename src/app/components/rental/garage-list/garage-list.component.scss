@@ -1,12 +1,4 @@
-.mt-5 {
-    margin-top: 3rem !important; /* Ajusta el margen superior */
-  }
-  
-  .container {
-    max-width: 1200px; /* Define el ancho máximo del contenedor */
-    margin: 0 auto; /* Centra el contenedor horizontalmente */
-  }
-  
+ 
   .card {
     border: 1px solid #ccc; /* Define el borde de la tarjeta */
     border-radius: 5px; /* Agrega esquinas redondeadas a la tarjeta */
@@ -15,7 +7,7 @@
   
   .card-header {
     background-color: #f0f0f0; /* Color de fondo del encabezado de la tarjeta */
-    padding: 10px 15px; /* Espaciado interno del encabezado de la tarjeta */
+    padding: 10px 20px; /* Espaciado interno del encabezado de la tarjeta */
     border-bottom: 1px solid #ccc; /* Línea divisoria inferior */
     border-top-left-radius: 5px; /* Esquina redondeada superior izquierda */
     border-top-right-radius: 5px; /* Esquina redondeada superior derecha */
@@ -69,4 +61,11 @@
   .float-end {
     float: right; /* Alinea el elemento a la derecha */
   }
-  
+
+  ion-col {
+    background-color: #a0a7a7;
+    border: solid 1px #fff;
+    color: #ffffff;
+    text-align: center;
+    size: 6px;
+  }
