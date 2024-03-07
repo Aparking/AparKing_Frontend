@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Garage } from '../models/garagement';
 import { Location, ParkingResponse } from '../models/parking';
 import { WsAstractService } from './ws-astract.service';
 
@@ -6,7 +7,7 @@ import { WsAstractService } from './ws-astract.service';
   providedIn: 'root',
 })
 export class RestService extends WsAstractService {
-  serverUrl = 'http://localhost:8000';
+  serverUrl = 'http://127.0.0.1:8000';
   apiPath = '';
   path = this.serverUrl + this.apiPath;
 
@@ -23,19 +24,19 @@ export class RestService extends WsAstractService {
 
   // Garagement
 
-  async getGarages(): Promise<any> {
+  async getGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
 
-  async getGarageById(id: string): Promise<any> {
+  async getGarageById(id: string): Promise<Garage> {
     return await this.makeGetRequest(`${this.path}/garages/${id}`);
   }
 
-  async createGarage(data: any): Promise<any> {
+  async createGarage(data: any): Promise<Garage> {
     return await this.makePostRequest(`${this.path}/garages/`, data);
   }
 
-  async updateGarage(id: string, data: any): Promise<any> {
+  async updateGarage(id: string, data: any): Promise<Garage> {
     return await this.makePutRequest(`${this.path}/garages/${id}`, data);
   }
 
