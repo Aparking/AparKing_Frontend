@@ -5,16 +5,15 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common'; // Import CommonModule
-import { GarageListComponent } from './components/rental/garage-list/garage-list.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, GarageListComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, CommonModule, IonicModule.forRoot(), AppRoutingModule, RouterModule, HttpClientModule],
-  providers: [
+  providers: [ HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

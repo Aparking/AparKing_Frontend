@@ -11,8 +11,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
-  { path: 'garages', component: GarageListComponent },
-  { path: 'garages/:id', component: GarageDetailComponent },
+
 ];
 @NgModule({
   imports: [
