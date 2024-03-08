@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Tab2Page } from './tab2.page';
+import { AuthChoiceComponent } from './auth-choice/auth-choice.component'; // Importa tu nueva página aquí
 
 const routes: Routes = [
   {
     path: '',
-    component: Tab2Page,
+    component: AuthChoiceComponent,
   }
 ];
 

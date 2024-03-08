@@ -12,7 +12,6 @@ import { RegisterComponent } from './usuarios/register/register.component';
 import { LoginModule } from './usuarios/login/login.module';
 import {LogoutModule} from './usuarios/logout/logout.module';
 import { PricingPlanModule } from './pricing-plan/pricing-plan.module';
-
 @NgModule({
   declarations: [
     AppComponent,
