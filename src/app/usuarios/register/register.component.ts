@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { BackendUser } from './models/user.models';
 import { RegisterService } from './register.service';

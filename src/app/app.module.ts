@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './usuarios/register/register.component';
 import { LoginModule } from './usuarios/login/login.module';
 import {LogoutModule} from './usuarios/logout/logout.module';
+import { PricingPlanModule } from './pricing-plan/pricing-plan.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {LogoutModule} from './usuarios/logout/logout.module';
     RegisterComponent
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,ReactiveFormsModule,
-     FormsModule,LoginModule,LogoutModule],
+     FormsModule,LoginModule,LogoutModule,PricingPlanModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

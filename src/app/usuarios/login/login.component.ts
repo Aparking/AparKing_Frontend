@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 import { LoginUser } from './models/userLogin.models';
 import { LoginService } from './login.service';

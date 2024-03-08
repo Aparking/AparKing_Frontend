@@ -1,0 +1,87 @@
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; // White background
+    border: 1px solid #000000;
+    scroll-behavior: auto;
+  }
+
+
+.plans-container {
+    display: flex;
+    justify-content: space-around;
+    
+  }
+  
+  .plan {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .price {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .features {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .features li {
+    margin: 5px 0;
+  }
+  
+  ion-button {
+    margin-top: 20px;
+    transition: background-color 0.3s ease-in-out; /* Transición de color al pasar el ratón */
+  }
+  
+  ion-button:hover {
+    background-color: #eee; /* Cambia el color de fondo al pasar el ratón */
+  }
+  
+  .plan.pro {
+    background-color: #f7f7f7; /* Color de fondo para el plan Pro */
+    border: 2px solid #ff9f00; /* Borde resaltado para el plan Pro */
+  }
+  
+  .plan.pro h2 {
+    color: #ff9f00; /* Color del título del plan Pro */
+  }
+  
+  .plan.pro {
+    background-color: #f7f7f7; /* Color de fondo para el plan Pro */
+    border: 2px solid #ff9f00; /* Borde resaltado para el plan Pro */
+    position: relative; /* Ajustar posición relativa para poder posicionar la insignia correctamente */
+    color: #000;
+  }
+  
+  .plan.pro .badge {
+    background-color: #ff9f00; /* Color de fondo para la insignia */
+    color: #fff; /* Color del texto de la insignia */
+    padding: 5px 10px; /* Espaciado interno de la insignia */
+    border-radius: 15px; /* Borde redondeado de la insignia */
+    font-weight: bold; /* Hace que el texto de la insignia sea más audaz */
+    position: absolute; /* Posición absoluta para la insignia */
+    top: -10px; /* Ajuste superior para la insignia */
+    right: -10px; /* Ajuste derecho para la insignia */
+  }
+
+  @media screen and (max-width: 767px) {
+    .plans-container {
+      flex-direction: column; /* Cambia la dirección del flexbox a vertical */
+      align-items: center; /* Centra los elementos verticalmente */
+    }
+  
+    .plan {
+      width: 80%; /* Ajusta el ancho de los planes para que no ocupen toda la pantalla */
+    }
+  }
+  

@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {RegisterComponent } from './usuarios/register/register.component';
 import {LoginComponent } from './usuarios/login/login.component';
 import { LogoutComponent } from './usuarios/logout/logout.component';
+import { PricingPlanComponent } from './pricing-plan/pricing-plan.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
+  {path: 'pricing-plan', component: PricingPlanComponent},
+
 ];
 @NgModule({
   imports: [
