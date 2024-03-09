@@ -35,12 +35,18 @@ export class PricingPlanComponent implements OnInit {
     default:
       throw new Error(`Unsupported plan type: ${planType}`);
   }
+  
+  let startDate: Date = new Date(); // Fecha actual
+  let endDate: Date = new Date();
+    endDate.setMonth(endDate.getMonth() + 1);
 
-  const plan = {
-    user: this.currentUser,
-    type: planType,
-    price: price
-  };
+    const plan = {
+      start_date: startDate,
+      end_date: endDate,
+      type: planType,
+      user: this.currentUser,
+      price: price,
+    };
   console.log(plan.user);
   this.pricingPlanService.pricingUser(plan)
       .subscribe({

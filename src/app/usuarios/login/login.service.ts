@@ -17,10 +17,10 @@ export class LoginService {
   }
 
   setCurrentUser(user: any): void {
-    this.currentUser = user;
+    localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
   getCurrentUser(): any {
-    return this.currentUser;
+    return JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
 }
