@@ -1,16 +1,16 @@
-import { IonicModule } from '@ionic/angular';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 import { HttpClientModule } from '@angular/common/http';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
-import { TabsPage } from './tabs.page';
+import { RouterModule } from '@angular/router';
+import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
 import { GarageListComponent } from '../components/rental/garage-list/garage-list.component';
 import { RestService } from '../services/rest.service';
-import { RouterModule } from '@angular/router';
-
+import { TabsPage } from './tabs.page';
 
 @NgModule({
   imports: [
@@ -21,8 +21,8 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     RouterModule,
   ],
-  declarations: [TabsPage, GarageListComponent],
-  exports: [GarageListComponent],
+  declarations: [TabsPage, GarageListComponent, GarageDetailComponent],
+  exports: [GarageListComponent, GarageDetailComponent],
   providers: [RestService],
 })
 export class TabsPageModule {}

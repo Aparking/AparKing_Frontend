@@ -4,17 +4,28 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
+import { RestService } from './services/rest.service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, CommonModule, IonicModule.forRoot(), AppRoutingModule, RouterModule, HttpClientModule],
-  providers: [ HttpClient,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    RouterModule,
+    HttpClientModule,
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    HttpClient,
+    RestService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
