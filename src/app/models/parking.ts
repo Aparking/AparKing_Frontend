@@ -17,6 +17,11 @@ export enum ParkingSize {
   LARGE = 'LARGE',
 }
 
+export interface ParkingCreate {
+  parking_types: string[];
+  parking_sizes: string[];
+}
+
 export enum NotificationsSocket {
   PARKING_DELETED = 'notify.parking.deleted',
   PARKING_BOOKED = 'notify.parking.booked',
@@ -29,15 +34,15 @@ export interface ParkingResponse {
 }
 
 export interface Parking {
-  id: number;
-  notified_by: User;
-  bookedBy: User | null;
-  message: string | null;
+  id?: number;
+  notified_by?: User;
+  bookedBy?: User | null;
+  message?: string | null;
   location: Location;
   size: ParkingSize;
   is_assignment: boolean;
   isTransfer: boolean;
   parking_type: ParkingType;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import * as L from 'leaflet';
 import { Location, Parking } from 'src/app/models/parking';
 import { DataManagementService } from 'src/app/service/data-management.service';
 import { LocationService } from 'src/app/service/location.service';
 import { WebsocketService } from 'src/app/service/websocket.service';
+import { CreateParkingModalComponent } from '../create-parking-modal/create-parking-modal.component';
 
 @Component({
   selector: 'app-map',
@@ -20,7 +22,8 @@ export class MapComponent implements OnInit {
   constructor(
     private dataManagement: DataManagementService,
     private locationService: LocationService,
-    private websocket: WebsocketService
+    private websocket: WebsocketService,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
@@ -57,6 +60,15 @@ export class MapComponent implements OnInit {
         });
       }
     });
+  }
+
+  async showCreateModal() {
+    const modal = await this.modalCtrl.create({
+      component: CreateParkingModalComponent,
+      breakpoints: [0, 0.5, 0.8],
+      initialBreakpoint: 0.8,
+    });
+    await modal.present();
   }
 
   private prepareMap(location: Location, map?: L.Map, parkings?: Parking[]) {

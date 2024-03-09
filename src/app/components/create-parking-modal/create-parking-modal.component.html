@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Creación de aparacamiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="height: 20px;"></div>
+  @if (parkingForm) {
+    <form [formGroup]="parkingForm" (submit)="onSubmit()">
+      <ion-list>
+       <ion-item>
+         <ion-select label="Tamaño" formControlName="size" placeholder="Tamaño de la plaza">
+           @for (item of parkingCreateResponse?.parking_sizes; track $index) {
+             <ion-select-option value={{item}}>{{item}}</ion-select-option>
+           }
+         </ion-select>
+       </ion-item>
+
+       <div style="height: 30px;"></div>
+
+       <ion-item>
+         <ion-select label="Tipo de cesión" formControlName="parking_type" placeholder="----">
+           @for (item of parkingCreateResponse?.parking_types; track $index) {
+             <ion-select-option value={{item}}>{{item}}</ion-select-option>
+           }
+         </ion-select>
+       </ion-item>
+
+      </ion-list>
+
+      <ion-button (click)="onSubmit()">
+       Publicar plaza
+      </ion-button>
+
+     </form>
+  }
+
+
+</ion-content>

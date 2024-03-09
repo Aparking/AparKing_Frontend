@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Location, ParkingResponse } from '../models/parking';
+import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { WsAstractService } from './ws-astract.service';
 
 @Injectable({
@@ -17,7 +17,11 @@ export class RestService extends WsAstractService {
     );
   }
 
-  async postCreateParking(): Promise<number> {
-    return await this.makePostRequest(`${this.path}/parking/create/`);
+  async postCreateParking(parking: any): Promise<number> {
+    return await this.makePostRequest(`${this.path}/parking/create/`, parking);
+  }
+
+  async getCreateParking(): Promise<ParkingCreate> {
+    return await this.makeGetRequest(`${this.path}/parking/getCreate/`);
   }
 }

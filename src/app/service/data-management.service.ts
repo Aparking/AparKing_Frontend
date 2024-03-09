@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Location, ParkingResponse } from '../models/parking';
+import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { PersistenceService } from './persistence.service';
 import { RestService } from './rest.service';
 
@@ -32,6 +32,26 @@ export class DataManagementService {
   async getParkingNear(coordenates: Location): Promise<ParkingResponse> {
     return this.rest
       .getParkingNear(coordenates)
+      .then((data) => data)
+      .catch((err) => {
+        alert(err);
+        return err;
+      });
+  }
+
+  async getCreateParking(): Promise<ParkingCreate> {
+    return this.rest
+      .getCreateParking()
+      .then((data) => data)
+      .catch((err) => {
+        alert(err);
+        return err;
+      });
+  }
+
+  async postCreateParking(parking: any): Promise<ParkingResponse> {
+    return this.rest
+      .postCreateParking(parking)
       .then((data) => data)
       .catch((err) => {
         alert(err);
