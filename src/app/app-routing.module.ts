@@ -1,9 +1,21 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserListComponent } from './components/user-list/user-list.component';
+import {RegisterComponent } from './usuarios/register/register.component';
+import {LoginComponent } from './usuarios/login/login.component';
+import { LogoutComponent } from './usuarios/logout/logout.component';
 
 const routes: Routes = [
-  { path: 'users', component: UserListComponent }
+  {
+    path: '',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'logout', component: LogoutComponent},
+   { path: 'users', component: UserListComponent },
+
+
 ];
 @NgModule({
   imports: [
