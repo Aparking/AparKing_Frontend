@@ -9,9 +9,11 @@ import { PricingPlanService } from './pricing-plan.service';
 })
 export class PricingPlanComponent implements OnInit {
   currentUser: any;
-  MemberType: any;
+  MemberType: typeof MemberType;
 
-  constructor(private authService: LoginService, private pricingPlanService: PricingPlanService) { }
+  constructor(private authService: LoginService, private pricingPlanService: PricingPlanService) {
+    this.MemberType = MemberType;
+   }
 
   ngOnInit() {
     this.currentUser = this.authService.getCurrentUser(); // Asegúrate de tener un método para obtener el usuario actual
@@ -39,6 +41,7 @@ export class PricingPlanComponent implements OnInit {
     type: planType,
     price: price
   };
+  console.log(plan.user);
   this.pricingPlanService.pricingUser(plan)
       .subscribe({
         next: (res) => {

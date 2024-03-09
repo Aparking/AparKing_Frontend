@@ -33,6 +33,7 @@ export class LoginComponent  implements OnInit {
   .subscribe({
     next: (res) => {
       console.log(res);
+      this.loginService.setCurrentUser(res.user);
       this.submitted = true;
     },
     error: (e) => {

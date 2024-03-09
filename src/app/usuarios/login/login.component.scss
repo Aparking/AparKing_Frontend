@@ -57,3 +57,17 @@
   color: red;
   // other styles...
 }
+
+@media screen and (max-width: 767px) {
+  .container {
+    flex-direction: column; /* Cambia la dirección del flexbox a vertical */
+    align-items: center; /* Centra los elementos verticalmente */
+  }
+
+  .content {
+    width: 100%; /* Ajusta el ancho de los planes para que no ocupen toda la pantalla */
+  }
+  .card-content {
+    width: 50%; /* Ajusta el ancho de los planes para que no ocupen toda la pantalla */
+  }
+}
