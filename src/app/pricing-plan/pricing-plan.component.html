@@ -4,16 +4,16 @@
   <div class="plans-container">
     <div class="plan">
       <h2>Plan Básico</h2>
-      <p class="price">$10/mes</p>
+      <p class="price">Gratis</p>
       <ul class="features">
         <li>Característica 1</li>
         <li>Característica 2</li>
         <li>Característica 3</li>
       </ul>
-      <ion-button expand="block" color="primary">Seleccionar</ion-button>
+      <ion-button expand="block" color="primary" (click)="selectPlan(MemberType.FREE)">Seleccionar</ion-button>
     </div>
     <div class="plan pro">
-      <h2>Plan Pro</h2>
+      <h2>Plan Noble</h2>
       <p class="price">$20/mes</p>
       <span class="badge">Más vendido</span> <!-- Insignia para el plan Pro -->
       <ul class="features">
@@ -21,17 +21,17 @@
         <li>Característica 2</li>
         <li>Característica 3</li>
       </ul>
-      <ion-button expand="block" color="primary">Seleccionar</ion-button>
+      <ion-button expand="block" color="primary"(click)="selectPlan(MemberType.NOBLE)">Seleccionar</ion-button>
     </div>
     <div class="plan">
-      <h2>Plan Empresarial</h2>
+      <h2>Plan King</h2>
       <p class="price">$30/mes</p>
       <ul class="features">
         <li>Característica 1</li>
         <li>Característica 2</li>
         <li>Característica 3</li>
       </ul>
-      <ion-button expand="block" color="primary">Seleccionar</ion-button>
+      <ion-button expand="block" color="primary"(click)="selectPlan(MemberType.KING)">Seleccionar</ion-button>
     </div>
   </div>
 </ion-content>
