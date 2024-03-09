@@ -29,15 +29,27 @@ export class RestService extends WsAstractService {
   }
 
   async getAllImages(): Promise<Image[]> {
-    return await this.makeGetRequest(`${this.path}/garages/`);
+    return await this.makeGetRequest(`${this.path}/garages/images/`);
   }
 
   async getImage(id: string): Promise<any> {
-    return await this.makeGetRequest(`${this.path}/garages/`);
+    return await this.makeGetRequest(`${this.path}/garages/images/${id}`);
   }
 
   async getGarageById(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}`);
+  }
+
+  async getAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/available/`);
+  }
+
+  async getMyGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/mine/`);
+  }
+
+  async getMyAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/mine/available/`);
   }
 
   async createGarage(data: any): Promise<any> {
