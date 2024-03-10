@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { RestService } from 'src/app/services/rest.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class GarageDetailComponent implements OnInit {
   constructor(
     private restService: RestService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {}
 
   MEDIA_BASE_ULR = 'http://127.0.0.1:8000';
@@ -60,5 +62,39 @@ export class GarageDetailComponent implements OnInit {
           this.router.navigate([`/garages/${this.garageId}`]);
         });
     }
+  }
+
+  async alertDeleteConfirmation() {
+    const alert = await this.alertController.create({
+      header: 'Borrado de garaje',
+      message: '¿Estás seguro de que quieres borrar el garaje?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            this.deleteGarage();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  deleteGarage() {
+    this.restService
+      .deleteGarage(this.garageId)
+      .then(() => {
+        this.router.navigate(['/aparKing/garages']);
+      })
+      .catch((error) => {
+        console.error(error);
+        this.router.navigate([`/garages/${this.garageId}`]);
+      });
   }
 }
