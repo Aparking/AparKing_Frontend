@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true">
+
+  <ion-searchbar
+  [(ngModel)]="username"
+  placeholder="Search by username"
+  (ionChange)="searchUsername()"
+  class="custom-searchbar"
+></ion-searchbar>
+
+  <div class="user-table-header">
+    <ion-row>
+      <ion-col class="user-table-col">Nombre</ion-col>
+      <ion-col class="user-table-col">Email</ion-col>
+      <ion-col class="user-table-col">DNI</ion-col>
+      <ion-col class="user-table-col">Teléfono</ion-col>
+    </ion-row>
+  </div>
+  <ion-list class="user-list">
+    <ion-item *ngFor="let user of users; let i = index" [class.active]="i === currentIndex" class="user-item">
+      <ion-label class="user-info">
+        <h2 class="username">{{ user.username }}</h2>
+        <h2 class="email">{{ user.email }}</h2>
+        <h2 class="date_joined">{{ user.dni}}</h2>
+        <h2 class="phone">{{ user.phone ?? 'No disponible' }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+
+  <div class="button-container">
+    <ion-button expand="block" color="danger" (click)="confirmRemoveAllUsers()">Remove All Users</ion-button>
+  </div>  
+  <ion-alert-controller></ion-alert-controller>
+
+
+
+
+
+
+</ion-content>
