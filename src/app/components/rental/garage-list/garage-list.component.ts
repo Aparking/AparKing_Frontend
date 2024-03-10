@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Garage, Image } from 'src/app/models/garagement';
 import { RestService } from 'src/app/services/rest.service';
+import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-garage-list',
@@ -14,7 +16,7 @@ export class GarageListComponent implements OnInit {
   garage: Garage[] = [];
   image: Image[] = [];
 
-  constructor(private restService: RestService) {}
+  constructor(private restService: RestService, private modalController: ModalController) {}
 
   ngOnInit(): void {
     this.retrieveAllGarages();
@@ -38,4 +40,6 @@ export class GarageListComponent implements OnInit {
       console.log(this.images);
     });
   }
+
+
 }
