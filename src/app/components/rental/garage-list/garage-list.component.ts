@@ -15,6 +15,9 @@ export class GarageListComponent implements OnInit {
   images!: any[];
   garage: Garage[] = [];
   image: Image[] = [];
+  nameFilter: string = '';
+  priceFilter!: number;
+  dimensionFilter!: number;
 
   constructor(private restService: RestService, private modalController: ModalController) {}
 
@@ -41,5 +44,19 @@ export class GarageListComponent implements OnInit {
     });
   }
 
+  getAvailableGarages() {
+    this.restService.getAvailableGarages().then((garages) => {
+      this.garages = garages;
+      console.log(this.garages);
+    });
+  }
+
+  get filteredGarages() {
+    return this.garages.filter(garage =>
+      garage.name.toLowerCase().includes(this.nameFilter.toLowerCase()) &&
+      (!this.priceFilter || garage.price <= this.priceFilter) &&
+      (!this.dimensionFilter || Math.max(garage.height, garage.width, garage.length) <= this.dimensionFilter)
+    );
+  }
 
 }
