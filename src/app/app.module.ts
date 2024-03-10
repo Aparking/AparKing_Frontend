@@ -8,10 +8,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './usuarios/register/register.component';
-import { LoginModule } from './usuarios/login/login.module';
-import {LogoutModule} from './usuarios/logout/logout.module';
-import { PricingPlanModule } from './pricing-plan/pricing-plan.module';
+import { RegisterComponent } from './components/user-management/register/register.component';
+import { LoginModule } from './modules/login.module';
+import {LogoutModule} from './modules/logout.module';
+import { PricingPlanModule } from './modules/pricing-plan.module';
 @NgModule({
   declarations: [
     AppComponent,

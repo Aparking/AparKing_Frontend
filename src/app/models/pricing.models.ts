@@ -1,4 +1,4 @@
-import { BackendUser } from "src/app/usuarios/register/models/user.models";
+import { BackendUser } from "src/app/models/user.models";
 
 export enum MemberType {
   FREE = 'Gratuita',

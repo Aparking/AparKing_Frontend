@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../usuarios/login/login.service';
-import { MemberType } from './models/pricing.models';
-import { PricingPlanService } from './pricing-plan.service';
+import { LoginService } from '../../service/login.service';
+import { MemberType } from '../../models/pricing.models';
+import { PricingPlanService } from '../../service/pricing-plan.service';
 @Component({
   selector: 'app-pricing-plan',
   templateUrl: './pricing-plan.component.html',
@@ -35,7 +35,7 @@ export class PricingPlanComponent implements OnInit {
     default:
       throw new Error(`Unsupported plan type: ${planType}`);
   }
-  
+
   let startDate: Date = new Date(); // Fecha actual
   let endDate: Date = new Date();
     endDate.setMonth(endDate.getMonth() + 1);

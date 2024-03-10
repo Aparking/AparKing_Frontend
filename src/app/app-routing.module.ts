@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {RegisterComponent } from './usuarios/register/register.component';
-import {LoginComponent } from './usuarios/login/login.component';
-import { LogoutComponent } from './usuarios/logout/logout.component';
-import { PricingPlanComponent } from './pricing-plan/pricing-plan.component';
+import {RegisterComponent } from './components/user-management/register/register.component';
+import {LoginComponent } from './components/user-management/login/login.component';
+import { LogoutComponent } from './components/user-management/logout/logout.component';
+import { PricingPlanComponent } from './components/pricing-plan/pricing-plan.component';
 import { AuthChoiceComponent } from './tab2/auth-choice/auth-choice.component';
 
 const routes: Routes = [

@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
-import { BackendUser } from './models/user.models';
-import { RegisterService } from './register.service';
+import { BackendUser } from '../../../models/user.models';
+import { RegisterService } from '../../../service/register.service';
 import { format, parseISO } from 'date-fns'; // npm install date-fns@2.16.1
 
 @Component({
