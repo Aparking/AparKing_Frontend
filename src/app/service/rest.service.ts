@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
-import { WsAstractService } from './ws-astract.service';
+import { WsAbstractService } from './ws-astract.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RestService extends WsAstractService {
+export class RestService extends WsAbstractService {
   serverUrl = 'http://localhost:8000';
   apiPath = '';
   path = this.serverUrl + this.apiPath;

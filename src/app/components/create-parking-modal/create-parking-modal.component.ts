@@ -39,10 +39,15 @@ export class CreateParkingModalComponent implements OnInit {
     });
   }
 
+   convertToColorEnum(str: string): ParkingSize | undefined {
+    const colorValue = ParkingSize[str as keyof typeof ParkingSize];
+    return colorValue;
+  }
+
   async onSubmit() {
     if (this.parkingForm) {
       const loading = await this.loadingCtrl.create({
-        message: 'Creating parking...',
+        message: 'Creando plaza...',
       });
       loading.present();
       this.locationService.getLocation().then((location) => {
@@ -52,13 +57,10 @@ export class CreateParkingModalComponent implements OnInit {
           typeof this.parkingForm.value.parking_type === 'string'
         ) {
           const sizeString: string = this.parkingForm.value.size;
-          const sizeEnum: ParkingSize =
-            ParkingSize[sizeString as keyof typeof ParkingSize];
-          const typetring: string = this.parkingForm.value.parking_type;
-          const typeEnum: ParkingType =
-            ParkingType[typetring as keyof typeof ParkingType];
+          const sizeEnum: string = (Object.keys(ParkingSize) as (keyof typeof ParkingSize)[]).filter(key => ParkingSize[key] === sizeString)[0];
+          const typeString: string = this.parkingForm.value.parking_type;
+          const typeEnum: string = (Object.keys(ParkingType) as (keyof typeof ParkingType)[]).filter(key => ParkingType[key] === typeString)[0];
           if (location) {
-            console.log(location);
             this.dataManagement
               .postCreateParking({
                 location: {

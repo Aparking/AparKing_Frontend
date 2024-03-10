@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateParkingModalComponent } from '../components/create-parking-modal/create-parking-modal.component';
 import { MapComponent } from '../components/map/map.component';
 import { DataManagementService } from '../service/data-management.service';
+import { WebsocketService } from '../service/websocket.service';
 import { TabsPage } from './tabs.page';
 
 @NgModule({
@@ -22,6 +23,6 @@ import { TabsPage } from './tabs.page';
   ],
   declarations: [TabsPage, MapComponent, CreateParkingModalComponent],
   exports: [MapComponent, CreateParkingModalComponent],
-  providers: [DataManagementService],
+  providers: [DataManagementService, WebsocketService],
 })
 export class TabsPageModule {}
