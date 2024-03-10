@@ -63,9 +63,17 @@
           </ion-label>
         </ion-item>
         <ion-item>
-          <ion-label>
-            <h2>Estado</h2>
-            <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
+          <ion-label id="status-label">
+            <div>
+              <h2>Estado</h2>
+              <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
+            </div>
+            <ion-toggle
+              aria-label="Estado"
+              [enableOnOffLabels]="true"
+              [checked]="currentGarage.is_active"
+              (ionChange)="toggleGarageStatus()"
+            ></ion-toggle>
           </ion-label>
         </ion-item>
         <ion-item>
@@ -114,35 +122,9 @@
       <ion-card-title>GALERÍA</ion-card-title>
     </ion-card-header>
     <swiper-container>
-      <swiper-slide>
-        <ion-img
-          src="https://images.milanuncios.com/api/v1/ma-ad-media-pro/images/53a737ac-01cd-4cda-94fc-795b9151cb74?rule=detail_640x480"
-          alt="Garage image"
-        />
-      </swiper-slide>
-      <swiper-slide>
-        <ion-img
-          src="https://images.milanuncios.com/api/v1/ma-ad-media-pro/images/53a737ac-01cd-4cda-94fc-795b9151cb74?rule=detail_640x480"
-          alt="Garage image"
-        />
-      </swiper-slide>
-      <swiper-slide>
-        <ion-img
-          src="https://images.milanuncios.com/api/v1/ma-ad-media-pro/images/53a737ac-01cd-4cda-94fc-795b9151cb74?rule=detail_640x480"
-          alt="Garage image"
-        />
+      <swiper-slide *ngFor="let image of currentGarageImages">
+        <ion-img [src]="MEDIA_BASE_ULR + image.image" [alt]="image.alt" />
       </swiper-slide>
     </swiper-container>
   </ion-card>
-
-  <ion-button
-    expand="block"
-    fill="solid"
-    *ngIf="currentGarage"
-    color="{{ currentGarage.is_active ? 'warning' : 'success' }}"
-    (click)="toggleGarageStatus()"
-    >{{
-      currentGarage.is_active ? "Ocultar garaje" : "Mostar garaje"
-    }}</ion-button
-  >
 </ion-content>

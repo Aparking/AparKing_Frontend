@@ -6,3 +6,12 @@
 #garage-card-title {
   display: flex;
 }
+
+#status-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#status-label > ion-toggle {
+  margin: auto;
+}

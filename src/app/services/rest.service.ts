@@ -11,6 +11,8 @@ export class RestService extends WsAstractService {
   apiPath = '';
   path = this.serverUrl + this.apiPath;
 
+  // PARKING
+
   async getParkingNear(coordenates: Location): Promise<ParkingResponse> {
     return await this.makePostRequest(
       `${this.path}/parking/near/`,
@@ -22,44 +24,42 @@ export class RestService extends WsAstractService {
     return await this.makePostRequest(`${this.path}/parking/create/`);
   }
 
-  // Garagement
+  // GARAGEMENT
+
+  // - Garages
   async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
-
-  async getAllImages(): Promise<Image[]> {
-    return await this.makeGetRequest(`${this.path}/garages/images/`);
-  }
-
-  async getImage(id: string): Promise<any> {
-    return await this.makeGetRequest(`${this.path}/garages/images/${id}`);
-  }
-
-  async getGarageById(id: string): Promise<any> {
-    return await this.makeGetRequest(`${this.path}/garages/${id}`);
-  }
-
-  async getAvailableGarages(): Promise<Garage[]> {
-    return await this.makeGetRequest(`${this.path}/garages/available/`);
-  }
-
   async getMyGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/mine/`);
   }
-
+  async getAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/available/`);
+  }
   async getMyAvailableGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/mine/available/`);
   }
-
+  async getGarageById(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/${id}/`);
+  }
   async createGarage(data: any): Promise<any> {
     return await this.makePostRequest(`${this.path}/garages/`, data);
   }
-
   async updateGarage(id: string, data: any): Promise<Garage> {
-    return await this.makePutRequest(`${this.path}/garages/${id}`, data);
+    return await this.makePutRequest(`${this.path}/garages/${id}/`, data);
+  }
+  async deleteGarage(id: string): Promise<any> {
+    return await this.makeDeleteRequest(`${this.path}/garages/${id}/`, {});
   }
 
-  async deleteGarage(id: string): Promise<any> {
-    return await this.makeDeleteRequest(`${this.path}/garages/${id}`, {});
+  // - Images
+  async getAllImages(): Promise<Image[]> {
+    return await this.makeGetRequest(`${this.path}/garages/images/`);
+  }
+  async getImage(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/images/${id}/`);
+  }
+  async getImageByGarageId(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/${id}/images/`);
   }
 }
