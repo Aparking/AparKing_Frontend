@@ -1,9 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Listado de alquileres de garajes </ion-title>
+    <ion-title> Listado de alquileres disponibles </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-garage-list> </app-garage-list>
+  <app-available-garages> </app-available-garages>
+  <ion-button expand="full" (click)="presentModal()">Lista de garajes admin</ion-button>
+  <ion-button expand="full" (click)="presentMyGaragesModal()">Mis alquileres</ion-button>
 </ion-content>
