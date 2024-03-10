@@ -5,7 +5,7 @@ import {LoginComponent } from './components/user-management/login/login.componen
 import { LogoutComponent } from './components/user-management/logout/logout.component';
 import { PricingPlanComponent } from './components/pricing-plan/pricing-plan.component';
 import { AuthChoiceComponent } from './tab2/auth-choice/auth-choice.component';
-
+import { UserListComponent } from './components/user-list/user-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,6 +16,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'logout', component: LogoutComponent},
   {path: 'pricing-plan', component: PricingPlanComponent},
+  { path: 'users', component: UserListComponent },
 
 ];
 @NgModule({
