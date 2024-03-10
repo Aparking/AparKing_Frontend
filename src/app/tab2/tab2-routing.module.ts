@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Tab2Page } from './tab2.page';
 import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
-import { GarageListComponent } from '../components/rental/garage-list/garage-list.component';
+import { Tab2Page } from './tab2.page';
 
 const routes: Routes = [
   {
-    path: '', // aparKing/garages/''
+    path: '',
     component: Tab2Page,
   },
   {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Garage, Image } from 'src/app/models/garagement';
 import { RestService } from 'src/app/services/rest.service';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
-import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-garage-list',
@@ -10,6 +9,8 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./garage-list.component.scss'],
 })
 export class GarageListComponent implements OnInit {
+  component = GarageDetailComponent;
+
   garages!: any[];
   address!: any[];
   images!: any[];
@@ -19,7 +20,7 @@ export class GarageListComponent implements OnInit {
   priceFilter!: number;
   dimensionFilter!: number;
 
-  constructor(private restService: RestService, private modalController: ModalController) {}
+  constructor(private restService: RestService) {}
 
   ngOnInit(): void {
     this.retrieveAllGarages();
@@ -52,11 +53,13 @@ export class GarageListComponent implements OnInit {
   }
 
   get filteredGarages() {
-    return this.garages.filter(garage =>
-      garage.name.toLowerCase().includes(this.nameFilter.toLowerCase()) &&
-      (!this.priceFilter || garage.price <= this.priceFilter) &&
-      (!this.dimensionFilter || Math.max(garage.height, garage.width, garage.length) <= this.dimensionFilter)
+    return this.garages.filter(
+      (garage) =>
+        garage.name.toLowerCase().includes(this.nameFilter.toLowerCase()) &&
+        (!this.priceFilter || garage.price <= this.priceFilter) &&
+        (!this.dimensionFilter ||
+          Math.max(garage.height, garage.width, garage.length) <=
+            this.dimensionFilter)
     );
   }
-
 }

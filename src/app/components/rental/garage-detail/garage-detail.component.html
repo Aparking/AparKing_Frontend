@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Mi Garaje</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -39,7 +42,9 @@
     <ion-card-content>
       <ion-item-group>
         <ion-item-divider>
-          <ion-label class="ion-text-uppercase">Caracaterísticas</ion-label>
+          <ion-label class="ion-text-uppercase" color="dark"
+            >Caracaterísticas</ion-label
+          >
         </ion-item-divider>
 
         <ion-item>
@@ -59,6 +64,12 @@
         </ion-item>
         <ion-item>
           <ion-label>
+            <h2>Estado</h2>
+            <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
             <h2>Fecha de creación</h2>
             <p>{{ currentGarage.creation_date | date }}</p>
           </ion-label>
@@ -69,15 +80,11 @@
             <p>{{ currentGarage.modification_date | date }}</p>
           </ion-label>
         </ion-item>
-        <ion-item>
-          <ion-label>
-            <h2>Estado</h2>
-            <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
-          </ion-label>
-        </ion-item>
 
         <ion-item-divider>
-          <ion-label class="ion-text-uppercase">Ubicación</ion-label>
+          <ion-label class="ion-text-uppercase" color="dark"
+            >Ubicación</ion-label
+          >
         </ion-item-divider>
 
         <ion-item>
@@ -133,11 +140,9 @@
     fill="solid"
     *ngIf="currentGarage"
     color="{{ currentGarage.is_active ? 'warning' : 'success' }}"
-    routerLink="//{{ currentGarage.id }}"
+    (click)="toggleGarageStatus()"
     >{{
       currentGarage.is_active ? "Ocultar garaje" : "Mostar garaje"
     }}</ion-button
   >
-
-  <app-tabs></app-tabs>
 </ion-content>
