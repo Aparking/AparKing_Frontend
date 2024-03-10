@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Garage } from '../models/garagement';
+import { Garage, Image } from '../models/garagement';
 import { Location, ParkingResponse } from '../models/parking';
 import { WsAstractService } from './ws-astract.service';
 
@@ -23,16 +23,35 @@ export class RestService extends WsAstractService {
   }
 
   // Garagement
-
-  async getGarages(): Promise<Garage[]> {
+  async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
 
-  async getGarageById(id: string): Promise<Garage> {
+  async getAllImages(): Promise<Image[]> {
+    return await this.makeGetRequest(`${this.path}/garages/images/`);
+  }
+
+  async getImage(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/images/${id}`);
+  }
+
+  async getGarageById(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}`);
   }
 
-  async createGarage(data: any): Promise<Garage> {
+  async getAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/available/`);
+  }
+
+  async getMyGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/mine/`);
+  }
+
+  async getMyAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/mine/available/`);
+  }
+
+  async createGarage(data: any): Promise<any> {
     return await this.makePostRequest(`${this.path}/garages/`, data);
   }
 

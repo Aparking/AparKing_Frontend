@@ -1,0 +1,76 @@
+<ion-content class="ion-padding">
+  <div class="ion-text-center">
+    <ion-card>
+      <ion-card-header>
+        <ion-toolbar>
+          <ion-label>Listado de alquileres de garajes</ion-label>
+          <ion-button
+            routerLink="/garage/create"
+            size="small"
+            slot="end"
+            shape="round"
+            color="primary"
+            >Crear alquiler</ion-button
+          >
+        </ion-toolbar>
+      </ion-card-header>
+
+      <ion-grid class="ion-text-center">
+        <ion-row class="header-row first-row">
+          <ion-col>Id</ion-col>
+          <ion-col>Nombre</ion-col>
+          <ion-col>Descripción</ion-col>
+          <ion-col>Altura</ion-col>
+          <ion-col>Anchura</ion-col>
+          <ion-col>Longitud</ion-col>
+          <ion-col>Precio</ion-col>
+          <ion-col>Fecha de creación</ion-col>
+          <ion-col>Activo</ion-col>
+          <ion-col>Propietario</ion-col>
+          <ion-col>Acciones</ion-col>
+        </ion-row>
+
+        <ng-container *ngFor="let garage of garages">
+          <ion-row>
+            <ion-col>{{ garage.id }}</ion-col>
+            <ion-col
+              ><a href="aparKing/garages/{{ garage.id }}">{{
+                garage.name
+              }}</a></ion-col
+            >
+            <ion-col>{{ garage.description }}</ion-col>
+            <ion-col>{{ garage.height }}</ion-col>
+            <ion-col>{{ garage.width }}</ion-col>
+            <ion-col>{{ garage.length }}</ion-col>
+            <ion-col>{{ garage.price }}</ion-col>
+            <ion-col>{{ garage.creation_date }}</ion-col>
+            <ion-col>{{ garage.is_active }}</ion-col>
+            <ion-col>{{ garage.owner }}</ion-col>
+            <ion-col>
+              <ion-button
+                [routerLink]="'aparKing/garages/' + garage.id"
+                color="secondary"
+                shape="round"
+                size="small"
+                >Editar</ion-button
+              >
+              <ion-button
+                [routerLink]="'aparKing/garages/' + garage.id"
+                color="danger"
+                shape="round"
+                size="small"
+                >Eliminar</ion-button
+              >
+            </ion-col>
+          </ion-row>
+        </ng-container>
+        <ion-infinite-scroll>
+          <ion-infinite-scroll-content
+            loadingText="Por favor espere..."
+            loadingSpinner="bubbles"
+          ></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-grid>
+    </ion-card>
+  </div>
+</ion-content>
