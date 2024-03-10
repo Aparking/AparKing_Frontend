@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-available-garages> </app-available-garages>
-  <ion-button expand="full" (click)="presentModal()">Lista de garajes admin</ion-button>
-  <ion-button expand="full" (click)="presentMyGaragesModal()">Mis alquileres</ion-button>
+  <ion-button color="primary" shape="round" size="small" (click)="presentMyGaragesModal()">Mis alquileres</ion-button>
+  <app-garage-list> </app-garage-list>
 </ion-content>
