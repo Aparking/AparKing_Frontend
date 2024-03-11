@@ -8,13 +8,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { GarageCreateComponent } from './components/garage-create/garage-create.component';
+import { GarageCreateComponent } from './components/rental/garage-create/garage-create.component';
+import { GarageCreateImageComponent } from './components/rental/garage-create-image/garage-create-image.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    GarageCreateComponent],
+    GarageCreateComponent,
+    GarageCreateImageComponent
+  ],
 
   imports: [
     BrowserModule, 
@@ -26,7 +29,6 @@ import { GarageCreateComponent } from './components/garage-create/garage-create.
   providers: [{ 
     provide: RouteReuseStrategy, 
     useClass: IonicRouteStrategy }],
-
 
   bootstrap: [AppComponent],
 })

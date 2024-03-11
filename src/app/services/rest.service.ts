@@ -6,7 +6,7 @@ import { WsAstractService } from './ws-astract.service';
   providedIn: 'root',
 })
 export class RestService extends WsAstractService {
-  serverUrl = 'http://localhost:8000';
+  serverUrl = 'http://127.0.0.1:8000/';
   apiPath = '';
   path = this.serverUrl + this.apiPath;
 
@@ -41,5 +41,9 @@ export class RestService extends WsAstractService {
 
   async deleteGarage(id: string): Promise<any> {
     return await this.makeDeleteRequest(`${this.path}/garages/${id}`, {});
+  }
+
+  async getCreateGarageImage(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/garages/images/`, data);
   }
 }
