@@ -1,0 +1,84 @@
+ 
+  .card {
+    border: 1px solid #ccc; /* Define el borde de la tarjeta */
+    border-radius: 5px; /* Agrega esquinas redondeadas a la tarjeta */
+    margin-bottom: 20px; /* Espaciado entre tarjetas */
+  }
+  
+  .card-header {
+    background-color: #f0f0f0; /* Color de fondo del encabezado de la tarjeta */
+    padding: 10px 20px; /* Espaciado interno del encabezado de la tarjeta */
+    border-bottom: 1px solid #ccc; /* Línea divisoria inferior */
+    border-top-left-radius: 5px; /* Esquina redondeada superior izquierda */
+    border-top-right-radius: 5px; /* Esquina redondeada superior derecha */
+  }
+  
+  .card-body {
+    padding: 20px; /* Espaciado interno del cuerpo de la tarjeta */
+  }
+  
+  .table {
+    width: 100%; /* Ancho de la tabla */
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Color de fondo de las filas impares */
+  }
+  
+  .table-bordered {
+    border: 1px solid #ccc; /* Define el borde de la tabla */
+  }
+  
+  .table th,
+  .table td {
+    padding: 13px; /* Espaciado interno de las celdas */
+  }
+  
+  .btn {
+    padding: 6px 10px; /* Espaciado interno del botón */
+    border-radius: 4px; /* Agrega esquinas redondeadas al botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Color de fondo del botón primario */
+    border: none; /* Elimina el borde del botón */
+    color: #fff; /* Color del texto del botón */
+  }
+  
+  .btn-secondary {
+    background-color: #14f62ec6; /* Color de fondo del botón secundario */
+    border: none; /* Elimina el borde del botón */
+    color: #fff; /* Color del texto del botón */
+  }
+  
+  .btn-danger {
+    background-color: #dc3545; /* Color de fondo del botón de peligro */
+    border: none; /* Elimina el borde del botón */
+    color: #fff; /* Color del texto del botón */
+  }
+  
+  .float-end {
+    float: right; /* Alinea el elemento a la derecha */
+  }
+
+  ion-col {
+    background-color: #a0a7a7;
+    border: solid 1px #fff;
+    color: #fff;
+    text-align: center;
+    size: 6px;
+  }
+
+  .garage-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 16px;
+  }
+  
+  .garage-card {
+    max-width: 400px;
+    margin: 16px;
+  }
+  

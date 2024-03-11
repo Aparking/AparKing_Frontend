@@ -1,0 +1,91 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="12" size-md="4">
+      <ion-input
+        [(ngModel)]="nameFilter"
+        placeholder="Filtrar por nombre"
+      ></ion-input>
+    </ion-col>
+    <ion-col size="12" size-md="4">
+      <ion-input
+        [(ngModel)]="priceFilter"
+        placeholder="Filtrar por precio"
+        type="number"
+        min="0"
+        max="9999"
+      ></ion-input>
+    </ion-col>
+    <ion-col size="12" size-md="4">
+      <ion-input
+        [(ngModel)]="dimensionFilter"
+        placeholder="Filtrar por dimensiones"
+        type="number"
+        min="0"
+        max="9999"
+      ></ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let garage of filteredGarages">
+    <ion-col size="12">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title
+            ><a [routerLink]="['/aparKing/garages', garage.id]">{{
+              garage.name
+            }}</a></ion-card-title
+          >
+          <ion-card-subtitle>{{ garage.description }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>
+            Dimensiones: {{ garage.height }} x {{ garage.width }} x
+            {{ garage.length }}
+          </p>
+          <p>Precio: {{ garage.price }}</p>
+          <p>Día de subida: {{ garage.creation_date }}</p>
+          <p>Estado: {{ garage.is_active ? "Activo" : "Inactivo" }}</p>
+          <p>Propietario: {{ garage.owner }}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngFor="let garage of garages">
+    <ion-col size="12">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title
+            ><a [routerLink]="['/aparKing/garages', garage.id]">{{
+              garage.name
+            }}</a></ion-card-title
+          >
+          <ion-card-subtitle>{{ garage.description }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>
+            Dimensiones: {{ garage.height }} x {{ garage.width }} x
+            {{ garage.length }}
+          </p>
+          <p>Precio: {{ garage.price }}</p>
+          <p>Día de subida: {{ garage.creation_date }}</p>
+          <p>Estado: {{ garage.is_active ? "Activo" : "Inactivo" }}</p>
+          <p>Propietario: {{ garage.owner }}</p>
+          <ion-button
+            [routerLink]="garage.id"
+            color="secondary"
+            shape="round"
+            size="small"
+            >Ver detalles</ion-button
+          >
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-infinite-scroll>
+    <ion-infinite-scroll-content
+      loadingText="Por favor espere..."
+      loadingSpinner="bubbles"
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-grid>

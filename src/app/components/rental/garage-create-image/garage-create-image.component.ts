@@ -21,7 +21,7 @@ export class GarageCreateImageComponent implements OnInit {
     private restService: RestService,
     private router: Router) {
 
-    from(this.restService.getGarages()).subscribe((data: any[]) => {
+    from(this.restService.getAllGarages()).subscribe((data: any[]) => {
       this.garages = data;
     });
       this.garageForm = this.formBuilder.group({
@@ -64,7 +64,7 @@ export class GarageCreateImageComponent implements OnInit {
   }
 
   ngOnInit() {
-    from(this.restService.getGarages()).subscribe((data: any) => {
+    from(this.restService.getAllGarages()).subscribe((data: any) => {
       // Make sure the data has the same structure as your form
       const address = data.address || {};
       const country = address.country || 'ES'; // Use 'ES' as a default value
