@@ -7,6 +7,7 @@ export interface User {
     gender?: string;
     photo?: string ;
     phone?: string;
+    password?: string;
     is_staff?:string;
 }
-  
+

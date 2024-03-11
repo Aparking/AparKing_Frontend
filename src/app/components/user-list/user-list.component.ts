@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { User } from 'src/app/models/user.models';
 import { UserService } from 'src/app/services/user.service';
-import { AlertController } from '@ionic/angular';
 
 
 
@@ -17,7 +18,7 @@ export class UserListComponent  implements OnInit {
   currentUser: User = {};
   username= '';
 
-  constructor(private userService: UserService,private alertController: AlertController) { }
+  constructor(private userService: UserService,private alertController: AlertController, private router: Router) { }
 
   ngOnInit(): void {
     this.retrieveUsers();

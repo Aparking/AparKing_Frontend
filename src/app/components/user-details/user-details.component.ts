@@ -20,15 +20,20 @@ export class UserDetailsComponent implements OnInit {
     gender: '',
     photo: '',
     phone: '',
+    password: '',
     is_staff: ''
   };
 
   message = '';
+  public users: User[] = [];
 
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+      this.userService.getAll().subscribe(users => {
+      this.users = users;
+    });}
 
   ngOnInit(): void {
     if (!this.viewMode) {
@@ -56,6 +61,7 @@ export class UserDetailsComponent implements OnInit {
         next: (res) => {
           console.log(res);
           this.message = res.message ? res.message : 'This user was updated successfully!';
+          this.router.navigate(['/users']);
         },
         error: (e) => console.error(e)
       });
@@ -72,4 +78,18 @@ export class UserDetailsComponent implements OnInit {
       });
   }
 
+  public isUsernameUnique(): boolean {
+    const otherUsers = this.users.filter(user => user.id !== this.currentUser.id && user.username === this.currentUser.username);
+    return otherUsers.length === 0;
+  }
+
+  public isDniUnique(): boolean {
+    const otherUsers = this.users.filter(user => user.id !== this.currentUser.id && user.dni === this.currentUser.dni);
+    return otherUsers.length === 0;
+  }
+
+  public isEmailUnique(): boolean {
+    const otherUsers = this.users.filter(user => user.id !== this.currentUser.id && user.email === this.currentUser.email);
+    return otherUsers.length === 0;
+  }
 }

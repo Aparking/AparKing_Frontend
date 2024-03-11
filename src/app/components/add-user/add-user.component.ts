@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.models';
 import { UserService } from 'src/app/services/user.service';
 
@@ -17,11 +18,16 @@ export class AddUserComponent implements OnInit {
     gender: '',
     photo: '',
     phone: '',
+    password: '',
     is_staff: ''
 };
 submitted = false;
+public users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) {
+    this.userService.getAll().subscribe(users => {
+    this.users = users;
+  }); }
 
   ngOnInit(): void {
     this.user = {};
@@ -36,6 +42,7 @@ submitted = false;
       gender: this.user.gender,
       photo: this.user.photo,
       phone: this.user.phone,
+      password: this.user.password,
       is_staff: this.user.is_staff
     };
 
@@ -44,6 +51,7 @@ submitted = false;
         next: (res) => {
           console.log(res);
           this.submitted = true;
+          this.router.navigate(['/users']);
         },
         error: (e) => console.error(e)
       });
@@ -59,8 +67,30 @@ submitted = false;
       gender: '',
       photo: '',
       phone: '',
+      password: '',
       is_staff: ''
     };
   }
 
+  public isUsernameUnique(): boolean {
+    const otherUsers = this.users.filter(u => u.username === this.user.username);
+    return otherUsers.length === 0;
+  }
+
+  public isDniUnique(): boolean {
+    const otherUsers = this.users.filter(u => u.dni === this.user.dni);
+    return otherUsers.length === 0;
+  }
+
+  public isEmailUnique(): boolean {
+    const otherUsers = this.users.filter(u => u.email === this.user.email);
+    return otherUsers.length === 0;
+  }
+
+  public formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
 }
