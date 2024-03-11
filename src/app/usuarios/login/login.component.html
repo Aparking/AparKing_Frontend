@@ -1,0 +1,31 @@
+<ion-card class="content">
+<ion-card-header>
+  <ion-toolbar class="toolbar">
+    <ion-title class="title">Login</ion-title>
+  </ion-toolbar>
+</ion-card-header>
+
+  <ion-card-content class="card-content">
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="loginData.email" class="input"></ion-input>
+      <div *ngIf="errorEmail" class="error-message">
+        {{ errorEmail }}
+      </div>
+    </ion-item>
+
+    <ion-item class="item">
+      <ion-label position="floating" class="label">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="loginData.password" class="input"></ion-input>
+      <div *ngIf="errorPass" class="error-message">
+        {{ errorPass }}
+      </div>
+    </ion-item>
+
+    <ion-button expand="full" (click)="saveLogin()" class="button">Submit</ion-button>
+
+    <div *ngIf="submitted" class="submitted">
+      <p class="message">User logged successfully!</p>
+    </div>
+  </ion-card-content>
+</ion-card>
