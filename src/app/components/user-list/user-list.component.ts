@@ -5,7 +5,6 @@ import { User } from 'src/app/models/user.models';
 import { UserService } from 'src/app/services/user.service';
 
 
-
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -87,5 +86,9 @@ export class UserListComponent  implements OnInit {
     });
 
     await alert.present();
+  }
+
+  navigateToAdd() {
+    this.router.navigate(['/add']);
   }
 }

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserDetailsComponent implements OnInit {
 
+  //Inicialización
   @Input() viewMode = false;
 
   @Input() currentUser: User = {
@@ -42,6 +43,7 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  //Funcionalidades
   getUser(id: string): void {
     this.userService.get(id)
       .subscribe({
@@ -55,7 +57,6 @@ export class UserDetailsComponent implements OnInit {
 
   updateUser(): void {
     this.message = '';
-
     this.userService.update(this.currentUser.id, this.currentUser)
       .subscribe({
         next: (res) => {
@@ -78,6 +79,7 @@ export class UserDetailsComponent implements OnInit {
       });
   }
 
+  //Validaciones
   public isUsernameUnique(): boolean {
     const otherUsers = this.users.filter(user => user.id !== this.currentUser.id && user.username === this.currentUser.username);
     return otherUsers.length === 0;

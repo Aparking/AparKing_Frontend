@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AddUserComponent implements OnInit {
 
+  //Inicialización
   user: User = {
     username: '',
     email: '',
@@ -33,6 +34,7 @@ public users: User[] = [];
     this.user = {};
   }
 
+  //Funcionalidades
   saveUser(): void {
     const data: User = {
       username: this.user.username,
@@ -72,6 +74,7 @@ public users: User[] = [];
     };
   }
 
+  //Validaciones
   public isUsernameUnique(): boolean {
     const otherUsers = this.users.filter(u => u.username === this.user.username);
     return otherUsers.length === 0;
@@ -85,12 +88,5 @@ public users: User[] = [];
   public isEmailUnique(): boolean {
     const otherUsers = this.users.filter(u => u.email === this.user.email);
     return otherUsers.length === 0;
-  }
-
-  public formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
   }
 }
