@@ -67,12 +67,12 @@ export class GarageCreateComponent implements OnInit {
         console.log('Garaje creado', response);
         this.garageForm.reset(); // Limpia los campos del formulario
         this.garageForm.patchValue({garage_id: response.id}); // Actualiza el garage_id con el ID devuelto por el servidor
-      });
-      // from(this.restService.getCreateGarageImage(this.garageForm.value)).subscribe(response => {
-      //   console.log('Imagen asociada', response);
-      //   console.log('Garage', response.id);
-      // });
-      this.router.navigate(['/garage-create-image/']); 
+        // from(this.restService.getCreateGarageImage(this.garageForm.value)).subscribe(response => {
+          //   console.log('Imagen asociada', response);
+          //   console.log('Garage', response.id);
+          // });
+          this.router.navigate(['/garage-create-image/']); 
+        });
     } else {
       console.log('El formulario no es válido');
     }
