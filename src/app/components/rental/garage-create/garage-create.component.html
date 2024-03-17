@@ -63,10 +63,7 @@
                 <ion-checkbox formControlName="is_active"></ion-checkbox>
               </ion-item>
 
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Propietario</ion-label>
-                <ion-input type="text" formControlName="owner"></ion-input>
-              </ion-item>
+       
             </ion-list>
           </ion-card>
 
@@ -116,7 +113,6 @@
             </ion-list>
           </ion-card>
 
-          <!--
           <ion-card class="borde-interior">
 
             <ion-list formGroupName="image" class="borde-interior">
@@ -127,7 +123,7 @@
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Alt</ion-label>
+                <ion-label style="flex: 2;">Descripción</ion-label>
                 <ion-input type="text" formControlName="alt"></ion-input>
               </ion-item>
 
@@ -135,16 +131,10 @@
                 <ion-label style="flex: 2;">Fecha de Publicación</ion-label>
                 <ion-datetime displayFormat="MM/DD/YYYY" formControlName="publication_date" readonly></ion-datetime>
               </ion-item>
-              
-              <ion-item class="borde-interior">
-                <select formControlName="garageId">
-                  <option *ngFor="let garage of garages" [value]="garage.id">{{ garage.name }}</option>
-                </select>
-            </ion-item>
 
             </ion-list>
           </ion-card>
-          -->
+        
     
           <button class="boton-crear" expand="full" type="submit">Guardar Garage</button>
         </form>

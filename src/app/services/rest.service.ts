@@ -54,9 +54,9 @@ export class RestService extends WsAstractService {
 
   // - Images
   
-  async getCreateGarageImage(data: any): Promise<any> {
-    return await this.makePostRequest(`${this.path}/garages/images/`, data);
-  }
+  // async getCreateGarageImage(data: any): Promise<any> {
+  //   return await this.makePostRequest(`${this.path}/garages/images/`, data);
+  // }
 
   async getAllImages(): Promise<Image[]> {
     return await this.makeGetRequest(`${this.path}/garages/images/`);

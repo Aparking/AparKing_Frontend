@@ -13,6 +13,7 @@ const routes: Routes = [
     path: 'create',
     component: GarageCreateComponent,
   },
+
   {
     path: ':id',
     component: GarageDetailComponent,
