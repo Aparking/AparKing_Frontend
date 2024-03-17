@@ -9,11 +9,6 @@ import { GarageCreateImageComponent } from './components/rental/garage-create-im
 const routes: Routes = [
   { path: '', loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule) },
 
-  {  path: 'garage-create', component: GarageCreateComponent },
-  {  path: 'garage-create-image', component: GarageCreateImageComponent },
-
-  { path: 'garages/:id', component: GarageDetailComponent },
-
 ];
 @NgModule({
   imports: [

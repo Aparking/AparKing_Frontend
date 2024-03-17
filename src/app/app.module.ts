@@ -11,15 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestService } from './services/rest.service';
 
-import { GarageCreateComponent } from './components/rental/garage-create/garage-create.component';
-import { GarageCreateImageComponent } from './components/rental/garage-create-image/garage-create-image.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
-    GarageCreateComponent,
-    GarageCreateImageComponent
   ],
 
   imports: [
