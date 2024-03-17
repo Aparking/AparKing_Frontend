@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -13,6 +13,9 @@ import { MyGaragesComponent } from '../components/rental/my-garages/my-garages.c
 import { RestService } from '../services/rest.service';
 import { TabsPage } from './tabs.page';
 
+import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
+
+
 @NgModule({
   imports: [
     IonicModule,
@@ -21,9 +24,18 @@ import { TabsPage } from './tabs.page';
     TabsPageRoutingModule,
     HttpClientModule,
     RouterModule,
+    ReactiveFormsModule
   ],
-  declarations: [TabsPage, GarageListComponent, GarageDetailComponent, MyGaragesComponent],
-  exports: [GarageListComponent, GarageDetailComponent, MyGaragesComponent],
+  declarations: [
+    TabsPage,
+    GarageListComponent,
+    GarageDetailComponent,
+    MyGaragesComponent,
+    GarageCreateComponent,
+    
+  ],
+  exports: [GarageListComponent, GarageDetailComponent, MyGaragesComponent, GarageCreateComponent],
   providers: [RestService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class TabsPageModule {}

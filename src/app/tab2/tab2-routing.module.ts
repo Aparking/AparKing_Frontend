@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Tab2Page } from './tab2.page';
 import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
-import { GarageListComponent } from '../components/rental/garage-list/garage-list.component';
+import { Tab2Page } from './tab2.page';
+import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
 
 const routes: Routes = [
   {
-    path: '', // aparKing/garages/''
+    path: '',
     component: Tab2Page,
   },
+  {
+    path: 'create',
+    component: GarageCreateComponent,
+  },
+
   {
     path: ':id',
     component: GarageDetailComponent,
   },
+  
+  
   {
     path: '**',
     redirectTo: '',

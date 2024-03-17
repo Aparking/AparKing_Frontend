@@ -6,15 +6,16 @@ import { MyGaragesComponent } from '../components/rental/my-garages/my-garages.c
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
+  component = GarageListComponent;
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController) {}
 
   async presentModal() {
     const modal = await this.modalController.create({
-      component: GarageListComponent
+      component: GarageListComponent,
     });
     return await modal.present();
   }
@@ -22,7 +23,7 @@ export class Tab2Page {
   async presentMyGaragesModal() {
     const modal = await this.modalController.create({
       component: MyGaragesComponent,
-      cssClass: 'custom-modal'
+      cssClass: 'custom-modal',
     });
     return await modal.present();
   }
