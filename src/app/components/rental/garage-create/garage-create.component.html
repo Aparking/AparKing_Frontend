@@ -8,96 +8,107 @@
   <ion-grid>
     <ion-row>
       <ion-col size-xs="12" size-md="8" offset-md="2">
-        <form [formGroup]="garageForm" (ngSubmit)="saveGarage()" style="border-radius: 5px; background-color: #fff;">
-            
-          <ion-card-header class="borde-interior">
-            <ion-card-title> </ion-card-title> 
-          </ion-card-header>  
-
+        <form
+          [formGroup]="garageForm"
+          (ngSubmit)="saveGarage()"
+          style="border-radius: 5px; background-color: #fff"
+        >
           <ion-card class="borde-interior">
-            
             <ion-list class="borde-interior">
-
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Título</ion-label>
-                <ion-input type="text" formControlName="name"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Título"
+                  formControlName="name"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Descripción</ion-label>
-                <ion-input type="text" formControlName="description"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Descripción"
+                  formControlName="description"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Altura</ion-label>
-                <ion-input type="number" formControlName="height"></ion-input>
+                <ion-input
+                  type="number"
+                  label="Altura"
+                  formControlName="height"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Ancho</ion-label>
-                <ion-input type="number" formControlName="width"></ion-input>
+                <ion-input
+                  type="number"
+                  label="Ancho"
+                  formControlName="width"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Longitud</ion-label>
-                <ion-input type="number" formControlName="length"></ion-input>
+                <ion-input
+                  type="number"
+                  label="Longitud"
+                  formControlName="length"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Precio</ion-label>
-                <ion-input type="number" formControlName="price"></ion-input>
+                <ion-input
+                  type="number"
+                  label="Precio"
+                  formControlName="price"
+                ></ion-input>
               </ion-item>
-              
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Fecha de Creación</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="creation_date" readonly></ion-datetime>
-              </ion-item>
-            
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Fecha de Modificación</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="modification_date" readonly></ion-datetime>
-              </ion-item>
-
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">¿Está Activo?</ion-label>
-                <ion-checkbox formControlName="is_active"></ion-checkbox>
-              </ion-item>
-
-       
             </ion-list>
           </ion-card>
 
           <ion-card class="borde-interior">
             <ion-list formGroupName="address" class="borde-interior">
-
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;" >Número de Plazas</ion-label>
-                <ion-input type="text" formControlName="unit_number"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Plazas"
+                  formControlName="unit_number"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Número de Calle</ion-label>
-                <ion-input type="text" formControlName="street_number"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Número"
+                  formControlName="street_number"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Dirección</ion-label>
-                <ion-input type="text" formControlName="address_line"></ion-input>
-              </ion-item>
-              
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Ciudad</ion-label>
-                <ion-input type="text" formControlName="city"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Dirección"
+                  formControlName="address_line"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Región</ion-label>
-                <ion-input type="text" formControlName="region"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Ciudad"
+                  formControlName="city"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">País</ion-label>
-                <ion-select formControlName="country">
+                <ion-input
+                  type="text"
+                  label="Region"
+                  formControlName="region"
+                ></ion-input>
+              </ion-item>
+
+              <ion-item class="borde-interior">
+                <ion-select label="País" formControlName="country">
                   <ion-select-option value="ES">España</ion-select-option>
                   <ion-select-option value="FR">Francia</ion-select-option>
                   <ion-select-option value="IT">Italia</ion-select-option>
@@ -106,43 +117,40 @@
               </ion-item>
 
               <ion-item>
-                <ion-label style="flex: 2;">Código Postal</ion-label>
-                <ion-input type="text" formControlName="postal_code"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Código Postal"
+                  formControlName="postal_code"
+                ></ion-input>
               </ion-item>
-            
             </ion-list>
           </ion-card>
 
           <ion-card class="borde-interior">
-
             <ion-list formGroupName="image" class="borde-interior">
-
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Imagen</ion-label>
-                <ion-input type="file" formControlName="image_url"></ion-input>
+                <ion-input
+                  type="file"
+                  label="Imagen"
+                  formControlName="image_url"
+                ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Descripción</ion-label>
-                <ion-input type="text" formControlName="alt"></ion-input>
+                <ion-input
+                  type="text"
+                  label="Descripción"
+                  formControlName="alt"
+                ></ion-input>
               </ion-item>
-
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Fecha de Publicación</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="publication_date" readonly></ion-datetime>
-              </ion-item>
-
             </ion-list>
           </ion-card>
-        
-    
-          <button class="boton-crear" expand="full" type="submit">Guardar Garage</button>
+
+          <button class="boton-crear" expand="full" type="submit">
+            Guardar Garage
+          </button>
         </form>
       </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
-
-
-
-

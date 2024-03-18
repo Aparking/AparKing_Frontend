@@ -30,7 +30,6 @@ export class GarageListComponent implements OnInit {
   retrieveAllGarages() {
     this.restService.getAllGarages().then((garages) => {
       this.garages = garages;
-      console.log(this.garages);
     });
   }
 
@@ -41,14 +40,12 @@ export class GarageListComponent implements OnInit {
   getAllImages() {
     this.restService.getAllImages().then((images) => {
       this.images = images;
-      console.log(this.images);
     });
   }
 
   getAvailableGarages() {
     this.restService.getAvailableGarages().then((garages) => {
       this.garages = garages;
-      console.log(this.garages);
     });
   }
 
