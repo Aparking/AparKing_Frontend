@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Publicar Garage </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Publicar Garaje</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -108,7 +111,7 @@
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-select label="País" formControlName="country">
+                <ion-select label="" formControlName="country">
                   <ion-select-option value="ES">España</ion-select-option>
                   <ion-select-option value="FR">Francia</ion-select-option>
                   <ion-select-option value="IT">Italia</ion-select-option>
