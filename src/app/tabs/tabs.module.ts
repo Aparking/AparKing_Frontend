@@ -14,6 +14,7 @@ import { RestService } from '../services/rest.service';
 import { TabsPage } from './tabs.page';
 
 import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
+import { GarageCreateImageComponent } from '../components/rental/garage-create-image/garage-create-image.component';
 
 
 @NgModule({
@@ -32,9 +33,10 @@ import { GarageCreateComponent } from '../components/rental/garage-create/garage
     GarageDetailComponent,
     MyGaragesComponent,
     GarageCreateComponent,
+    GarageCreateImageComponent
     
   ],
-  exports: [GarageListComponent, GarageDetailComponent, MyGaragesComponent, GarageCreateComponent],
+  exports: [GarageListComponent, GarageDetailComponent, MyGaragesComponent, GarageCreateComponent, GarageCreateImageComponent],
   providers: [RestService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

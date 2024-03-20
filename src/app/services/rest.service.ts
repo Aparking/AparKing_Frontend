@@ -42,9 +42,11 @@ export class RestService extends WsAstractService {
   async getGarageById(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}/`);
   }
-  async createGarage(data: any): Promise<any> {
-    return await this.makePostRequest(`${this.path}/garages/`, data);
+  async getCreateGarage(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/garages/create/`, data);
   }
+
+
   async updateGarage(id: string, data: any): Promise<Garage> {
     return await this.makePutRequest(`${this.path}/garages/${id}/`, data);
   }
@@ -53,10 +55,10 @@ export class RestService extends WsAstractService {
   }
 
   // - Images
-  
-  // async getCreateGarageImage(data: any): Promise<any> {
-  //   return await this.makePostRequest(`${this.path}/garages/images/`, data);
-  // }
+
+  async getCreateImage(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/garages/images/create/`, data);
+  }
 
   async getAllImages(): Promise<Image[]> {
     return await this.makeGetRequest(`${this.path}/garages/images/`);

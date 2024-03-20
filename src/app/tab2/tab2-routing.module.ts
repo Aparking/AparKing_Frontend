@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
 import { Tab2Page } from './tab2.page';
 import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
+import { GarageCreateImageComponent } from '../components/rental/garage-create-image/garage-create-image.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'create',
     component: GarageCreateComponent,
+  },
+
+  {
+    path: 'create-image',
+    component: GarageCreateImageComponent,
   },
 
   {
