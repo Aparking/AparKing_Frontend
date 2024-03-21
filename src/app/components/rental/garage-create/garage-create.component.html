@@ -49,20 +49,11 @@
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Fecha de Creación</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="creation_date" readonly></ion-datetime>
-              </ion-item>
-
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Fecha de Modificación</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="modification_date" readonly></ion-datetime>
-              </ion-item>
-
-              <ion-item class="borde-interior">
                 <ion-label style="flex: 2;">¿Está Activo?</ion-label>
                 <ion-checkbox formControlName="is_active"></ion-checkbox>
               </ion-item>
-
+              
+              <!-- se tiene que pillar el que este logeado -->
               <ion-item class="borde-interior">
                 <ion-label style="flex: 2;">Propietario</ion-label>
                 <ion-input type="text" formControlName="owner"></ion-input>
@@ -116,33 +107,29 @@
             </ion-list>
           </ion-card>
 
-          <!--
+   
+        
+        <!-- IMAGE -->
+        <form [formGroup]="imageForm" (ngSubmit)="saveGarage()" style="border-radius: 5px; background-color: #fff;">
+
           <ion-card class="borde-interior">
             <ion-list formGroupName="image" class="borde-interior">
               <ion-item class="borde-interior">
                 <ion-label style="flex: 2;">Imagen</ion-label>
-                <ion-input type="file" formControlName="image_url"></ion-input>
+                <input type="file" formControlName="image" (change)="onFileSelected($event)">
               </ion-item>
+
               <ion-item class="borde-interior">
                 <ion-label style="flex: 2;">Alt</ion-label>
                 <ion-input type="text" formControlName="alt"></ion-input>
               </ion-item>
-              <ion-item class="borde-interior">
-                <ion-label style="flex: 2;">Fecha de Publicación</ion-label>
-                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="publication_date" readonly></ion-datetime>
-              </ion-item>
-              
-              <ion-item class="borde-interior">
-                <select formControlName="garageId">
-                  <option *ngFor="let garage of garages" [value]="garage.id">{{ garage.name }}</option>
-                </select>
-            </ion-item>
+
             </ion-list>
           </ion-card>
-          -->
-
-          <button class="boton-crear" expand="full" type="submit">Guardar Garage</button>
         </form>
+
+        <button class="boton-crear" expand="full" type="submit">Guardar Garage</button>
+      </form>
       </ion-col>
     </ion-row>
   </ion-grid>
