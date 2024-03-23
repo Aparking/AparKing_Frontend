@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { WsAstractService } from './ws-astract.service';
 
-const  loginUrl:string = 'http://localhost:8000/login/';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService extends WsAstractService{
+
+  serverUrl = 'http://127.0.0.1:8000/';
+  apiPath = '';
+  path = this.serverUrl + this.apiPath;
 
   private currentUser: any;
-  constructor(private http: HttpClient) { }
 
 
-  loginUser(data: any): Observable<any> {
-    return this.http.post(loginUrl, data);
+  async loginUser(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/login/`, data);
   }
 
   setCurrentUser(user: any): void {

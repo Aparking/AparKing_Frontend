@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { MemberType } from '../../models/pricing.models';
 import { PricingPlanService } from '../../service/pricing-plan.service';
+
 @Component({
   selector: 'app-pricing-plan',
   templateUrl: './pricing-plan.component.html',
@@ -13,31 +14,31 @@ export class PricingPlanComponent implements OnInit {
 
   constructor(private authService: LoginService, private pricingPlanService: PricingPlanService) {
     this.MemberType = MemberType;
-   }
+  }
 
   ngOnInit() {
-    this.currentUser = this.authService.getCurrentUser(); // Asegúrate de tener un método para obtener el usuario actual
+    this.currentUser = this.authService.getCurrentUser();
   }
 
-  selectPlan(planType: MemberType) {
+  async selectPlan(planType: MemberType) {
     let price: number;
 
-  switch (planType) {
-    case MemberType.FREE:
-      price = 0.00;
-      break;
-    case MemberType.NOBLE:
-      price = 20.99;
-      break;
-    case MemberType.KING:
-      price = 30.99;
-      break;
-    default:
-      throw new Error(`Unsupported plan type: ${planType}`);
-  }
+    switch (planType) {
+      case MemberType.FREE:
+        price = 0.00;
+        break;
+      case MemberType.NOBLE:
+        price = 20.99;
+        break;
+      case MemberType.KING:
+        price = 30.99;
+        break;
+      default:
+        throw new Error(`Unsupported plan type: ${planType}`);
+    }
 
-  let startDate: Date = new Date(); // Fecha actual
-  let endDate: Date = new Date();
+    let startDate: Date = new Date();
+    let endDate: Date = new Date();
     endDate.setMonth(endDate.getMonth() + 1);
 
     const plan = {
@@ -47,18 +48,12 @@ export class PricingPlanComponent implements OnInit {
       user: this.currentUser,
       price: price,
     };
-  console.log(plan.user);
-  this.pricingPlanService.pricingUser(plan)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (e) => {
-          console.error(e);
-        }
-      });
+
+    try {
+      const res = await this.pricingPlanService.pricingUser(plan);
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
   }
-
-  }
-
-
+}

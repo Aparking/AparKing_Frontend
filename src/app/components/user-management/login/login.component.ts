@@ -23,25 +23,22 @@ export class LoginComponent  implements OnInit {
   ngOnInit(): void {
   }
 
-  saveLogin(): void {
+  async saveLogin(): Promise<void> {
     const data: LoginUser = {
       email: this.loginData.email,
       password: this.loginData.password,
     };
 
-    this.loginService.loginUser(data)
-  .subscribe({
-    next: (res) => {
+    try {
+      const res = await this.loginService.loginUser(data);
       console.log(res);
       this.loginService.setCurrentUser(res.user);
       this.submitted = true;
-    },
-    error: (e) => {
+    } catch (e: any) {
       this.errorEmail = e.error.email;
       this.errorPass = e.error.password;
       console.error(e);
     }
-  });
   }
 
   newLogin(): void {

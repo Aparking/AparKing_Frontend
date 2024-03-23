@@ -9,20 +9,19 @@ import { Router } from '@angular/router';
 })
 export class LogoutComponent implements OnInit {
 
-  constructor(private logout: Logout,private router: Router) { }
+  constructor(private logout: Logout, private router: Router) { }
 
   ngOnInit() {
   }
 
-  logoutUser(): void {
-    this.logout.logout()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.router.navigate(['/login']);
-        },
-        error: (e) => console.error(e)
-      });
+  async logoutUser(): Promise<void> {
+    try {
+      const res = await this.logout.logout();
+      console.log(res);
+      this.router.navigate(['/login']);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
 }

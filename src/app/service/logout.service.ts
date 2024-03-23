@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { WsAstractService } from './ws-astract.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Logout {
+export class Logout extends WsAstractService{
 
-  private logoutUrl = 'http://localhost:8000/logout/';
+  serverUrl = 'http://127.0.0.1:8000/';
+  apiPath = '';
+  path = this.serverUrl + this.apiPath;
 
-  constructor(private http: HttpClient) { }
-
-  logout(): Observable<any> {
-    return this.http.get<any>(this.logoutUrl);
+  async logout(): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/logout/`);
   }
 }

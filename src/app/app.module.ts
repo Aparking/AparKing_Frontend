@@ -10,8 +10,7 @@ import { RegisterComponent } from './components/user-management/register/registe
 import { LoginModule } from './modules/login.module';
 import {LogoutModule} from './modules/logout.module';
 import { PricingPlanModule } from './modules/pricing-plan.module';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { UserListModule } from './components/user-list/user-list.module';
 
 @NgModule({
