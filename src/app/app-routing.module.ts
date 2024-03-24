@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
 
 const routes: Routes = [
   {
@@ -7,6 +8,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
+  { path: 'test-subscription', component: SubscriptionComponent },
 ];
 @NgModule({
   imports: [
