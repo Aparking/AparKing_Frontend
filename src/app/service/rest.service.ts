@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Token, User } from '../models/authentication';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { WsAbstractService } from './ws-astract.service';
 
@@ -23,5 +24,9 @@ export class RestService extends WsAbstractService {
 
   async getCreateParking(): Promise<ParkingCreate> {
     return await this.makeGetRequest(`${this.path}/parking/getCreate/`);
+  }
+
+  async postLogin(user: User): Promise<Token> {
+    return await this.makePostRequest(`${this.path}/login/`, user);
   }
 }

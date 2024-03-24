@@ -1,0 +1,28 @@
+
+
+<ion-content [fullscreen]="true">
+  <div class="body">
+    <h1 class="title">{{constants.APP_NAME}}</h1>
+    <div>
+        <img class="logo" src="assets/icons/carIcon.png" *ngIf="!isDarkMode" alt="logo"/>
+        <img class="logo" src="assets/icons/aparkingCar.png" *ngIf="isDarkMode" alt="logo"/>
+    </div>
+    <ion-text class="subtitle">
+      {{constants.tag}}
+    </ion-text>
+
+    <ion-text>
+      {{constants.advertisement}}
+    </ion-text>
+
+    <div class="column ">
+
+      <ion-button shape="round">
+        Registrarse
+      </ion-button>
+      <ion-button shape="round" (click)="goLogin()">
+        Iniciar sesión
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

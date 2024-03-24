@@ -1,0 +1,24 @@
+<ion-header >
+  <ion-toolbar style="--background: transparent; --border-color: transparent;">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p class="title">Iniciar sesión</p>
+
+
+  <div class="body">
+    <form [formGroup]="loginForm" (submit)="logginSubmit()">
+
+      <ion-input fill="outline" placeholder="example@mail.com" label-placement="floating" label="Email" formControlName="email" type="email"></ion-input>
+
+      <ion-input fill="outline" placeholder="Escriba su contraseña" label-placement="floating" label="Contraseña" formControlName="password" type="password"></ion-input>
+
+      <ion-button expand="full" type="submit" [disabled]="!loginForm.valid" shape="round">Enviar</ion-button>
+    </form>
+  </div>
+
+</ion-content>

@@ -10,6 +10,10 @@ export interface PhoneNumber {
   number: string;
 }
 
+export interface Token {
+  token: string;
+}
+
 export interface User {
   id: number;
   email: string;

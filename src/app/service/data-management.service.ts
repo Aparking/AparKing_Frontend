@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Token, User } from '../models/authentication';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { PersistenceService } from './persistence.service';
 import { RestService } from './rest.service';
@@ -34,7 +36,6 @@ export class DataManagementService {
       .getParkingNear(coordenates)
       .then((data) => data)
       .catch((err) => {
-        alert(err);
         return err;
       });
   }
@@ -44,7 +45,6 @@ export class DataManagementService {
       .getCreateParking()
       .then((data) => data)
       .catch((err) => {
-        alert(err);
         return err;
       });
   }
@@ -54,8 +54,19 @@ export class DataManagementService {
       .postCreateParking(parking)
       .then((data) => data)
       .catch((err) => {
-        alert(err);
         return err;
+      });
+  }
+
+  async postLogin(user: User): Promise<Token> {
+    return this.rest
+      .postLogin(user)
+      .then(async (data) => {
+        this.persistenceService.setToken(data);
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
       });
   }
 }

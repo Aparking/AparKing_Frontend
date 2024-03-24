@@ -1,0 +1,51 @@
+.body {
+
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+
+  .title {
+    font-size: xxx-large;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .subtitle {
+    font-weight: bold;
+    text-align: start;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+    .logo {
+      height: auto;
+      width: 80%;
+      margin: 0;
+      padding: 0;
+    }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+
+    ion-button {
+      padding: 5px;
+      width: 90%;
+    }
+
+  }
+
+
+
+
+}
+
+
+
