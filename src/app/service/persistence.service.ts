@@ -15,7 +15,7 @@ export class PersistenceService {
     try {
       localValue = JSON.parse(localValue);
     } catch (error) {
-      localValue = localValue;
+      console.error(error);
     }
     return localValue;
   }
@@ -36,6 +36,15 @@ export class PersistenceService {
 
   public resetValues(): void {
     localStorage.clear();
+  }
+
+  public getToken(): Token | null {
+    let token: Token | null = null;
+    let value: any = this.getValue(this.constants.TOKEN);
+    if (value) {
+      token = value;
+    }
+    return token;
   }
 
   public setToken(token: Token): void {
