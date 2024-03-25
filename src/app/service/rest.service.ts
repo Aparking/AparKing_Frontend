@@ -29,4 +29,8 @@ export class RestService extends WsAbstractService {
   async postLogin(user: User): Promise<Token> {
     return await this.makePostRequest(`${this.path}/login/`, user);
   }
+
+  async postRegister(user: User): Promise<Token> {
+    return await this.makePostRequest(`${this.path}/register/`, user);
+  }
 }

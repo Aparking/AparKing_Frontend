@@ -32,4 +32,8 @@ export class StartPagePage implements OnInit {
   goLogin() {
     this.navCtr.navigateForward('/login');
   }
+
+  goRegister() {
+    this.navCtr.navigateForward('/register');
+  }
 }

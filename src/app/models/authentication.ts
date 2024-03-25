@@ -18,7 +18,8 @@ export interface User {
   id: number;
   email: string;
   dni: string;
-  birthDate: Date;
+  birth_date: Date;
   gender: Gender;
   phone: PhoneNumber;
+  username: string;
 }

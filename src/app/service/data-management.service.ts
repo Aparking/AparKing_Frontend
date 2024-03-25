@@ -69,4 +69,16 @@ export class DataManagementService {
         throw err;
       });
   }
+
+  async postRegister(user: User): Promise<Token> {
+    return this.rest
+      .postRegister(user)
+      .then(async (data) => {
+        this.persistenceService.setToken(data);
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
+      });
+  }
 }

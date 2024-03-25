@@ -5,7 +5,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { NavController, ToastController } from '@ionic/angular';
+import {
+  LoadingController,
+  NavController,
+  ToastController,
+} from '@ionic/angular';
 import { Constants } from 'src/app/constants.ts';
 import { DataManagementService } from 'src/app/service/data-management.service';
 
@@ -22,7 +26,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private dataManagement: DataManagementService,
     private toastController: ToastController,
-    private navCtr: NavController
+    private navCtr: NavController,
+    private loadingCtrl: LoadingController
   ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -38,6 +43,7 @@ export class LoginPage implements OnInit {
   }
 
   async logginSubmit() {
+    const loading = await this.loadingCtrl.create({});
     const toast = await this.toastController.create({
       duration: 2000, // Duración del toast en milisegundos
       position: 'bottom', // Posición del toast (top, middle, bottom)
@@ -49,17 +55,19 @@ export class LoginPage implements OnInit {
         },
       ],
     });
-
+    loading.present();
     this.dataManagement
       .postLogin(this.loginForm.value)
       .then(async (_) => {
         toast.message = `Bienvenido de nuevo`;
         await toast.present();
         this.navCtr.navigateRoot('/G11');
+        loading.dismiss();
       })
       .catch(async (err) => {
         toast.message = `Error de credenciales, vuelva a intentarlo.`;
         await toast.present();
+        loading.dismiss();
       });
   }
 }
