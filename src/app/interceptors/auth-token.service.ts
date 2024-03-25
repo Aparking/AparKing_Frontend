@@ -18,11 +18,11 @@ export class AuthTokenService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    if (this.persistenceService.getToken()) {
-      const token = this.persistenceService.getToken();
+    const token = this.persistenceService.getToken();
+    if (token) {
       const authReq = req.clone({
         setHeaders: {
-          Authorization: `Token ${token}`,
+          Authorization: `Token ${token.token}`,
         },
       });
       return next.handle(authReq);
