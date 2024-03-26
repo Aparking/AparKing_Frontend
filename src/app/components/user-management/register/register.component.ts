@@ -1,6 +1,7 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
-import { BackendUser } from './models/user.models';
-import { RegisterService } from './register.service';
+import { BackendUser } from '../../../models/user.models';
+import { RegisterService } from '../../../service/register.service';
 import { format, parseISO } from 'date-fns'; // npm install date-fns@2.16.1
 
 @Component({
@@ -35,37 +36,34 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  saveRegister(): void {
-    console.log(this.registerData.birth_date);
-    const data: BackendUser = {
-      username: this.registerData.username,
-      password: this.registerData.password,
-      email: this.registerData.email,
-      dni: this.registerData.dni,
-      birth_date: format(parseISO(this.registerData.birth_date), 'yyyy-MM-dd'),
-      gender: this.registerData.gender,
-      phone: this.registerData.phone,
-      photo: this.registerData.photo
-    };
+  async saveRegister(): Promise<void> {
+    try {
+      console.log(this.registerData.birth_date);
+      const data: BackendUser = {
+        username: this.registerData.username,
+        password: this.registerData.password,
+        email: this.registerData.email,
+        dni: this.registerData.dni,
+        birth_date: format(parseISO(this.registerData.birth_date), 'yyyy-MM-dd'),
+        gender: this.registerData.gender,
+        phone: this.registerData.phone,
+        photo: this.registerData.photo
+      };
 
-    this.registerService.registerUser(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => {
-          this.errorEmail = e.error.email;
-          this.errorPass = e.error.password;
-          this.errorUsername = e.error.username;
-          this.errorDNI = e.error.dni;
-          this.errorBirthDate = e.error.birth_date;
-          this.errorGender = e.error.gender;
-          this.errorPhone = e.error.phone;
-          this.errorPhoto = e.error.photo;
-          console.error(e);
-        }
-      });
+      const res = await this.registerService.registerUser(data);
+      console.log(res);
+      this.submitted = true;
+    } catch (e:any) {
+     // this.errorEmail = e.error.email;
+     // this.errorPass = e.error.password;
+     // this.errorUsername = e.error.username;
+     // this.errorDNI = e.error.dni;
+     // this.errorBirthDate = e.error.birth_date;
+     // this.errorGender = e.error.gender;
+     // this.errorPhone = e.error.phone;
+     // this.errorPhoto = e.error.photo;
+      console.error(e);
+    }
   }
 
   newRegister(): void {

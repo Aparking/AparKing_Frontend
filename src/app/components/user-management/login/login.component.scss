@@ -1,0 +1,73 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; // White background
+  border: 1px solid #000000;
+}
+
+.title {
+  width: 600px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  height: 100vh;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  --background: #f7f7f7; // Black background
+  --color: #000000; // White text
+  --border-radius: 10px; // Rounded borders
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+  width: 600px;
+}
+
+.label {
+  --color: #000000; // Black color
+  --position: floating; // Always floating
+}
+
+.input {
+  width: 400px;
+}
+
+.button {
+  --background: #008000; // Green background
+  --color: #fff; // White text
+  --border-radius: 15px; // Rounded corners
+}
+
+.error-message {
+  color: red;
+  // other styles...
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    flex-direction: column; /* Cambia la dirección del flexbox a vertical */
+    align-items: center; /* Centra los elementos verticalmente */
+  }
+
+  .content {
+    width: 100%; /* Ajusta el ancho de los planes para que no ocupen toda la pantalla */
+  }
+  .card-content {
+    width: 50%; /* Ajusta el ancho de los planes para que no ocupen toda la pantalla */
+  }
+}

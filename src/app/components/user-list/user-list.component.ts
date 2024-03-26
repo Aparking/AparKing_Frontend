@@ -1,38 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.models';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/service/user.service';
 import { AlertController } from '@ionic/angular';
-
-
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent  implements OnInit {
+export class UserListComponent implements OnInit {
 
   users?: User[];
   currentIndex = -1;
   currentUser: User = {};
-  username= '';
+  username = '';
 
-  constructor(private userService: UserService,private alertController: AlertController) { }
+  constructor(private userService: UserService, private alertController: AlertController) { }
 
   ngOnInit(): void {
     this.retrieveUsers();
   }
 
-
-  retrieveUsers(): void {
-    this.userService.getAll()
-      .subscribe({
-        next: (data) => {
-          this.users = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
+  async retrieveUsers(): Promise<void> {
+    try {
+      const data = await this.userService.getAll();
+      this.users = data;
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   refreshList(): void {
@@ -41,30 +37,27 @@ export class UserListComponent  implements OnInit {
     this.currentIndex = -1;
   }
 
-  searchUsername(): void {
+  async searchUsername(): Promise<void> {
     this.currentUser = {};
     this.currentIndex = -1;
 
-    this.userService.findByUsername(this.username)
-      .subscribe({
-        next: (data) => {
-          this.users = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
+    try {
+      const data = await this.userService.findByUsername(this.username);
+      this.users = data;
+      console.log(data);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-
-  removeAllUsers(): void {
-    this.userService.deleteAll()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.refreshList();
-        },
-        error: (e) => console.error(e)
-      });
+  async removeAllUsers(): Promise<void> {
+    try {
+      const res = await this.userService.deleteAll();
+      console.log(res);
+      this.refreshList();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   async confirmRemoveAllUsers() {
