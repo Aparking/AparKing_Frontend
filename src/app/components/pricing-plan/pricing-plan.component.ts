@@ -28,10 +28,10 @@ export class PricingPlanComponent implements OnInit {
         price = 0.00;
         break;
       case MemberType.NOBLE:
-        price = 20.99;
+        price = 3.99;
         break;
       case MemberType.KING:
-        price = 30.99;
+        price = 4.99;
         break;
       default:
         throw new Error(`Unsupported plan type: ${planType}`);
