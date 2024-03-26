@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Constants } from '../constants.ts';
+import { constants } from '../constants.ts';
 import { Token } from '../models/authentication';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PersistenceService {
-  constants: Constants = new Constants();
-
   constructor() {}
 
   public getValue(key: string): any {
@@ -34,13 +32,17 @@ export class PersistenceService {
     return localStorage.setItem(key, localValue);
   }
 
+  public removeValue(key: string): void {
+    return localStorage.removeItem(key);
+  }
+
   public resetValues(): void {
     localStorage.clear();
   }
 
   public getToken(): Token | null {
     let token: Token | null = null;
-    let value: any = this.getValue(this.constants.TOKEN);
+    let value: any = this.getValue(constants.TOKEN);
     if (value) {
       token = value;
     }
@@ -48,7 +50,7 @@ export class PersistenceService {
   }
 
   public setToken(token: Token): void {
-    this.setValue(this.constants.TOKEN, token);
+    this.setValue(constants.TOKEN, token);
   }
 
   public checkValue(key: string): boolean {

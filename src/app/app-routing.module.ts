@@ -28,6 +28,13 @@ const routes: Routes = [
         (m) => m.RegisterPageModule
       ),
   },
+  {
+    path: 'verify-user',
+    loadChildren: () =>
+      import('./pages/verify-user/verify-user.module').then(
+        (m) => m.VerifyUserPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
-import { Constants } from 'src/app/constants.ts';
+import { constants } from 'src/app/constants.ts';
 
 @Component({
   selector: 'app-start-page',
@@ -8,7 +8,7 @@ import { Constants } from 'src/app/constants.ts';
   styleUrls: ['./start-page.page.scss'],
 })
 export class StartPagePage implements OnInit {
-  constants = new Constants();
+  constants = constants;
   isDarkMode: boolean = false;
 
   constructor(private platform: Platform, private navCtr: NavController) {

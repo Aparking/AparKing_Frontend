@@ -10,7 +10,7 @@ import {
   NavController,
   ToastController,
 } from '@ionic/angular';
-import { Constants } from 'src/app/constants.ts';
+import { constants } from 'src/app/constants.ts';
 import { DataManagementService } from 'src/app/service/data-management.service';
 
 @Component({
@@ -19,7 +19,7 @@ import { DataManagementService } from 'src/app/service/data-management.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  constants: Constants = new Constants();
+  constants = constants;
   loginForm: FormGroup;
 
   constructor(

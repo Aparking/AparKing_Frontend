@@ -97,7 +97,10 @@ export class MapComponent implements OnInit {
   private prepareMap(location: Location, map?: L.Map, parkings?: Parking[]) {
     this.map = map
       ? map.setView([location.latitude, location.longitude], 18)
-      : L.map('mapId').setView([location.latitude, location.longitude], 18);
+      : L.map('mapId', { zoomControl: false }).setView(
+          [location.latitude, location.longitude],
+          18
+        );
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',

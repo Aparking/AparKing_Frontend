@@ -13,8 +13,8 @@ import {
   NavController,
   ToastController,
 } from '@ionic/angular';
-import { Constants } from 'src/app/constants.ts';
 import { DataManagementService } from 'src/app/service/data-management.service';
+import { constants } from './../../constants.ts';
 import { UtilsProviderService } from './../../service/utils-provider.service';
 
 @Component({
@@ -23,8 +23,8 @@ import { UtilsProviderService } from './../../service/utils-provider.service';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  constants: Constants = new Constants();
   registerForm: FormGroup;
+  constants = constants;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -86,9 +86,9 @@ export class RegisterPage implements OnInit {
     this.dataManagement
       .postRegister(this.registerForm.value)
       .then(async (_) => {
-        toast.message = `Bienvenido a AparKing`;
+        toast.message = `Bienvenido a AparKing, un único detalle más`;
         await toast.present();
-        this.navCtr.navigateRoot('/G11');
+        this.navCtr.navigateRoot('verify-user');
         loading.dismiss();
       })
       .catch(async (err) => {
