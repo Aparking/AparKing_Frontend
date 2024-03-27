@@ -1,9 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.sergiosantiago.aparking',
   appName: 'AparKing_Frontend',
-  webDir: 'src',
+  webDir: 'www',
   server: {
     androidScheme: 'https',
   },
