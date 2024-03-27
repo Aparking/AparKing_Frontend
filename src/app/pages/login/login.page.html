@@ -1,0 +1,35 @@
+<ion-header >
+  <ion-toolbar style="--background: transparent; --border-color: transparent;">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="appbar">{{constants.APP_NAME}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p class="title">Iniciar sesión</p>
+
+
+  <div class="body">
+    <form [formGroup]="loginForm" (submit)="logginSubmit()">
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="example@mail.com" label-placement="floating" label="Email" formControlName="email" type="email"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="loginForm.get('email')!" [message]="'El email es obligatorio'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="loginForm.get('email')!" [message]="'El email no es válido'" [error]="'email'"></app-error-message>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="Escriba su contraseña" label-placement="floating" label="Contraseña" formControlName="password" type="password"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="loginForm.get('password')!" [message]="'La contraseña es obligatoria'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="loginForm.get('password')!" [message]="'Longitud mínima 6 caracteres'" [error]="'minlength'"></app-error-message>
+        </div>
+      </div>
+      <ion-button expand="full" type="submit" [disabled]="!loginForm.valid" shape="round">Enviar</ion-button>
+    </form>
+  </div>
+
+</ion-content>
