@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class WsAstractService {
-  constructor(private http: HttpClient) {}
+export class WsAbstractService {
+  constructor(private http: HttpClient) { }
 
   protected makeGetRequest(path: string, paramsRequest?: any): Promise<any> {
     paramsRequest = !paramsRequest ? {} : paramsRequest;
@@ -18,7 +18,6 @@ export class WsAstractService {
           if (err == 200) {
             reject(null);
           } else {
-            console.log(err);
             reject(err);
           }
         }
@@ -35,7 +34,6 @@ export class WsAstractService {
           if (err && err.status == 200) {
             reject(null);
           } else {
-            console.log(err);
             reject(err);
           }
         },

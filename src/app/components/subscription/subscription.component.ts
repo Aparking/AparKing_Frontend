@@ -9,13 +9,13 @@ declare var Stripe: any; // Añade esta línea si Stripe no está declarado
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent {
-  constructor(private paymentService: PaymentService) {}
+  constructor(private paymentService: PaymentService) { }
 
   startSubscription() {
     this.paymentService.createCheckoutSession().subscribe({
       next: (session: any) => {
         // Asegúrate de usar tu clave pública de Stripe aquí
-        const stripe = Stripe('pk_test_51OwKuxRoKCd4QwqUa8Fv4PIAVlrcEwwQKf4zoBfOxszZXupO2BAkXINGo8uTNg9tuUhlMMFEX9pT5yciXPy9avCg00LhG7EXka');
+        const stripe = Stripe('pk_test_51OzOxfC4xI44aLdHvUAMGqXuLK20YmVySPMwzg1D6K5WSeSaGi1xKw8yE57CNg5hx3h6PMe6APLySRPUxvRWrMNK00kTx0DMyI');
         stripe.redirectToCheckout({
           sessionId: session.id,
         });
