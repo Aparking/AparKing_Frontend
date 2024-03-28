@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { RestService } from 'src/app/services/rest.service';
 
 @Component({
@@ -9,135 +9,112 @@ import { RestService } from 'src/app/services/rest.service';
   styleUrls: ['./garage-create.component.scss'],
 })
 export class GarageCreateComponent implements OnInit {
-  garageId: string = '';
   garageForm!: FormGroup;
-  file: any;
+  imageForm!: FormGroup;
+  garages: any[] = [];
+  selectedFile!: File;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formGargeBuilder: FormBuilder,
+    private formImageBuilder: FormBuilder,
+    private http: HttpClient,
     private restService: RestService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.garageForm = this.formBuilder.group({
-      address: this.formBuilder.group({
-        id: [],
-        unit_number: [, Validators.required],
-        street_number: [, Validators.required],
-        address_line: [, Validators.required],
-        city: [, Validators.required],
-        region: [, Validators.required],
-        country: [],
-        postal_code: [, Validators.required],
-      }),
-      images: this.formBuilder.group({
-        id: [],
-        image: [, Validators.required],
-        alt: [],
-      }),
-      id: [],
-      name: [, Validators.required],
-      description: [],
-      height: [, Validators.required],
-      width: [, Validators.required],
-      length: [, Validators.required],
-      price: [, Validators.required],
-    });
-  }
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      if (params['id']) {
-        this.garageId = params['id'];
-        this.loadGarage(this.garageId);
-      }
+    this.garageForm = this.formGargeBuilder.group({
+      address: this.formGargeBuilder.group({
+        unit_number: [null, Validators.required],
+        street_number: [null, Validators.required],
+        address_line: [null, Validators.required],
+        city: [null, Validators.required],
+        region: [null, Validators.required],
+        country: [null],
+        postal_code: [null, Validators.required],
+      }),
+      name: [null, Validators.required],
+      description: [null, Validators.required],
+      height: [null, Validators.required],
+      width: [null, Validators.required],
+      length: [null, Validators.required],
+      price: [null, Validators.required],
+      creation_date: [this.getCurrentDate(), Validators.required],
+      modification_date: [this.getCurrentDate(), Validators.required],
+      is_active: [true, Validators.required],
+      owner: [null, Validators.required], //TODO  QUE LO PILLE AUTOMATICAMENTE
+    });
+
+    //IMAGE**
+    this.imageForm = this.formImageBuilder.group({
+      image: this.formImageBuilder.group({
+        garage: [1, Validators.required],
+        image: [null, Validators.required],
+        alt: [null, Validators.required],
+        publication_date: [this.getCurrentDate(), Validators.required],
+      }),
+    });
+
+    this.getAllGarages();
+
+    from(this.restService.getAllGarages()).subscribe((data: any) => {
+      // Make sure the data has the same structure as your form
+      const address = data.address || {};
+      const country = address.country || 'ES'; // Use 'ES' as a default value
+      this.garageForm.patchValue({ address: { country } });
     });
   }
 
-  loadGarage(id: string) {
-    Promise.all([
-      this.restService.getGarageById(id),
-      this.restService.getImageByGarageId(id),
-    ])
-      .then(([garage, image]) => {
-        console.log(garage);
-        if (garage && image) {
-          this.garageForm.patchValue({
-            address: {
-              id: garage.address.id,
-              unit_number: garage.address.unit_number,
-              street_number: garage.address.street_number,
-              address_line: garage.address.address_line,
-              city: garage.address.city,
-              region: garage.address.region,
-              country: garage.address.country,
-              postal_code: garage.address.postal_code,
-            },
-            // images: {
-            //   id: image.id,
-            //   image: image.image,
-            //   alt: image.alt,
-            // },
-            image: garage.image,
-            id: garage.id,
-            name: garage.name,
-            description: garage.description,
-            height: garage.height,
-            width: garage.width,
-            length: garage.length,
-            price: garage.price,
-          });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  getCurrentDate(): string {
+    const currentDate = new Date();
+    return currentDate.toISOString();
   }
 
-  uploadImage(event: any) {
-    this.file = event.target.files[0];
-    console.log(this.file);
+  getAllGarages() {
+    from(this.restService.getAllGarages()).subscribe((data: any[]) => {
+      this.garages = data;
+    });
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   saveGarage() {
-    if (this.garageForm.value && this.garageForm.valid) {
-      const garageData = this.garageForm.value;
-      const allData = new FormData();
+    if (this.garageForm.valid) {
+      from(this.restService.getCreateGarage(this.garageForm.value)).subscribe(
+        (response) => {
+          console.log('Garaje creado', response);
+          this.garageForm.reset(); // Limpia los campos del formulario
+          const garageId = response.id; // Obtén el ID del garaje creado
+          this.imageForm.get('image')?.get('garage')?.setValue(garageId); // Establece el ID del garaje en el formulario de imagen
 
-      if (this.garageId) {
-        this.restService
-          .updateGarage(this.garageId, allData)
-          .then((response) => {
-            console.log('Garaje actualizado', response);
-            this.router.navigate([`aparKing/garages/${this.garageId}`]);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      } else {
-        this.restService
-          .createGarage(allData)
-          .then((response) => {
-            console.log('Garaje creado', response);
-            this.router.navigate([`aparKing/garages`]);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+          // Verifica si el formulario de imagen también es válido y se ha seleccionado un archivo
+          if (this.imageForm.valid && this.selectedFile) {
+            const formData = new FormData();
+            formData.append('garage', garageId); // Envía el ID del garaje en lugar de obtenerlo del formulario de imagen
+            formData.append('image', this.selectedFile, this.selectedFile.name);
+            formData.append(
+              'alt',
+              this.imageForm.get('image')?.get('alt')?.value
+            );
 
-        // formData.append('garage', this.garageId);
-        // formData.append('alt', 'Imagen de garaje');
-        // this.restService
-        //   .uploadImage(formData)
-        //   .then((response) => {
-        //     console.log('Imagen subida', response);
-        //   })
-        //   .catch((error) => {
-        //     console.error(error);
-        //   });
-      }
+            from(this.restService.getCreateImage(formData)).subscribe(
+              (response) => {
+                console.log('Imagen asociada', response);
+                this.imageForm.reset(); // Limpia los campos del formulario
+                this.router.navigate(['/aparKing/garages/']); // Navega a la página de creación de garajes
+              }
+            );
+          } else {
+            console.log(
+              'El formulario de imagen no es válido o no se ha seleccionado un archivo'
+            );
+          }
+        }
+      );
     } else {
-      console.log('El formulario no es válido');
+      console.log('El formulario de garaje no es válido');
     }
   }
 }

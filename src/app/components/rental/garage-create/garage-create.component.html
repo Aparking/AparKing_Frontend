@@ -14,9 +14,12 @@
         <form
           [formGroup]="garageForm"
           (ngSubmit)="saveGarage()"
-          enctype="multipart/form-data"
           style="border-radius: 5px; background-color: #fff"
         >
+          <ion-card-header class="borde-interior">
+            <ion-card-title> </ion-card-title>
+          </ion-card-header>
+
           <ion-card class="borde-interior">
             <ion-list class="borde-interior">
               <ion-item class="borde-interior">
@@ -66,6 +69,17 @@
                   formControlName="price"
                 ></ion-input>
               </ion-item>
+
+              <ion-item class="borde-interior">
+                <ion-label style="flex: 2">¿Está Activo?</ion-label>
+                <ion-checkbox formControlName="is_active"></ion-checkbox>
+              </ion-item>
+
+              <!-- se tiene que pillar el que este logeado -->
+              <ion-item class="borde-interior">
+                <ion-label style="flex: 2">Propietario</ion-label>
+                <ion-input type="text" formControlName="owner"></ion-input>
+              </ion-item>
             </ion-list>
           </ion-card>
 
@@ -88,11 +102,16 @@
               </ion-item>
 
               <ion-item class="borde-interior">
+                <ion-label style="flex: 2">Dirección</ion-label>
                 <ion-input
                   type="text"
-                  label="Dirección"
                   formControlName="address_line"
                 ></ion-input>
+              </ion-item>
+
+              <ion-item class="borde-interior">
+                <ion-label style="flex: 2">Ciudad</ion-label>
+                <ion-input type="text" formControlName="city"></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
@@ -130,26 +149,30 @@
             </ion-list>
           </ion-card>
 
-          <ion-card class="borde-interior">
-            <ion-list formGroupName="images" class="borde-interior">
-              <ion-item class="borde-interior">
-                <ion-input
-                  type="file"
-                  label="Imagen"
-                  formControlName="image"
-                  (change)="uploadImage($event)"
-                ></ion-input>
-              </ion-item>
+          <!-- IMAGE -->
+          <form
+            [formGroup]="imageForm"
+            (ngSubmit)="saveGarage()"
+            style="border-radius: 5px; background-color: #fff"
+          >
+            <ion-card class="borde-interior">
+              <ion-list formGroupName="image" class="borde-interior">
+                <ion-item class="borde-interior">
+                  <ion-label style="flex: 2">Imagen</ion-label>
+                  <input
+                    type="file"
+                    formControlName="image"
+                    (change)="onFileSelected($event)"
+                  />
+                </ion-item>
 
-              <ion-item class="borde-interior">
-                <ion-input
-                  type="text"
-                  label="Descripción"
-                  formControlName="alt"
-                ></ion-input>
-              </ion-item>
-            </ion-list>
-          </ion-card>
+                <ion-item class="borde-interior">
+                  <ion-label style="flex: 2">Alt</ion-label>
+                  <ion-input type="text" formControlName="alt"></ion-input>
+                </ion-item>
+              </ion-list>
+            </ion-card>
+          </form>
 
           <button class="boton-crear" expand="full" type="submit">
             Guardar Garage
