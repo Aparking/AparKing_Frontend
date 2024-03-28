@@ -14,6 +14,7 @@
         <form
           [formGroup]="garageForm"
           (ngSubmit)="saveGarage()"
+          enctype="multipart/form-data"
           style="border-radius: 5px; background-color: #fff"
         >
           <ion-card class="borde-interior">
@@ -130,12 +131,13 @@
           </ion-card>
 
           <ion-card class="borde-interior">
-            <ion-list formGroupName="image" class="borde-interior">
+            <ion-list formGroupName="images" class="borde-interior">
               <ion-item class="borde-interior">
                 <ion-input
                   type="file"
                   label="Imagen"
-                  formControlName="image_url"
+                  formControlName="image"
+                  (change)="uploadImage($event)"
                 ></ion-input>
               </ion-item>
 

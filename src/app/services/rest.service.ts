@@ -58,6 +58,10 @@ export class RestService extends WsAstractService {
   //   return await this.makePostRequest(`${this.path}/garages/images/`, data);
   // }
 
+  async uploadImage(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/garages/images/`, data);
+  }
+
   async getAllImages(): Promise<Image[]> {
     return await this.makeGetRequest(`${this.path}/garages/images/`);
   }
