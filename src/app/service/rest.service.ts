@@ -99,7 +99,7 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/garages/images/${id}/`);
   }
 
-  async getImageByGarageId(id: string): Promise<any> {
+  async getImagesByGarageId(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}/images/`);
   }
 }

@@ -1,25 +1,36 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Mi Garaje</ion-title>
+    <ion-title>Detalle de Garaje</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-card *ngIf="currentGarage">
     <ion-card-header>
       <div class="garage-title">
+        <ion-buttons slot="start">
+          <a [routerLink]="['/G11/aparKing/garages']">
+            <ion-button color="primary">
+              <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </a>
+        </ion-buttons>
+
         <ion-card-title
           id="garage-card-title"
           class="ion-text-uppercase ion-align-items-center"
           >{{ currentGarage.name }}</ion-card-title
         >
+
         <ion-buttons slot="end">
-          <ion-button color="primary" (click)="showUpdateGarage()">
-            <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-          </ion-button>
+          <a [routerLink]="['/G11/aparKing/garages/', garageId, 'edit']">
+            <ion-button color="primary">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+          </a>
+
           <ion-button
             color="danger"
             id="delete-garage"
