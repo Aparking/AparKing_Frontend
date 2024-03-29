@@ -92,7 +92,13 @@ export class RegisterPage implements OnInit {
         loading.dismiss();
       })
       .catch(async (err) => {
-        toast.message = `Error con los datos introducidos, vuelva a intentarlo.`;
+        let serverErr = err.error;
+        let message = '';
+
+        for (let key in serverErr) {
+          message += (serverErr[key] as string[]).join(', ');
+        }
+        toast.message = message;
         await toast.present();
         loading.dismiss();
       });
