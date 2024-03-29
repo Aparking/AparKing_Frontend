@@ -13,16 +13,9 @@ const routes: Routes = [
     path: 'create',
     component: GarageCreateComponent,
   },
-
-
-
   {
     path: ':id',
     component: GarageDetailComponent,
-  },
-  {
-    path: ':id/edit',
-    component: GarageCreateComponent,
   },
   {
     path: '**',

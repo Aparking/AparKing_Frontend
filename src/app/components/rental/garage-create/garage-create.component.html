@@ -24,42 +24,38 @@
             <ion-list class="borde-interior">
               <ion-item class="borde-interior">
                 <ion-input
-                  type="text"
                   label="Título"
+                  type="text"
                   formControlName="name"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
                 <ion-input
-                  type="text"
                   label="Descripción"
+                  type="text"
                   formControlName="description"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
                 <ion-input
-                  type="number"
                   label="Altura"
+                  type="number"
                   formControlName="height"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
                 <ion-input
-                  type="number"
                   label="Ancho"
+                  type="number"
                   formControlName="width"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-input
-                  type="number"
-                  label="Longitud"
-                  formControlName="length"
-                ></ion-input>
+                <ion-input type="number" label="Longitud"></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
@@ -71,14 +67,18 @@
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2">¿Está Activo?</ion-label>
-                <ion-checkbox formControlName="is_active"></ion-checkbox>
+                <ion-checkbox formControlName="is_active"
+                  >Disponible</ion-checkbox
+                >
               </ion-item>
 
               <!-- se tiene que pillar el que este logeado -->
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2">Propietario</ion-label>
-                <ion-input type="text" formControlName="owner"></ion-input>
+                <ion-input
+                  label="Propietario"
+                  type="text"
+                  formControlName="owner"
+                ></ion-input>
               </ion-item>
             </ion-list>
           </ion-card>
@@ -87,51 +87,46 @@
             <ion-list formGroupName="address" class="borde-interior">
               <ion-item class="borde-interior">
                 <ion-input
+                  label="Número de Plazas"
                   type="text"
-                  label="Plazas"
                   formControlName="unit_number"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
                 <ion-input
+                  label="Número de Calle"
                   type="text"
-                  label="Número"
                   formControlName="street_number"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2">Dirección</ion-label>
                 <ion-input
+                  label="Dirección"
                   type="text"
                   formControlName="address_line"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-label style="flex: 2">Ciudad</ion-label>
-                <ion-input type="text" formControlName="city"></ion-input>
-              </ion-item>
-
-              <ion-item class="borde-interior">
                 <ion-input
-                  type="text"
                   label="Ciudad"
+                  type="text"
                   formControlName="city"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
                 <ion-input
+                  label="Región"
                   type="text"
-                  label="Region"
                   formControlName="region"
                 ></ion-input>
               </ion-item>
 
               <ion-item class="borde-interior">
-                <ion-select label="" formControlName="country">
+                <ion-select label="País" formControlName="country">
                   <ion-select-option value="ES">España</ion-select-option>
                   <ion-select-option value="FR">Francia</ion-select-option>
                   <ion-select-option value="IT">Italia</ion-select-option>
@@ -141,8 +136,8 @@
 
               <ion-item>
                 <ion-input
-                  type="text"
                   label="Código Postal"
+                  type="text"
                   formControlName="postal_code"
                 ></ion-input>
               </ion-item>
@@ -158,8 +153,8 @@
             <ion-card class="borde-interior">
               <ion-list formGroupName="image" class="borde-interior">
                 <ion-item class="borde-interior">
-                  <ion-label style="flex: 2">Imagen</ion-label>
                   <input
+                    label="Imagen"
                     type="file"
                     formControlName="image"
                     (change)="onFileSelected($event)"
@@ -167,8 +162,11 @@
                 </ion-item>
 
                 <ion-item class="borde-interior">
-                  <ion-label style="flex: 2">Alt</ion-label>
-                  <ion-input type="text" formControlName="alt"></ion-input>
+                  <ion-input
+                    label="Descripción de Imagen"
+                    type="text"
+                    formControlName="alt"
+                  ></ion-input>
                 </ion-item>
               </ion-list>
             </ion-card>

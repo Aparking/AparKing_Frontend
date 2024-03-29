@@ -24,14 +24,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/aparKing/map',
+        redirectTo: '/G11/aparKing/map',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/aparKing/map',
+    redirectTo: '/G11/aparKing/map',
     pathMatch: 'full',
   },
 ];

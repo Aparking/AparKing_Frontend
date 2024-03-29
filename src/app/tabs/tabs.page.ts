@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { register } from 'swiper/element/bundle';
-import { GarageListComponent } from '../components/rental/garage-list/garage-list.component';
-
-register();
+import { LoadingController, NavController } from '@ionic/angular';
+import { DataManagementService } from 'src/app/service/data-management.service';
+import { constants } from './../constants.ts';
 
 @Component({
   selector: 'app-tabs',
@@ -10,6 +9,22 @@ register();
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage {
-  component = GarageListComponent;
-  constructor() {}
+  constants = constants;
+
+  constructor(
+    private navCtrl: NavController,
+    private datamanagement: DataManagementService,
+    private loadingCtrl: LoadingController
+  ) {}
+
+  async logout() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cerrando sesión...',
+    });
+    loading.present();
+    this.datamanagement.postLogout().then((_) => {
+      this.navCtrl.navigateRoot('/');
+      loading.dismiss();
+    });
+  }
 }

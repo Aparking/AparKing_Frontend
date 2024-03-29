@@ -1,11 +1,7 @@
 <ion-grid>
-  <ion-button
-                [routerLink]="'create'"
-                color="danger"
-                shape="round"
-                size="small"
-                >Añadir garaje</ion-button
-              >
+  <ion-button [routerLink]="'create'" color="danger" shape="round" size="small"
+    >Añadir garaje</ion-button
+  >
   <ion-row>
     <ion-col size="12" size-md="4">
       <ion-input
@@ -38,7 +34,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-title
-            ><a [routerLink]="['/aparKing/garages', garage.id]">{{
+            ><a [routerLink]="['/G11/aparKing/garages', garage.id]">{{
               garage.name
             }}</a></ion-card-title
           >
@@ -63,7 +59,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-title
-            ><a [routerLink]="['/aparKing/garages', garage.id]">{{
+            ><a [routerLink]="['/G11/aparKing/garages', garage.id]">{{
               garage.name
             }}</a></ion-card-title
           >

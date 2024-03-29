@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { RestService } from 'src/app/services/rest.service';
+import { RestService } from 'src/app/service/rest.service';
 
 @Component({
   selector: 'app-garage-detail',
@@ -95,7 +95,7 @@ export class GarageDetailComponent implements OnInit {
     this.restService
       .deleteGarage(this.garageId)
       .then(() => {
-        this.router.navigate([this.base_url]);
+        this.router.navigate(['/G11/aparKing/garages']);
       })
       .catch((error) => {
         console.error(error);
