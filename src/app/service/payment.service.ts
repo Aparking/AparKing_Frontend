@@ -1,16 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Injectable } from '@angular/core';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class PaymentService {
-  private backendUrl = 'http://localhost:3000'; // Asegúrate de usar la URL correcta de tu backend
+  private backendUrl = 'http://localhost:3000'; // URL de tu API de Django
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  createCheckoutSession() {
-    // Asume que tienes un endpoint `/api/create-checkout-session` en tu backend
-    return this.http.post(`${this.backendUrl}/payment/api/subscription/`, {});
+  createCheckoutSession(planId: string) {
+    return this.http.post<{ url: string }>(`${this.backendUrl}/payment/api/create-checkout-session/`, { planId });
   }
 }

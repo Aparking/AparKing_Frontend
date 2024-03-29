@@ -1,26 +1,28 @@
 import { Component } from '@angular/core';
+import { Plan } from 'src/app/models/payments';
 import { PaymentService } from 'src/app/service/payment.service';
-
-declare var Stripe: any; // Añade esta línea si Stripe no está declarado
 
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss'],
+  styleUrls: ['./subscription.component.scss']
 })
 export class SubscriptionComponent {
+  plans: Plan[] = [
+    { id: 'plan_basic', name: 'Basic Plan', price: '$10/month' },
+    { id: 'plan_pro', name: 'Pro Plan', price: '$20/month' },
+    { id: 'plan_premium', name: 'Premium Plan', price: '$30/month' }
+  ];
+
   constructor(private paymentService: PaymentService) { }
 
-  startSubscription() {
-    this.paymentService.createCheckoutSession().subscribe({
-      next: (session: any) => {
-        // Asegúrate de usar tu clave pública de Stripe aquí
-        const stripe = Stripe('pk_test_51OzOxfC4xI44aLdHvUAMGqXuLK20YmVySPMwzg1D6K5WSeSaGi1xKw8yE57CNg5hx3h6PMe6APLySRPUxvRWrMNK00kTx0DMyI');
-        stripe.redirectToCheckout({
-          sessionId: session.id,
-        });
+  selectPlan(planId: string) {
+    this.paymentService.createCheckoutSession(planId).subscribe(
+      session => {
+        // Redirige al Checkout de Stripe
+        window.location.href = session.url;
       },
-      error: (error) => console.error(`Error: ${error}`),
-    });
+      error => console.error(error)
+    );
   }
 }

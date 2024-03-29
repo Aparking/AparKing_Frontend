@@ -1,3 +1,4 @@
-<div class="subscription-container">
-  <button (click)="startSubscription()">Iniciar Suscripción</button>
+<!-- Mostrando solamente el primer plan -->
+<div>
+  <button (click)="selectPlan(plans[0].id)">{{ plans[0].name }} - {{ plans[0].price }}</button>
 </div>
