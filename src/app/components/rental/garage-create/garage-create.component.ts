@@ -103,7 +103,7 @@ export class GarageCreateComponent implements OnInit {
               (response) => {
                 console.log('Imagen asociada', response);
                 this.imageForm.reset(); // Limpia los campos del formulario
-                this.router.navigate(['/aparKing/garages/']); // Navega a la página de creación de garajes
+                this.router.navigate(['/G11/aparKing/garages/']); // Navega a la página de creación de garajes
               }
             );
           } else {
@@ -114,6 +114,7 @@ export class GarageCreateComponent implements OnInit {
         }
       );
     } else {
+      //TODO - Imprimir mensajes de error en el formulario
       console.log('El formulario de garaje no es válido');
     }
   }

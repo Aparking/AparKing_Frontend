@@ -90,7 +90,7 @@ export class GarageDetailComponent implements OnInit {
     this.restService
       .deleteGarage(this.garageId)
       .then(() => {
-        this.router.navigate(['/aparKing/garages']);
+        this.router.navigate(['/G11/aparKing/garages']);
       })
       .catch((error) => {
         console.error(error);

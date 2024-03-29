@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { LoadingController, NavController } from '@ionic/angular';
 import { DataManagementService } from 'src/app/service/data-management.service';
-import { register } from 'swiper/element/bundle';
-import { GarageListComponent } from '../components/rental/garage-list/garage-list.component';
 import { constants } from './../constants.ts';
-
-register();
 
 @Component({
   selector: 'app-tabs',
@@ -13,7 +9,6 @@ register();
   styleUrls: ['tabs.page.scss'],
 })
 export class TabsPage {
-  component = GarageListComponent;
   constants = constants;
 
   constructor(

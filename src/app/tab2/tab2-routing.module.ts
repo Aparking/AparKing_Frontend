@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
 import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
 import { Tab2Page } from './tab2.page';
-import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
 
 const routes: Routes = [
   {
@@ -13,15 +13,10 @@ const routes: Routes = [
     path: 'create',
     component: GarageCreateComponent,
   },
-
-
-
   {
     path: ':id',
     component: GarageDetailComponent,
   },
-  
-  
   {
     path: '**',
     redirectTo: '',
