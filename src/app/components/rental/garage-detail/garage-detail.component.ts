@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { RestService } from 'src/app/services/rest.service';
+import { RestService } from 'src/app/service/rest.service';
 
 @Component({
   selector: 'app-garage-detail',

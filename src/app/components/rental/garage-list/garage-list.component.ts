@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Garage, Image } from 'src/app/models/garagement';
-import { RestService } from 'src/app/services/rest.service';
+import { RestService } from 'src/app/service/rest.service';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
 
 @Component({

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Garage } from 'src/app/models/garagement';
-import { RestService } from 'src/app/services/rest.service';
+import { RestService } from 'src/app/service/rest.service';
 
 @Component({
   selector: 'app-my-garages',
   templateUrl: './my-garages.component.html',
   styleUrls: ['./my-garages.component.scss'],
 })
-export class MyGaragesComponent  implements OnInit {
+export class MyGaragesComponent implements OnInit {
   garages!: any[];
   garage: Garage[] = [];
 
@@ -23,5 +23,4 @@ export class MyGaragesComponent  implements OnInit {
       console.log(this.garages);
     });
   }
-
 }

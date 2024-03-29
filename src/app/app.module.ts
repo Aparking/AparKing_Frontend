@@ -1,44 +1,35 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RestService } from './services/rest.service';
-
+import { AuthTokenService } from './interceptors/auth-token.service';
+import { DataManagementService } from './service/data-management.service';
+import { WebsocketService } from './service/websocket.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-
+  declarations: [AppComponent],
   imports: [
-    
-    BrowserModule, 
-   
-    CommonModule,
-    IonicModule.forRoot(), 
-   
-    AppRoutingModule, 
-    ReactiveFormsModule,
-   
-    RouterModule,
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
     HttpClientModule,
   ],
-
   providers: [
-    { 
-    provide: RouteReuseStrategy, 
-    useClass: IonicRouteStrategy },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenService, multi: true },
+    DataManagementService,
+    AuthTokenService,
     HttpClient,
-    RestService,
+    WebsocketService,
   ],
-
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

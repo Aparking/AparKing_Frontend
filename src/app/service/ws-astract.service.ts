@@ -4,23 +4,24 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class WsAstractService {
+export class WsAbstractService {
   constructor(private http: HttpClient) {}
 
   protected makeGetRequest(path: string, paramsRequest?: any): Promise<any> {
     paramsRequest = !paramsRequest ? {} : paramsRequest;
     return new Promise((resolve, reject) => {
-      this.http.get(path, { params: paramsRequest }).subscribe({
-        next: (data) => resolve(data),
-        error: (err) => {
+      this.http.get(path, { params: paramsRequest }).subscribe(
+        (data) => {
+          resolve(data);
+        },
+        (err) => {
           if (err == 200) {
             reject(null);
           } else {
-            console.log(err);
             reject(err);
           }
         }
-      });
+      );
     });
   }
 
@@ -33,7 +34,6 @@ export class WsAstractService {
           if (err && err.status == 200) {
             reject(null);
           } else {
-            console.log(err);
             reject(err);
           }
         },
