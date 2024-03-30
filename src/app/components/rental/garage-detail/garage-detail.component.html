@@ -25,6 +25,10 @@
         >
 
         <ion-buttons slot="end">
+          <ion-button color="success" id="book-garage" (click)="openModal()">
+            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+          </ion-button>
+
           <a [routerLink]="['/G11/aparKing/garages/', garageId, 'edit']">
             <ion-button color="primary">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>

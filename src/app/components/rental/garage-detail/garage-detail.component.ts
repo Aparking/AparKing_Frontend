@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
+
+import { GarageBookCreateComponent } from '../garage-book-create/garage-book-create.component';
 
 @Component({
   selector: 'app-garage-detail',
@@ -14,7 +20,9 @@ export class GarageDetailComponent implements OnInit {
     private restService: RestService,
     private route: ActivatedRoute,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalCtrl: ModalController,
+    private toastController: ToastController
   ) {}
 
   MEDIA_BASE_ULR = environment.restUrl;
@@ -106,5 +114,16 @@ export class GarageDetailComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/G11/aparKing/garages']);
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: GarageBookCreateComponent,
+      componentProps: {
+        garageId: this.garageId,
+        currentGarage: this.currentGarage,
+      },
+    });
+    return await modal.present();
   }
 }
