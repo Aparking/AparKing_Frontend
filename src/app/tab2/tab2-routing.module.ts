@@ -18,6 +18,10 @@ const routes: Routes = [
     component: GarageDetailComponent,
   },
   {
+    path: ':id/edit',
+    component: GarageCreateComponent,
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',

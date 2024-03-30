@@ -55,18 +55,23 @@ export class RestService extends WsAbstractService {
   async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
+
   async getMyGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/mine/`);
   }
+
   async getAvailableGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/available/`);
   }
+
   async getMyAvailableGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/mine/available/`);
   }
+
   async getGarageById(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}/`);
   }
+
   async getCreateGarage(data: any): Promise<any> {
     return await this.makePostRequest(`${this.path}/garages/create/`, data);
   }
@@ -74,6 +79,7 @@ export class RestService extends WsAbstractService {
   async updateGarage(id: string, data: any): Promise<Garage> {
     return await this.makePutRequest(`${this.path}/garages/${id}/`, data);
   }
+
   async deleteGarage(id: string): Promise<any> {
     return await this.makeDeleteRequest(`${this.path}/garages/${id}/`, {});
   }
@@ -88,10 +94,12 @@ export class RestService extends WsAbstractService {
   async getAllImages(): Promise<Image[]> {
     return await this.makeGetRequest(`${this.path}/garages/images/`);
   }
+
   async getImage(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/images/${id}/`);
   }
-  async getImageByGarageId(id: string): Promise<any> {
+
+  async getImagesByGarageId(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}/images/`);
   }
 }

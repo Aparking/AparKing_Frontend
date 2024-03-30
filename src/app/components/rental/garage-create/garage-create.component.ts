@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { RestService } from 'src/app/service/rest.service';
 
@@ -14,15 +15,20 @@ export class GarageCreateComponent implements OnInit {
   imageForm!: FormGroup;
   garages: any[] = [];
   selectedFile!: File;
+  base_url = '/G11/aparKing/garages';
+  garageId: string = '';
+  currentGarage?: any;
+  currentGarageImages: any[] = [];
 
   constructor(
     private formGargeBuilder: FormBuilder,
     private formImageBuilder: FormBuilder,
+    private toastController: ToastController,
     private restService: RestService,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
+    private router: Router,
+    private route: ActivatedRoute,
+    private navCtr: NavController
+  ) {
     this.garageForm = this.formGargeBuilder.group({
       address: this.formGargeBuilder.group({
         unit_number: [null, Validators.required],
@@ -42,10 +48,8 @@ export class GarageCreateComponent implements OnInit {
       creation_date: [this.getCurrentDate(), Validators.required],
       modification_date: [this.getCurrentDate(), Validators.required],
       is_active: [true, Validators.required],
-      owner: [null, Validators.required], //TODO  QUE LO PILLE AUTOMATICAMENTE
+      owner: [null, Validators.required], //TODO - QUE LO PILLE AUTOMATICAMENTE
     });
-
-    //IMAGE**
     this.imageForm = this.formImageBuilder.group({
       image: this.formImageBuilder.group({
         garage: [1, Validators.required],
@@ -54,15 +58,58 @@ export class GarageCreateComponent implements OnInit {
         publication_date: [this.getCurrentDate(), Validators.required],
       }),
     });
+  }
 
-    this.getAllGarages();
-
-    from(this.restService.getAllGarages()).subscribe((data: any) => {
-      // Make sure the data has the same structure as your formz
-      const address = data.address || {};
-      const country = address.country || 'ES'; // Use 'ES' as a default value
-      this.garageForm.patchValue({ address: { country } });
+  ngOnInit() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let id = params.get('id');
+      if (id) this.garageId = id;
     });
+
+    if (this.garageId) {
+      this.retrieveGarage();
+    } else {
+      this.getAllGarages();
+      from(this.restService.getAllGarages()).subscribe((data: any) => {
+        // Make sure the data has the same structure as your formz
+        const address = data.address || {};
+        const country = address.country || 'ES'; // Use 'ES' as a default value
+        this.garageForm.patchValue({ address: { country } });
+      });
+    }
+  }
+
+  retrieveGarage() {
+    this.restService
+      .getGarageById(this.garageId)
+      .then((garage) => {
+        this.currentGarage = garage;
+        this.garageForm.setValue({
+          address: {
+            unit_number: garage.address.unit_number,
+            street_number: garage.address.street_number,
+            address_line: garage.address.address_line,
+            city: garage.address.city,
+            region: garage.address.region,
+            country: garage.address.country,
+            postal_code: garage.address.postal_code,
+          },
+          name: garage.name,
+          description: garage.description,
+          height: garage.height,
+          width: garage.width,
+          length: garage.length,
+          price: garage.price,
+          creation_date: garage.creation_date,
+          modification_date: garage.modification_date,
+          is_active: garage.is_active,
+          owner: garage.owner,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.router.navigate([`${this.base_url}/${this.garageId}`]);
+      });
   }
 
   getCurrentDate(): string {
@@ -80,39 +127,71 @@ export class GarageCreateComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  saveGarage() {
+  uploadImage(toast: any) {
+    if (this.imageForm.valid && this.selectedFile) {
+      const formData = new FormData();
+      formData.append('garage', this.garageId);
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+      formData.append('alt', this.imageForm.get('image')?.get('alt')?.value);
+
+      this.restService.getCreateImage(formData).then(async (_) => {
+        toast.message = `Imagen subida correctamente.`;
+        toast.present();
+        this.router.navigate(['/G11/aparKing/garages/']);
+      });
+    } else {
+      toast.message = `Error al subir la imagen, vuelva a intentarlo.`;
+      toast.present();
+    }
+  }
+
+  async saveGarage() {
+    const toast = await this.toastController.create({
+      duration: 2000, // Duración del toast en milisegundos
+      position: 'bottom', // Posición del toast (top, middle, bottom)
+      color: 'dark', // Color del toast
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+        },
+      ],
+    });
+
     if (this.garageForm.valid) {
-      from(this.restService.getCreateGarage(this.garageForm.value)).subscribe(
-        (response) => {
-          console.log('Garaje creado', response);
-          this.garageForm.reset(); // Limpia los campos del formulario
-          const garageId = response.id; // Obtén el ID del garaje creado
-          this.imageForm.get('image')?.get('garage')?.setValue(garageId); // Establece el ID del garaje en el formulario de imagen
-
-          // Verifica si el formulario de imagen también es válido y se ha seleccionado un archivo
-          if (this.imageForm.valid && this.selectedFile) {
-            const formData = new FormData();
-            formData.append('garage', garageId); // Envía el ID del garaje en lugar de obtenerlo del formulario de imagen
-            formData.append('image', this.selectedFile, this.selectedFile.name);
-            formData.append(
-              'alt',
-              this.imageForm.get('image')?.get('alt')?.value
-            );
-
-            from(this.restService.getCreateImage(formData)).subscribe(
-              (response) => {
-                console.log('Imagen asociada', response);
-                this.imageForm.reset(); // Limpia los campos del formulario
-                this.router.navigate(['/G11/aparKing/garages/']); // Navega a la página de creación de garajes
-              }
-            );
-          } else {
-            console.log(
-              'El formulario de imagen no es válido o no se ha seleccionado un archivo'
-            );
-          }
-        }
-      );
+      if (this.garageId) {
+        console.log('Actualizando garaje', this.garageForm.value);
+        this.restService
+          .updateGarage(this.garageId, this.garageForm.value)
+          .then(async (_) => {
+            if (this.selectedFile) {
+              this.imageForm
+                .get('image')
+                ?.get('garage')
+                ?.setValue(this.garageId);
+              this.uploadImage(toast);
+            }
+            this.navCtr.navigateRoot('G11/aparKing/garages');
+          })
+          .catch(async (_) => {
+            toast.message = `Error al actualizar el garaje, vuelva a intentarlo.`;
+            await toast.present();
+          });
+      } else {
+        this.restService
+          .getCreateGarage(this.garageForm.value)
+          .then(async (response) => {
+            this.garageId = response.id;
+            if (this.selectedFile) {
+              this.uploadImage(toast); // Sube la imagen asociada al garaje
+            }
+            this.navCtr.navigateRoot('G11/aparKing/garages');
+          })
+          .catch(async (_) => {
+            toast.message = `Error al crear el garaje, vuelva a intentarlo.`;
+            await toast.present();
+          });
+      }
     } else {
       //TODO - Imprimir mensajes de error en el formulario
       console.log('El formulario de garaje no es válido');
