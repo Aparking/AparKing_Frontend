@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="closeModal()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Mis reservas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="myBookings.length === 0; else bookingsList">
+    <ion-text color="medium">
+      <h1 style="margin: auto">No tienes reservas</h1>
+    </ion-text>
+  </ng-container>
+
+  <ng-template #bookingsList>
+    <ion-list>
+      <ion-item *ngFor="let booking of myBookings">
+        <ion-buttons>
+          <ion-button color="danger" (click)="cancelBooking(booking.id)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-label>
+          <h2>Garaje</h2>
+          <p>{{ booking.garage.name }}</p>
+        </ion-label>
+        <ion-label>
+          <h2>Fecha de inicio</h2>
+          <p>{{ booking.availability.start_date }}</p>
+        </ion-label>
+        <ion-label>
+          <h2>Fecha de fin</h2>
+          <p>{{ booking.availability.end_date }}</p>
+        </ion-label>
+        <ion-label>
+          <h2>Precio</h2>
+          <p>{{ booking.garage.price }} €/día</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</ion-content>

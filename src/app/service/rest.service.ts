@@ -116,6 +116,11 @@ export class RestService extends WsAbstractService {
     return await this.makeDeleteRequest(`${this.path}/bookings/${id}/`, {});
   }
 
+  async getAvailabilityById(id: string): Promise<any> {
+    return await this.makeGetRequest(
+      `${this.path}/garages/availability/${id}/`
+    );
+  }
   async getAvailabilitiesByGarageId(id: string): Promise<Availability[]> {
     return await this.makeGetRequest(
       `${this.path}/garages/${id}/availability/`

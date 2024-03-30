@@ -13,7 +13,6 @@ import { RestService } from 'src/app/service/rest.service';
 @Component({
   selector: 'app-garage-book-create',
   templateUrl: './garage-book-create.component.html',
-  styleUrls: ['./garage-book-create.component.scss'],
 })
 export class GarageBookCreateComponent {
   garageId!: string;

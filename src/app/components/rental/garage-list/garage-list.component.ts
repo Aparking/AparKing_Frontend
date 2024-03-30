@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Garage, Image } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
+import { GarageBookListComponent } from '../garage-book-list/garage-book-list.component';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
 
 @Component({
@@ -20,11 +22,21 @@ export class GarageListComponent implements OnInit {
   priceFilter!: number;
   dimensionFilter!: number;
 
-  constructor(private restService: RestService) {}
+  constructor(
+    private restService: RestService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit(): void {
     this.retrieveAllGarages();
     this.getAllImages();
+  }
+
+  async openBookListModal() {
+    const modal = await this.modalCtrl.create({
+      component: GarageBookListComponent,
+    });
+    return await modal.present();
   }
 
   retrieveAllGarages() {
