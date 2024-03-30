@@ -1,12 +1,12 @@
 export interface Address {
   id: number | string;
-  streetNumber: string;
-  unitNumber: string | null;
-  addressLine: string;
+  street_number: string;
+  unit_number: string | null;
+  address_line: string;
   city: string;
   region: string;
   country: string;
-  postalCode: string;
+  postal_code: string;
 }
 
 export interface Garage {
@@ -17,19 +17,19 @@ export interface Garage {
   width: number;
   length: number;
   price: number;
-  creationDate: string;
-  modificationDate: string;
-  isActive: boolean;
-  ownerId: number | string;
-  addressId: number | string;
+  creation_date: string;
+  modification_date: string;
+  is_active: boolean;
+  owner: number | string;
+  address: Address;
 }
 
 export interface Image {
   id: number | string;
-  imageUrl: string;
+  image: string;
   alt: string;
-  publicationDate: string;
-  garageId: number | string;
+  publication_date: string;
+  garage: number | string;
 }
 
 export enum GarageStatus {

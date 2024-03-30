@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-garage-detail',
@@ -16,7 +17,8 @@ export class GarageDetailComponent implements OnInit {
     private alertController: AlertController
   ) {}
 
-  MEDIA_BASE_ULR = 'http://127.0.0.1:8000';
+  MEDIA_BASE_ULR = environment.restUrl;
+  base_url = '/G11/aparKing/garages';
   garageId: string = '';
   currentGarage?: any;
   currentGarageImages: any[] = [];
@@ -27,7 +29,7 @@ export class GarageDetailComponent implements OnInit {
       if (id) this.garageId = id;
       else {
         console.error('No id provided');
-        this.router.navigate([`/garages/${this.garageId}`]);
+        this.router.navigate([`${this.base_url}`]);
       }
     });
     this.retrieveGarage();
@@ -41,10 +43,10 @@ export class GarageDetailComponent implements OnInit {
       })
       .catch((error) => {
         console.error(error);
-        this.router.navigate([`/garages/${this.garageId}`]);
+        this.router.navigate([`${this.base_url}/${this.garageId}`]);
       });
 
-    this.restService.getImageByGarageId(this.garageId).then((images) => {
+    this.restService.getImagesByGarageId(this.garageId).then((images) => {
       this.currentGarageImages = images;
     });
   }
@@ -59,7 +61,7 @@ export class GarageDetailComponent implements OnInit {
         })
         .catch((error) => {
           console.error(error);
-          this.router.navigate([`/garages/${this.garageId}`]);
+          this.router.navigate([`${this.base_url}/${this.garageId}`]);
         });
     }
   }
@@ -86,6 +88,10 @@ export class GarageDetailComponent implements OnInit {
     await alert.present();
   }
 
+  showUpdateGarage() {
+    this.router.navigate([`${this.base_url}/${this.garageId}/edit`]);
+  }
+
   deleteGarage() {
     this.restService
       .deleteGarage(this.garageId)
@@ -94,7 +100,11 @@ export class GarageDetailComponent implements OnInit {
       })
       .catch((error) => {
         console.error(error);
-        this.router.navigate([`/garages/${this.garageId}`]);
+        this.router.navigate([`${this.base_url}/${this.garageId}`]);
       });
+  }
+
+  goBack() {
+    this.router.navigate(['/G11/aparKing/garages']);
   }
 }
