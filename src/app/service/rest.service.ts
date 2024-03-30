@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Token, User } from '../models/authentication';
-import { Garage, Image } from '../models/garagement';
+import { Book, Garage, Image } from '../models/garagement';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { WsAbstractService } from './ws-astract.service';
 
@@ -93,5 +93,18 @@ export class RestService extends WsAbstractService {
   }
   async getImageByGarageId(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}/images/`);
+  }
+
+  async getBookings(): Promise<Book[]> {
+    return await this.makeGetRequest(`${this.path}/bookings/`);
+  }
+  async getBookingById(id: string): Promise<Book> {
+    return await this.makeGetRequest(`${this.path}/bookings/${id}/`);
+  }
+  async createBooking(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/bookings/create/`, data);
+  }
+  async deleteBooking(id: string): Promise<any> {
+    return await this.makeDeleteRequest(`${this.path}/bookings/${id}/`, {});
   }
 }
