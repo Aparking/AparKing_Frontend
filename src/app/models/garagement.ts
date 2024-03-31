@@ -58,6 +58,7 @@ export enum BookingStatus {
 }
 
 export interface Book {
+  id: number | string;
   payment_method: PaymentMethod;
   status: BookingStatus;
   user: number | string;

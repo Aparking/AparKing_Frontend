@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
 
 @Component({
@@ -12,7 +16,8 @@ export class GarageBookListComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private restService: RestService,
-    public toastController: ToastController
+    private toastController: ToastController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit(): void {
@@ -31,10 +36,38 @@ export class GarageBookListComponent implements OnInit {
         },
       ],
     });
+
     this.restService
       .getBookings()
-      .then((bookings) => {
+      .then(async (bookings) => {
         this.myBookings = bookings;
+        const promises = [];
+        for (const booking of this.myBookings) {
+          console.log(booking);
+          const availabilityPromise = this.restService
+            .getAvailabilityById(booking.availability)
+            .then((availability) => {
+              booking.availability = availability;
+              return this.restService.getGarageById(availability.garage);
+            })
+            .then((garage) => {
+              booking.garage = garage;
+            })
+            .catch((_) => {
+              toast.message =
+                'No se pudieron cargar los datos. Intente más tarde.';
+              toast.present();
+              this.closeModal();
+            });
+          promises.push(availabilityPromise);
+        }
+        try {
+          await Promise.all(promises);
+        } catch (error) {
+          toast.message = 'No se pudieron cargar los datos. Intente más tarde.';
+          toast.present();
+          this.closeModal();
+        }
       })
       .catch((err) => {
         if (err.status === 404) {
@@ -45,37 +78,37 @@ export class GarageBookListComponent implements OnInit {
           this.closeModal();
         }
       });
-
-    for (const booking of this.myBookings) {
-      this.restService
-        .getAvailabilityById(booking.availability)
-        .then((availability) => {
-          booking.availability = availability;
-          this.restService
-            .getGarageById(availability.garage_id)
-            .then((garage) => {
-              booking.garage = garage;
-            })
-            .catch((_) => {
-              toast.message =
-                'No se pudieron cargar los datos. Intente más tarde.';
-              toast.present();
-              this.closeModal();
-            });
-        })
-        .catch(() => {
-          toast.message = 'No se pudieron cargar los datos. Intente más tarde.';
-          toast.present();
-          this.closeModal();
-        });
-    }
   }
 
   async closeModal() {
     await this.modalCtrl.dismiss(null, 'back');
   }
 
-  async cancelBooking(booking: any) {
+  async alertCancelBooking(bookingId: string) {
+    console.log(bookingId);
+    const alert = await this.alertController.create({
+      header: 'Cancelar reserva',
+      message: '¿Estás seguro de que quieres cancelar la reserva?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            console.log(bookingId);
+            this.cancelBooking(bookingId);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async cancelBooking(bookingId: string) {
     const toast = await this.toastController.create({
       duration: 2000,
       position: 'bottom',
@@ -88,7 +121,7 @@ export class GarageBookListComponent implements OnInit {
       ],
     });
     this.restService
-      .deleteBooking(booking.id)
+      .deleteBooking(bookingId)
       .then(() => {
         toast.message = 'Reserva cancelada correctamente.';
         toast.present();

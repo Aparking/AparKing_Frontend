@@ -160,7 +160,6 @@ export class GarageCreateComponent implements OnInit {
 
     if (this.garageForm.valid) {
       if (this.garageId) {
-        console.log('Actualizando garaje', this.garageForm.value);
         this.restService
           .updateGarage(this.garageId, this.garageForm.value)
           .then(async (_) => {
