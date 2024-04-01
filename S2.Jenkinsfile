@@ -4,7 +4,7 @@ pipeline {
         INSTANCE_NAME = "aparking-frontend-s2"
         PROJECT = "aparking-g11-s1"
         ZONE = "europe-southwest1-a"
-        IMAGE = "jenkins-docker" // La imagen de GCE que tiene Docker y Docker Compose
+        IMAGE = "frontend"
         MACHINE_TYPE = "e2-medium"
         GIT_REPO = "https://github.com/Aparking/AparKing_Frontend.git"
         GIT_BRANCH = "deploy/s2"
