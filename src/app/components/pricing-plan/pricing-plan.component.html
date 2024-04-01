@@ -1,0 +1,34 @@
+
+
+<ion-content class="ion-padding">
+  <div class="plans-container">
+    <div class="plan">
+      <h2>Plan Básico</h2>
+      <p class="price">Gratis</p>
+      <ul class="features">
+        <li>- 50 créditos para búsquedas de aparcamiento y alquiler</li>
+        <li>- Podrás ofertar 1 plaza de aparcamiento privada</li>
+      </ul>
+      <ion-button expand="block" color="primary" (click)="selectPlan(MemberType.FREE)">Seleccionar</ion-button>
+    </div>
+    <div class="plan pro">
+      <h2>Plan Noble</h2>
+      <p class="price">$3.99/mes</p>
+      <span class="badge">Más vendido</span> <!-- Insignia para el plan Pro -->
+      <ul class="features">
+        <li>- 300 créditos para búsquedas de aparcamiento y alquiler</li>
+        <li>- Podrás ofertar 3 plazas de aparcamiento privada</li>
+      </ul>
+      <ion-button expand="block" color="primary"(click)="selectPlan(MemberType.NOBLE)">Seleccionar</ion-button>
+    </div>
+    <div class="plan">
+      <h2>Plan King</h2>
+      <p class="price">$4.99/mes</p>
+      <ul class="features">
+        <li>- 1000 créditos para búsquedas de aparcamiento y alquiler</li>
+        <li>- Podrás ofertar 5 plazas de aparcamiento privada</li>
+      </ul>
+      <ion-button expand="block" color="primary"(click)="selectPlan(MemberType.KING)">Seleccionar</ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -5,19 +5,32 @@
   align-items: center;
   background-color: #ffffff; // White background
   border: 1px solid #000000;
+  scroll-behavior: auto;
 }
 
 .title {
   width: 600px;
 }
 
-.content {
+ion-content {
+  --background: none; /* Esto es para hacer transparente el fondo predeterminado de ion-content */
+}
+
+ion-content::part(scroll) {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
+}
+
+ion-card {
+  max-width: 400px;
+  max-height: 150px;
   background-color: #fff;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  margin: 20px;
 }
 
 .card-content {
@@ -56,4 +69,19 @@
 .error-message {
   color: red;
   // other styles...
+}
+
+ion-datetime {
+  --background: rgb(245, 235, 247);
+  --background-rgb: 245, 235, 247;
+  --wheel-highlight-background: rgb(218, 216, 255);
+  --wheel-fade-background-rgb: 245, 235, 247;
+}
+
+ion-datetime::part(wheel-item) {
+  color: rgb(0, 0, 0);
+}
+
+ion-datetime::part(wheel-item active) {
+  color: rgb(128, 30, 171);
 }

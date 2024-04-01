@@ -6,12 +6,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './components/user-management/register/register.component';
+import { LoginModule } from './modules/login.module';
+import {LogoutModule} from './modules/logout.module';
+import { PricingPlanModule } from './modules/pricing-plan.module';
+
 import { UserListModule } from './components/user-list/user-list.module';
-import { RegisterComponent } from './usuarios/register/register.component';
-import { LoginModule } from './usuarios/login/login.module';
-import {LogoutModule} from './usuarios/logout/logout.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import {LogoutModule} from './usuarios/logout/logout.module';
     RegisterComponent
   ],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,ReactiveFormsModule,
-     FormsModule,LoginModule,LogoutModule,HttpClientModule,UserListModule],
+     FormsModule,LoginModule,LogoutModule,HttpClientModule,UserListModule,PricingPlanModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
