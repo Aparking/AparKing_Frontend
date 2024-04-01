@@ -27,7 +27,7 @@ pipeline {
                         cd /app
                         ionic build --prod
                         build --prod
-                        ionic serve —prod
+                        ionic serve —prod'
                     """
                 }
             }
