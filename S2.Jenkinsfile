@@ -25,8 +25,9 @@ pipeline {
                         --metadata=startup-script='#!/bin/bash
                         sudo git clone --single-branch --branch ${GIT_BRANCH} ${GIT_REPO} /app
                         cd /app
-                        ionic build --prod
-                        build --prod
+                        sudo npm i
+                        sudo ionic build --prod
+                        sudo ng build --prod
                         ionic serve —prod'
                     """
                 }
