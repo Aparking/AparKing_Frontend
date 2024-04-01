@@ -1,4 +1,30 @@
 <!-- Mostrando solamente el primer plan -->
-<div>
-  <button (click)="selectPlan(plans[0].id)">{{ plans[0].name }} - {{ plans[0].price }}</button>
-</div>
+<ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ plans[0].name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Price: {{ plans[0].price }}
+      <ion-button expand="block" (click)="selectPlan(plans[0].id)">Select Plan</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ plans[1].name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Price: {{ plans[1].price }}
+      <ion-button expand="block" (click)="selectPlan(plans[1].id)">Select Plan</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ plans[2].name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Price: {{ plans[2].price }}
+      <ion-button expand="block" (click)="selectPlan(plans[2].id)">Select Plan</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-card>

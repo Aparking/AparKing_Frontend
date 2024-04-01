@@ -9,9 +9,9 @@ import { PaymentService } from 'src/app/service/payment.service';
 })
 export class SubscriptionComponent {
   plans: Plan[] = [
-    { id: 'plan_basic', name: 'Basic Plan', price: '$10/month' },
-    { id: 'plan_pro', name: 'Pro Plan', price: '$20/month' },
-    { id: 'plan_premium', name: 'Premium Plan', price: '$30/month' }
+    { id: 'FREE', name: 'FREE', price: '0€/month' },
+    { id: 'NOBLE', name: 'NOBLE', price: '3.99€/month' },
+    { id: 'KING', name: 'KING', price: '4.99€/month' }
   ];
 
   constructor(private paymentService: PaymentService) { }
