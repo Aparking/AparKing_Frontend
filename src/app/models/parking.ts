@@ -6,15 +6,22 @@ export interface Location {
 }
 
 export enum ParkingType {
-  ASSIGNMENT = 'ASSIGNMENT',
-  FREE = 'FREE',
-  PRIVATE = 'PRIVATE',
+  ASSIGNMENT = 'Cesión',
+  FREE = 'Libre',
+  PRIVATE = 'Privado',
 }
 
 export enum ParkingSize {
-  SMALL = 'SMALL',
-  MEDIUM = 'MEDIUM',
-  LARGE = 'LARGE',
+  BERLINA = 'Berlina',
+  COMPACTO = 'Compacto',
+  SEDAN = 'Sedan',
+  FURGONETA = 'Furgoneta',
+  SUV = 'SUV',
+}
+
+export interface ParkingCreate {
+  parking_types: string[];
+  parking_sizes: string[];
 }
 
 export enum NotificationsSocket {
@@ -23,21 +30,26 @@ export enum NotificationsSocket {
   PARKING_NOTIFIED = 'notify.parking.created',
 }
 
+export interface ParkingSocket {
+  message: Parking;
+  type: NotificationsSocket;
+}
+
 export interface ParkingResponse {
   parkingData: Parking[];
   group: string;
 }
 
 export interface Parking {
-  id: number;
-  notified_by: User;
-  bookedBy: User | null;
-  message: string | null;
+  id?: number;
+  notified_by?: User;
+  bookedBy?: User | null;
+  message?: string | null;
   location: Location;
   size: ParkingSize;
   is_assignment: boolean;
   isTransfer: boolean;
   parking_type: ParkingType;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
