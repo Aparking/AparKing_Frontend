@@ -26,8 +26,9 @@ pipeline {
                         sudo git clone --single-branch --branch ${GIT_BRANCH} ${GIT_REPO} /app
                         cd /app
                         sudo npm i
+                        sudo npm install express
                         sudo ionic build --prod --no-interactive
-                        ionic serve —prod -p 8180'
+                        sudo node server.js'
                     """
                 }
             }
