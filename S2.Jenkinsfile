@@ -27,7 +27,7 @@ pipeline {
                         cd /app
                         sudo npm i
                         sudo npm install express
-                        sudo ionic build --prod --no-interactive
+                        sudo ionic build --prod
                         sudo node server.js'
                     """
                 }
