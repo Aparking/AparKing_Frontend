@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Plan } from 'src/app/models/payments';
 import { PaymentService } from 'src/app/service/payment.service';
 
@@ -7,7 +7,10 @@ import { PaymentService } from 'src/app/service/payment.service';
   templateUrl: './subscription.component.html',
   styleUrls: ['./subscription.component.scss']
 })
-export class SubscriptionComponent {
+export class SubscriptionComponent implements OnInit {
+  ngOnInit() {
+    console.log('login');
+  }
   plans: Plan[] = [
     { id: 'FREE', name: 'FREE', price: '0€/month' },
     { id: 'NOBLE', name: 'NOBLE', price: '3.99€/month' },
@@ -16,13 +19,12 @@ export class SubscriptionComponent {
 
   constructor(private paymentService: PaymentService) { }
 
-  selectPlan(planId: string) {
-    this.paymentService.createCheckoutSession(planId).subscribe(
-      session => {
-        // Redirige al Checkout de Stripe
-        window.location.href = session.url;
-      },
-      error => console.error(error)
-    );
+  async selectPlan(planId: string) {
+    try {
+      const session = await this.paymentService.createCheckoutSession(planId);
+      window.location.href = session.url; // O lo que sea que necesites hacer con session
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

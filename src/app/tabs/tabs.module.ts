@@ -7,6 +7,7 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
+import { RestService } from 'src/app/service/rest.service';
 import { CreateParkingModalComponent } from '../components/create-parking-modal/create-parking-modal.component';
 import { MapComponent } from '../components/map/map.component';
 import { DataManagementService } from '../service/data-management.service';
@@ -23,6 +24,6 @@ import { TabsPage } from './tabs.page';
   ],
   declarations: [TabsPage, MapComponent, CreateParkingModalComponent, SubscriptionComponent],
   exports: [MapComponent, CreateParkingModalComponent, SubscriptionComponent],
-  providers: [DataManagementService, WebsocketService],
+  providers: [DataManagementService, WebsocketService, RestService],
 })
 export class TabsPageModule { }
