@@ -1,7 +1,9 @@
 /* Estilos generales */
 ion-title {
-  font-size: 28px; /* Tamaño de fuente aumentado */
+  font-size: 28px;
+  /* Tamaño de fuente aumentado */
 }
+
 .about-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -9,12 +11,15 @@ ion-title {
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  text-align: center; /* Centrar el contenido */
+  text-align: center;
+  /* Centrar el contenido */
 }
 
 h1 {
-  font-size: 36px; /* Tamaño de fuente aumentado */
-  color: #000; /* Color de texto negro */
+  font-size: 36px;
+  /* Tamaño de fuente aumentado */
+  color: #000;
+  /* Color de texto negro */
 }
 
 /* Estilos para el título */
@@ -43,6 +48,15 @@ h1 {
   border-radius: 10px;
 }
 
+.icon {
+  width: 100%;
+  max-width: 40px;
+  height: auto;
+  margin-left: 40px auto;
+  display: block;
+
+}
+
 /* Estilos para los enlaces de redes sociales */
 .social-links {
   margin-top: 20px;
@@ -64,29 +78,31 @@ h1 {
 /* Estilos para el contenido en dispositivos móviles */
 @media only screen and (max-width: 600px) {
   .about-container {
-      padding: 20px;
+    padding: 20px;
   }
 
   .about-container h2 {
-      font-size: 20px;
+    font-size: 20px;
   }
 
   .about-container p {
-      font-size: 16px;
+    font-size: 16px;
   }
 
   .team-image {
-      max-width: 300px;
+    max-width: 300px;
   }
 
   .social-links a {
-      font-size: 18px;
+    font-size: 18px;
   }
 }
 
 .portrait {
-  width: 150px; /* Ajusta el ancho según sea necesario */
-  height: auto; /* Aplica un borde redondeado para una apariencia más elegante */
-  margin: 10px; /* Añade espacio entre las imágenes */
+  width: 150px;
+  /* Ajusta el ancho según sea necesario */
+  height: auto;
+  /* Aplica un borde redondeado para una apariencia más elegante */
+  margin: 10px;
+  /* Añade espacio entre las imágenes */
 }
-
