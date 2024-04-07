@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
-  { path: 'test-subscription', component: SubscriptionComponent, canActivate: [AuthGuard] },
+  { path: 'api/subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
   {
     path: '',
     loadChildren: () =>

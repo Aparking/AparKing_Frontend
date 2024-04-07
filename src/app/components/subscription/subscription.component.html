@@ -1,5 +1,9 @@
-<!-- Mostrando solamente el primer plan -->
 <ion-card>
+  <ion-card-header>
+    <ion-card-title>Nombre de usuario: {{ userInfo?.user?.username }}</ion-card-title>
+    <ion-card-title>Creditos disponibles: {{ userInfo?.credit?.value }}</ion-card-title>
+    <ion-card-title>Tipo de subscripcion: {{ userInfo?.membership?.type }}</ion-card-title>
+  </ion-card-header>
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{ plans[0].name }}</ion-card-title>

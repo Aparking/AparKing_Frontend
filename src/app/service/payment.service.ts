@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { WsAbstractService } from 'src/app/service/ws-astract.service';
+import { RestService } from 'src/app/service/rest.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService extends WsAbstractService {
-  private backendUrl = 'http://localhost:3000'; // URL de tu API de Django
+export class PaymentService extends RestService {
+  serverUrlPayment = environment.restUrl;
+  apiPathPayment = '';
+  pathPayment = this.serverUrl + this.apiPath;
 
   constructor(http: HttpClient) {
     super(http);
@@ -15,7 +18,7 @@ export class PaymentService extends WsAbstractService {
   async createCheckoutSession(planId: string): Promise<any> {
     try {
       // Usamos toPromise para convertir el Observable a una Promise.
-      return await this.makePostRequest(`${this.backendUrl}/payment/api/create-checkout-session/`, { planId });
+      return await this.makePostRequest(`${this.pathPayment}/payment/api/create-checkout-session/`, { planId });
 
     } catch (error) {
       // Manejar el error como prefieras, aquí solo lo re-emitimos.

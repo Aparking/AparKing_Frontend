@@ -14,8 +14,8 @@ export class TabsPage {
   constructor(
     private navCtrl: NavController,
     private datamanagement: DataManagementService,
-    private loadingCtrl: LoadingController
-  ) {}
+    private loadingCtrl: LoadingController,
+  ) { }
 
   async logout() {
     const loading = await this.loadingCtrl.create({
@@ -27,4 +27,10 @@ export class TabsPage {
       loading.dismiss();
     });
   }
+
+
+  async goToSubscriptions() {
+    this.navCtrl.navigateRoot('/api/subscriptions');
+  }
+
 }
