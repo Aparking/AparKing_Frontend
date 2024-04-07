@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Tab2Page } from './tab2.page';
 
 import { HttpClientModule } from '@angular/common/http';
+import { GarageAvailabilityListCreateComponent } from '../components/rental/garage-availability-list-create/garage-availability-list-create.component';
 import { GarageBookCreateComponent } from '../components/rental/garage-book-create/garage-book-create.component';
 import { GarageBookListComponent } from '../components/rental/garage-book-list/garage-book-list.component';
 import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
@@ -28,6 +29,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     GarageDetailComponent,
     GarageBookCreateComponent,
     GarageBookListComponent,
+    GarageAvailabilityListCreateComponent,
   ],
   exports: [
     GarageListComponent,
@@ -35,6 +37,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     GarageDetailComponent,
     GarageBookCreateComponent,
     GarageBookListComponent,
+    GarageAvailabilityListCreateComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
