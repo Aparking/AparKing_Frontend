@@ -1,0 +1,15 @@
+<!-- barra-busqueda.component.html -->
+<ion-header>
+    <ion-toolbar>
+      <ion-searchbar (ionChange)="searchCities($event)"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let city of cities">
+        {{ city.name }} - {{ city.distance }} km
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
