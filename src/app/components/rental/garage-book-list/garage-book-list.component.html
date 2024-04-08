@@ -55,7 +55,9 @@
         </ion-item>
         <ion-item>
           <ion-label>Estado</ion-label>
-          <ion-text>{{ book.status }}</ion-text>
+          <ion-text>{{
+            book.status === "CONFIRMED" ? "Confirmada" : book.status
+          }}</ion-text>
         </ion-item>
       </ion-card-content>
       }

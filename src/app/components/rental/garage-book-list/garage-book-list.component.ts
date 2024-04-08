@@ -85,7 +85,6 @@ export class GarageBookListComponent implements OnInit {
   }
 
   async alertCancelBooking(bookingId: string) {
-    console.log(bookingId);
     const alert = await this.alertController.create({
       header: 'Cancelar reserva',
       message: '¿Estás seguro de que quieres cancelar la reserva?',
@@ -98,7 +97,6 @@ export class GarageBookListComponent implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            console.log(bookingId);
             this.cancelBooking(bookingId);
           },
         },
@@ -120,6 +118,17 @@ export class GarageBookListComponent implements OnInit {
         },
       ],
     });
+
+    const currentBooking = this.myBookings.find(
+      (booking: any) => booking.id === bookingId
+    );
+    currentBooking.availability.status = 'AVAILABLE';
+    this.restService
+      .updateAvailability(currentBooking.availability)
+      .catch((error) => {
+        console.error(error);
+      });
+
     this.restService
       .deleteBooking(bookingId)
       .then(() => {

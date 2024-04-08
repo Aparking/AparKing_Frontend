@@ -45,7 +45,7 @@ export class GarageBookCreateComponent implements OnInit {
       .getAvailabilitiesByGarageId(this.garageId)
       .then((availabilities) => {
         this.availabilities = availabilities.filter((availability: any) => {
-          return availability.status === 'AVAILABLE';
+          return availability.status === 'Disponible';
         });
         if (this.availabilities.length === 0) {
           this.cancel();
