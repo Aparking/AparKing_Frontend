@@ -83,7 +83,6 @@ export class GarageCreateComponent implements OnInit {
     this.restService
       .getUserData()
       .then((data) => {
-        console.log(data);
         this.user = data;
       })
       .catch((error) => {
