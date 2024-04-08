@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/authentication';
 import { CombinedDataPayment, Credit, Membership, Plan } from 'src/app/models/payments';
+import { DataManagementService } from 'src/app/service/data-management.service';
 import { PaymentService } from 'src/app/service/payment.service';
 
 
@@ -11,8 +12,7 @@ import { PaymentService } from 'src/app/service/payment.service';
 })
 export class SubscriptionComponent implements OnInit {
   ngOnInit() {
-    console.log('login');
-    this.paymentService.subscription();
+    this.dataManagementService.subscription();
     this.getUserInfo();
   }
   userInfo?: {
@@ -26,24 +26,23 @@ export class SubscriptionComponent implements OnInit {
     { id: 'KING', name: 'KING', price: '4.99€/month' }
   ];
 
-  constructor(private paymentService: PaymentService) { }
+  constructor(private paymentService: PaymentService, private dataManagementService: DataManagementService) { }
 
 
 
   async selectPlan(planId: string) {
     try {
-      const session = await this.paymentService.createCheckoutSession(planId);
-      window.location.href = session.url; // O lo que sea que necesites hacer con session
+      const session = await this.dataManagementService.createCheckoutSession(planId);
+      window.location.href = session.url;
     } catch (error) {
       console.error(error);
     }
   }
 
   async getUserInfo() {
-    this.paymentService.subscription().then(
+    this.dataManagementService.subscription().then(
       (response: { user_info: CombinedDataPayment }) => {
         this.userInfo = response.user_info;
-        console.log(this.userInfo);
       },
       error => {
         console.error('Error al obtener la información del usuario', error);

@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
 import { Token, User } from '../models/authentication';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
 import { RestService } from './rest.service';
 
@@ -88,7 +89,6 @@ export class DataManagementService {
   }
 
   async postRegister(user: User): Promise<Token> {
-    console.log(user)
     return this.rest
       .postRegister(user)
       .then(async (data) => {
@@ -128,4 +128,24 @@ export class DataManagementService {
         throw err;
       });
   }
+
+  async subscription(): Promise<{ user_info: CombinedDataPayment }> {
+    return this.rest
+      .subscription()
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  async createCheckoutSession(planId: string): Promise<any> {
+    return await this.rest
+      .createCheckoutSession(planId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+
 }
