@@ -25,10 +25,23 @@
         >
 
         <ion-buttons slot="end">
-          <ion-button color="success" id="book-garage" (click)="openModal()">
+          @if (isOwner) {
+          <ion-button
+            color="success"
+            id="book-garage"
+            (click)="createAvailabilityModal()"
+          >
             <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
           </ion-button>
-
+          } @else {
+          <ion-button
+            color="success"
+            id="book-garage"
+            (click)="createBookModal()"
+          >
+            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+          </ion-button>
+          } @if (isOwner) {
           <a [routerLink]="['/G11/aparKing/garages/', garageId, 'edit']">
             <ion-button color="primary">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
@@ -42,6 +55,7 @@
           >
             <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
+          }
         </ion-buttons>
       </div>
       <ion-item>
@@ -80,12 +94,14 @@
               <h2>Estado</h2>
               <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
             </div>
+            @if (isOwner) {
             <ion-toggle
               aria-label="Estado"
               [enableOnOffLabels]="true"
               [checked]="currentGarage.is_active"
               (ionChange)="toggleGarageStatus()"
             ></ion-toggle>
+            }
           </ion-label>
         </ion-item>
         <ion-item>

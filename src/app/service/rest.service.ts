@@ -52,6 +52,10 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/logout/`);
   }
 
+  async getUserData(): Promise<User> {
+    return await this.makeGetRequest(`${this.path}/user-info/`);
+  }
+
   async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
