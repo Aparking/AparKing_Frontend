@@ -42,66 +42,94 @@
     </ion-col>
   </ion-row>
 
-  <ion-row *ngFor="let garage of filteredGarages">
-    <ion-col size="12">
+      <ion-item>
+        <ion-label position="stacked">Precio Mínimo</ion-label>
+        <ion-input #minPrice type="number" 
+        placeholder="Introduce un precio mínimo"
+        min="0.00" max="9999.99"
+        [clearInput]="true"
+        (input)="onMinPriceUpdated(minPrice.value)"></ion-input>
+        <ion-label position="stacked">Precio Máximo</ion-label>
+        <ion-input #maxPrice type="number" 
+        placeholder="Introduce un precio máximo"
+        min="0.00" max="9999.99"
+        [clearInput]="true"
+        (input)="onMaxPriceUpdated(maxPrice.value)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha inicio</ion-label>
+        <ion-datetime #startDate displayFormat="DD/MM/YYYY" 
+        errorText="Formato de fecha inválido: DD/MM/YYYY" 
+        placeholder="Introduce una fecha inicial"
+        [clearInput]="true"
+        (input)="onStartDateUpdated(startDate.value)"></ion-datetime>
+        <ion-label position="stacked">Fecha fin</ion-label>
+        <ion-datetime #endDate displayFormat="DD/MM/YYYY" 
+        errorText="Formato de fecha inválido: DD/MM/YYYY" 
+        placeholder="Introduce una fecha final"
+        [clearInput]="true"
+        (input)="onEndDateUpdated(startDate.value)"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Dimensión mínima</ion-label>
+        <ion-input #minDimension type="number" 
+        min="0.00" max="9999.99"
+        placeholder="Introduce una dimensión mínima"
+        [clearInput]="true"
+        (input)="onMinDimensionUpdated(minDimension.value)"></ion-input>
+        <ion-label position="stacked">Dimensión máxima</ion-label>
+        <ion-input #maxDimension type="number" 
+        min="0.00" max="9999.99"
+        placeholder="Introduce una dimensión máxima"
+        [clearInput]="true"
+        (input)="onMaxDimensionUpdated(maxDimension.value)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Ciudad</ion-label>
+        <ion-input #city type="text" 
+        [clearInput]="true" 
+        [counter]="true" maxlength="35"
+        placeholder="Introduce una ciudad"
+        (input)="onCityUpdated(city.value)"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">País</ion-label>
+        <ion-input #country type="text" 
+        [clearInput]="true" 
+        [counter]="true" maxlength="35"
+        placeholder="Introduce un país"
+        (input)="onCountryUpdated(country.value)"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" (click)="resetFilters()">Limpiar Filtros</ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row *ngFor="let garage of dataGarage$ | async">
       <ion-card>
+        <img alt="Imagen del garaje" src="https://ionicframework.com/docs/img/demos/card-media.png"/>
         <ion-card-header>
-          <ion-card-title
-            ><a [routerLink]="['/G11/aparKing/garages', garage.id]">{{
-              garage.name
-            }}</a></ion-card-title
-          >
+          <ion-card-title>{{ garage.name }}</ion-card-title>
           <ion-card-subtitle>{{ garage.description }}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-          <p>
-            Dimensiones: {{ garage.height }} x {{ garage.width }} x
-            {{ garage.length }}
-          </p>
+          <p>Dimensiones: {{ garage.height }} x {{ garage.width }} x {{ garage.length }}</p>
           <p>Precio: {{ garage.price }}</p>
           <p>Día de subida: {{ garage.creation_date }}</p>
-          <p>Estado: {{ garage.is_active ? "Activo" : "Inactivo" }}</p>
-          <p>Propietario: {{ garage.owner }}</p>
+          <ion-button [routerLink]="garage.id.toString()" color="secondary" shape="round" size="small">Ver detalles</ion-button>
         </ion-card-content>
       </ion-card>
-    </ion-col>
   </ion-row>
 
-  <ion-row *ngFor="let garage of garages">
-    <ion-col size="12">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title
-            ><a [routerLink]="['/G11/aparKing/garages', garage.id]">{{
-              garage.name
-            }}</a></ion-card-title
-          >
-          <ion-card-subtitle>{{ garage.description }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <p>
-            Dimensiones: {{ garage.height }} x {{ garage.width }} x
-            {{ garage.length }}
-          </p>
-          <p>Precio: {{ garage.price }}</p>
-          <p>Día de subida: {{ garage.creation_date }}</p>
-          <p>Estado: {{ garage.is_active ? "Activo" : "Inactivo" }}</p>
-          <p>Propietario: {{ garage.owner }}</p>
-          <ion-button
-            [routerLink]="garage.id"
-            color="secondary"
-            shape="round"
-            size="small"
-            >Ver detalles</ion-button
-          >
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
   <ion-infinite-scroll>
-    <ion-infinite-scroll-content
-      loadingText="Por favor espere..."
-      loadingSpinner="bubbles"
-    ></ion-infinite-scroll-content>
+    <ion-infinite-scroll-content 
+    loadingText="Por favor espere..." 
+    loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-grid>

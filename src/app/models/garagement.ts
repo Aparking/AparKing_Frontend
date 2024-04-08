@@ -10,6 +10,7 @@ export interface Address {
 }
 
 export interface Garage {
+  filter(arg0: (allGarages: any) => any): any;
   id: number | string;
   name: string;
   description: string;

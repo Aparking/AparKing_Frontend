@@ -39,7 +39,7 @@
     "leaflet": "^1.9.4",
     "ngx-socket-io": "^4.6.1",
     "rxjs": "~7.8.0",
-    "swiper": "^11.0.7",
+    "swiper": "^11.1.0",
     "swiper.js": "^1.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
