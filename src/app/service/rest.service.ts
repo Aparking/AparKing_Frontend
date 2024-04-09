@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Token, User } from '../models/authentication';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { CombinedDataPayment } from '../models/payments';
 import { WsAbstractService } from './ws-astract.service';
 
 @Injectable({
@@ -50,4 +51,18 @@ export class RestService extends WsAbstractService {
   async logout(): Promise<void> {
     return await this.makeGetRequest(`${this.path}/logout/`);
   }
+
+  async subscription(): Promise<{ user_info: CombinedDataPayment }> {
+    return await this.makeGetRequest(`${this.path}/payment/api/subscriptions/`);
+  }
+
+  async createCheckoutSession(planId: string): Promise<any> {
+    try {
+      return await this.makePostRequest(`${this.path}/payment/api/create-checkout-session/`, { planId });
+    } catch (error) {
+
+      throw error;
+    }
+  }
+
 }

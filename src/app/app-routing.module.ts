@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -9,6 +10,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
+  { path: 'api/subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
   {
     path: '',
     loadChildren: () =>
@@ -42,4 +44,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
