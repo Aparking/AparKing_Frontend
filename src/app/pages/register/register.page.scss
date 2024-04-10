@@ -129,6 +129,28 @@ form {
   padding-left: 5%;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%; // O el ancho que tengas definido para tus campos
+  margin: 10px auto; // Ajusta como sea necesario
+}
+
+
+.checkbox-container {
+  flex-direction: row; // Coloca los elementos en una fila
+  align-items: center; // Alinea verticalmente los elementos en el centro
+  margin-bottom: 10px;
+}
+
+ion-checkbox {
+  margin-right: 10px; // Añade un poco de espacio entre el checkbox y la etiqueta
+}
+
+.error-container {
+  width: 90%; // Asegúrate de que el contenedor de error use todo el ancho disponible
+  padding-left: 10px; // O cualquier valor que alinee con tus otros elementos de entrada
+}
 
 
 
