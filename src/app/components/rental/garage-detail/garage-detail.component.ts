@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
+
+import { GarageAvailabilityListCreateComponent } from '../garage-availability-list-create/garage-availability-list-create.component';
+import { GarageBookCreateComponent } from '../garage-book-create/garage-book-create.component';
 
 @Component({
   selector: 'app-garage-detail',
@@ -14,7 +17,8 @@ export class GarageDetailComponent implements OnInit {
     private restService: RestService,
     private route: ActivatedRoute,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalCtrl: ModalController
   ) {}
 
   MEDIA_BASE_ULR = environment.restUrl;
@@ -22,6 +26,7 @@ export class GarageDetailComponent implements OnInit {
   garageId: string = '';
   currentGarage?: any;
   currentGarageImages: any[] = [];
+  isOwner: boolean = false;
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -33,6 +38,7 @@ export class GarageDetailComponent implements OnInit {
       }
     });
     this.retrieveGarage();
+    this.checkIsOwner();
   }
 
   retrieveGarage() {
@@ -49,6 +55,20 @@ export class GarageDetailComponent implements OnInit {
     this.restService.getImagesByGarageId(this.garageId).then((images) => {
       this.currentGarageImages = images;
     });
+  }
+
+  checkIsOwner() {
+    this.restService
+      .getUserData()
+      .then((user) => {
+        if (user.id === this.currentGarage.owner) {
+          this.isOwner = true;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        this.router.navigate([`${this.base_url}`]);
+      });
   }
 
   toggleGarageStatus() {
@@ -106,5 +126,27 @@ export class GarageDetailComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/G11/aparKing/garages']);
+  }
+
+  async createAvailabilityModal() {
+    const modal = await this.modalCtrl.create({
+      component: GarageAvailabilityListCreateComponent,
+      componentProps: {
+        garageId: this.garageId,
+        currentGarage: this.currentGarage,
+      },
+    });
+    return await modal.present();
+  }
+
+  async createBookModal() {
+    const modal = await this.modalCtrl.create({
+      component: GarageBookCreateComponent,
+      componentProps: {
+        garageId: this.garageId,
+        currentGarage: this.currentGarage,
+      },
+    });
+    return await modal.present();
   }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Observable, Subject, combineLatest, map } from 'rxjs';
 import { Garage, Image } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
+import { GarageBookListComponent } from '../garage-book-list/garage-book-list.component';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
-import { BehaviorSubject, Observable, Subject, combineLatest, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-garage-list',
@@ -16,8 +18,12 @@ export class GarageListComponent implements OnInit {
   images!: any[];
   image: Image[] = [];
 
-  allGarages: Garage[]=[];
-  listFiltered: Garage[]=[];
+  nameFilter: string = '';
+  priceFilter: number = 0;
+  dimensionFilter: number = 0;
+
+  allGarages: Garage[] = [];
+  listFiltered: Garage[] = [];
   filters = {
     minPrice: new Subject<number>(),
     maxPrice: new Subject<number>(),
@@ -29,41 +35,76 @@ export class GarageListComponent implements OnInit {
     city: new Subject<string>(),
     country: new Subject<string>(),
   };
-  
+
   dataGarage$ = new Observable<Garage[]>();
 
-  constructor(private restService: RestService) {}
+  constructor(
+    private restService: RestService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit(): void {
     this.retrieveAllGarages();
     this.listFiltered = this.allGarages;
 
     this.dataGarage$ = combineLatest([
-      this.filters.name, this.filters.minPrice, this.filters.maxPrice, this.filters.startDate, this.filters.endDate, 
-      this.filters.minDimension, this.filters.maxDimension, this.filters.city, this.filters.country, this.listFiltered
-    ])
-    .pipe(
-      map(([name, minPrice, maxPrice, startDate, endDate, 
-        minDimension, maxDimension, city, country, listFiltered]) => {
-        return listFiltered.filter(garage =>
-            (!name || garage.name.toLowerCase().includes(name.toLowerCase())) &&
-            (!minPrice || garage.price >= minPrice) &&
-            (!maxPrice || garage.price <= maxPrice) &&
-            (!startDate || new Date(garage.availability.startDate) >= startDate) &&
-            (!endDate || new Date(garage.availability.endDate) <= endDate) &&
-            (!minDimension || (garage.height * garage.length * garage.width) >= minDimension) &&
-            (!maxDimension || (garage.height * garage.length * garage.width) <= maxDimension) &&
-            (!city || garage.address.city.toLowerCase() === city.toLowerCase()) &&
-            (!country || garage.address.country.toLowerCase() === country.toLowerCase())
-        );
-      })
+      this.filters.name,
+      this.filters.minPrice,
+      this.filters.maxPrice,
+      this.filters.startDate,
+      this.filters.endDate,
+      this.filters.minDimension,
+      this.filters.maxDimension,
+      this.filters.city,
+      this.filters.country,
+      this.listFiltered,
+    ]).pipe(
+      map(
+        ([
+          name,
+          minPrice,
+          maxPrice,
+          startDate,
+          endDate,
+          minDimension,
+          maxDimension,
+          city,
+          country,
+          listFiltered,
+        ]) => {
+          return listFiltered.filter(
+            (garage) =>
+              (!name ||
+                garage.name.toLowerCase().includes(name.toLowerCase())) &&
+              (!minPrice || garage.price >= minPrice) &&
+              (!maxPrice || garage.price <= maxPrice) &&
+              (!startDate ||
+                new Date(garage.availability.startDate) >= startDate) &&
+              (!endDate || new Date(garage.availability.endDate) <= endDate) &&
+              (!minDimension ||
+                garage.height * garage.length * garage.width >= minDimension) &&
+              (!maxDimension ||
+                garage.height * garage.length * garage.width <= maxDimension) &&
+              (!city ||
+                garage.address.city.toLowerCase() === city.toLowerCase()) &&
+              (!country ||
+                garage.address.country.toLowerCase() === country.toLowerCase())
+          );
+        }
+      )
     );
+  }
 
+  async openBookListModal() {
+    const modal = await this.modalCtrl.create({
+      component: GarageBookListComponent,
+    });
+    return await modal.present();
   }
 
   retrieveAllGarages() {
     this.restService.getAllGarages().then((garages) => {
-      this.allGarages = garages.filter(garage => garage.is_active === true);
+      this.allGarages = garages.filter((garage) => garage.is_active === true);
     });
   }
 
@@ -86,53 +127,54 @@ export class GarageListComponent implements OnInit {
       this.filters.maxPrice.next(value);
     }
   }
-  
+
   onStartDateUpdated(value: any) {
     const selectedDate = new Date(value);
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     if (selectedDate instanceof Date) {
-        if (selectedDate >= oneWeekAgo) {
-            this.filters.startDate.next(selectedDate);
-        } else {
-            console.error('La fecha inicial no puede ser previa a una semana antes del día actual');
-        }
+      if (selectedDate >= oneWeekAgo) {
+        this.filters.startDate.next(selectedDate);
+      } else {
+        console.error(
+          'La fecha inicial no puede ser previa a una semana antes del día actual'
+        );
+      }
     } else {
-        console.error('Formato de fecha inválido: DD/MM/YYYY');
+      console.error('Formato de fecha inválido: DD/MM/YYYY');
     }
-    
   }
-  
+
   onEndDateUpdated(value: any) {
     const selectedDate = new Date(value);
-    const maxDate = new Date(2199, 11, 31); 
+    const maxDate = new Date(2199, 11, 31);
     if (selectedDate instanceof Date) {
-        if (selectedDate <= maxDate) {
-            this.filters.endDate.next(selectedDate);
-        } else {
-            console.error('La fecha final es demasiado lejana en el futuro');
-        }
+      if (selectedDate <= maxDate) {
+        this.filters.endDate.next(selectedDate);
+      } else {
+        console.error('La fecha final es demasiado lejana en el futuro');
+      }
     } else {
-        console.error('Formato de fecha inválido: DD/MM/YYYY');
+      console.error('Formato de fecha inválido: DD/MM/YYYY');
     }
   }
-  
+
   onMinDimensionUpdated(value: any) {
     if (typeof value === 'number' && !isNaN(value)) {
       this.filters.minDimension.next(value);
-    }  
+    }
   }
-  
+
   onMaxDimensionUpdated(value: any) {
     if (typeof value === 'number' && !isNaN(value)) {
       this.filters.maxDimension.next(value);
     }
   }
-  
+
   onCityUpdated(value: any) {
     this.filters.city.next(value);
   }
-  
+
   onCountryUpdated(value: any) {
     this.filters.country.next(value);
   }
@@ -148,5 +190,4 @@ export class GarageListComponent implements OnInit {
     this.filters.city.next('');
     this.filters.country.next('');
   }
-
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Token, User } from '../models/authentication';
-import { Garage, Image } from '../models/garagement';
+import { Availability, Book, Garage, Image } from '../models/garagement';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { WsAbstractService } from './ws-astract.service';
 
@@ -50,6 +50,10 @@ export class RestService extends WsAbstractService {
 
   async logout(): Promise<void> {
     return await this.makeGetRequest(`${this.path}/logout/`);
+  }
+
+  async getUserData(): Promise<User> {
+    return await this.makeGetRequest(`${this.path}/user-info/`);
   }
 
   async getAllGarages(): Promise<Garage[]> {
@@ -101,5 +105,47 @@ export class RestService extends WsAbstractService {
 
   async getImagesByGarageId(id: string): Promise<any> {
     return await this.makeGetRequest(`${this.path}/garages/${id}/images/`);
+  }
+
+  async getBookings(): Promise<Book[]> {
+    return await this.makeGetRequest(`${this.path}/bookings/`);
+  }
+  async getBookingById(id: string): Promise<Book> {
+    return await this.makeGetRequest(`${this.path}/bookings/${id}/`);
+  }
+  async createBooking(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/bookings/create/`, data);
+  }
+  async deleteBooking(id: string): Promise<any> {
+    return await this.makeDeleteRequest(`${this.path}/bookings/${id}/`, {});
+  }
+
+  async getAvailabilityById(id: string): Promise<any> {
+    return await this.makeGetRequest(
+      `${this.path}/garages/availability/${id}/`
+    );
+  }
+  async getAvailabilitiesByGarageId(id: string): Promise<Availability[]> {
+    return await this.makeGetRequest(
+      `${this.path}/garages/${id}/availability/`
+    );
+  }
+  async createAvailability(data: any): Promise<any> {
+    return await this.makePostRequest(
+      `${this.path}/garages/availability/create/`,
+      data
+    );
+  }
+  async updateAvailability(data: any): Promise<any> {
+    return await this.makePutRequest(
+      `${this.path}/garages/availability/${data.id}/`,
+      data
+    );
+  }
+  async deleteAvailability(id: string): Promise<any> {
+    return await this.makeDeleteRequest(
+      `${this.path}/garages/availability/${id}/`,
+      {}
+    );
   }
 }
