@@ -50,6 +50,9 @@ export interface Parking {
   is_assignment: boolean;
   isTransfer: boolean;
   parking_type: ParkingType;
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
+}
+export interface CesionParking {
+  parking: Parking[];
 }

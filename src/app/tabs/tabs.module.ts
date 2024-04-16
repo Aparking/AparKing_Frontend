@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { parkingCesionComponent } from 'src/app/components/parkingCesion/parkingCesion.component';
 import { CreateParkingModalComponent } from '../components/create-parking-modal/create-parking-modal.component';
 import { MapComponent } from '../components/map/map.component';
 import { DataManagementService } from '../service/data-management.service';
@@ -21,8 +22,8 @@ import { TabsPage } from './tabs.page';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  declarations: [TabsPage, MapComponent, CreateParkingModalComponent],
+  declarations: [TabsPage, MapComponent, CreateParkingModalComponent, parkingCesionComponent],
   exports: [MapComponent, CreateParkingModalComponent],
   providers: [DataManagementService, WebsocketService],
 })
-export class TabsPageModule {}
+export class TabsPageModule { }

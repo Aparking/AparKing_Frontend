@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { parkingCesionComponent } from 'src/app/components/parkingCesion/parkingCesion.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
         (m) => m.VerifyUserPageModule
       ),
   },
+  { path: 'parking/getParkingCesion', component: parkingCesionComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [
@@ -42,4 +44,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

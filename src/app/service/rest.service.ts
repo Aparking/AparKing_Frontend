@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Token, User } from '../models/authentication';
-import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { CesionParking, Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { WsAbstractService } from './ws-astract.service';
 
 @Injectable({
@@ -50,4 +50,12 @@ export class RestService extends WsAbstractService {
   async logout(): Promise<void> {
     return await this.makeGetRequest(`${this.path}/logout/`);
   }
+
+  async getParkingCesion(): Promise<CesionParking> {
+    return await this.makeGetRequest(`${this.path}/parking/getParkingCesion/`);
+  }
+
+
+
+
 }

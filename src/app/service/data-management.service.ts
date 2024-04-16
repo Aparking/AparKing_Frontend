@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
 import { Token, User } from '../models/authentication';
-import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { CesionParking, Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { PersistenceService } from './persistence.service';
 import { RestService } from './rest.service';
 
@@ -17,7 +17,7 @@ export class DataManagementService {
     private rest: RestService,
     private router: Router,
     private persistenceService: PersistenceService
-  ) {}
+  ) { }
   public userLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -127,4 +127,18 @@ export class DataManagementService {
         throw err;
       });
   }
+
+  async getParkingCesion(): Promise<CesionParking> {
+    return this.rest.getParkingCesion()
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
+
+
 }
