@@ -17,28 +17,37 @@ export class WebsocketService {
     return this.subject;
   }
   private create(url: string): Rx.Subject<MessageEvent> {
-    let ws = new WebSocket(url);
-    let observable = Rx.Observable.create((obs: Rx.Observer<MessageEvent>) => {
-      ws.onmessage = (event: MessageEvent) => {
-        obs.next(event);
-      };
-      ws.onerror = (error: Event) => {
-        obs.error(error);
-      };
-      ws.onclose = (event: CloseEvent) => {
-        obs.complete();
-      };
-      return () => {
-        ws.close();
-      };
-    });
-    let observer = {
-      next: (data: Object) => {
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.send(JSON.stringify(data));
+    try {
+      let ws = new WebSocket(url);
+      let observable = Rx.Observable.create(
+        (obs: Rx.Observer<MessageEvent>) => {
+          ws.onmessage = (event: MessageEvent) => {
+            obs.next(event);
+          };
+          ws.onerror = (error: Event) => {
+            obs.error(error);
+          };
+          ws.onclose = (event: CloseEvent) => {
+            obs.complete();
+          };
+          return () => {
+            ws.close();
+          };
         }
-      },
-    };
-    return Rx.Subject.create(observer, observable);
+      );
+      let observer = {
+        next: (data: Object) => {
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(data));
+          }
+        },
+      };
+      return Rx.Subject.create(observer, observable);
+    } catch (error) {
+      console.error(error);
+      return Rx.Subject.create({
+        error: error,
+      });
+    }
   }
 }
