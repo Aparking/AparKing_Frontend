@@ -11,14 +11,14 @@
 
     <ion-card *ngFor="let item of parking?.parking; let i = index">
       <ion-card-header>
-        <ion-card-title>{{ item.parking_type }}</ion-card-title>
+        <ion-card-title>{{ item[0].parking_type }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        tamaño del aparcamiento: {{ item.size }} <br>
-        Aviso creado: {{item.created_at}} <br>
-        location: {{item?.location?.latitude}} <br>
+        tamaño del aparcamiento: {{ item[0].size }} <br>
+        Aviso creado: {{item[0].created_at}} <br>
+        Matricula: {{item[1].carModel}} <br>
         <a
-          href="https://www.google.com/maps?q={{ parseLocation(item.location)?.latitude }},{{ parseLocation(item.location)?.longitude }}">Ir
+          href="https://www.google.com/maps?q={{ parseLocation(item[0].location)?.latitude }},{{ parseLocation(item[0].location)?.longitude }}">Ir
           a la plaza</a>
       </ion-card-content>
     </ion-card>

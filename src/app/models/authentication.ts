@@ -23,3 +23,12 @@ export interface User {
   phone: PhoneNumber;
   username: string;
 }
+
+export interface Vehicle {
+  carModel: string;
+  color: string;
+  height?: number | null;
+  width?: number | null;
+  length?: number | null;
+}
+

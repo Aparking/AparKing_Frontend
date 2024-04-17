@@ -1,4 +1,4 @@
-import { User } from './authentication';
+import { User, Vehicle } from './authentication';
 
 export interface Location {
   latitude: number;
@@ -54,5 +54,5 @@ export interface Parking {
   updated_at?: Date;
 }
 export interface CesionParking {
-  parking: Parking[];
+  parking: [Parking, Vehicle][];
 }
