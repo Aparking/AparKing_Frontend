@@ -36,7 +36,7 @@ const routes: Routes = [
         (m) => m.VerifyUserPageModule
       ),
   },
-  { path: 'parking/getParkingCesion', component: parkingCesionComponent, canActivate: [AuthGuard] },
+  { path: 'G11/aparKing/list-parking-cesion', component: parkingCesionComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [

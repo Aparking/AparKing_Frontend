@@ -15,7 +15,7 @@ export class TabsPage {
     private navCtrl: NavController,
     private datamanagement: DataManagementService,
     private loadingCtrl: LoadingController
-  ) {}
+  ) { }
 
   async logout() {
     const loading = await this.loadingCtrl.create({
@@ -26,5 +26,9 @@ export class TabsPage {
       this.navCtrl.navigateRoot('/');
       loading.dismiss();
     });
+  }
+
+  async goToCesion() {
+    this.navCtrl.navigateRoot('G11/aparKing/list-parking-cesion');
   }
 }
