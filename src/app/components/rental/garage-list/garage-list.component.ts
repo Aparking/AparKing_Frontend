@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Garage, Image } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
-import { BehaviorSubject, Observable, Subject, combineLatest, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, combineLatest, debounceTime, distinctUntilChanged, map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-garage-list',
@@ -35,39 +35,43 @@ export class GarageListComponent implements OnInit {
   constructor(private restService: RestService) {}
 
   ngOnInit(): void {
-    this.restService.getAllGarages().then((garages) => {
-      this.allGarages = garages.filter(garage => garage.is_active === true);
-    });
-    console.log(this.allGarages);
-
+    this.retrieveAllGarages(); 
+    this.resetFilters();
+    
     this.dataGarage$ = combineLatest([
       this.filters.name, this.filters.minPrice, this.filters.maxPrice, this.filters.startDate, this.filters.endDate, 
-      this.filters.minDimension, this.filters.maxDimension, this.filters.city, this.filters.country, this.listFiltered
+      this.filters.minDimension, this.filters.maxDimension, this.filters.city, this.filters.country
     ])
     .pipe(
-      map(([name, minPrice, maxPrice, startDate, endDate, 
-        minDimension, maxDimension, city, country, listFiltered]) => {
-        return listFiltered.filter(garage =>
-            (!name || garage.name.toLowerCase().includes(name.toLowerCase())) &&
-            (!minPrice || garage.price >= minPrice) &&
-            (!maxPrice || garage.price <= maxPrice) &&
-            (!startDate || new Date(garage.availability.startDate) >= startDate) &&
-            (!endDate || new Date(garage.availability.endDate) <= endDate) &&
-            (!minDimension || (garage.height * garage.length * garage.width) >= minDimension) &&
-            (!maxDimension || (garage.height * garage.length * garage.width) <= maxDimension) &&
-            (!city || garage.address.city.toLowerCase() === city.toLowerCase()) &&
-            (!country || garage.address.country.toLowerCase() === country.toLowerCase())
-        );
+      switchMap(([name, minPrice, maxPrice, startDate, endDate, 
+        minDimension, maxDimension, city, country]) => {
+        return this.dataGarageFromFilters(name, minPrice, maxPrice, startDate, endDate, minDimension, maxDimension, city, country);
       })
-    );
-
+    )
+    
   }
-
+  
   retrieveAllGarages() {
     this.restService.getAllGarages().then((garages) => {
       this.allGarages = garages.filter(garage => garage.is_active === true);
+      this.listFiltered = this.allGarages; 
     });
   }
+  
+  private dataGarageFromFilters(name: string, minPrice: number, maxPrice: number, startDate: Date, endDate: Date, minDimension: number, maxDimension: number, city: string, country: string): Observable<Garage[]> {
+    return of(this.listFiltered.filter(garage =>
+      (!name || garage.name.toLowerCase().includes(name.toLowerCase())) &&
+      (!minPrice || garage.price >= minPrice) &&
+      (!maxPrice || garage.price <= maxPrice) &&
+      //(!startDate || new Date(garage.availability.startDate) >= startDate) &&
+      //(!endDate || new Date(garage.availability.endDate) <= endDate) &&
+      (!minDimension || (garage.height * garage.length * garage.width) >= minDimension) &&
+      (!maxDimension || (garage.height * garage.length * garage.width) <= maxDimension) &&
+      (!city || garage.address.city.toLowerCase() === city.toLowerCase()) &&
+      (!country || garage.address.country.toLowerCase() === country.toLowerCase())
+    ));
+  }
+  
 
   getImage(garage: Garage): Image | undefined {
     return this.images.find((image) => image.garageId === garage.id);
