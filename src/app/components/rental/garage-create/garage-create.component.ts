@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import { from } from 'rxjs';
+import { User } from 'src/app/models/authentication';
 import { RestService } from 'src/app/service/rest.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class GarageCreateComponent implements OnInit {
   garageId: string = '';
   currentGarage?: any;
   currentGarageImages: any[] = [];
+  user!: User;
 
   constructor(
     private formGargeBuilder: FormBuilder,
@@ -48,7 +50,7 @@ export class GarageCreateComponent implements OnInit {
       creation_date: [this.getCurrentDate(), Validators.required],
       modification_date: [this.getCurrentDate(), Validators.required],
       is_active: [true, Validators.required],
-      owner: [null, Validators.required], //TODO - QUE LO PILLE AUTOMATICAMENTE
+      owner: [null, Validators.required],
     });
     this.imageForm = this.formImageBuilder.group({
       image: this.formImageBuilder.group({
@@ -77,6 +79,16 @@ export class GarageCreateComponent implements OnInit {
         this.garageForm.patchValue({ address: { country } });
       });
     }
+
+    this.restService
+      .getUserData()
+      .then((data) => {
+        this.user = data;
+      })
+      .catch((error) => {
+        console.error(error);
+        this.navCtr.navigateRoot('G11/aparKing/garages');
+      });
   }
 
   retrieveGarage() {
@@ -158,9 +170,9 @@ export class GarageCreateComponent implements OnInit {
       ],
     });
 
+    this.garageForm.patchValue({ owner: this.user.id });
     if (this.garageForm.valid) {
       if (this.garageId) {
-        console.log('Actualizando garaje', this.garageForm.value);
         this.restService
           .updateGarage(this.garageId, this.garageForm.value)
           .then(async (_) => {

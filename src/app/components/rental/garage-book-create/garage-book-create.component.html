@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Formulario de reserva</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label class="ion-text-uppercase" color="dark"
+            >Ubicación</ion-label
+          >
+        </ion-item-divider>
+
+        <ion-item>
+          <ion-label>
+            <h2>Ciudad</h2>
+            <p>{{ currentGarage.address.city }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Calle</h2>
+            <p>{{ currentGarage.address.address_line }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Número</h2>
+            <p>{{ currentGarage.address.street_number }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item-divider>
+        <ion-label class="ion-text-uppercase" color="dark">Precio</ion-label>
+      </ion-item-divider>
+      <ion-item-group>
+        <ion-item>
+          <ion-label>
+            <h2>Precio por día</h2>
+            <p>{{ currentGarage.price }} €</p>
+          </ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label class="ion-text-uppercase" color="dark">Reserva</ion-label>
+        </ion-item-divider>
+        <form [formGroup]="bookForm" (ngSubmit)="confirm()">
+          <ion-item class="borde-interior">
+            <ion-select label="Método de pago" formControlName="payment_method">
+              <ion-select-option
+                *ngFor="let method of payment_methods"
+                [value]="method"
+                >{{ method }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-item class="borde-interior">
+            <ion-select label="Disponibilidad" formControlName="availability">
+              <ion-select-option
+                *ngFor="let availability of availabilities"
+                [value]="availability.id"
+              >
+                {{ availability.start_date | date : "yyyy-MM-dd" }} -
+                {{ availability.end_date | date : "yyyy-MM-dd" }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </form>
+      </ion-item-group>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

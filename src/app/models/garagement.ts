@@ -46,3 +46,22 @@ export interface Availability {
   status: GarageStatus;
   garageId: number | string;
 }
+
+export enum PaymentMethod {
+  CASH = 'Efectivo',
+  CARD = 'Tarjeta',
+}
+
+export enum BookingStatus {
+  PENDING = 'Pendiente',
+  CONFIRMED = 'Confirmada',
+  CANCELLED = 'Cancelada',
+}
+
+export interface Book {
+  id: number | string;
+  payment_method: PaymentMethod;
+  status: BookingStatus;
+  user: number | string;
+  availability: number | string;
+}
