@@ -35,8 +35,10 @@ export class GarageListComponent implements OnInit {
   constructor(private restService: RestService) {}
 
   ngOnInit(): void {
-    this.retrieveAllGarages();
-    this.listFiltered = this.allGarages;
+    this.restService.getAllGarages().then((garages) => {
+      this.allGarages = garages.filter(garage => garage.is_active === true);
+    });
+    console.log(this.allGarages);
 
     this.dataGarage$ = combineLatest([
       this.filters.name, this.filters.minPrice, this.filters.maxPrice, this.filters.startDate, this.filters.endDate, 
@@ -100,7 +102,6 @@ export class GarageListComponent implements OnInit {
     } else {
         console.error('Formato de fecha inválido: DD/MM/YYYY');
     }
-    
   }
   
   onEndDateUpdated(value: any) {

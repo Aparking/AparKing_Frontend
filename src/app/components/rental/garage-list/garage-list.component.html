@@ -5,8 +5,9 @@
 <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label position="stacked">Nombre</ion-label>
+        <ion-label position="stacked" id="nameLabel">Nombre</ion-label>
         <ion-input #name type="text" 
+        aria-labelledby="nameLabel"
         [clearInput]="true" 
         [counter]="true" maxlength="50"
         placeholder="Introduce un nombre de garaje"
@@ -14,14 +15,17 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Precio Mínimo</ion-label>
+        <ion-label position="stacked" id="minPriceLabel">Precio Mínimo</ion-label>
         <ion-input #minPrice type="number" 
+        aria-labelledby="minPriceLabel"
         placeholder="Introduce un precio mínimo"
         min="0.00" max="9999.99"
         [clearInput]="true"
         (input)="onMinPriceUpdated(minPrice.value)"></ion-input>
-        <ion-label position="stacked">Precio Máximo</ion-label>
-        <ion-input #maxPrice type="number" 
+        <ion-label position="stacked" id="maxPriceLabel">Precio Máximo</ion-label>
+        <ion-input #maxPrice type="number"
+        aria-labelledby="maxPriceLabel"
+        label="Precio máximo" 
         placeholder="Introduce un precio máximo"
         min="0.00" max="9999.99"
         [clearInput]="true"
@@ -29,29 +33,33 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Fecha inicio</ion-label>
-        <ion-datetime #startDate displayFormat="DD/MM/YYYY" 
+        <ion-label position="stacked" id="startDateLabel">Fecha inicio</ion-label>
+        <ion-input #startDate type="date"
+        aria-labelledby="startDateLabel"
         errorText="Formato de fecha inválido: DD/MM/YYYY" 
         placeholder="Introduce una fecha inicial"
         [clearInput]="true"
-        (input)="onStartDateUpdated(startDate.value)"></ion-datetime>
-        <ion-label position="stacked">Fecha fin</ion-label>
-        <ion-datetime #endDate displayFormat="DD/MM/YYYY" 
+        (input)="onStartDateUpdated(startDate.value)"></ion-input>
+        <ion-label position="stacked" id=endDateLabel>Fecha fin</ion-label>
+        <ion-input #endDate type="date" 
+        aria-labelledby="endDateLabel"
         errorText="Formato de fecha inválido: DD/MM/YYYY" 
         placeholder="Introduce una fecha final"
         [clearInput]="true"
-        (input)="onEndDateUpdated(startDate.value)"></ion-datetime>
+        (input)="onEndDateUpdated(startDate.value)"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Dimensión mínima</ion-label>
-        <ion-input #minDimension type="number" 
+        <ion-label position="stacked" id="minDimensionLabel">Dimensión mínima</ion-label>
+        <ion-input #minDimension type="number"
+        aria-labelledby="minDimensionLabel"
         min="0.00" max="9999.99"
         placeholder="Introduce una dimensión mínima"
         [clearInput]="true"
         (input)="onMinDimensionUpdated(minDimension.value)"></ion-input>
-        <ion-label position="stacked">Dimensión máxima</ion-label>
+        <ion-label position="stacked" id="maxDimensionLabel">Dimensión máxima</ion-label>
         <ion-input #maxDimension type="number" 
+        aria-labelledby="maxDimensionLabel"        
         min="0.00" max="9999.99"
         placeholder="Introduce una dimensión máxima"
         [clearInput]="true"
@@ -59,8 +67,9 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Ciudad</ion-label>
+        <ion-label position="stacked" id="cityLabel">Ciudad</ion-label>
         <ion-input #city type="text" 
+        aria-labelledby="cityLabel"
         [clearInput]="true" 
         [counter]="true" maxlength="35"
         placeholder="Introduce una ciudad"
@@ -68,8 +77,9 @@
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">País</ion-label>
+        <ion-label position="stacked" id="countryLabel">País</ion-label>
         <ion-input #country type="text" 
+        aria-labelledby="countryLabel"
         [clearInput]="true" 
         [counter]="true" maxlength="35"
         placeholder="Introduce un país"
