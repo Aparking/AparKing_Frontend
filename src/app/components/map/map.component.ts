@@ -40,7 +40,8 @@ export class MapComponent implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.prepareMap();
     this.locationService.getLocation().then((location) => {
       if (location) {
         this.userLocation = {
@@ -51,15 +52,19 @@ export class MapComponent implements OnInit {
         this.dataManagement.getParkingNear(this.userLocation).then((data) => {
           this.parkings = data.parkingData;
           this.group = data.group;
-          this.websocket
-            .connect(`${environment.wsUrl}/${this.group}/`)
-            .forEach((response: MessageEvent): any => {
-              let data: ParkingSocket = JSON.parse(response.data);
+          try {
+            this.websocket
+              .connect(`${environment.wsUrl}${this.group}/`)
+              .forEach((response: MessageEvent): any => {
+                let data: ParkingSocket = JSON.parse(response.data);
 
-              this.manageSocketAdd(data);
-              return data;
-            });
-          this.prepareMap(this.userLocation!, undefined, this.parkings);
+                this.manageSocketAdd(data);
+                return data;
+              });
+          } catch (error) {
+            console.error(error);
+          }
+          this.prepareMap(this.userLocation!, this.map, this.parkings);
         });
       }
     });
@@ -95,13 +100,20 @@ export class MapComponent implements OnInit {
     await modal.present();
   }
 
-  private prepareMap(location: Location, map?: L.Map, parkings?: Parking[]) {
+  private prepareMap(location?: Location, map?: L.Map, parkings?: Parking[]) {
+    if (!location) {
+      location = {
+        latitude: -5.9912307,
+        longitude: 37.3807579,
+      };
+    }
     this.map = map
       ? map.setView([location.latitude, location.longitude], 18)
       : L.map('mapId', { zoomControl: false }).setView(
           [location.latitude, location.longitude],
           18
         );
+    this.map.invalidateSize();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
