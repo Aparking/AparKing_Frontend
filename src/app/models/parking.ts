@@ -41,7 +41,7 @@ export interface ParkingResponse {
 }
 
 export interface Parking {
-  id?: number;
+  id: number;
   notified_by?: User;
   bookedBy?: User | null;
   message?: string | null;

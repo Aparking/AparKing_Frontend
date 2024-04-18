@@ -40,4 +40,13 @@ export class parkingCesionComponent implements OnInit {
     return null;
   }
 
+  async postParkingCesion(parkingId: number) {
+    try {
+      const session = await this.dataManagementService.postParkingCesion(parkingId);
+      return session
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 }

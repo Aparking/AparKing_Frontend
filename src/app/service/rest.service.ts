@@ -55,7 +55,12 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/parking/getParkingCesion/`);
   }
 
-
-
-
+  async postParkingCesion(parkingId: number): Promise<any> {
+    return await this.makePostRequest(`${this.path}/parking/postParkingCesion/`, { parkingId });
+  }
 }
+
+
+
+
+

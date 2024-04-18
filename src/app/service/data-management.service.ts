@@ -140,5 +140,13 @@ export class DataManagementService {
       });
   }
 
+  async postParkingCesion(parkingId: number): Promise<any> {
+    return await this.rest
+      .postParkingCesion(parkingId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
 
 }
