@@ -104,12 +104,21 @@ export class GarageBookCreateComponent implements OnInit {
         try {
           const session = await this.dataManagementService.createCheckoutSessionRental(Number(this.currentGarage.id));
           window.location.href = session.url;
+          this.restService
+          .createBooking(bookingData)
+          .then((_) => {
+            toast.message = 'Reserva creada correctamente';
+            toast.present();
+          })
+          .catch((_) => {
+            toast.message = 'Error al crear la reserva';
+            toast.present();
+          });
         } catch (error) {
           console.error(error);
         }
-      }
-
-      this.restService
+      } else {
+        this.restService
         .createBooking(bookingData)
         .then((_) => {
           toast.message = 'Reserva creada correctamente';
@@ -119,6 +128,7 @@ export class GarageBookCreateComponent implements OnInit {
           toast.message = 'Error al crear la reserva';
           toast.present();
         });
+      }
 
       return this.modalCtrl.dismiss(null, 'confirm');
     }
