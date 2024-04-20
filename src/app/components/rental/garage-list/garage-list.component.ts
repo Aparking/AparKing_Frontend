@@ -9,23 +9,21 @@ import { BehaviorSubject, Observable, Subject, combineLatest, debounceTime, dist
   templateUrl: './garage-list.component.html',
   styleUrls: ['./garage-list.component.scss'],
 })
+
+
 export class GarageListComponent implements OnInit {
   component = GarageDetailComponent;
-
   garages!: any[];
   images!: any[];
-  image: Image[] = [];
-
+  garageImage: { [key: string]: any } = {};
   allGarages: Garage[]=[];
   listFiltered: Garage[]=[];
   filters = {
     minPrice: new Subject<number>(),
     maxPrice: new Subject<number>(),
-    startDate: new Subject<Date>(),
-    endDate: new Subject<Date>(),
     name: new Subject<string>(),
-    minDimension: new Subject<number>(),
-    maxDimension: new Subject<number>(),
+    minLength: new Subject<number>(),
+    maxLength: new Subject<number>(),
     city: new Subject<string>(),
     country: new Subject<string>(),
   };
@@ -35,46 +33,47 @@ export class GarageListComponent implements OnInit {
   constructor(private restService: RestService) {}
 
   ngOnInit(): void {
-    this.retrieveAllGarages(); 
     this.resetFilters();
+    this.retrieveAllGarages();
+    this.retrieveImagesForGarages();
     
     this.dataGarage$ = combineLatest([
-      this.filters.name, this.filters.minPrice, this.filters.maxPrice, this.filters.startDate, this.filters.endDate, 
-      this.filters.minDimension, this.filters.maxDimension, this.filters.city, this.filters.country
+      this.filters.name, this.filters.minPrice, this.filters.maxPrice, 
+      this.filters.minLength, this.filters.maxLength, this.filters.city, this.filters.country
     ])
     .pipe(
-      switchMap(([name, minPrice, maxPrice, startDate, endDate, 
-        minDimension, maxDimension, city, country]) => {
-        return this.dataGarageFromFilters(name, minPrice, maxPrice, startDate, endDate, minDimension, maxDimension, city, country);
+      switchMap(([name, minPrice, maxPrice,
+        minLength, maxLength, city, country]) => {
+        return this.dataGarageFromFilters(name, minPrice, maxPrice, minLength, maxLength, city, country);
       })
-    )
-    
+    );
   }
   
   retrieveAllGarages() {
     this.restService.getAllGarages().then((garages) => {
-      this.allGarages = garages.filter(garage => garage.is_active === true);
-      this.listFiltered = this.allGarages; 
+        this.allGarages = garages.filter(garage => garage.is_active === true);
+        this.listFiltered = this.allGarages;
     });
   }
   
-  private dataGarageFromFilters(name: string, minPrice: number, maxPrice: number, startDate: Date, endDate: Date, minDimension: number, maxDimension: number, city: string, country: string): Observable<Garage[]> {
+  retrieveImagesForGarages() {
+    this.allGarages.forEach(garage => {
+      this.restService.getImagesByGarageId(garage.id.toString()).then((images) => {
+          this.garageImage[garage.id] = (images[0]);
+        }).catch((error) => {console.error(error);});
+    });
+  }
+
+  private dataGarageFromFilters(name: string, minPrice: number, maxPrice: number, minLength: number, maxLength: number, city: string, country: string): Observable<Garage[]> {
     return of(this.listFiltered.filter(garage =>
       (!name || garage.name.toLowerCase().includes(name.toLowerCase())) &&
-      (!minPrice || garage.price >= minPrice) &&
-      (!maxPrice || garage.price <= maxPrice) &&
-      //(!startDate || new Date(garage.availability.startDate) >= startDate) &&
-      //(!endDate || new Date(garage.availability.endDate) <= endDate) &&
-      (!minDimension || (garage.height * garage.length * garage.width) >= minDimension) &&
-      (!maxDimension || (garage.height * garage.length * garage.width) <= maxDimension) &&
-      (!city || garage.address.city.toLowerCase() === city.toLowerCase()) &&
-      (!country || garage.address.country.toLowerCase() === country.toLowerCase())
+      (!minPrice || Number(garage.price) >= Number(minPrice)) &&
+      (!maxPrice || Number(garage.price) <= Number(maxPrice)) &&
+      (!minLength || Number(garage.length) >= Number(minLength)) &&
+      (!maxLength || Number(garage.length) <= Number(maxLength)) &&
+      (!city || garage.address.city.toLowerCase().includes(city.toLowerCase())) &&
+      (!country || garage.address.country.toLowerCase().includes(country.toLowerCase()))
     ));
-  }
-  
-
-  getImage(garage: Garage): Image | undefined {
-    return this.images.find((image) => image.garageId === garage.id);
   }
 
   onNameUpdated(value: any) {
@@ -82,55 +81,38 @@ export class GarageListComponent implements OnInit {
   }
 
   onMinPriceUpdated(value: any) {
-    if (typeof value === 'number' && !isNaN(value)) {
-      this.filters.minPrice.next(value);
+    const minPrice = parseFloat(value);
+    if (minPrice < 0.00 || minPrice > 99999.99) {
+      console.error('El valor debe estar entre 0.00 y 99999.99');
+      return;
     }
+    this.filters.minPrice.next(minPrice);
   }
-
+  
   onMaxPriceUpdated(value: any) {
-    if (typeof value === 'number' && !isNaN(value)) {
-      this.filters.maxPrice.next(value);
+    const maxPrice = parseFloat(value);
+    if (maxPrice < 0.00 || maxPrice > 99999.99) {
+      console.error('El valor debe estar entre 0.00 y 99999.99');
+      return;
     }
-  }
-  
-  onStartDateUpdated(value: any) {
-    const selectedDate = new Date(value);
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    if (selectedDate instanceof Date) {
-        if (selectedDate >= oneWeekAgo) {
-            this.filters.startDate.next(selectedDate);
-        } else {
-            console.error('La fecha inicial no puede ser previa a una semana antes del día actual');
-        }
-    } else {
-        console.error('Formato de fecha inválido: DD/MM/YYYY');
-    }
-  }
-  
-  onEndDateUpdated(value: any) {
-    const selectedDate = new Date(value);
-    const maxDate = new Date(2199, 11, 31); 
-    if (selectedDate instanceof Date) {
-        if (selectedDate <= maxDate) {
-            this.filters.endDate.next(selectedDate);
-        } else {
-            console.error('La fecha final es demasiado lejana en el futuro');
-        }
-    } else {
-        console.error('Formato de fecha inválido: DD/MM/YYYY');
-    }
+    this.filters.maxPrice.next(maxPrice);
   }
   
   onMinDimensionUpdated(value: any) {
-    if (typeof value === 'number' && !isNaN(value)) {
-      this.filters.minDimension.next(value);
-    }  
+    const minLength = parseFloat(value);
+    if (!isNaN(minLength) && minLength >= 0) {
+      this.filters.minLength.next(minLength);
+    } else {
+      console.error('Valor de longitud mínima no válido');
+    }
   }
   
   onMaxDimensionUpdated(value: any) {
-    if (typeof value === 'number' && !isNaN(value)) {
-      this.filters.maxDimension.next(value);
+    const maxLength = parseFloat(value);
+    if (!isNaN(maxLength) && maxLength >= 0) {
+      this.filters.maxLength.next(maxLength);
+    } else {
+      console.error('Valor de longitud máxima no válido');
     }
   }
   
@@ -146,10 +128,8 @@ export class GarageListComponent implements OnInit {
     this.filters.name.next('');
     this.filters.minPrice.next(0);
     this.filters.maxPrice.next(Number.MAX_SAFE_INTEGER);
-    this.filters.startDate.next(new Date(2024, 4, 6));
-    this.filters.endDate.next(new Date(2199, 12, 31));
-    this.filters.minDimension.next(0);
-    this.filters.maxDimension.next(Number.MAX_SAFE_INTEGER);
+    this.filters.minLength.next(0);
+    this.filters.maxLength.next(Number.MAX_SAFE_INTEGER);
     this.filters.city.next('');
     this.filters.country.next('');
   }

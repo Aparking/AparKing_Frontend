@@ -5,95 +5,73 @@
 <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label position="stacked" id="nameLabel">Nombre</ion-label>
         <ion-input #name type="text" 
-        aria-labelledby="nameLabel"
+        label="Nombre"
         [clearInput]="true" 
-        [counter]="true" maxlength="50"
+        [counter]="true" maxlength="70"
         placeholder="Introduce un nombre de garaje"
         (input)="onNameUpdated(name.value)"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked" id="minPriceLabel">Precio Mínimo</ion-label>
         <ion-input #minPrice type="number" 
-        aria-labelledby="minPriceLabel"
-        placeholder="Introduce un precio mínimo"
-        min="0.00" max="9999.99"
+        label="Precio mínimo"
+        placeholder="35.00€"
         [clearInput]="true"
         (input)="onMinPriceUpdated(minPrice.value)"></ion-input>
-        <ion-label position="stacked" id="maxPriceLabel">Precio Máximo</ion-label>
+
         <ion-input #maxPrice type="number"
-        aria-labelledby="maxPriceLabel"
-        label="Precio máximo" 
-        placeholder="Introduce un precio máximo"
-        min="0.00" max="9999.99"
+        label="Precio máximo"
+        placeholder="783.75€"
         [clearInput]="true"
         (input)="onMaxPriceUpdated(maxPrice.value)"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked" id="startDateLabel">Fecha inicio</ion-label>
-        <ion-input #startDate type="date"
-        aria-labelledby="startDateLabel"
-        errorText="Formato de fecha inválido: DD/MM/YYYY" 
-        placeholder="Introduce una fecha inicial"
+        <ion-input #minLength type="number"
+        label="Longitud mínima"
+        min="0.00" max="9999.99"
+        placeholder="3.00"
         [clearInput]="true"
-        (input)="onStartDateUpdated(startDate.value)"></ion-input>
-        <ion-label position="stacked" id=endDateLabel>Fecha fin</ion-label>
-        <ion-input #endDate type="date" 
-        aria-labelledby="endDateLabel"
-        errorText="Formato de fecha inválido: DD/MM/YYYY" 
-        placeholder="Introduce una fecha final"
+        (input)="onMinDimensionUpdated(minLength.value)"></ion-input>
+  
+        <ion-input #maxLength type="number" 
+        label="Longitud máxima"        
+        min="0.00" max="9999.99"
+        placeholder="15.00"
         [clearInput]="true"
-        (input)="onEndDateUpdated(startDate.value)"></ion-input>
+        (input)="onMaxDimensionUpdated(maxLength.value)"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked" id="minDimensionLabel">Dimensión mínima</ion-label>
-        <ion-input #minDimension type="number"
-        aria-labelledby="minDimensionLabel"
-        min="0.00" max="9999.99"
-        placeholder="Introduce una dimensión mínima"
-        [clearInput]="true"
-        (input)="onMinDimensionUpdated(minDimension.value)"></ion-input>
-        <ion-label position="stacked" id="maxDimensionLabel">Dimensión máxima</ion-label>
-        <ion-input #maxDimension type="number" 
-        aria-labelledby="maxDimensionLabel"        
-        min="0.00" max="9999.99"
-        placeholder="Introduce una dimensión máxima"
-        [clearInput]="true"
-        (input)="onMaxDimensionUpdated(maxDimension.value)"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="stacked" id="cityLabel">Ciudad</ion-label>
         <ion-input #city type="text" 
-        aria-labelledby="cityLabel"
+        label="Ciudad"
         [clearInput]="true" 
-        [counter]="true" maxlength="35"
+        [counter]="true" maxlength="50"
         placeholder="Introduce una ciudad"
         (input)="onCityUpdated(city.value)"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked" id="countryLabel">País</ion-label>
         <ion-input #country type="text" 
-        aria-labelledby="countryLabel"
+        label="País"
         [clearInput]="true" 
-        [counter]="true" maxlength="35"
+        [counter]="true" maxlength="40"
         placeholder="Introduce un país"
         (input)="onCountryUpdated(country.value)"></ion-input>
       </ion-item>
 
-      <ion-button expand="block" (click)="resetFilters()">Limpiar Filtros</ion-button>
+      <ion-button expand="block" (click)="resetFilters()">Reiniciar datos</ion-button>
 
     </ion-card-content>
   </ion-card>
 
   <ion-row *ngFor="let garage of dataGarage$ | async">
       <ion-card>
-        <img alt="Imagen del garaje" src="https://ionicframework.com/docs/img/demos/card-media.png"/>
+        <img *ngIf="garageImage[garage.id] ?.length > 0" 
+          [src]="garageImage[garage.id]" alt="Imagen del garaje"/>
+        <img *ngIf="!garageImage[garage.id]" 
+          src="https://ionicframework.com/docs/img/demos/card-media.png" alt="Imágenes del garaje"/>
         <ion-card-header>
           <ion-card-title>{{ garage.name }}</ion-card-title>
           <ion-card-subtitle>{{ garage.description }}</ion-card-subtitle>
@@ -106,11 +84,3 @@
         </ion-card-content>
       </ion-card>
   </ion-row>
-
-  <ion-infinite-scroll>
-    <ion-infinite-scroll-content 
-    loadingText="Por favor espere..." 
-    loadingSpinner="bubbles">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-</ion-grid>
