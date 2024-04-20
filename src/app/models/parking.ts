@@ -3,6 +3,7 @@ import { User } from './authentication';
 export interface Location {
   latitude: number;
   longitude: number;
+  quantity?: number;
 }
 
 export enum ParkingType {

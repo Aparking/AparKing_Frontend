@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import * as L from 'leaflet';
+import { constants } from 'src/app/constants.ts';
 import {
   Location,
   NotificationsSocket,
@@ -11,6 +12,7 @@ import {
 } from 'src/app/models/parking';
 import { DataManagementService } from 'src/app/service/data-management.service';
 import { LocationService } from 'src/app/service/location.service';
+import { PersistenceService } from 'src/app/service/persistence.service';
 import { WebsocketService } from 'src/app/service/websocket.service';
 import { environment } from 'src/environments/environment';
 import { CreateParkingModalComponent } from '../create-parking-modal/create-parking-modal.component';
@@ -24,7 +26,10 @@ export class MapComponent implements OnInit {
   userLocation: Location | undefined;
   parkings: Parking[] = [];
   group: string = '';
+  intervalUpdate: any;
   map: L.Map | undefined;
+  movePoint: boolean = true;
+
   private icon = L.icon({
     iconUrl: 'marker-icon.png',
     iconSize: [25, 35],
@@ -37,40 +42,69 @@ export class MapComponent implements OnInit {
     private locationService: LocationService,
     private websocket: WebsocketService,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
-  ) {}
+    private loadingCtrl: LoadingController,
+    private toastController: LoadingController,
+    private persistence: PersistenceService
+  ) {
+    this.intervalUpdate = setInterval(() => this.updateUserLocation(), 3000);
+  }
 
   async ngOnInit() {
     this.prepareMap();
-    this.locationService.getLocation().then((location) => {
-      if (location) {
-        this.userLocation = {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        };
+    this.updateUserLocation();
+  }
 
-        this.dataManagement.getParkingNear(this.userLocation).then((data) => {
-          this.parkings = data.parkingData;
-          this.group = data.group;
-          try {
-            this.websocket
-              .connect(`${environment.wsUrl}${this.group}/`)
-              .forEach((response: MessageEvent): any => {
-                let data: ParkingSocket = JSON.parse(response.data);
-
-                this.manageSocketAdd(data);
-                return data;
-              });
-          } catch (error) {
-            console.error(error);
-          }
-          this.prepareMap(this.userLocation!, this.map, this.parkings);
+  public goNearParking() {
+    if (this.parkings.length > 0) {
+      this.userLocation = this.parkings[0].location;
+      this.prepareMap(this.parkings[0].location, this.map);
+      this.movePoint = false;
+    } else {
+      this.toastController
+        .create({
+          message: 'No hay parqueos cercanos',
+          duration: 2000,
+        })
+        .then((toast) => {
+          toast.present();
         });
-      }
-    });
+    }
+  }
+
+  private updateUserLocation() {
+    if (this.persistence.checkValue(constants.TOKEN)) {
+      this.locationService.getLocation().then((location) => {
+        if (location) {
+          this.userLocation = {
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            quantity: 1000,
+          };
+
+          this.dataManagement.getParkingNear(this.userLocation).then((data) => {
+            this.parkings = data.parkingData;
+            this.group = data.group;
+            try {
+              this.websocket
+                .connect(`${environment.wsUrl}${this.group}/`)
+                .forEach((response: MessageEvent): any => {
+                  let data: ParkingSocket = JSON.parse(response.data);
+
+                  this.manageSocketAdd(data);
+                  return data;
+                });
+            } catch (error) {
+              console.error(error);
+            }
+            this.prepareMap(this.userLocation!, this.map, this.parkings);
+          });
+        }
+      });
+    }
   }
 
   async locateUserOnMap() {
+    this.movePoint = true;
     const loading = await this.loadingCtrl.create({
       message: 'Cargando...',
     });
@@ -107,12 +141,14 @@ export class MapComponent implements OnInit {
         longitude: 37.3807579,
       };
     }
-    this.map = map
-      ? map.setView([location.latitude, location.longitude], 18)
-      : L.map('mapId', { zoomControl: false }).setView(
-          [location.latitude, location.longitude],
-          18
-        );
+    if (!this.map || this.movePoint) {
+      this.map = map
+        ? map.setView([location.latitude, location.longitude], 18)
+        : L.map('mapId', { zoomControl: false }).setView(
+            [location.latitude, location.longitude],
+            18
+          );
+    }
     this.map.invalidateSize();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
@@ -177,11 +213,46 @@ export class MapComponent implements OnInit {
       this.parkings = this.parkings.filter((parking) => parking.id !== id);
     }
     if (parking) {
-      this.parkings.push(parking);
+      if (this.parkings.length > 0 && this.userLocation) {
+        const distanceOfFirst = this.calculateDistance(
+          this.userLocation,
+          this.parkings[0].location
+        );
+        const distanceOfLast = this.calculateDistance(
+          this.userLocation,
+          parking.location
+        );
+        if (distanceOfFirst > distanceOfLast) {
+          this.parkings.unshift(parking);
+        } else {
+          this.parkings.push(parking);
+        }
+      } else {
+        this.parkings.push(parking);
+      }
     }
     this.parkings.forEach((parking) => {
       this.layerGroup?.addLayer(this.createMarker(parking));
     });
     this.map?.addLayer(this.layerGroup);
+  }
+
+  private gradesToRadian(grades: number): number {
+    return grades * (Math.PI / 180);
+  }
+
+  private calculateDistance(location1: Location, location2: Location): number {
+    const radiusEarthKm = 6371;
+    const dLat = this.gradesToRadian(location2.latitude - location1.latitude);
+    const dLon = this.gradesToRadian(location2.longitude - location1.longitude);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(this.gradesToRadian(location1.latitude)) *
+        Math.cos(this.gradesToRadian(location2.latitude)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = radiusEarthKm * c; // Distancia en kilómetros
+    return distance;
   }
 }
