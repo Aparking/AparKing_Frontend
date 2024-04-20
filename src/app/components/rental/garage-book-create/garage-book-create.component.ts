@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
+import { DataManagementService } from 'src/app/service/data-management.service';
+
 
 import {
   BookingStatus,
@@ -26,7 +28,8 @@ export class GarageBookCreateComponent implements OnInit {
     private modalCtrl: ModalController,
     private restService: RestService,
     private toastController: ToastController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private dataManagementService: DataManagementService
   ) {
     this.garageId = this.navParams.get('garageId');
     this.currentGarage = this.navParams.get('garage');
@@ -69,7 +72,7 @@ export class GarageBookCreateComponent implements OnInit {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  async confirm() {
+  async confirmBooking() {
     const toast = await this.toastController.create({
       duration: 2000, // Duración del toast en milisegundos
       position: 'bottom', // Posición del toast (top, middle, bottom)
@@ -96,6 +99,15 @@ export class GarageBookCreateComponent implements OnInit {
         payment_method: translatedPaymentMethod,
         status: translatedStatus,
       };
+
+      if (this.bookForm.value.paymentMethod === PaymentMethod.CARD) {
+        try {
+          const session = await this.dataManagementService.createCheckoutSessionRental(Number(this.currentGarage.id));
+          window.location.href = session.url;
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
       this.restService
         .createBooking(bookingData)

@@ -148,4 +148,12 @@ export class RestService extends WsAbstractService {
       {}
     );
   }
+  async createCheckoutSessionRental(bookingId: number): Promise<any> {
+    try{
+      return await this.makePostRequest(`${this.path}/bookings/create-checkout-session/`, {bookingId});
+    } catch (error) {
+
+      throw error;
+    }
+  }
 }

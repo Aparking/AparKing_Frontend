@@ -127,4 +127,15 @@ export class DataManagementService {
         throw err;
       });
   }
+
+  async createCheckoutSessionRental(bookingId: number): Promise<any> {
+    return await this.rest
+      .createCheckoutSessionRental(bookingId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
 }
+
+
