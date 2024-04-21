@@ -12,6 +12,7 @@ import {
 import { DataManagementService } from 'src/app/service/data-management.service';
 import { LocationService } from 'src/app/service/location.service';
 import { WebsocketService } from 'src/app/service/websocket.service';
+import { environment } from 'src/environments/environment';
 import { CreateParkingModalComponent } from '../create-parking-modal/create-parking-modal.component';
 
 @Component({
@@ -51,7 +52,7 @@ export class MapComponent implements OnInit {
           this.parkings = data.parkingData;
           this.group = data.group;
           this.websocket
-            .connect(`ws://localhost:8000/ws/parking/${this.group}/`)
+            .connect(`${environment.wsUrl}/${this.group}/`)
             .forEach((response: MessageEvent): any => {
               let data: ParkingSocket = JSON.parse(response.data);
 
@@ -97,7 +98,10 @@ export class MapComponent implements OnInit {
   private prepareMap(location: Location, map?: L.Map, parkings?: Parking[]) {
     this.map = map
       ? map.setView([location.latitude, location.longitude], 18)
-      : L.map('mapId').setView([location.latitude, location.longitude], 18);
+      : L.map('mapId', { zoomControl: false }).setView(
+          [location.latitude, location.longitude],
+          18
+        );
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
