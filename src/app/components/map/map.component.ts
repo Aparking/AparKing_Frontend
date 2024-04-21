@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ModalController } from '@ionic/angular';
 import * as L from 'leaflet';
 import {
+  City,
   Location,
   NotificationsSocket,
   Parking,
@@ -14,6 +15,7 @@ import { LocationService } from 'src/app/service/location.service';
 import { WebsocketService } from 'src/app/service/websocket.service';
 import { environment } from 'src/environments/environment';
 import { CreateParkingModalComponent } from '../create-parking-modal/create-parking-modal.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-map',
@@ -61,6 +63,21 @@ export class MapComponent implements OnInit {
             });
           this.prepareMap(this.userLocation!, undefined, this.parkings);
         });
+      }
+    });
+  }
+
+  async showSearchCity() {
+    const modal = await this.modalCtrl.create({
+      component: SearchBarComponent,
+      initialBreakpoint: 0.8,
+    });
+    await modal.present();
+
+    modal.onDidDismiss().then((data) => {
+      if (data.data) {
+        const city: City = data.data;
+        this.userLocation = city.location;
       }
     });
   }
