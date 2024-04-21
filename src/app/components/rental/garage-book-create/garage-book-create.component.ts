@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController, NavParams, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  NavParams,
+  ToastController,
+} from '@ionic/angular';
 
 import {
   BookingStatus,
@@ -26,7 +31,8 @@ export class GarageBookCreateComponent implements OnInit {
     private modalCtrl: ModalController,
     private restService: RestService,
     private toastController: ToastController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private alertController: AlertController
   ) {
     this.garageId = this.navParams.get('garageId');
     this.currentGarage = this.navParams.get('garage');
@@ -45,13 +51,14 @@ export class GarageBookCreateComponent implements OnInit {
       .getAvailabilitiesByGarageId(this.garageId)
       .then((availabilities) => {
         this.availabilities = availabilities.filter((availability: any) => {
-          return availability.status === 'Disponible';
+          return availability.status === 'AVAILABLE';
         });
         if (this.availabilities.length === 0) {
           this.cancel();
         }
       })
       .catch((_) => {
+        this.showAlert('Este garaje no tiene reservas disponibles.');
         this.cancel();
       });
     this.restService
@@ -60,9 +67,18 @@ export class GarageBookCreateComponent implements OnInit {
         this.user = user;
       })
       .catch((_) => {
-        console.error('Error al obtener los datos del usuario');
+        this.showAlert('No se ha podido obtener la información del usuario');
         this.cancel();
       });
+  }
+
+  async showAlert(text: string) {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: text,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   async cancel() {
