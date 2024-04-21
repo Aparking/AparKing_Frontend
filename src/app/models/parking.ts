@@ -54,3 +54,13 @@ export interface Parking {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface City {
+  id: number;
+  name: string;
+  name_ascii?: string | null;
+  alternative_name?: string | null;
+  location: Location;
+  country_code?: string | null;
+  distance?: string;
+}
