@@ -129,6 +129,28 @@ form {
   padding-left: 5%;
 }
 
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 10px auto; // Ajusta como sea necesario
+}
+
+
+.checkbox-container {
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+ion-checkbox {
+  margin-right: 10px;
+}
+
+.error-container {
+  width: 90%;
+  padding-left: 10px;
+}
 
 
 
