@@ -1,7 +1,7 @@
 <!-- barra-busqueda.component.html -->
 <ion-header>
     <ion-toolbar style="padding-top: 15px;">
-      <ion-searchbar [(ngModel)]="query" (search)="searchCities($event)" enterkeyhint="search"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="query" (search)="searchCities($event)" enterkeyhint="search" (ionClear)="manageClearCities()"></ion-searchbar>
       <ion-buttons slot="end">
         <ion-button (click)="closeModal()">Cerrar</ion-button>
       </ion-buttons>

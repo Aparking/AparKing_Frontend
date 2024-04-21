@@ -31,6 +31,7 @@ export class MapComponent implements OnInit {
   intervalUpdate: any;
   map: L.Map | undefined;
   movePoint: boolean = true;
+  cities: City[] = [];
 
   private icon = L.icon({
     iconUrl: 'marker-icon.png',
@@ -54,6 +55,14 @@ export class MapComponent implements OnInit {
   async ngOnInit() {
     this.prepareMap();
     this.updateUserLocation();
+  }
+
+  private getBasicInfoCities() {
+    if (this.userLocation) {
+      this.dataManagement
+        .getCities(this.userLocation, 'empty')
+        .then((cities) => (this.cities = cities));
+    }
   }
 
   public goNearParking() {
@@ -83,6 +92,10 @@ export class MapComponent implements OnInit {
             quantity: 1000,
           };
 
+          if (this.cities.length == 0) {
+            this.getBasicInfoCities();
+          }
+
           this.dataManagement.getParkingNear(this.userLocation).then((data) => {
             this.parkings = data.parkingData;
             this.group = data.group;
@@ -108,14 +121,20 @@ export class MapComponent implements OnInit {
   async showSearchCity() {
     const modal = await this.modalCtrl.create({
       component: SearchBarComponent,
+      componentProps: {
+        cities: this.cities,
+      },
       initialBreakpoint: 0.8,
     });
     await modal.present();
 
     modal.onDidDismiss().then((data) => {
       if (data.data) {
+        this.movePoint = true;
         const city: City = data.data;
-        this.userLocation = city.location;
+        const location: Location = city.location;
+        this.prepareMap(location, this.map);
+        this.movePoint = false;
       }
     });
   }
