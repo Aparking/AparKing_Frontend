@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+    environment {
+        INSTANCE_NAME = "aparking-frontend-s3"
+        PROJECT = "aparking-g11-s3"
+        ZONE = "europe-southwest1-a"
+        IMAGE = "frontend"
+        MACHINE_TYPE = "e2-medium"
+        GIT_REPO = "https://github.com/Aparking/AparKing_Frontend.git"
+        GIT_BRANCH = "deploy/s3"
+    }
+    stages {
+        stage('Prepare Environment') {
+            steps {
+                script {
+                    // Elimina la instancia existente si existe
+                    sh "gcloud compute instances delete ${INSTANCE_NAME} --zone=${ZONE} --project=${PROJECT} --quiet || true"
+                    // Crea una nueva instancia
+                    sh """
+                    gcloud compute instances create ${INSTANCE_NAME} \
+                        --zone=${ZONE} \
+                        --project=${PROJECT} \
+                        --source-machine-image=${IMAGE} \
+                        --machine-type=${MACHINE_TYPE} \
+                        --metadata=startup-script='#!/bin/bash
+                        sudo git clone --single-branch --branch ${GIT_BRANCH} ${GIT_REPO} /app
+                        cd /app
+                        sudo npm i
+                        sudo npm install express
+                        sudo ionic build --prod
+                        sudo node server.js'
+                    """
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            mail to: 'juancarlosralop@gmail.com, sergiosantiago0403@gmail.com, maria-vico@hotmail.es',
+                subject: "Despliegue Completado: ${INSTANCE_NAME}",
+                body: """El despliegue de la instancia ${INSTANCE_NAME} ha sido completado. 
+                En unos minutos podrás acceder a través de la dirección IP: ${'http://'+sh(script: "gcloud compute instances describe ${INSTANCE_NAME} --zone=${ZONE} --format='get(networkInterfaces[0].accessConfigs[0].natIP)'", returnStdout: true).trim()}:8180."""
+        }
+        failure {
+            mail to: 'juancarlosralop@gmail.com, sergiosantiago0403@gmail.com, maria-vico@hotmail.es',
+                subject: "Despliegue Fallido: ${INSTANCE_NAME}",
+                body: "El despliegue de la instancia ${INSTANCE_NAME} ha fallado."
+        }
+    }
+}
