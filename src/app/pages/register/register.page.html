@@ -86,6 +86,18 @@
         </div>
       </div>
 
+      <div class="input-container">
+        <div class="checkbox-row">
+          <ion-checkbox formControlName="checkBox_CA"></ion-checkbox>
+          <ion-label>
+            Aceptar los <a href="https://base-conocimiento-g11.vercel.app/docs/Planificación%20proyecto/pilotUsersCommitmentAgreement" target="_blank">términos y condiciones</a> de AparKing
+          </ion-label>
+          <div class="error-container">
+            <app-error-message [field]="registerForm.get('checkBox_CA')!" [message]="'Debe aceptar los términos y condiciones'" [error]="'requiredTrue'"></app-error-message>
+          </div>
+        </div>
+      </div>
+
       <ion-button expand="full" type="submit" [disabled]="!registerForm.valid" shape="round" (click)="registerSubmit">Registrarse</ion-button>
     </form>
   </div>
