@@ -2,6 +2,12 @@
 <ion-content>
   <div id="mapId"></div>
 
+  <ion-fab  slot="fixed" vertical="bottom" horizontal="start">
+    <ion-fab-button class="white-button" (click)="goNearParking()">
+      <ion-icon name="analytics-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-fab slot="fixed" vertical="bottom" horizontal="center">
     <ion-fab-button (click)="showCreateModal()">
       <ion-icon name="add"></ion-icon>
