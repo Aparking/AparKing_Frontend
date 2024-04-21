@@ -50,4 +50,12 @@ export class RestService extends WsAbstractService {
   async logout(): Promise<void> {
     return await this.makeGetRequest(`${this.path}/logout/`);
   }
+
+  async getUserData(): Promise<User> {
+    return await this.makeGetRequest(`${this.path}/user-info/`);
+  }
+
+  async updateUser(data: User): Promise<any> {
+    return await this.makePostRequest(`${this.path}/user/profile`, data);
+  }
 }
