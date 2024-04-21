@@ -1,0 +1,105 @@
+<ion-header >
+  <ion-toolbar style="--background: transparent; --border-color: transparent;">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="appbar">{{constants.APP_NAME}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="false">
+  <p class="title">Crear una cuenta</p>
+
+
+  <div class="body">
+    <form [formGroup]="registerForm" (submit)="registerSubmit()">
+
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="Miguel Cervantes" label-placement="floating" label="Nombre" formControlName="username" type="text" [autocapitalize]="true" ></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('username')!" [message]="'Debe introducir su nombre'" [error]="'required'"></app-error-message>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="example@mail.com" label-placement="floating" label="Email" formControlName="email" type="email"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('email')!" [message]="'El email es obligatorio'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="registerForm.get('email')!" [message]="'El email no es válido'" [error]="'email'"></app-error-message>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="Escriba su contraseña" label-placement="floating" label="Contraseña" formControlName="password" type="password"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('password')!" [message]="'La contraseña es obligatoria'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="registerForm.get('password')!" [message]="'Longitud mínima 6 caracteres'" [error]="'minlength'"></app-error-message>
+        </div>
+      </div>
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="Escriba de nuevo su contraseña" label-placement="floating" label="Confirme su contraseña" formControlName="confirmPassword" type="password"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('confirmPassword')!" [message]="'La confirmación de contraseña es obligatorio'" [error]="'required'"></app-error-message>
+          <div *ngIf="registerForm.hasError('mismatch') && (registerForm.get('confirmPassword')?.dirty || registerForm.get('confirmPassword')?.touched)">
+            <p style="color: red;">Las contraseñas no coinciden</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="Escriba su DNI" label-placement="floating" label="DNI" formControlName="dni" type="text"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('dni')!" [message]="'El dni es obligatorio'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="registerForm.get('dni')!" [message]="'El dni no es válido'" [error]="'dniInvalid'"></app-error-message>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="Escriba su fecha de nacimeinto" label-placement="floating" label="Fecha de nacimiento" formControlName="birth_date" type="date"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('birth_date')!" [message]="'La fecha de nacimiento es obligatoria'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="registerForm.get('birth_date')!" [message]="'Debe tener mínimo 18 años'" [error]="'minimumAge'"></app-error-message>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="row">
+          <ion-input style="width: 100px;" fill="outline" placeholder="34" label-placement="floating" label="Prefijo" formControlName="countryCode" type="number"></ion-input>
+          <ion-input fill="outline" placeholder="123456789" label-placement="floating" label="Número de teléfono" formControlName="phone" type="number"></ion-input>
+        </div>
+        <div class="error-conatiner">
+          <app-error-message [field]="registerForm.get('phone')!" [message]="'Debe introducir su número de teléfono'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="registerForm.get('phone')!" [message]="'Número inválido'" [error]="'phoneNumber'"></app-error-message>
+          <app-error-message [field]="registerForm.get('countryCode')!" [message]="'Debe introducir su prefijo'" [error]="'required'"></app-error-message>
+          <app-error-message [field]="registerForm.get('countryCode')!" [message]="'Prefijo inválido'" [error]="'minLength'"></app-error-message>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="box">
+          <ion-select formControlName="genre" label="Seleccione género">
+            <ion-select-option value="M">Hombre</ion-select-option>
+            <ion-select-option value="F">Mujer</ion-select-option>
+            <ion-select-option value="O">Otro</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="checkbox-row">
+          <ion-checkbox formControlName="checkBox_CA"></ion-checkbox>
+          <ion-label>
+            Aceptar los <a href="https://base-conocimiento-g11.vercel.app/docs/Planificación%20proyecto/pilotUsersCommitmentAgreement" target="_blank">términos y condiciones</a> de AparKing
+          </ion-label>
+          <div class="error-container">
+            <app-error-message [field]="registerForm.get('checkBox_CA')!" [message]="'Debe aceptar los términos y condiciones'" [error]="'requiredTrue'"></app-error-message>
+          </div>
+        </div>
+      </div>
+
+      <ion-button expand="full" type="submit" [disabled]="!registerForm.valid" shape="round" (click)="registerSubmit">Registrarse</ion-button>
+    </form>
+  </div>
+
+</ion-content>
