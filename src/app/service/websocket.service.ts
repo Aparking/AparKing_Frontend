@@ -6,8 +6,18 @@ import * as Rx from 'rxjs';
 })
 export class WebsocketService {
   private subject: Rx.Subject<MessageEvent> | undefined;
+  private ws: WebSocket | undefined;
 
   constructor() {}
+
+  public disconnect() {
+    if (this.ws) {
+      this.ws.close();
+      console.log('Disconnected from WebSocket');
+      this.subject = undefined;
+      this.ws = undefined;
+    }
+  }
 
   public connect(url: string): Rx.Subject<MessageEvent> {
     if (!this.subject) {
@@ -18,27 +28,31 @@ export class WebsocketService {
   }
   private create(url: string): Rx.Subject<MessageEvent> {
     try {
-      let ws = new WebSocket(url);
+      this.ws = new WebSocket(url);
       let observable = Rx.Observable.create(
         (obs: Rx.Observer<MessageEvent>) => {
-          ws.onmessage = (event: MessageEvent) => {
-            obs.next(event);
-          };
-          ws.onerror = (error: Event) => {
-            obs.error(error);
-          };
-          ws.onclose = (event: CloseEvent) => {
-            obs.complete();
-          };
+          if (this.ws) {
+            this.ws.onmessage = (event: MessageEvent) => {
+              obs.next(event);
+            };
+            this.ws.onerror = (error: Event) => {
+              obs.error(error);
+            };
+            this.ws.onclose = (event: CloseEvent) => {
+              obs.complete();
+            };
+          }
           return () => {
-            ws.close();
+            if (this.ws) {
+              this.ws.close();
+            }
           };
         }
       );
       let observer = {
         next: (data: Object) => {
-          if (ws.readyState === WebSocket.OPEN) {
-            ws.send(JSON.stringify(data));
+          if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+            this.ws.send(JSON.stringify(data));
           }
         },
       };
