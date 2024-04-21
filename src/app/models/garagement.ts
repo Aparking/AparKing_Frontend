@@ -1,5 +1,5 @@
 export interface Address {
-  id: number | string;
+  id: string;
   street_number: string;
   unit_number: string | null;
   address_line: string;
@@ -11,7 +11,7 @@ export interface Address {
 
 export interface Garage {
   filter(arg0: (allGarages: any) => any): any;
-  id: number | string;
+  id: string;
   name: string;
   description: string;
   height: number;
@@ -21,16 +21,16 @@ export interface Garage {
   creation_date: string;
   modification_date: string;
   is_active: boolean;
-  owner: number | string;
+  owner: string;
   address: Address;
 }
 
 export interface Image {
-  id: number | string;
+  id: string;
   image: string;
   alt: string;
   publication_date: string;
-  garage: number | string;
+  garage: string;
 }
 
 // export enum GarageStatus {
@@ -40,11 +40,11 @@ export interface Image {
 // }
 
 export interface Availability {
-  id: number | string;
+  id: string;
   startDate: string;
   endDate: string;
   status: string;
-  garageId: number | string;
+  garageId: string;
 }
 
 export enum PaymentMethod {
@@ -59,9 +59,9 @@ export enum BookingStatus {
 }
 
 export interface Book {
-  id: number | string;
+  id: string;
   payment_method: PaymentMethod;
   status: BookingStatus;
-  user: number | string;
-  availability: number | string;
+  user: string;
+  availability: string;
 }
