@@ -44,6 +44,13 @@ const routes: Routes = [
         (m) => m.VerifyUserPageModule
       ),
   },
+  {
+    path: 'about-us',
+    loadChildren: () =>
+      import('./pages/about-us/about-us-page.module').then(
+        (m) => m.AboutUsPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
