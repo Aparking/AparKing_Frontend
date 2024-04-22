@@ -1,0 +1,77 @@
+<ion-content>
+  <ion-card *ngIf="currentUser.id">
+    <ion-card-header>
+      <ion-card-title>Usuario</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Nombre de usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="currentUser.username" #username="ngModel" required name="username"></ion-input>
+        <ion-label *ngIf="username.invalid && username.touched" color="danger">Nombre de usuario requerido</ion-label>
+        <ion-label *ngIf="!isUsernameUnique()" color="danger">En uso</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" [(ngModel)]="currentUser.email" #email="ngModel" name="email" required email></ion-input>
+        <ion-label *ngIf="email.invalid && email.touched" color="danger">Email requerido/inválido</ion-label>
+        <ion-label *ngIf="!isEmailUnique()" color="danger">En uso</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">DNI</ion-label>
+        <ion-input type="text" [(ngModel)]="currentUser.dni" #dni="ngModel" name="dni" required pattern="[0-9]{8}[A-Za-z]{1}"></ion-input>
+        <ion-label *ngIf="dni.invalid && dni.touched" color="danger">DNI requerido/inválido</ion-label>
+        <ion-label *ngIf="!isDniUnique()" color="danger">En uso</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Fecha de nacimiento</ion-label>
+        <ion-input type="date" [(ngModel)]="currentUser.birth_date" #birth_date="ngModel" required name="birth_date"></ion-input>
+        <ion-label *ngIf="birth_date.invalid" color="danger">Fecha de nacimiento requerida</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Género</ion-label>
+        <ion-select [(ngModel)]="currentUser.gender" name="gender">
+          <ion-select-option value="MALE">MALE</ion-select-option>
+          <ion-select-option value="FEMALE">FEMALE</ion-select-option>
+          <ion-select-option value="OTHER">OTHER</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Foto</ion-label>
+        <ion-input type="text" [(ngModel)]="currentUser.photo" #photo="ngModel" name="photo" pattern="https?://.+"></ion-input>
+        <ion-label *ngIf="photo.invalid && photo.touched" color="danger">URL inválida</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Teléfono</ion-label>
+        <ion-input type="text" [(ngModel)]="currentUser.phone" #phone="ngModel" name="phone" required pattern="^\+34[0-9]{9}$"></ion-input>
+        <ion-label *ngIf="phone.invalid && phone.touched" color="danger">Teléfono inválido</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="currentUser.password" #password="ngModel" required name="password"></ion-input>
+        <ion-label *ngIf="password.invalid" color="danger">Contraseña requerida</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Es personal</ion-label>
+        <ion-checkbox [(ngModel)]="currentUser.is_staff" name="is_staff"></ion-checkbox>
+      </ion-item>
+
+      <ion-button expand="full" (click)="updateUser()">Actualizar</ion-button>
+      <ion-button expand="full" color="danger" (click)="deleteUser()">Borrar</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="!currentUser">
+    <ion-card-content>
+      Por favor selecciona un usuario...
+    </ion-card-content>
+  </ion-card>
+</ion-content>

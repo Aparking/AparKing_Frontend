@@ -1,0 +1,17 @@
+<!-- barra-busqueda.component.html -->
+<ion-header>
+    <ion-toolbar style="padding-top: 15px;">
+      <ion-searchbar [(ngModel)]="query" (search)="searchCities($event)" enterkeyhint="search" (ionClear)="manageClearCities()"></ion-searchbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">Cerrar</ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let city of cities" (click)="closeModal(city)">
+        {{ city.name }} ({{city.country_code}}) - {{ city.distance }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
