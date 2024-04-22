@@ -141,7 +141,6 @@ export class DataManagementService {
         return err;
       });
   }
-}
 
 
   async getCities(location: Location, query: string): Promise<City[]> {

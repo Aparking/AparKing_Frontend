@@ -163,6 +163,7 @@ export class RestService extends WsAbstractService {
 
       throw error;
     }
+  }
 
   async getCities(coordenates: Location, query: string): Promise<City[]> {
     return await this.makePostRequest(
@@ -174,4 +175,5 @@ export class RestService extends WsAbstractService {
   async postVehicleRegister(vehicle: Vehicle): Promise<void> {
     return await this.makePostRequest(`${this.path}/registerVehicle/`, vehicle);
   }
+
 }
