@@ -17,17 +17,17 @@
         Aviso creado: {{item[0].created_at}} <br>
         Matricula coche: {{item[1].carModel}} <br>
         Cedido a: {{item[0].bookedBy?.username}} <br>
+        Cedido a: {{item[0].id}} <br>
         <a
           href="https://www.google.com/maps?q={{ parseLocation(item[0].location)?.latitude }},{{ parseLocation(item[0].location)?.longitude }}">Ir
           a la plaza</a><br>
-        <!--<ion-card-content>
+        <ion-card-content>
           <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
             (click)="postParkingCesion(item[0].id)">
             Obtener
             aparcamiento
           </ion-button>
         </ion-card-content>
-      -->
       </ion-card-content>
     </ion-card>
 

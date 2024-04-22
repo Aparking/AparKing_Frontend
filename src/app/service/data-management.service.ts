@@ -192,8 +192,19 @@ export class DataManagementService {
         throw err;
       });
   }
+  async getVehicle(): Promise<{ vehicles: Vehicle[] } | undefined> {
+    return this.rest.getVehicles()
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
 
-  async postParkingCesion(parkingId: number): Promise<any> {
+  async postParkingCesion(parkingId: number): Promise<void> {
     return await this.rest
       .postParkingCesion(parkingId)
       .then((data) => data)

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CesionParking, Location } from 'src/app/models/parking';
 import { DataManagementService } from 'src/app/service/data-management.service';
+import { Vehicle } from '../../models/authentication';
 
 
 @Component({
@@ -10,13 +12,14 @@ import { DataManagementService } from 'src/app/service/data-management.service';
 })
 export class parkingCesionComponent implements OnInit {
   parking?: CesionParking | undefined;
+  vehicle?: Vehicle[] | undefined;
 
   ngOnInit() {
     this.getParkingCesion();
   }
 
 
-  constructor(private dataManagementService: DataManagementService) { }
+  constructor(private dataManagementService: DataManagementService, private router: Router) { }
 
 
   async getParkingCesion() {
@@ -40,10 +43,34 @@ export class parkingCesionComponent implements OnInit {
     return null;
   }
 
+
+  async getVehicles() {
+    this.dataManagementService.getVehicle().then((data: { vehicles: Vehicle[] } | undefined) => {
+      console.log("datos vehículos", data);
+      console.log(!data || data.vehicles.length === 0);
+      if (!data || data.vehicles.length === 0) {
+        console.log("No hay vehículos disponibles o la data es undefined");
+        this.router.navigate(['/registerVehicle']);
+        return data?.vehicles.length;
+      } else {
+        this.vehicle = data.vehicles;
+        return data?.vehicles.length;
+      }
+    }).catch(error => {
+      console.error('There was an error!', error);
+    });
+  }
+
   async postParkingCesion(parkingId: number) {
     try {
-      const session = await this.dataManagementService.postParkingCesion(parkingId);
-      return session
+      console.log(parkingId)
+      await this.getVehicles();
+      if (this.vehicle && this.vehicle.length > 0) {
+        console.log("hola")
+        const session = await this.dataManagementService.postParkingCesion(parkingId);
+        return session;
+      }
+
     } catch (error) {
       console.error(error);
     }
