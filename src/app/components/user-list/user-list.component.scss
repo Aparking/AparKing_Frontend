@@ -1,0 +1,94 @@
+.user-list {
+  background-color: #7d6b6b;
+  padding: 10px;
+}
+
+.user-item {
+  background-color: #7d6b6b;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.619);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.username,
+.email,
+.date_joined,
+.phone,
+.is_superuser {
+  font-size: 14px;
+  color: #d4d1d1;
+  padding: 10px;
+  flex: 1;
+}
+
+.user-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Añadido para centrar verticalmente */
+  padding: 20px;
+  background-color: #363232;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+.user-table-header ion-row {
+  width: 100%;
+}
+
+.user-table-header ion-col {
+  text-align: center;
+}
+
+.user-table-col {
+  flex: 1;
+  text-align: center;
+  color: white;
+  display: flex; /* Añadido para centrar verticalmente */
+  align-items: center; /* Añadido para centrar verticalmente */
+}
+.custom-searchbar {
+  --background: #f2f2f2; 
+  --placeholder-color: #131313; 
+  --color: #333;
+}
+
+/* Estilo personalizado para ajustar el margen superior */
+ion-searchbar {
+  margin-top: 20px;
+}
+
+/* Estilo personalizado para ajustar el tamaño del icono de búsqueda */
+ion-searchbar .searchbar-search-icon {
+  font-size: 1.5rem;
+}
+
+/* Estilo personalizado para ajustar el tamaño del botón de búsqueda */
+ion-searchbar .searchbar-clear-icon {
+  font-size: 1.5rem;
+}
+
+/* Estilo personalizado para ajustar el tamaño del botón de búsqueda */
+ion-searchbar .searchbar-md .searchbar-input {
+  font-size: 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px; /* Opcional: para ajustar el margen superior */
+}
+
+ion-button {
+  font-size: 14px;
+  padding: 6px 12px;
+  width: fit-content;
+}
+
+
+

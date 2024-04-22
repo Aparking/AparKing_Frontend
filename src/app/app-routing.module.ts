@@ -11,6 +11,7 @@ const routes: Routes = [
   },
   {
     path: '',
+
     loadChildren: () =>
       import('./pages/start-page/start-page.module').then(
         (m) => m.StartPagePageModule
@@ -35,6 +36,7 @@ const routes: Routes = [
         (m) => m.VerifyUserPageModule
       ),
   },
+
 ];
 @NgModule({
   imports: [
