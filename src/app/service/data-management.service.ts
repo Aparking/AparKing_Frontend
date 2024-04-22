@@ -133,6 +133,16 @@ export class DataManagementService {
       });
   }
 
+  async createCheckoutSessionRental(data: any): Promise<any> {
+    return await this.rest
+      .createCheckoutSessionRental(data)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+
   async getCities(location: Location, query: string): Promise<City[]> {
     return this.rest
       .getCities(location, query)

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="closeModal()">Volver</ion-button>
+    </ion-buttons>
+    <ion-title>Mis reservas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if(myBookings.length === 0) {
+  <ion-card>
+    <ion-text color="medium">
+      <h1 style="margin: auto">No tienes reservas</h1>
+    </ion-text>
+  </ion-card>
+  } @else {
+  <ion-list>
+    @for (book of myBookings; track book.id) {
+    <ion-card>
+      @if (book.garage) {
+      <ion-card-header>
+        <div style="display: flex; justify-content: space-between">
+          <ion-card-title style="align-content: center">{{
+            book.garage.name
+          }}</ion-card-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="alertCancelBooking(book.id)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </div>
+        <ion-card-subtitle
+          >{{ book.garage.address.city }},
+          {{ book.garage.address.address_line }},
+          {{ book.garage.address.street_number }}</ion-card-subtitle
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Fecha de inicio</ion-label>
+          <ion-text>{{
+            book.availability.start_date | date : "yyyy-MM-dd"
+          }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Fecha de fin</ion-label>
+          <ion-text>{{
+            book.availability.end_date | date : "yyyy-MM-dd"
+          }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Precio</ion-label>
+          <ion-text>{{ book.garage.price }} €</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Estado</ion-label>
+          <ion-text>{{
+            book.status === "CONFIRMED" ? "Confirmada" : book.status
+          }}</ion-text>
+        </ion-item>
+      </ion-card-content>
+      }
+    </ion-card>
+    }
+  </ion-list>
+  }
+</ion-content>
