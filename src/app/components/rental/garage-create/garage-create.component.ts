@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import { from } from 'rxjs';
 import { User } from 'src/app/models/authentication';
+import { GarageStateService } from 'src/app/service/garage-state.service';
 import { RestService } from 'src/app/service/rest.service';
 
 @Component({
@@ -29,7 +30,8 @@ export class GarageCreateComponent implements OnInit {
     private restService: RestService,
     private router: Router,
     private route: ActivatedRoute,
-    private navCtr: NavController
+    private navCtr: NavController,
+    private garageStateService: GarageStateService
   ) {
     this.garageForm = this.formGargeBuilder.group({
       address: this.formGargeBuilder.group({
@@ -183,7 +185,8 @@ export class GarageCreateComponent implements OnInit {
                 ?.setValue(this.garageId);
               this.uploadImage(toast);
             }
-            this.navCtr.navigateRoot('G11/aparKing/garages');
+            this.garageStateService.refreshGarages();
+            this.navCtr.navigateBack('G11/aparKing/garages');
           })
           .catch(async (_) => {
             toast.message = `Error al actualizar el garaje, vuelva a intentarlo.`;
@@ -197,7 +200,8 @@ export class GarageCreateComponent implements OnInit {
             if (this.selectedFile) {
               this.uploadImage(toast); // Sube la imagen asociada al garaje
             }
-            this.navCtr.navigateRoot('G11/aparKing/garages');
+            this.garageStateService.refreshGarages();
+            this.navCtr.navigateBack('G11/aparKing/garages');
           })
           .catch(async (_) => {
             toast.message = `Error al crear el garaje, vuelva a intentarlo.`;

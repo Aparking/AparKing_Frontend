@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
-import { Garage } from 'src/app/models/garagement';
+import {
+  AlertController,
+  ModalController,
+  NavController,
+} from '@ionic/angular';
+import { GarageStateService } from 'src/app/service/garage-state.service';
 import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
 import { GarageBookListComponent } from '../garage-book-list/garage-book-list.component';
@@ -18,25 +22,29 @@ export class GarageListComponent implements OnInit {
   constructor(
     private restService: RestService,
     private modalCtrl: ModalController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private navCtrl: NavController,
+    private garageStateService: GarageStateService
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    await this.restService
-      .getAllGarages()
-      .then((data: Garage[]) => {
-        data.forEach((garage) => {
-          this.garages.push({
-            id: garage.id,
-            title: garage.name,
-            description: garage.description,
-            address: `${garage.address.street_number}, ${garage.address.address_line}, ${garage.address.city}`,
-            price: garage.price,
-          });
-        });
-      })
-      .catch((_) => this.showAlert('No se encontraron garajes.'));
+  ngOnInit() {
+    this.garageStateService.garages$.subscribe((garages) => {
+      this.garages = garages.map((garage) => {
+        return {
+          id: garage.id,
+          title: garage.name,
+          description: garage.description,
+          address: `${garage.address.street_number}, ${garage.address.address_line}, ${garage.address.city}`,
+          price: garage.price,
+          dimensions: `${garage.width} x ${garage.height} x ${garage.length} m`,
+        };
+      });
+      this.loadGaragesImages();
+    });
+    this.garageStateService.refreshGarages();
+  }
 
+  async loadGaragesImages() {
     const garageImagePromise = this.garages.map(async (garage) => {
       return await this.restService
         .getImagesByGarageId(garage.id)
@@ -68,5 +76,9 @@ export class GarageListComponent implements OnInit {
       component: GarageBookListComponent,
     });
     return await modal.present();
+  }
+
+  navigateToCreateGarage() {
+    this.navCtrl.navigateForward('/G11/aparKing/garages/create');
   }
 }

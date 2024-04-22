@@ -4,6 +4,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
 
+import { GarageStateService } from 'src/app/service/garage-state.service';
 import { GarageAvailabilityListCreateComponent } from '../garage-availability-list-create/garage-availability-list-create.component';
 import { GarageBookCreateComponent } from '../garage-book-create/garage-book-create.component';
 
@@ -18,7 +19,8 @@ export class GarageDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private alertController: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private garageStateService: GarageStateService
   ) {}
 
   MEDIA_BASE_ULR = environment.restUrl;
@@ -125,15 +127,18 @@ export class GarageDetailComponent implements OnInit {
     this.restService
       .deleteGarage(this.garageId)
       .then(() => {
+        this.garageStateService.refreshGarages();
         this.router.navigate(['/G11/aparKing/garages']);
       })
       .catch((_) => {
         this.showAlert('No se ha podido borrar el garaje.');
+        this.garageStateService.refreshGarages();
         this.router.navigate([`${this.base_url}/${this.garageId}`]);
       });
   }
 
   goBack() {
+    this.garageStateService.refreshGarages();
     this.router.navigate([this.base_url]);
   }
 

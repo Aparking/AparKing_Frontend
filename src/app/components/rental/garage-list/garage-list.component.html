@@ -5,6 +5,7 @@
       color="danger"
       shape="round"
       size="small"
+      (click)="navigateToCreateGarage()"
       >Añadir Garaje</ion-button
     >
     <ion-button
@@ -30,7 +31,11 @@
     </ion-card>
   </ion-row>
   <ion-row *ngIf="garages.length >= 1">
-    <ion-card *ngFor="let garage of garages" [routerLink]="[garage.id]">
+    <ion-card
+      *ngFor="let garage of garages"
+      [routerLink]="[garage.id]"
+      style="width: 100%"
+    >
       <ion-img [src]="garage.image"></ion-img>
       <ion-card-header>
         <ion-card-title>{{ garage.title }}</ion-card-title>
@@ -38,8 +43,8 @@
       <ion-card-content>
         <p>{{ garage.description }}</p>
         <p>{{ garage.address }}</p>
-        <p>Price: {{ garage.price }}</p>
-        <p>Dimensions: {{ garage.dimensions }}</p>
+        <p>Precio: {{ garage.price }}</p>
+        <p>Dimensiones: {{ garage.dimensions }}</p>
       </ion-card-content>
     </ion-card>
   </ion-row>
