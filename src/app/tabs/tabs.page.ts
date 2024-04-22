@@ -34,5 +34,11 @@ export class TabsPage {
   goRegisterVehicle() {
     this.navCtrl.navigateForward('/registerVehicle');
   }
+
+
+  async goToSubscriptions() {
+    this.navCtrl.navigateRoot('/api/subscriptions');
+  }
+
 }
 

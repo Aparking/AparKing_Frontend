@@ -11,6 +11,7 @@ import {
   ParkingCreate,
   ParkingResponse,
 } from '../models/parking';
+import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
 import { RestService } from './rest.service';
 
@@ -159,6 +160,24 @@ export class DataManagementService {
       })
       .catch((err: HttpErrorResponse) => {
         throw err;
+      });
+  }
+
+  async subscription(): Promise<{ user_info: CombinedDataPayment }> {
+    return this.rest
+      .subscription()
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
+    return await this.rest
+      .createCheckoutSession(planId, url)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
       });
   }
 }

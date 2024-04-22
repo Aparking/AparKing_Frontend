@@ -9,11 +9,11 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 import { RestService } from '../service/rest.service';
 import { TabsPage } from './tabs.page';
 
+import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
 import { CreateParkingModalComponent } from '../components/create-parking-modal/create-parking-modal.component';
 import { MapComponent } from '../components/map/map.component';
 import { DataManagementService } from '../service/data-management.service';
 import { WebsocketService } from '../service/websocket.service';
-
 @NgModule({
   imports: [
     IonicModule,
@@ -23,8 +23,8 @@ import { WebsocketService } from '../service/websocket.service';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  declarations: [TabsPage, MapComponent, CreateParkingModalComponent],
-  exports: [MapComponent, CreateParkingModalComponent],
-  providers: [RestService, DataManagementService, WebsocketService],
+  declarations: [TabsPage, MapComponent, CreateParkingModalComponent, SubscriptionComponent],
+  exports: [MapComponent, CreateParkingModalComponent, SubscriptionComponent],
+  providers: [DataManagementService, WebsocketService, RestService],
 })
-export class TabsPageModule {}
+export class TabsPageModule { }

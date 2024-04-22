@@ -10,6 +10,7 @@ import {
   ParkingResponse,
 } from '../models/parking';
 
+import { CombinedDataPayment } from '../models/payments';
 import { WsAbstractService } from './ws-astract.service';
 
 @Injectable({
@@ -157,7 +158,7 @@ export class RestService extends WsAbstractService {
   }
 
   async createCheckoutSessionRental(data: any): Promise<any> {
-    try{
+    try {
       return await this.makePostRequest(`${this.path}/bookings/createCheckoutSession/`, data);
     } catch (error) {
 
@@ -176,4 +177,16 @@ export class RestService extends WsAbstractService {
     return await this.makePostRequest(`${this.path}/registerVehicle/`, vehicle);
   }
 
+  async subscription(): Promise<{ user_info: CombinedDataPayment }> {
+    return await this.makeGetRequest(`${this.path}/payment/api/subscriptions/`);
+  }
+
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
+    try {
+      return await this.makePostRequest(`${this.path}/payment/api/create-checkout-session/`, { planId, url });
+    } catch (error) {
+
+      throw error;
+    }
+  }
 }
