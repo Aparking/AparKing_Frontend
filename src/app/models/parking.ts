@@ -3,6 +3,7 @@ import { User, Vehicle } from './authentication';
 export interface Location {
   latitude: number;
   longitude: number;
+  quantity?: number;
 }
 
 export enum ParkingType {
@@ -55,4 +56,14 @@ export interface Parking {
 }
 export interface CesionParking {
   parking: [Parking, Vehicle][];
+}
+
+export interface City {
+  id: number;
+  name: string;
+  name_ascii?: string | null;
+  alternative_name?: string | null;
+  location: Location;
+  country_code?: string | null;
+  distance?: string;
 }

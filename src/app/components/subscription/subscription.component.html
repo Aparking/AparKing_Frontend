@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <h1>Plan de Suscripción Aparking</h1>
+    </ion-title>
+    <ion-button slot="end" style="background-color: transparent; --background: transparent;" color="light"
+      href="/aparking/map">
+      Mapa
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Sección de Información del Usuario -->
+  <div class="user-card-container">
+    <ion-card class="user-info-card">
+      <ion-card-header>
+        <ion-card-title>
+          <h1>{{ userInfo?.user?.username }}</h1>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Cantidad de Créditos: <strong>{{ userInfo?.credit?.value }}</strong></h2>
+        <h2>Tipo de Plan: <strong>{{ userInfo?.membership?.type }}</strong></h2>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Sección de Planes de Suscripción -->
+  <div class="plans-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ plans[0].name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Price: {{ plans[0].price }}
+        <ion-button expand="block" (click)="selectPlan(plans[0].id)">Select Plan</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ plans[1].name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Price: {{ plans[1].price }}
+        <ion-button expand="block" (click)="selectPlan(plans[1].id)">Select Plan</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ plans[2].name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Price: {{ plans[2].price }}
+        <ion-button expand="block" (click)="selectPlan(plans[2].id)">Select Plan</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,25 @@
+.user-details {
+  background-color: #7d6b6b;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.619);
+  margin-top: 20px;
+}
+
+.user-details div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-details label {
+  font-size: 14px;
+  color: #d4d1d1;
+  padding: 10px;
+  flex: 1;
+}
+
+.user-details strong {
+  color: #d4d1d1;
+}
