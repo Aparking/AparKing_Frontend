@@ -9,6 +9,7 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 import { RestService } from '../service/rest.service';
 import { TabsPage } from './tabs.page';
 
+import { parkingCesionComponent } from 'src/app/components/parkingCesion/parkingCesion.component';
 import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
 import { CreateParkingModalComponent } from '../components/create-parking-modal/create-parking-modal.component';
 import { MapComponent } from '../components/map/map.component';
@@ -23,7 +24,7 @@ import { WebsocketService } from '../service/websocket.service';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  declarations: [TabsPage, MapComponent, CreateParkingModalComponent, SubscriptionComponent],
+  declarations: [TabsPage, MapComponent, CreateParkingModalComponent, SubscriptionComponent, parkingCesionComponent],
   exports: [MapComponent, CreateParkingModalComponent, SubscriptionComponent],
   providers: [DataManagementService, WebsocketService, RestService],
 })

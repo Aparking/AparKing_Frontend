@@ -6,10 +6,11 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
 import { Token, User, Vehicle } from '../models/authentication';
 import {
+  CesionParking,
   City,
   Location,
   ParkingCreate,
-  ParkingResponse,
+  ParkingResponse
 } from '../models/parking';
 import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
@@ -175,6 +176,37 @@ export class DataManagementService {
   async createCheckoutSession(planId: string, url: string): Promise<any> {
     return await this.rest
       .createCheckoutSession(planId, url)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+  async getParkingCesion(): Promise<CesionParking> {
+    return this.rest.getParkingCesion()
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
+  async getVehicle(): Promise<{ vehicles: Vehicle[] } | undefined> {
+    return this.rest.getVehicles()
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
+
+  async postParkingCesion(parkingId: number): Promise<void> {
+    return await this.rest
+      .postParkingCesion(parkingId)
       .then((data) => data)
       .catch((err) => {
         return err;

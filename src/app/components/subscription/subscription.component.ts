@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { User } from 'src/app/models/authentication';
 import { CombinedDataPayment, Credit, Membership, Plan } from 'src/app/models/payments';
 import { DataManagementService } from 'src/app/service/data-management.service';
@@ -30,7 +31,7 @@ export class SubscriptionComponent implements OnInit {
     { id: 'KING', name: 'KING', price: '4.99€/month' }
   ];
 
-  constructor(private paymentService: PaymentService, private dataManagementService: DataManagementService) { }
+  constructor(private paymentService: PaymentService, private dataManagementService: DataManagementService, private navCtrl: NavController,) { }
 
 
 
@@ -55,5 +56,7 @@ export class SubscriptionComponent implements OnInit {
     );
   }
 
-
+  goMap() {
+    this.navCtrl.navigateForward('/G11/aparKing/map');
+  }
 }

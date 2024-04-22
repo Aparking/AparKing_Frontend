@@ -31,6 +31,10 @@ export class TabsPage {
     });
   }
 
+  async goToCesion() {
+    this.navCtrl.navigateRoot('G11/aparKing/list-parking-cesion');
+  }
+
   goRegisterVehicle() {
     this.navCtrl.navigateForward('/registerVehicle');
   }

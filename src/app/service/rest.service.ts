@@ -4,10 +4,11 @@ import { Token, User, Vehicle } from '../models/authentication';
 import { Availability, Book, Garage, Image } from '../models/garagement';
 
 import {
+  CesionParking,
   City,
   Location,
   ParkingCreate,
-  ParkingResponse,
+  ParkingResponse
 } from '../models/parking';
 
 import { CombinedDataPayment } from '../models/payments';
@@ -195,5 +196,16 @@ export class RestService extends WsAbstractService {
     } catch (error) {
       throw error;
     }
+  }
+  async getParkingCesion(): Promise<CesionParking> {
+    return await this.makeGetRequest(`${this.path}/parking/getParkingCesion/`);
+  }
+
+  async getVehicles(): Promise<{ vehicles: Vehicle[] } | undefined> {
+    return await this.makeGetRequest(`${this.path}/parking/getVehicles/`);
+  }
+
+  async postParkingCesion(parkingId: number): Promise<void> {
+    return await this.makePostRequest(`${this.path}/parking/postParkingCesion/`, parkingId);
   }
 }
