@@ -1,28 +1,47 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AddUserComponent } from './components/add-user/add-user.component';
-import { UserDetailsComponent } from './components/user-details/user-details.component';
-import { UserListComponent } from './components/user-list/user-list.component';
-import {RegisterComponent } from './usuarios/register/register.component';
-import {LoginComponent } from './usuarios/login/login.component';
-import { LogoutComponent } from './usuarios/logout/logout.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    path: 'G11',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
-  {path: 'register', component: RegisterComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'logout', component: LogoutComponent},
-  { path: 'users', component: UserListComponent },
-  { path: 'users/:id', component: UserDetailsComponent },
-  { path: 'add', component: AddUserComponent }
+  {
+    path: '',
+
+    loadChildren: () =>
+      import('./pages/start-page/start-page.module').then(
+        (m) => m.StartPagePageModule
+      ),
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'register',
+    loadChildren: () =>
+      import('./pages/register/register.module').then(
+        (m) => m.RegisterPageModule
+      ),
+  },
+  {
+    path: 'verify-user',
+    loadChildren: () =>
+      import('./pages/verify-user/verify-user.module').then(
+        (m) => m.VerifyUserPageModule
+      ),
+  },
+
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

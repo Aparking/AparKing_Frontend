@@ -1,0 +1,16 @@
+
+<ion-content>
+  <div id="mapId"></div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button (click)="showCreateModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab  slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button class="white-button" (click)="locateUserOnMap()">
+      <ion-icon name="locate-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

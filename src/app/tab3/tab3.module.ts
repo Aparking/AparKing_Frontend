@@ -1,10 +1,10 @@
-import { IonicModule } from '@ionic/angular';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { Tab3Page } from './tab3.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
+import { ProfileComponent } from '../components/profile/profile.component';
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
 @NgModule({
@@ -12,9 +12,11 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
-    Tab3PageRoutingModule
+    Tab3PageRoutingModule,
+    ReactiveFormsModule,
   ],
-  declarations: [Tab3Page]
+  declarations: [Tab3Page, ProfileComponent],
+  exports: [ProfileComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class Tab3PageModule {}
