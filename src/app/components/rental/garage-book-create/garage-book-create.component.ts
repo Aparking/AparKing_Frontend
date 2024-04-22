@@ -6,6 +6,7 @@ import {
   NavParams,
   ToastController,
 } from '@ionic/angular';
+import { DataManagementService } from 'src/app/service/data-management.service';
 
 import {
   BookingStatus,
@@ -13,6 +14,7 @@ import {
   PaymentMethod,
 } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
+
 
 @Component({
   selector: 'app-garage-book-create',
@@ -26,13 +28,17 @@ export class GarageBookCreateComponent implements OnInit {
   payment_methods!: PaymentMethod[];
   availabilities!: any[];
   user: any;
+  serverUrl = window.location.href;
+  apiPath = '';
+  path = this.serverUrl + this.apiPath;
 
   constructor(
     private modalCtrl: ModalController,
     private restService: RestService,
     private toastController: ToastController,
     private navParams: NavParams,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private dataManagementService: DataManagementService
   ) {
     this.garageId = this.navParams.get('garageId');
     this.currentGarage = this.navParams.get('garage');
@@ -129,6 +135,80 @@ export class GarageBookCreateComponent implements OnInit {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
+
+  async confirmBooking() {
+    const toast = await this.toastController.create({
+      duration: 2000, // Duración del toast en milisegundos
+      position: 'bottom', // Posición del toast (top, middle, bottom)
+      color: 'dark', // Color del toast
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    this.bookForm.patchValue({ user: this.user.id });
+    if (this.bookForm.valid) {
+      const translatedPaymentMethod = this.translatePaymentMethod(
+        this.bookForm.value.paymentMethod
+      );
+      const translatedStatus = this.translateBookingStatus(
+        this.bookForm.value.status
+      );
+
+      const bookingData = {
+        ...this.bookForm.value,
+        payment_method: translatedPaymentMethod,
+        status: translatedStatus,
+        url: this.path
+      };
+
+      if (bookingData.payment_method === 'CARD') {
+        try {
+          const session = await this.dataManagementService.createCheckoutSessionRental(bookingData);
+          window.location.href = session.url;
+          const toast = await this.toastController.create({
+            message: 'Reserva creada correctamente',
+            duration: 2000
+          });
+          toast.present();
+        } catch (error) {
+          const toast = await this.toastController.create({
+            message: 'Error al crear la reserva',
+            duration: 2000
+          });
+          toast.present();
+          //this.restService
+          //.createBooking(bookingData)
+          //.then((_) => {
+          //  toast.message = 'Reserva creada correctamente';
+          //  toast.present();
+          //})
+          //.catch((_) => {
+          //  toast.message = 'Error al crear la reserva';
+          //  toast.present();
+          //});
+        }
+      } else {
+        this.restService
+          .createBooking(bookingData)
+          .then((_) => {
+            toast.message = 'Reserva creada correctamente';
+            toast.present();
+          })
+          .catch((_) => {
+            toast.message = 'Error al crear la reserva';
+            toast.present();
+          });
+      }
+
+      return this.modalCtrl.dismiss(null, 'confirm');
+    }
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
   translatePaymentMethod(paymentMethod: string): string {
     switch (paymentMethod) {
       case 'Efectivo':
@@ -136,7 +216,7 @@ export class GarageBookCreateComponent implements OnInit {
       case 'Tarjeta':
         return 'CARD';
       default:
-        return 'CASH';
+        return 'CARD';
     }
   }
 

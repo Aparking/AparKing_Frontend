@@ -156,6 +156,15 @@ export class RestService extends WsAbstractService {
     );
   }
 
+  async createCheckoutSessionRental(data: any): Promise<any> {
+    try{
+      return await this.makePostRequest(`${this.path}/bookings/createCheckoutSession/`, data);
+    } catch (error) {
+
+      throw error;
+    }
+  }
+
   async getCities(coordenates: Location, query: string): Promise<City[]> {
     return await this.makePostRequest(
       `${this.path}/parking/get_cities/${query}/`,
@@ -166,4 +175,5 @@ export class RestService extends WsAbstractService {
   async postVehicleRegister(vehicle: Vehicle): Promise<void> {
     return await this.makePostRequest(`${this.path}/registerVehicle/`, vehicle);
   }
+
 }
