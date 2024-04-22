@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
-import { Token, User } from '../models/authentication';
+import { Token, User, Vehicle } from '../models/authentication';
 import {
   City,
   Location,
@@ -22,7 +22,7 @@ export class DataManagementService {
     private rest: RestService,
     private router: Router,
     private persistenceService: PersistenceService
-  ) {}
+  ) { }
   public userLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -141,4 +141,15 @@ export class DataManagementService {
         throw err;
       });
   }
+  async postVehicleRegister(vehicle: Vehicle): Promise<void> {
+    return this.rest
+      .postVehicleRegister(vehicle)
+      .then(async (data) => {
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
+      });
+  }
 }
+
