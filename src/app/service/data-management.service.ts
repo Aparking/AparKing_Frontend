@@ -128,9 +128,9 @@ export class DataManagementService {
       });
   }
 
-  async createCheckoutSessionRental(bookingId: number): Promise<any> {
+  async createCheckoutSessionRental(data: any): Promise<any> {
     return await this.rest
-      .createCheckoutSessionRental(bookingId)
+      .createCheckoutSessionRental(data)
       .then((data) => data)
       .catch((err) => {
         return err;

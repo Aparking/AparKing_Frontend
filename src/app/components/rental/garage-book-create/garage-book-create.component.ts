@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController, NavParams, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  NavParams,
+  ToastController,
+} from '@ionic/angular';
 import { DataManagementService } from 'src/app/service/data-management.service';
-
 
 import {
   BookingStatus,
@@ -29,6 +33,7 @@ export class GarageBookCreateComponent implements OnInit {
     private restService: RestService,
     private toastController: ToastController,
     private navParams: NavParams,
+    private alertController: AlertController,
     private dataManagementService: DataManagementService
   ) {
     this.garageId = this.navParams.get('garageId');
@@ -48,13 +53,14 @@ export class GarageBookCreateComponent implements OnInit {
       .getAvailabilitiesByGarageId(this.garageId)
       .then((availabilities) => {
         this.availabilities = availabilities.filter((availability: any) => {
-          return availability.status === 'Disponible';
+          return availability.status === 'AVAILABLE';
         });
         if (this.availabilities.length === 0) {
           this.cancel();
         }
       })
       .catch((_) => {
+        this.showAlert('Este garaje no tiene reservas disponibles.');
         this.cancel();
       });
     this.restService
@@ -63,14 +69,68 @@ export class GarageBookCreateComponent implements OnInit {
         this.user = user;
       })
       .catch((_) => {
-        console.error('Error al obtener los datos del usuario');
+        this.showAlert('No se ha podido obtener la información del usuario');
         this.cancel();
       });
+  }
+
+  async showAlert(text: string) {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: text,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   async cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
+
+  async confirm() {
+    const toast = await this.toastController.create({
+      duration: 2000, // Duración del toast en milisegundos
+      position: 'bottom', // Posición del toast (top, middle, bottom)
+      color: 'dark', // Color del toast
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    this.bookForm.patchValue({ user: this.user.id });
+    if (this.bookForm.valid) {
+      const translatedPaymentMethod = this.translatePaymentMethod(
+        this.bookForm.value.paymentMethod
+      );
+      const translatedStatus = this.translateBookingStatus(
+        this.bookForm.value.status
+      );
+
+      const bookingData = {
+        ...this.bookForm.value,
+        payment_method: translatedPaymentMethod,
+        status: translatedStatus,
+      };
+
+      this.restService
+        .createBooking(bookingData)
+        .then((_) => {
+          toast.message = 'Reserva creada correctamente';
+          toast.present();
+        })
+        .catch((_) => {
+          toast.message = 'Error al crear la reserva';
+          toast.present();
+        });
+
+      return this.modalCtrl.dismiss(null, 'confirm');
+    }
+    return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
 
   async confirmBooking() {
     const toast = await this.toastController.create({
@@ -100,22 +160,31 @@ export class GarageBookCreateComponent implements OnInit {
         status: translatedStatus,
       };
 
-      if (this.bookForm.value.paymentMethod === PaymentMethod.CARD) {
+      if (bookingData.payment_method === 'CARD') {
         try {
-          const session = await this.dataManagementService.createCheckoutSessionRental(Number(this.currentGarage.id));
+          const session = await this.dataManagementService.createCheckoutSessionRental(bookingData);
           window.location.href = session.url;
-          this.restService
-          .createBooking(bookingData)
-          .then((_) => {
-            toast.message = 'Reserva creada correctamente';
-            toast.present();
-          })
-          .catch((_) => {
-            toast.message = 'Error al crear la reserva';
-            toast.present();
+          const toast = await this.toastController.create({
+            message: 'Reserva creada correctamente',
+            duration: 2000
           });
+          toast.present();
         } catch (error) {
-          console.error(error);
+          const toast = await this.toastController.create({
+            message: 'Error al crear la reserva',
+            duration: 2000
+          });
+          toast.present();
+         //this.restService
+         //.createBooking(bookingData)
+         //.then((_) => {
+         //  toast.message = 'Reserva creada correctamente';
+         //  toast.present();
+         //})
+         //.catch((_) => {
+         //  toast.message = 'Error al crear la reserva';
+         //  toast.present();
+         //});
         }
       } else {
         this.restService
@@ -142,7 +211,7 @@ export class GarageBookCreateComponent implements OnInit {
       case 'Tarjeta':
         return 'CARD';
       default:
-        return 'CASH';
+        return 'CARD';
     }
   }
 

@@ -43,7 +43,6 @@ export class GarageBookListComponent implements OnInit {
         this.myBookings = bookings;
         const promises = [];
         for (const booking of this.myBookings) {
-          console.log(booking);
           const availabilityPromise = this.restService
             .getAvailabilityById(booking.availability)
             .then((availability) => {

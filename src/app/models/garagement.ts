@@ -33,17 +33,17 @@ export interface Image {
   garage: number | string;
 }
 
-export enum GarageStatus {
-  AVAILABLE = 'Disponible',
-  NOTAVAILABLE = 'No disponible',
-  RESERVED = 'Reservado',
-}
+// export enum GarageStatus {
+//   AVAILABLE = 'Disponible',
+//   NOTAVAILABLE = 'No disponible',
+//   RESERVED = 'Reservado',
+// }
 
 export interface Availability {
   id: number | string;
   startDate: string;
   endDate: string;
-  status: GarageStatus;
+  status: string;
   garageId: number | string;
 }
 

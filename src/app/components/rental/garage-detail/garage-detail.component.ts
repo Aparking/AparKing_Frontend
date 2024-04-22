@@ -24,21 +24,30 @@ export class GarageDetailComponent implements OnInit {
   MEDIA_BASE_ULR = environment.restUrl;
   base_url = '/G11/aparKing/garages';
   garageId: string = '';
+  isOwner: boolean = false;
   currentGarage?: any;
   currentGarageImages: any[] = [];
-  isOwner: boolean = false;
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: ParamMap) => {
       let id = params.get('id');
       if (id) this.garageId = id;
       else {
-        console.error('No id provided');
+        this.showAlert('No se ha encontrado el garaje.');
         this.router.navigate([`${this.base_url}`]);
       }
     });
     this.retrieveGarage();
     this.checkIsOwner();
+  }
+
+  async showAlert(text: string) {
+    const alert = await this.alertController.create({
+      header: 'Alerta',
+      message: text,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   retrieveGarage() {
@@ -47,8 +56,8 @@ export class GarageDetailComponent implements OnInit {
       .then((garage) => {
         this.currentGarage = garage;
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((_) => {
+        this.showAlert('No se ha encontrado el garaje.');
         this.router.navigate([`${this.base_url}/${this.garageId}`]);
       });
 
@@ -65,8 +74,8 @@ export class GarageDetailComponent implements OnInit {
           this.isOwner = true;
         }
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((_) => {
+        this.showAlert('No se ha encontrado el usuario.');
         this.router.navigate([`${this.base_url}`]);
       });
   }
@@ -80,7 +89,7 @@ export class GarageDetailComponent implements OnInit {
           this.retrieveGarage();
         })
         .catch((error) => {
-          console.error(error);
+          this.showAlert('No se ha podido actualizar el estado del garaje.');
           this.router.navigate([`${this.base_url}/${this.garageId}`]);
         });
     }
@@ -118,14 +127,14 @@ export class GarageDetailComponent implements OnInit {
       .then(() => {
         this.router.navigate(['/G11/aparKing/garages']);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((_) => {
+        this.showAlert('No se ha podido borrar el garaje.');
         this.router.navigate([`${this.base_url}/${this.garageId}`]);
       });
   }
 
   goBack() {
-    this.router.navigate(['/G11/aparKing/garages']);
+    this.router.navigate([this.base_url]);
   }
 
   async createAvailabilityModal() {
@@ -139,7 +148,23 @@ export class GarageDetailComponent implements OnInit {
     return await modal.present();
   }
 
-  async createBookModal() {
+  async checkBookingConditions() {
+    let availabilityExist = false;
+    this.restService
+      .getAvailabilitiesByGarageId(this.garageId)
+      .then((availabilities) => {
+        availabilityExist = availabilities.some(
+          (availability) => availability.status === 'AVAILABLE'
+        );
+        if (availabilityExist) {
+          this.createBookingModal();
+        } else {
+          this.showAlert('No hay disponibilidad para reservar el garaje.');
+        }
+      });
+  }
+
+  async createBookingModal() {
     const modal = await this.modalCtrl.create({
       component: GarageBookCreateComponent,
       componentProps: {
