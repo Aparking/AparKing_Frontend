@@ -36,6 +36,7 @@
     "@ionic/angular": "^7.0.0",
     "@types/leaflet": "^1.9.8",
     "https-server": "^0.1.2",
+    "date-fns": "^2.16.1",
     "ionicons": "^7.0.0",
     "leaflet": "^1.9.4",
     "ngx-socket-io": "^4.6.1",

@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'api/subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
   {
     path: '',
+
     loadChildren: () =>
       import('./pages/start-page/start-page.module').then(
         (m) => m.StartPagePageModule
