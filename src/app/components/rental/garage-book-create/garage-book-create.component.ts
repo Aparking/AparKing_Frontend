@@ -14,6 +14,8 @@ import {
   PaymentMethod,
 } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-garage-book-create',
@@ -27,6 +29,9 @@ export class GarageBookCreateComponent implements OnInit {
   payment_methods!: PaymentMethod[];
   availabilities!: any[];
   user: any;
+  serverUrl = environment.restUrl;
+  apiPath = '';
+  path = this.serverUrl + this.apiPath;
 
   constructor(
     private modalCtrl: ModalController,
@@ -158,6 +163,7 @@ export class GarageBookCreateComponent implements OnInit {
         ...this.bookForm.value,
         payment_method: translatedPaymentMethod,
         status: translatedStatus,
+        url: this.path
       };
 
       if (bookingData.payment_method === 'CARD') {
