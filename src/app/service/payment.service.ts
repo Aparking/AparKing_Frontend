@@ -8,9 +8,13 @@ export class PaymentService {
 
   constructor(private dataManagementService: DataManagementService) { }
 
-  async createCheckoutSession(planId: string): Promise<any> {
+  serverUrl = window.location.href;
+  apiPath = '';
+  path = this.serverUrl + this.apiPath;
+
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
     try {
-      return await this.dataManagementService.createCheckoutSession(planId);
+      return await this.dataManagementService.createCheckoutSession(planId, this.path);
     } catch (error) {
 
       throw error;

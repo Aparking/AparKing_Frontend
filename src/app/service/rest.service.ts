@@ -56,9 +56,9 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/payment/api/subscriptions/`);
   }
 
-  async createCheckoutSession(planId: string): Promise<any> {
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
     try {
-      return await this.makePostRequest(`${this.path}/payment/api/create-checkout-session/`, { planId });
+      return await this.makePostRequest(`${this.path}/payment/api/create-checkout-session/`, { planId, url });
     } catch (error) {
 
       throw error;

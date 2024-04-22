@@ -138,9 +138,9 @@ export class DataManagementService {
       });
   }
 
-  async createCheckoutSession(planId: string): Promise<any> {
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
     return await this.rest
-      .createCheckoutSession(planId)
+      .createCheckoutSession(planId, url)
       .then((data) => data)
       .catch((err) => {
         return err;

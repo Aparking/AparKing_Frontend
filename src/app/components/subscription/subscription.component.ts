@@ -15,6 +15,10 @@ export class SubscriptionComponent implements OnInit {
     this.dataManagementService.subscription();
     this.getUserInfo();
   }
+  serverUrl = window.location.href;
+  apiPath = '';
+  path = this.serverUrl + this.apiPath;
+
   userInfo?: {
     'user': User,
     'membership': Membership,
@@ -32,7 +36,7 @@ export class SubscriptionComponent implements OnInit {
 
   async selectPlan(planId: string) {
     try {
-      const session = await this.dataManagementService.createCheckoutSession(planId);
+      const session = await this.dataManagementService.createCheckoutSession(planId, this.path);
       window.location.href = session.url;
     } catch (error) {
       console.error(error);
