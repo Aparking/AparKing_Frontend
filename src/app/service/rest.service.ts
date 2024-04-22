@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Token, User } from '../models/authentication';
+import { Token, User, Vehicle } from '../models/authentication';
 import { Availability, Book, Garage, Image } from '../models/garagement';
-import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+
+import {
+  City,
+  Location,
+  ParkingCreate,
+  ParkingResponse,
+} from '../models/parking';
+
 import { WsAbstractService } from './ws-astract.service';
 
 @Injectable({
@@ -148,6 +155,7 @@ export class RestService extends WsAbstractService {
       {}
     );
   }
+
   async createCheckoutSessionRental(data: any): Promise<any> {
     try{
       return await this.makePostRequest(`${this.path}/bookings/createCheckoutSession/`, data);
@@ -155,5 +163,15 @@ export class RestService extends WsAbstractService {
 
       throw error;
     }
+
+  async getCities(coordenates: Location, query: string): Promise<City[]> {
+    return await this.makePostRequest(
+      `${this.path}/parking/get_cities/${query}/`,
+      coordenates
+    );
+  }
+
+  async postVehicleRegister(vehicle: Vehicle): Promise<void> {
+    return await this.makePostRequest(`${this.path}/registerVehicle/`, vehicle);
   }
 }

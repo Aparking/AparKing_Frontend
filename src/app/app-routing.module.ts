@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { NeedAuthGuard } from './guards/need-auth.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       import('./pages/start-page/start-page.module').then(
         (m) => m.StartPagePageModule
       ),
+    canActivate: [NeedAuthGuard],
   },
   {
     path: 'login',
@@ -25,6 +27,13 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () =>
       import('./pages/register/register.module').then(
+        (m) => m.RegisterPageModule
+      ),
+  },
+  {
+    path: 'registerVehicle',
+    loadChildren: () =>
+      import('./pages/registerVehicle/registerVehicle.module').then(
         (m) => m.RegisterPageModule
       ),
   },
@@ -42,4 +51,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -57,6 +57,8 @@ export class RegisterPage implements OnInit {
           this.phoneNumberValidator(),
         ]),
         genre: new FormControl('', Validators.required),
+        checkBox_CA: new FormControl(false, Validators.requiredTrue),
+
       },
       {
         validators: this.confirmPasswordValidator,

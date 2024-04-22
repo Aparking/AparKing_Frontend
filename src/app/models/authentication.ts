@@ -23,3 +23,14 @@ export interface User {
   phone: PhoneNumber;
   username: string;
 }
+
+export interface Vehicle {
+  id?: number;
+  carModel: string;
+  color: string;
+  height: number;
+  width: number;
+  length: number;
+  owner: number; // esto asumirá que se refiere ID del CustomUser
+}
+
