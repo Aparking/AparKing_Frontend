@@ -1,7 +1,16 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Token, User } from '../models/authentication';
-import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { Token, User, Vehicle } from '../models/authentication';
+import { Availability, Book, Garage, Image } from '../models/garagement';
+
+import {
+  City,
+  Location,
+  ParkingCreate,
+  ParkingResponse,
+} from '../models/parking';
+
+import { CombinedDataPayment } from '../models/payments';
 import { WsAbstractService } from './ws-astract.service';
 
 @Injectable({
@@ -55,7 +64,133 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/user-info/`);
   }
 
+
   async updateUser(data: User): Promise<any> {
     return await this.makePostRequest(`${this.path}/user/profile`, data);
+
+  async getAllGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/`);
+  }
+
+  async getMyGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/mine/`);
+  }
+
+  async getAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/available/`);
+  }
+
+  async getMyAvailableGarages(): Promise<Garage[]> {
+    return await this.makeGetRequest(`${this.path}/garages/mine/available/`);
+  }
+
+  async getGarageById(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/${id}/`);
+  }
+
+  async getCreateGarage(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/garages/create/`, data);
+  }
+
+  async updateGarage(id: string, data: any): Promise<Garage> {
+    return await this.makePutRequest(`${this.path}/garages/${id}/`, data);
+  }
+
+  async deleteGarage(id: string): Promise<any> {
+    return await this.makeDeleteRequest(`${this.path}/garages/${id}/`, {});
+  }
+
+  async getCreateImage(data: any): Promise<any> {
+    return await this.makePostRequest(
+      `${this.path}/garages/images/create/`,
+      data
+    );
+  }
+
+  async getAllImages(): Promise<Image[]> {
+    return await this.makeGetRequest(`${this.path}/garages/images/`);
+  }
+
+  async getImage(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/images/${id}/`);
+  }
+
+  async getImagesByGarageId(id: string): Promise<any> {
+    return await this.makeGetRequest(`${this.path}/garages/${id}/images/`);
+  }
+
+  async getBookings(): Promise<Book[]> {
+    return await this.makeGetRequest(`${this.path}/bookings/`);
+  }
+  async getBookingById(id: string): Promise<Book> {
+    return await this.makeGetRequest(`${this.path}/bookings/${id}/`);
+  }
+  async createBooking(data: any): Promise<any> {
+    return await this.makePostRequest(`${this.path}/bookings/create/`, data);
+  }
+  async deleteBooking(id: string): Promise<any> {
+    return await this.makeDeleteRequest(`${this.path}/bookings/${id}/`, {});
+  }
+
+  async getAvailabilityById(id: string): Promise<any> {
+    return await this.makeGetRequest(
+      `${this.path}/garages/availability/${id}/`
+    );
+  }
+  async getAvailabilitiesByGarageId(id: string): Promise<Availability[]> {
+    return await this.makeGetRequest(
+      `${this.path}/garages/${id}/availability/`
+    );
+  }
+  async createAvailability(data: any): Promise<any> {
+    return await this.makePostRequest(
+      `${this.path}/garages/availability/create/`,
+      data
+    );
+  }
+  async updateAvailability(data: any): Promise<any> {
+    return await this.makePutRequest(
+      `${this.path}/garages/availability/${data.id}/`,
+      data
+    );
+  }
+  async deleteAvailability(id: string): Promise<any> {
+    return await this.makeDeleteRequest(
+      `${this.path}/garages/availability/${id}/`,
+      {}
+    );
+  }
+
+  async createCheckoutSessionRental(data: any): Promise<any> {
+    try {
+      return await this.makePostRequest(`${this.path}/bookings/createCheckoutSession/`, data);
+    } catch (error) {
+
+      throw error;
+    }
+  }
+
+  async getCities(coordenates: Location, query: string): Promise<City[]> {
+    return await this.makePostRequest(
+      `${this.path}/parking/get_cities/${query}/`,
+      coordenates
+    );
+  }
+
+  async postVehicleRegister(vehicle: Vehicle): Promise<void> {
+    return await this.makePostRequest(`${this.path}/registerVehicle/`, vehicle);
+  }
+
+  async subscription(): Promise<{ user_info: CombinedDataPayment }> {
+    return await this.makeGetRequest(`${this.path}/payment/api/subscriptions/`);
+  }
+
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
+    try {
+      return await this.makePostRequest(`${this.path}/payment/api/create-checkout-session/`, { planId, url });
+    } catch (error) {
+
+      throw error;
+    }
   }
 }

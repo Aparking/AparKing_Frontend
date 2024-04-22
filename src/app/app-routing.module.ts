@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
 import { AuthGuard } from './guards/auth.guard';
+import { NeedAuthGuard } from './guards/need-auth.guard';
 
 const routes: Routes = [
   {
@@ -9,6 +11,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
   },
+  { path: 'api/subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
   {
     path: '',
 
@@ -16,6 +19,7 @@ const routes: Routes = [
       import('./pages/start-page/start-page.module').then(
         (m) => m.StartPagePageModule
       ),
+    canActivate: [NeedAuthGuard],
   },
   {
     path: 'login',
@@ -30,13 +34,26 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'registerVehicle',
+    loadChildren: () =>
+      import('./pages/registerVehicle/registerVehicle.module').then(
+        (m) => m.RegisterPageModule
+      ),
+  },
+  {
     path: 'verify-user',
     loadChildren: () =>
       import('./pages/verify-user/verify-user.module').then(
         (m) => m.VerifyUserPageModule
       ),
   },
-
+  {
+    path: 'about-us',
+    loadChildren: () =>
+      import('./pages/about-us/about-us-page.module').then(
+        (m) => m.AboutUsPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
@@ -44,4 +61,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

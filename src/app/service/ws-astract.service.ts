@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class WsAbstractService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   protected makeGetRequest(path: string, paramsRequest?: any): Promise<any> {
     paramsRequest = !paramsRequest ? {} : paramsRequest;

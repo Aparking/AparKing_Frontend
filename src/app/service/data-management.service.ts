@@ -4,8 +4,14 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
-import { Token, User } from '../models/authentication';
-import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { Token, User, Vehicle } from '../models/authentication';
+import {
+  City,
+  Location,
+  ParkingCreate,
+  ParkingResponse,
+} from '../models/parking';
+import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
 import { RestService } from './rest.service';
 
@@ -17,7 +23,7 @@ export class DataManagementService {
     private rest: RestService,
     private router: Router,
     private persistenceService: PersistenceService
-  ) {}
+  ) { }
   public userLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -127,4 +133,52 @@ export class DataManagementService {
         throw err;
       });
   }
+
+  async createCheckoutSessionRental(data: any): Promise<any> {
+    return await this.rest
+      .createCheckoutSessionRental(data)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+
+  async getCities(location: Location, query: string): Promise<City[]> {
+    return this.rest
+      .getCities(location, query)
+      .then((data) => data)
+      .catch((err) => {
+        throw err;
+      });
+  }
+  async postVehicleRegister(vehicle: Vehicle): Promise<void> {
+    return this.rest
+      .postVehicleRegister(vehicle)
+      .then(async (data) => {
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
+      });
+  }
+
+  async subscription(): Promise<{ user_info: CombinedDataPayment }> {
+    return this.rest
+      .subscription()
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  async createCheckoutSession(planId: string, url: string): Promise<any> {
+    return await this.rest
+      .createCheckoutSession(planId, url)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
 }
+
