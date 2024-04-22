@@ -31,6 +31,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'registerVehicle',
+    loadChildren: () =>
+      import('./pages/registerVehicle/registerVehicle.module').then(
+        (m) => m.RegisterPageModule
+      ),
+  },
+  {
     path: 'verify-user',
     loadChildren: () =>
       import('./pages/verify-user/verify-user.module').then(
@@ -44,4 +51,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

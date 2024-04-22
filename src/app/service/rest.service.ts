@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Token, User } from '../models/authentication';
 import { Availability, Book, Garage, Image } from '../models/garagement';
 import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
+import { Token, User, Vehicle } from '../models/authentication';
 
 import {
   City,
@@ -162,5 +162,9 @@ export class RestService extends WsAbstractService {
       coordenates
 
     );
+  }
+
+  async postVehicleRegister(vehicle: Vehicle): Promise<void> {
+    return await this.makePostRequest(`${this.path}/registerVehicle/`, vehicle);
   }
 }
