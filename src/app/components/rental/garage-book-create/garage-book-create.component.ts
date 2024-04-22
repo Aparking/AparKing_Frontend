@@ -14,7 +14,6 @@ import {
   PaymentMethod,
 } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
-import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -29,7 +28,7 @@ export class GarageBookCreateComponent implements OnInit {
   payment_methods!: PaymentMethod[];
   availabilities!: any[];
   user: any;
-  serverUrl = environment.restUrl;
+  serverUrl = window.location.href;
   apiPath = '';
   path = this.serverUrl + this.apiPath;
 
@@ -181,28 +180,28 @@ export class GarageBookCreateComponent implements OnInit {
             duration: 2000
           });
           toast.present();
-         //this.restService
-         //.createBooking(bookingData)
-         //.then((_) => {
-         //  toast.message = 'Reserva creada correctamente';
-         //  toast.present();
-         //})
-         //.catch((_) => {
-         //  toast.message = 'Error al crear la reserva';
-         //  toast.present();
-         //});
+          //this.restService
+          //.createBooking(bookingData)
+          //.then((_) => {
+          //  toast.message = 'Reserva creada correctamente';
+          //  toast.present();
+          //})
+          //.catch((_) => {
+          //  toast.message = 'Error al crear la reserva';
+          //  toast.present();
+          //});
         }
       } else {
         this.restService
-        .createBooking(bookingData)
-        .then((_) => {
-          toast.message = 'Reserva creada correctamente';
-          toast.present();
-        })
-        .catch((_) => {
-          toast.message = 'Error al crear la reserva';
-          toast.present();
-        });
+          .createBooking(bookingData)
+          .then((_) => {
+            toast.message = 'Reserva creada correctamente';
+            toast.present();
+          })
+          .catch((_) => {
+            toast.message = 'Error al crear la reserva';
+            toast.present();
+          });
       }
 
       return this.modalCtrl.dismiss(null, 'confirm');
