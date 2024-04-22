@@ -15,6 +15,7 @@ export class StartPagePage implements OnInit {
   constructor(private platform: Platform, private navCtr: NavController) {
     this.checkDarkMode();
     this.initialize();
+    this.showBanner();
   }
 
   async initialize() {
@@ -23,8 +24,7 @@ export class StartPagePage implements OnInit {
       console.log('Requesting tracking authorization');
     }
     AdMob.initialize({
-      testingDevices: ['YOURTESTDEVICECODE'],
-      initializeForTesting: true,
+      initializeForTesting: false,
     });
   }
 
@@ -57,7 +57,6 @@ export class StartPagePage implements OnInit {
       adSize: BannerAdSize.ADAPTIVE_BANNER,
       position: BannerAdPosition.BOTTOM_CENTER,
       margin: 0,
-      isTesting: true,
     };
 
     await AdMob.showBanner(options);
