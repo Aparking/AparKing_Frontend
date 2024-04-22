@@ -64,10 +64,9 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/user-info/`);
   }
 
-
   async updateUser(data: User): Promise<any> {
     return await this.makePostRequest(`${this.path}/user/profile`, data);
-
+  }
   async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
   }
@@ -163,9 +162,11 @@ export class RestService extends WsAbstractService {
 
   async createCheckoutSessionRental(data: any): Promise<any> {
     try {
-      return await this.makePostRequest(`${this.path}/bookings/createCheckoutSession/`, data);
+      return await this.makePostRequest(
+        `${this.path}/bookings/createCheckoutSession/`,
+        data
+      );
     } catch (error) {
-
       throw error;
     }
   }
@@ -187,9 +188,11 @@ export class RestService extends WsAbstractService {
 
   async createCheckoutSession(planId: string, url: string): Promise<any> {
     try {
-      return await this.makePostRequest(`${this.path}/payment/api/create-checkout-session/`, { planId, url });
+      return await this.makePostRequest(
+        `${this.path}/payment/api/create-checkout-session/`,
+        { planId, url }
+      );
     } catch (error) {
-
       throw error;
     }
   }
