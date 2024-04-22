@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Availability, Book, Garage, Image } from '../models/garagement';
-import { Location, ParkingCreate, ParkingResponse } from '../models/parking';
 import { Token, User, Vehicle } from '../models/authentication';
+import { Availability, Book, Garage, Image } from '../models/garagement';
 
 import {
   City,
@@ -59,7 +58,6 @@ export class RestService extends WsAbstractService {
   async logout(): Promise<void> {
     return await this.makeGetRequest(`${this.path}/logout/`);
   }
-
 
   async getUserData(): Promise<User> {
     return await this.makeGetRequest(`${this.path}/user-info/`);
@@ -155,12 +153,13 @@ export class RestService extends WsAbstractService {
     return await this.makeDeleteRequest(
       `${this.path}/garages/availability/${id}/`,
       {}
+    );
+  }
 
   async getCities(coordenates: Location, query: string): Promise<City[]> {
     return await this.makePostRequest(
       `${this.path}/parking/get_cities/${query}/`,
       coordenates
-
     );
   }
 
