@@ -56,7 +56,7 @@
       </div>
 
       <div class="input-container">
-        <ion-input fill="outline" placeholder="Escriba su fecha de nacimeinto" label-placement="floating" label="Fecha de nacimiento" formControlName="birth_date" type="date"></ion-input>
+        <ion-input fill="outline" placeholder="Escriba su fecha de nacimiento" label-placement="floating" label="Fecha de nacimiento" formControlName="birth_date" type="date"></ion-input>
         <div class="error-conatiner">
           <app-error-message [field]="registerForm.get('birth_date')!" [message]="'La fecha de nacimiento es obligatoria'" [error]="'required'"></app-error-message>
           <app-error-message [field]="registerForm.get('birth_date')!" [message]="'Debe tener mínimo 18 años'" [error]="'minimumAge'"></app-error-message>
@@ -83,6 +83,18 @@
             <ion-select-option value="F">Mujer</ion-select-option>
             <ion-select-option value="O">Otro</ion-select-option>
           </ion-select>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <div class="checkbox-row">
+          <ion-checkbox formControlName="checkBox_CA"></ion-checkbox>
+          <ion-label>
+            Aceptar los <a href="https://base-conocimiento-g11.vercel.app/docs/Planificación%20proyecto/pilotUsersCommitmentAgreement" target="_blank">términos y condiciones</a> de AparKing
+          </ion-label>
+          <div class="error-container">
+            <app-error-message [field]="registerForm.get('checkBox_CA')!" [message]="'Debe aceptar los términos y condiciones'" [error]="'requiredTrue'"></app-error-message>
+          </div>
         </div>
       </div>
 

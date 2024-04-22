@@ -1,0 +1,158 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Detalle de Garaje</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngIf="currentGarage">
+    <ion-card-header>
+      <div class="garage-title">
+        <ion-buttons slot="start">
+          <a [routerLink]="['/G11/aparKing/garages']">
+            <ion-button color="primary">
+              <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </a>
+        </ion-buttons>
+
+        <ion-card-title
+          id="garage-card-title"
+          class="ion-text-uppercase ion-align-items-center"
+          >{{ currentGarage.name }}</ion-card-title
+        >
+
+        <ion-buttons slot="end">
+          @if (isOwner) {
+          <ion-button
+            color="success"
+            id="book-garage"
+            (click)="createAvailabilityModal()"
+          >
+            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+          </ion-button>
+          } @else {
+          <ion-button
+            color="success"
+            id="book-garage"
+            (click)="checkBookingConditions()"
+          >
+            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+          </ion-button>
+          } @if (isOwner) {
+          <a [routerLink]="['/G11/aparKing/garages/', garageId, 'edit']">
+            <ion-button color="primary">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+          </a>
+
+          <ion-button
+            color="danger"
+            id="delete-garage"
+            (click)="alertDeleteConfirmation()"
+          >
+            <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+          </ion-button>
+          }
+        </ion-buttons>
+      </div>
+      <ion-item>
+        <ion-badge color="success" style="font-size: large">
+          {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
+        </ion-badge>
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label class="ion-text-uppercase" color="dark"
+            >Caracaterísticas</ion-label
+          >
+        </ion-item-divider>
+
+        <ion-item>
+          <ion-label>
+            <h2>Descripción</h2>
+            <p>{{ currentGarage.description }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Dimensión</h2>
+            <p>
+              {{ currentGarage.height }}m x {{ currentGarage.width }}m x
+              {{ currentGarage.length }}m
+            </p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label id="status-label">
+            <div>
+              <h2>Estado</h2>
+              <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
+            </div>
+            @if (isOwner) {
+            <ion-toggle
+              aria-label="Estado"
+              [enableOnOffLabels]="true"
+              [checked]="currentGarage.is_active"
+              (ionChange)="toggleGarageStatus()"
+            ></ion-toggle>
+            }
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Fecha de creación</h2>
+            <p>{{ currentGarage.creation_date | date }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Última modificación</h2>
+            <p>{{ currentGarage.modification_date | date }}</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-divider>
+          <ion-label class="ion-text-uppercase" color="dark"
+            >Ubicación</ion-label
+          >
+        </ion-item-divider>
+
+        <ion-item>
+          <ion-label>
+            <h2>Ciudad</h2>
+            <p>{{ currentGarage.address.city }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Calle</h2>
+            <p>{{ currentGarage.address.address_line }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h2>Número</h2>
+            <p>{{ currentGarage.address.street_number }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-item-group>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>GALERÍA</ion-card-title>
+    </ion-card-header>
+    <swiper-container>
+      <swiper-slide *ngFor="let image of currentGarageImages">
+        <ion-img [src]="MEDIA_BASE_ULR + image.image" [alt]="image.alt" />
+      </swiper-slide>
+    </swiper-container>
+  </ion-card>
+</ion-content>
