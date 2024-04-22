@@ -17,7 +17,7 @@ export class TabsPage {
     private datamanagement: DataManagementService,
     private loadingCtrl: LoadingController,
     private wsService: WebsocketService
-  ) {}
+  ) { }
 
   async logout() {
     const loading = await this.loadingCtrl.create({
@@ -30,4 +30,9 @@ export class TabsPage {
       loading.dismiss();
     });
   }
+
+  goRegisterVehicle() {
+    this.navCtrl.navigateForward('/registerVehicle');
+  }
 }
+
