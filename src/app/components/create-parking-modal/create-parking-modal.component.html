@@ -1,41 +1,56 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Creación de aparacamiento</ion-title>
+    <ion-title>¡Aquí hay aparcamiento!</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="draggable">
-  @if (parkingForm) {
+    @if (parkingForm) {
     <form [formGroup]="parkingForm" (submit)="onSubmit()">
       <ion-list>
-       <ion-item>
-         <ion-select label="Tamaño" formControlName="size" placeholder="Tamaño de la plaza" fill="outline">
-           @for (item of parkingCreateResponse?.parking_sizes; track $index) {
-             <ion-select-option value={{item[1]}}>{{item[1]}}</ion-select-option>
-           }
-         </ion-select>
-       </ion-item>
+        <ion-item>
+          <ion-select
+            label="Tamaño"
+            formControlName="size"
+            placeholder="Tamaño de la plaza"
+            fill="outline"
+          >
+            @for (item of parkingCreateResponse?.parking_sizes; track $index) {
+            <ion-select-option value="{{ item[1] }}">{{
+              item[1]
+            }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
 
-       <div style="height: 30px;"></div>
+        <div style="height: 30px"></div>
 
-       <ion-item>
-         <ion-select label="Tipo de cesión" formControlName="parking_type" placeholder="----" fill="outline">
-           @for (item of parkingCreateResponse?.parking_types; track $index) {
-             <ion-select-option value={{item[1]}}>{{item[1]}}</ion-select-option>
-           }
-         </ion-select>
-       </ion-item>
-
+        <ion-item>
+          <ion-select
+            label="Tipo de cesión"
+            formControlName="parking_type"
+            placeholder="----"
+            fill="outline"
+          >
+            @for (item of parkingCreateResponse?.parking_types; track $index) {
+            <ion-select-option value="{{ item[1] }}">{{
+              item[1]
+            }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
       </ion-list>
 
-      <ion-button (click)="onSubmit()" disabled="{{parkingForm.invalid}}" expand="block" color="primary">
-       Publicar plaza
+      <ion-button
+        (click)="onSubmit()"
+        disabled="{{ parkingForm.invalid }}"
+        expand="block"
+        color="primary"
+      >
+        Publicar plaza
       </ion-button>
-
-     </form>
-  }
-</div>
-
-
+    </form>
+    }
+  </div>
 </ion-content>
