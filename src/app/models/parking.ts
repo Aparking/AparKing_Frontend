@@ -1,4 +1,4 @@
-import { User, Vehicle } from './authentication';
+import { Vehicle } from './authentication';
 
 export interface Location {
   latitude: number;
@@ -43,9 +43,9 @@ export interface ParkingResponse {
 
 export interface Parking {
   id: number;
-  notified_by?: User;
-  bookedBy?: User | null;
-  message?: string | null;
+  notified_by: number;
+  booked_by: number;
+  message: number;
   location: Location;
   size: ParkingSize;
   is_assignment: boolean;

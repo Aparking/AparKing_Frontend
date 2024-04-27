@@ -9,6 +9,7 @@ import {
   CesionParking,
   City,
   Location,
+  Parking,
   ParkingCreate,
   ParkingResponse
 } from '../models/parking';
@@ -204,13 +205,14 @@ export class DataManagementService {
       });
   }
 
-  async postParkingCesion(parkingId: number): Promise<void> {
+  async updateParkingCesion(parkingId: number): Promise<Parking> {
     return await this.rest
-      .postParkingCesion(parkingId)
+      .updateParkingCesion(parkingId)
       .then((data) => data)
       .catch((err) => {
         return err;
       });
   }
+
 }
 

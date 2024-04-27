@@ -7,6 +7,7 @@ import {
   CesionParking,
   City,
   Location,
+  Parking,
   ParkingCreate,
   ParkingResponse
 } from '../models/parking';
@@ -205,7 +206,10 @@ export class RestService extends WsAbstractService {
     return await this.makeGetRequest(`${this.path}/parking/getVehicles/`);
   }
 
-  async postParkingCesion(parkingId: number): Promise<void> {
-    return await this.makePostRequest(`${this.path}/parking/postParkingCesion/`, parkingId);
+  async updateParkingCesion(parkingId: number): Promise<Parking> {
+    return await this.makePutRequest(`${this.path}/parking/updateParkingCesion/`, parkingId);
   }
+
+
+
 }

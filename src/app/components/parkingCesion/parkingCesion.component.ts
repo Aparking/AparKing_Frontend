@@ -16,6 +16,7 @@ export class parkingCesionComponent implements OnInit {
 
   ngOnInit() {
     this.getParkingCesion();
+    this.getVehicles()
   }
 
 
@@ -23,8 +24,7 @@ export class parkingCesionComponent implements OnInit {
 
 
   async getParkingCesion() {
-    this.dataManagementService.getParkingCesion().then((data: CesionParking) => {
-      console.log("datos parking", data);
+    this.dataManagementService.getParkingCesion().then(async (data: CesionParking) => {
       this.parking = data;
     }).catch(error => {
       console.error('There was an error!', error);
@@ -46,10 +46,7 @@ export class parkingCesionComponent implements OnInit {
 
   async getVehicles() {
     this.dataManagementService.getVehicle().then((data: { vehicles: Vehicle[] } | undefined) => {
-      console.log("datos vehículos", data);
-      console.log(!data || data.vehicles.length === 0);
       if (!data || data.vehicles.length === 0) {
-        console.log("No hay vehículos disponibles o la data es undefined");
         this.router.navigate(['/registerVehicle']);
         return data?.vehicles.length;
       } else {
@@ -61,19 +58,19 @@ export class parkingCesionComponent implements OnInit {
     });
   }
 
-  async postParkingCesion(parkingId: number) {
+  async updateParkingCesion(parkingId: number) {
     try {
       console.log(parkingId)
       await this.getVehicles();
       if (this.vehicle && this.vehicle.length > 0) {
-        console.log("hola")
-        const session = await this.dataManagementService.postParkingCesion(parkingId);
-        return session;
+        await this.dataManagementService.updateParkingCesion(parkingId);
+        window.location.reload();
       }
 
     } catch (error) {
       console.error(error);
     }
   }
+
 
 }

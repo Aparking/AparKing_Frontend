@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Tab3Page } from './tab3.page';
 
+import { parkingCesionComponent } from '../components/parkingCesion/parkingCesion.component';
 import { ProfileComponent } from '../components/profile/profile.component';
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
@@ -15,8 +16,8 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     Tab3PageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [Tab3Page, ProfileComponent],
-  exports: [ProfileComponent],
+  declarations: [Tab3Page, ProfileComponent, parkingCesionComponent],
+  exports: [ProfileComponent, parkingCesionComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class Tab3PageModule {}
+export class Tab3PageModule { }
