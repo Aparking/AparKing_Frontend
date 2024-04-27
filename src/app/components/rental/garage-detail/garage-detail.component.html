@@ -32,6 +32,7 @@
             (click)="createAvailabilityModal()"
           >
             <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            <ion-label class="small-text">Añadir Disponibilidad</ion-label>
           </ion-button>
           } @else {
           <ion-button
@@ -40,6 +41,7 @@
             (click)="checkBookingConditions()"
           >
             <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            <ion-label class="small-text">Añadir Reserva</ion-label>
           </ion-button>
           } @if (isOwner) {
           <a [routerLink]="['/G11/aparKing/garages/', garageId, 'edit']">
@@ -69,7 +71,7 @@
       <ion-item-group>
         <ion-item-divider>
           <ion-label class="ion-text-uppercase" color="dark"
-            >Caracaterísticas</ion-label
+            >Características</ion-label
           >
         </ion-item-divider>
 
@@ -81,7 +83,7 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            <h2>Dimensión</h2>
+            <h2>Dimensiones</h2>
             <p>
               {{ currentGarage.height }}m x {{ currentGarage.width }}m x
               {{ currentGarage.length }}m
