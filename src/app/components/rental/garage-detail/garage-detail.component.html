@@ -25,19 +25,7 @@
         >
 
         <ion-buttons slot="end">
-          @if (isOwner) {
-          <ion-button
-            color="success"
-            id="book-garage"
-            (click)="createAvailabilityModal()"
-          >
-            <ion-icon name="add-circle-outline"></ion-icon>
-            <br />
-            <ion-label style="font-size: 0.7em"
-              >Añadir Disponibilidad</ion-label
-            >
-          </ion-button>
-          } @else {
+          @if (isOwner) { } @else {
           <ion-button
             color="success"
             id="book-garage"
@@ -64,6 +52,19 @@
           }
         </ion-buttons>
       </div>
+      <ion-item>
+        @if (isOwner) {
+        <ion-button
+          color="success"
+          id="book-garage"
+          (click)="createAvailabilityModal()"
+        >
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <br />
+          <ion-label style="font-size: 0.7em">Añadir Disponibilidad</ion-label>
+        </ion-button>
+        }
+      </ion-item>
       <ion-item>
         <ion-badge color="success" style="font-size: large">
           {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
