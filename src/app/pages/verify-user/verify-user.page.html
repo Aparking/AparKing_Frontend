@@ -1,41 +1,71 @@
-<ion-header >
-  <ion-toolbar style="--background: transparent; --border-color: transparent;">
+<ion-header>
+  <ion-toolbar style="--background: transparent; --border-color: transparent">
     <ion-buttons slot="start">
-      <ion-icon mode="ios" name="arrow-back" size="medium" (click)="goBack()"></ion-icon>
+      <ion-icon
+        mode="ios"
+        name="arrow-back"
+        size="medium"
+        (click)="goBack()"
+      ></ion-icon>
     </ion-buttons>
     <ion-title class="appbar">{{constants.APP_NAME}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <div class="body">
-    <ion-text class="subtitle">
-      Verificación de correo
-    </ion-text>
+    <ion-text class="subtitle"> Verificación de correo </ion-text>
     <div>
-        <img class="logo" src="assets/icons/carIcon.png" *ngIf="!isDarkMode" alt="logo"/>
-        <img class="logo" src="assets/icons/aparkingCar.png" *ngIf="isDarkMode" alt="logo"/>
+      <img
+        class="logo"
+        src="assets/icons/carIcon.png"
+        *ngIf="!isDarkMode"
+        alt="logo"
+      />
+      <img
+        class="logo"
+        src="assets/icons/aparkingCar.png"
+        *ngIf="isDarkMode"
+        alt="logo"
+      />
     </div>
     <ion-text>
-     Debe haber recibido un correo con su código de verificación. En caso de no encontrarlo puede comprobar la bandeja de spam.
+      Debe haber recibido un correo con su código de verificación. En caso de no
+      encontrarlo puede comprobar la bandeja de spam.
     </ion-text>
 
     <form [formGroup]="form" (submit)="formSubmit()">
-
       <div class="input-container">
-        <ion-input fill="outline" placeholder="ABCDEFG" label-placement="floating" label="Código" formControlName="code" type="text"></ion-input>
+        <ion-input
+          fill="outline"
+          placeholder="ABCDEFG"
+          label-placement="floating"
+          label="Código"
+          formControlName="code"
+          type="text"
+        ></ion-input>
         <div class="error-conatiner">
-          <app-error-message [field]="form.get('code')!" [message]="'Debe escribir el código'" [error]="'required'"></app-error-message>
-          <app-error-message [field]="form.get('code')!" [message]="'El código no es válido'" [error]="'minlength'"></app-error-message>
+          <app-error-message
+            [field]="form.get('code')!"
+            [message]="'Debe escribir antes el código'"
+            [error]="'required'"
+          ></app-error-message>
+          <app-error-message
+            [field]="form.get('code')!"
+            [message]="'El código no es válido'"
+            [error]="'minlength'"
+          ></app-error-message>
         </div>
       </div>
 
-      <ion-button expand="full" type="submit" [disabled]="!form.valid" shape="round" (click)="formSubmit()">Soy de AparKing</ion-button>
-
+      <ion-button
+        expand="full"
+        type="submit"
+        [disabled]="!form.valid"
+        shape="round"
+        (click)="formSubmit()"
+        >Validar código</ion-button
+      >
     </form>
-
-
   </div>
-
 </ion-content>

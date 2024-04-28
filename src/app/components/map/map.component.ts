@@ -73,7 +73,7 @@ export class MapComponent implements OnInit {
     } else {
       this.toastController
         .create({
-          message: 'No hay parqueos cercanos',
+          message: 'No hay aparcamientos cercanos',
           duration: 2000,
         })
         .then((toast) => {

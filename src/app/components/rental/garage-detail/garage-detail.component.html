@@ -25,21 +25,15 @@
         >
 
         <ion-buttons slot="end">
-          @if (isOwner) {
-          <ion-button
-            color="success"
-            id="book-garage"
-            (click)="createAvailabilityModal()"
-          >
-            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-          </ion-button>
-          } @else {
+          @if (isOwner) { } @else {
           <ion-button
             color="success"
             id="book-garage"
             (click)="checkBookingConditions()"
           >
-            <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+            <ion-icon name="add-circle-outline"></ion-icon>
+            <br />
+            <ion-label style="font-size: 0.7em">Añadir Reserva</ion-label>
           </ion-button>
           } @if (isOwner) {
           <a [routerLink]="['/G11/aparKing/garages/', garageId, 'edit']">
@@ -59,6 +53,19 @@
         </ion-buttons>
       </div>
       <ion-item>
+        @if (isOwner) {
+        <ion-button
+          color="success"
+          id="book-garage"
+          (click)="createAvailabilityModal()"
+        >
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <br />
+          <ion-label style="font-size: 0.7em">Añadir Disponibilidad</ion-label>
+        </ion-button>
+        }
+      </ion-item>
+      <ion-item>
         <ion-badge color="success" style="font-size: large">
           {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
         </ion-badge>
@@ -69,7 +76,7 @@
       <ion-item-group>
         <ion-item-divider>
           <ion-label class="ion-text-uppercase" color="dark"
-            >Caracaterísticas</ion-label
+            >Características</ion-label
           >
         </ion-item-divider>
 
@@ -81,7 +88,7 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            <h2>Dimensión</h2>
+            <h2>Dimensiones</h2>
             <p>
               {{ currentGarage.height }}m x {{ currentGarage.width }}m x
               {{ currentGarage.length }}m
