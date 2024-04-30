@@ -20,9 +20,14 @@ const routes: Routes = [
           import('../tab2/tab2.module').then((m) => m.Tab2PageModule),
       },
       {
-        path: 'list-parking-cesion', component: parkingCesionComponent, canActivate: [AuthGuard],
+        path: 'tab3',
         loadChildren: () =>
           import('../tab3/tab3.module').then((m) => m.Tab3PageModule),
+      },
+      {
+        path: 'list-parking-cesion', component: parkingCesionComponent, canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('../tab4/tab4.module').then((m) => m.Tab4PageModule),
       },
       {
         path: '',
