@@ -30,6 +30,7 @@ export class CreateParkingModalComponent implements OnInit {
     this.parkingForm = this.formBuilder.group({
       size: ['', Validators.required],
       parking_type: ['', Validators.required],
+      appointmentDateTime: [{ value: new Date().toISOString(), disabled: false }, Validators.required]
     });
   }
 
@@ -39,7 +40,7 @@ export class CreateParkingModalComponent implements OnInit {
     });
   }
 
-   convertToColorEnum(str: string): ParkingSize | undefined {
+  convertToColorEnum(str: string): ParkingSize | undefined {
     const colorValue = ParkingSize[str as keyof typeof ParkingSize];
     return colorValue;
   }
@@ -61,25 +62,28 @@ export class CreateParkingModalComponent implements OnInit {
           const typeString: string = this.parkingForm.value.parking_type;
           const typeEnum: string = (Object.keys(ParkingType) as (keyof typeof ParkingType)[]).filter(key => ParkingType[key] === typeString)[0];
           if (location) {
-            this.dataManagement
-              .postCreateParking({
-                location: {
-                  type: 'Point',
-                  latitude: location.coords.latitude,
-                  longitude: location.coords.longitude,
-                  coordinates: [42.3851, 2.1734],
-                },
+            const postData = {
+              location: {
+                type: 'Point',
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
-                size: sizeEnum,
-                parking_type: typeEnum,
-                is_assignment: false,
-                isTransfer: false,
-              })
-              .then((_) => {
-                loading.dismiss();
-                window.location.reload();
-              });
+                coordinates: [42.3851, 2.1734],
+              },
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+              size: sizeEnum,
+              parking_type: typeEnum,
+              is_assignment: false,
+              isTransfer: false,
+              appointmentDateTime: this.parkingForm.value.appointmentDateTime,
+            };
+
+            // Añadir el campo de fecha y hora de la cesión si es necesario
+
+            this.dataManagement.postCreateParking(postData).then((_) => {
+              loading.dismiss();
+              window.location.reload();
+            });
           }
         }
       });

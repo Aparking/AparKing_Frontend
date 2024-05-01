@@ -53,6 +53,7 @@ export interface Parking {
   parking_type: ParkingType;
   created_at?: Date;
   updated_at?: Date;
+  cesion_parking?: Date;
 }
 export interface CesionParking {
   parking: [Parking, Vehicle][];
