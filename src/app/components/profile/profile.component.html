@@ -16,135 +16,69 @@
   <div class="body">
     <form [formGroup]="userForm">
       <div class="input-container">
-        <ion-input
-          fill="outline"
-          placeholder="Miguel Cervantes"
-          label-placement="floating"
-          label="Nombre"
-          formControlName="username"
-          type="text"
-          [autocapitalize]="true"
-        ></ion-input>
+        <ion-input fill="outline" placeholder="Miguel Cervantes" label-placement="floating" label="Nombre"
+          formControlName="username" type="text" [autocapitalize]="true"></ion-input>
         <div class="error-conatiner">
-          <app-error-message
-            [field]="userForm.get('username')!"
-            [message]="'Debe introducir su nombre'"
-            [error]="'required'"
-          ></app-error-message>
+          <app-error-message [field]="userForm.get('username')!" [message]="'Debe introducir su nombre'"
+            [error]="'required'"></app-error-message>
         </div>
       </div>
 
       <div class="input-container">
-        <ion-input
-          fill="outline"
-          placeholder="example@mail.com"
-          label-placement="floating"
-          label="Email"
-          formControlName="email"
-          type="email"
-        ></ion-input>
+        <ion-input fill="outline" placeholder="example@mail.com" label-placement="floating" label="Email"
+          formControlName="email" type="email"></ion-input>
         <div class="error-conatiner">
-          <app-error-message
-            [field]="userForm.get('email')!"
-            [message]="'El email es obligatorio'"
-            [error]="'required'"
-          ></app-error-message>
-          <app-error-message
-            [field]="userForm.get('email')!"
-            [message]="'El email no es válido'"
-            [error]="'email'"
-          ></app-error-message>
+          <app-error-message [field]="userForm.get('email')!" [message]="'El email es obligatorio'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('email')!" [message]="'El email no es válido'"
+            [error]="'email'"></app-error-message>
         </div>
       </div>
 
       <div class="input-container">
-        <ion-input
-          fill="outline"
-          placeholder="Escriba su DNI"
-          label-placement="floating"
-          label="DNI"
-          formControlName="dni"
-          type="text"
-        ></ion-input>
+        <ion-input fill="outline" placeholder="Escriba su DNI" label-placement="floating" label="DNI"
+          formControlName="dni" type="text"></ion-input>
         <div class="error-conatiner">
-          <app-error-message
-            [field]="userForm.get('dni')!"
-            [message]="'El dni es obligatorio'"
-            [error]="'required'"
-          ></app-error-message>
-          <app-error-message
-            [field]="userForm.get('dni')!"
-            [message]="'El dni no es válido'"
-            [error]="'dniInvalid'"
-          ></app-error-message>
+          <app-error-message [field]="userForm.get('dni')!" [message]="'El dni es obligatorio'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('dni')!" [message]="'El dni no es válido'"
+            [error]="'dniInvalid'"></app-error-message>
         </div>
       </div>
 
       <div class="input-container">
-        <ion-input
-          fill="outline"
-          placeholder="Escriba su fecha de nacimeinto"
-          label-placement="floating"
-          label="Fecha de nacimiento"
-          formControlName="birth_date"
-          type="date"
-        ></ion-input>
+        <ion-input fill="outline" placeholder="Escriba su fecha de nacimeinto" label-placement="floating"
+          label="Fecha de nacimiento" formControlName="birth_date" type="date"></ion-input>
         <div class="error-conatiner">
-          <app-error-message
-            [field]="userForm.get('birth_date')!"
-            [message]="'La fecha de nacimiento es obligatoria'"
-            [error]="'required'"
-          ></app-error-message>
-          <app-error-message
-            [field]="userForm.get('birth_date')!"
-            [message]="'Debe tener mínimo 18 años'"
-            [error]="'minimumAge'"
-          ></app-error-message>
+          <app-error-message [field]="userForm.get('birth_date')!" [message]="'La fecha de nacimiento es obligatoria'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('birth_date')!" [message]="'Debe tener mínimo 18 años'"
+            [error]="'minimumAge'"></app-error-message>
         </div>
       </div>
 
       <div class="input-container">
         <div class="row">
-          <ion-input
-            style="width: 100px"
-            fill="outline"
-            placeholder="34"
-            label-placement="floating"
-            label="Prefijo"
-            formControlName="countryCode"
-            type="number"
-          ></ion-input>
-          <ion-input
-            fill="outline"
-            placeholder="123456789"
-            label-placement="floating"
-            label="Número de teléfono"
-            formControlName="phone"
-            type="number"
-          ></ion-input>
+          <ion-input style="width: 100px" fill="outline" placeholder="34" label-placement="floating" label="Prefijo"
+            formControlName="countryCode" type="number"></ion-input>
+          <ion-input fill="outline" placeholder="123456789" label-placement="floating" label="Número de teléfono"
+            formControlName="phone" type="number"></ion-input>
         </div>
         <div class="error-conatiner">
-          <app-error-message
-            [field]="userForm.get('phone')!"
-            [message]="'Debe introducir su número de teléfono'"
-            [error]="'required'"
-          ></app-error-message>
-          <app-error-message
-            [field]="userForm.get('phone')!"
-            [message]="'Número inválido'"
-            [error]="'phoneNumber'"
-          ></app-error-message>
-          <app-error-message
-            [field]="userForm.get('countryCode')!"
-            [message]="'Debe introducir su prefijo'"
-            [error]="'required'"
-          ></app-error-message>
-          <app-error-message
-            [field]="userForm.get('countryCode')!"
-            [message]="'Prefijo inválido'"
-            [error]="'minLength'"
-          ></app-error-message>
+          <app-error-message [field]="userForm.get('phone')!" [message]="'Debe introducir su número de teléfono'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('phone')!" [message]="'Número inválido'"
+            [error]="'phoneNumber'"></app-error-message>
+          <app-error-message [field]="userForm.get('countryCode')!" [message]="'Debe introducir su prefijo'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('countryCode')!" [message]="'Prefijo inválido'"
+            [error]="'minLength'"></app-error-message>
         </div>
       </div>
-    </form></div
-></ion-content>
+    </form>
+    <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
+      (click)="goRegisterVehicle()"> Pulsa aqui para registrar tu vehiculo
+    </ion-button>
+  </div>
+
+</ion-content>
