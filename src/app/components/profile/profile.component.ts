@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import {
   AlertController,
   LoadingController,
+  NavController,
   ToastController,
 } from '@ionic/angular';
 import { User } from 'src/app/models/authentication';
@@ -31,7 +32,8 @@ export class ProfileComponent implements OnInit {
     private toastController: ToastController,
     private loadingCtrl: LoadingController,
     private persistenceService: PersistenceService,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) {
     this.userForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -219,5 +221,9 @@ export class ProfileComponent implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  async goRegisterVehicle() {
+    this.navCtrl.navigateForward('/registerVehicle');
   }
 }

@@ -3,12 +3,6 @@
     <ion-title class="appbar">{{constants.APP_NAME}}</ion-title>
 
     <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
-      (click)="goToSubscriptions()"> subscription
-    </ion-button>
-    <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
-      (click)="goRegisterVehicle()"> Registrar vehiculo
-    </ion-button>
-    <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
       (click)="logout()"> Salir
 
     </ion-button>
@@ -28,13 +22,18 @@
     </ion-tab-button>
 
     <ion-tab-button tab="tab3">
-      <ion-icon aria-hidden="true" name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Perfil</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="list-parking-cesion" (click)="goToCesion()">
       <ion-icon name="car"></ion-icon>
       <ion-label>Cesiones</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab5">
+      <ion-icon name="wallet"></ion-icon>
+      <ion-label>Suscripcion</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
