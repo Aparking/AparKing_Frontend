@@ -9,10 +9,10 @@ import { DataManagementService } from 'src/app/service/data-management.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './registerVehicle.page.html',
-  styleUrls: ['./registerVehicle.page.scss'],
+  templateUrl: './registerVehicle.component.html',
+  styleUrls: ['./registerVehicle.component.scss'],
 })
-export class registerVehiclePage implements OnInit {
+export class registerVehicleComponent implements OnInit {
   registerForm: FormGroup;
 
   constructor(
