@@ -1,0 +1,8 @@
+{
+	"appId": "com.sergiosantiago.aparking",
+	"appName": "AparKing_Frontend",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https"
+	}
+}

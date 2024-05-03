@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AparKing_Frontend</string>
+    <string name="title_activity_main">AparKing_Frontend</string>
+    <string name="package_name">com.sergiosantiago.aparking</string>
+    <string name="custom_url_scheme">com.sergiosantiago.aparking</string>
+</resources>

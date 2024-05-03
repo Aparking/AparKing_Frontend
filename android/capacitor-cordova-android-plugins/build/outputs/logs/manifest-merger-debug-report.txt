@@ -1,0 +1,29 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-8:12
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-8:12
+	package
+		INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-8:12
+		INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+	xmlns:amazon
+		ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:3:1-57
+	xmlns:android
+		ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:4:1-6:15
+uses-sdk
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		ADDED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		INJECTED from /Users/sergiosantiago/developments/ISPP/AparKing_Frontend/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
