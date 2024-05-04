@@ -224,6 +224,6 @@ export class ProfileComponent implements OnInit {
   }
 
   async goRegisterVehicle() {
-    this.navCtrl.navigateForward('/registerVehicle');
+    this.navCtrl.navigateForward('/G11/aparKing/tab3/registerVehicle');
   }
 }
