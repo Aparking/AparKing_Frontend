@@ -5,6 +5,8 @@ import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
 import { GarageBookListComponent } from '../garage-book-list/garage-book-list.component';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
+import { MyGaragesComponent } from '../my-garages/my-garages.component';
+
 
 @Component({
   selector: 'app-garage-list',
@@ -20,6 +22,7 @@ export class GarageListComponent implements OnInit {
   _filterDimensionMin: number = 0;
   _filterCity: string = '';
   filteredGarages!: any[];
+  currentUserGarages!: any[];
 
   get filterTitle() {
     return this._filterTitle;
@@ -159,6 +162,24 @@ export class GarageListComponent implements OnInit {
     });
     return await modal.present();
   }
+
+  async openMyGarageDetailModal(garage: any) {
+    const modal = await this.modalCtrl.create({
+      component: GarageDetailComponent,
+      componentProps: {
+        garage: garage,
+      },
+    });
+    return await modal.present();
+  }
+
+  async openMyGaragesModal() {
+    const modal = await this.modalCtrl.create({
+      component: MyGaragesComponent,
+    });
+    return await modal.present();
+  }
+
 
   navigateToCreateGarage() {
     this.navCtrl.navigateForward('/G11/aparKing/garages/create');
