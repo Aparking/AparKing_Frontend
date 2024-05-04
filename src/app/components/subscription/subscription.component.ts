@@ -12,6 +12,7 @@ import { PaymentService } from 'src/app/service/payment.service';
   styleUrls: ['./subscription.component.scss']
 })
 export class SubscriptionComponent implements OnInit {
+  credit: number | undefined;
   ngOnInit() {
     this.dataManagementService.subscription();
     this.getUserInfo();
@@ -38,6 +39,15 @@ export class SubscriptionComponent implements OnInit {
   async selectPlan(planId: string) {
     try {
       const session = await this.dataManagementService.createCheckoutSession(planId, this.path);
+      window.location.href = session.url;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async buyCredit(credit: number) {
+    try {
+      const session = await this.dataManagementService.createCheckoutSessionCredit(credit, this.path);
       window.location.href = session.url;
     } catch (error) {
       console.error(error);

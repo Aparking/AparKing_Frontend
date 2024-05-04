@@ -210,6 +210,15 @@ export class RestService extends WsAbstractService {
     return await this.makePutRequest(`${this.path}/parking/updateParkingCesion/`, parkingId);
   }
 
-
+  async createCheckoutSessionCredit(credit: number, url: string): Promise<any> {
+    try {
+      return await this.makePostRequest(
+        `${this.path}/payment/credits/`,
+        { credit, url }
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
 
 }
