@@ -39,7 +39,7 @@ export class CreateParkingModalComponent implements OnInit {
     });
   }
 
-   convertToColorEnum(str: string): ParkingSize | undefined {
+  convertToColorEnum(str: string): ParkingSize | undefined {
     const colorValue = ParkingSize[str as keyof typeof ParkingSize];
     return colorValue;
   }
@@ -57,9 +57,13 @@ export class CreateParkingModalComponent implements OnInit {
           typeof this.parkingForm.value.parking_type === 'string'
         ) {
           const sizeString: string = this.parkingForm.value.size;
-          const sizeEnum: string = (Object.keys(ParkingSize) as (keyof typeof ParkingSize)[]).filter(key => ParkingSize[key] === sizeString)[0];
+          const sizeEnum: string = (
+            Object.keys(ParkingSize) as (keyof typeof ParkingSize)[]
+          ).filter((key) => ParkingSize[key] === sizeString)[0];
           const typeString: string = this.parkingForm.value.parking_type;
-          const typeEnum: string = (Object.keys(ParkingType) as (keyof typeof ParkingType)[]).filter(key => ParkingType[key] === typeString)[0];
+          const typeEnum: string = (
+            Object.keys(ParkingType) as (keyof typeof ParkingType)[]
+          ).filter((key) => ParkingType[key] === typeString)[0];
           if (location) {
             this.dataManagement
               .postCreateParking({
