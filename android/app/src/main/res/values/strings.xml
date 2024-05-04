@@ -4,4 +4,5 @@
     <string name="title_activity_main">AparKing_Frontend</string>
     <string name="package_name">com.sergiosantiago.aparking</string>
     <string name="custom_url_scheme">com.sergiosantiago.aparking</string>
+    <string name="admob_app_id">ca-app-pub-6591188318686915~1817913238</string>
 </resources>
