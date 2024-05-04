@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
 import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
 import { Tab2Page } from './tab2.page';
+import { MyGaragesComponent } from '../components/rental/my-garages/my-garages.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
     path: 'create',
     component: GarageCreateComponent,
   },
+  {
+    path: 'garages/:id',
+    component: MyGaragesComponent,
+  },
+
   {
     path: ':id',
     component: GarageDetailComponent,
