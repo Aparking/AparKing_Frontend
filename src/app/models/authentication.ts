@@ -31,6 +31,7 @@ export interface Vehicle {
   height: number;
   width: number;
   length: number;
-  owner: number; // esto asumirá que se refiere ID del CustomUser
+  owner: number;
+  principalCar: boolean;
 }
 
