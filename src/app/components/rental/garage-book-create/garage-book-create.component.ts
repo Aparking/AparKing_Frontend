@@ -31,6 +31,7 @@ export class GarageBookCreateComponent implements OnInit {
   serverUrl = window.location.href;
   apiPath = '';
   path = this.serverUrl + this.apiPath;
+  totalPrice = 0;
 
   constructor(
     private modalCtrl: ModalController,
@@ -61,6 +62,14 @@ export class GarageBookCreateComponent implements OnInit {
         });
         if (this.availabilities.length === 0) {
           this.cancel();
+        } else {
+          // Agregar un observador al campo de disponibilidad
+          this.bookForm.get('availability')!.valueChanges.subscribe(selectedAvailability => {
+            const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability);
+            if (selectedAvailabilityIndex !== -1) {
+              this.calculateTotalPrice(selectedAvailabilityIndex);
+            }
+          });
         }
       })
       .catch((_) => {
@@ -93,9 +102,9 @@ export class GarageBookCreateComponent implements OnInit {
 
   async confirm() {
     const toast = await this.toastController.create({
-      duration: 2000, // Duración del toast en milisegundos
-      position: 'bottom', // Posición del toast (top, middle, bottom)
-      color: 'dark', // Color del toast
+      duration: 2000,
+      position: 'bottom',
+      color: 'dark',
       buttons: [
         {
           text: 'Cerrar',
@@ -106,42 +115,34 @@ export class GarageBookCreateComponent implements OnInit {
 
     this.bookForm.patchValue({ user: this.user.id });
     if (this.bookForm.valid) {
-      const translatedPaymentMethod = this.translatePaymentMethod(
-        this.bookForm.value.paymentMethod
-      );
-      const translatedStatus = this.translateBookingStatus(
-        this.bookForm.value.status
-      );
+      const selectedAvailability = this.bookForm.value.availability; // Obtener la disponibilidad seleccionada
+      const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability); // Obtener el índice de la disponibilidad seleccionada
+      if (selectedAvailabilityIndex !== -1) {
+        const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex); // Calcular el precio total
+        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.paymentMethod);
+        const translatedStatus = this.translateBookingStatus(this.bookForm.value.status);
+        const bookingData = {
+          ...this.bookForm.value,
+          payment_method: translatedPaymentMethod,
+          status: translatedStatus,
+          total_price: totalPrice, // Agregar el precio total al objeto de reserva
+          url: this.path,
+        };
 
-      const bookingData = {
-        ...this.bookForm.value,
-        payment_method: translatedPaymentMethod,
-        status: translatedStatus,
-      };
+        // Resto del código para crear la reserva...
 
-      this.restService
-        .createBooking(bookingData)
-        .then((_) => {
-          toast.message = 'Reserva creada correctamente';
-          toast.present();
-        })
-        .catch((_) => {
-          toast.message = 'Error al crear la reserva';
-          toast.present();
-        });
-
-      return this.modalCtrl.dismiss(null, 'confirm');
+      } else {
+        this.showAlert('La disponibilidad seleccionada no es válida.');
+      }
     }
-    return this.modalCtrl.dismiss(null, 'cancel');
   }
-
 
   async confirmBooking() {
     console.log(String(this.bookForm.value.paymentMethod)); // Añade esta línea
     const toast = await this.toastController.create({
-      duration: 2000, // Duración del toast en milisegundos
-      position: 'bottom', // Posición del toast (top, middle, bottom)
-      color: 'dark', // Color del toast
+      duration: 2000,
+      position: 'bottom',
+      color: 'dark',
       buttons: [
         {
           text: 'Cerrar',
@@ -152,66 +153,53 @@ export class GarageBookCreateComponent implements OnInit {
 
     this.bookForm.patchValue({ user: this.user.id });
     if (this.bookForm.valid) {
-      console.log(this.bookForm.value);
-      console.log(this.bookForm.value.payment_method); // Añade esta línea
+      const selectedAvailability = this.bookForm.value.availability; // Obtener la disponibilidad seleccionada
+      const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability); // Obtener el índice de la disponibilidad seleccionada
+      if (selectedAvailabilityIndex !== -1) {
+        const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex); // Calcular el precio total
+        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.paymentMethod);
+        const translatedStatus = this.translateBookingStatus(this.bookForm.value.status);
+        const bookingData = {
+          ...this.bookForm.value,
+          payment_method: translatedPaymentMethod,
+          status: translatedStatus,
+          total_price: totalPrice, // Agregar el precio total al objeto de reserva
+          url: this.path,
+        };
 
-      //console.log(this.bookForm.value.get('payment_method')); // Añade esta línea
-
-
-      const translatedPaymentMethod = this.translatePaymentMethod(
-        this.bookForm.value.paymentMethod
-      );
-      const translatedStatus = this.translateBookingStatus(
-        this.bookForm.value.status
-      );
-
-      const bookingData = {
-        ...this.bookForm.value,
-        payment_method: translatedPaymentMethod,
-        status: translatedStatus,
-        url: this.path
-      };
-
-      if (this.bookForm.value.payment_method === 'CARD') {
-        try {
-          const session = await this.dataManagementService.createCheckoutSessionRental(bookingData);
-          window.location.href = session.url;
-          const toast = await this.toastController.create({
-            message: 'Reserva creada correctamente',
-            duration: 2000
-          });
-          toast.present();
-        } catch (error) {
-          const toast = await this.toastController.create({
-            message: 'Error al crear la reserva',
-            duration: 2000
-          });
-          toast.present();
-          //this.restService
-          //.createBooking(bookingData)
-          //.then((_) => {
-          //  toast.message = 'Reserva creada correctamente';
-          //  toast.present();
-          //})
-          //.catch((_) => {
-          //  toast.message = 'Error al crear la reserva';
-          //  toast.present();
-          //});
+        if (this.bookForm.value.payment_method === 'CARD') {
+          try {
+            const session = await this.dataManagementService.createCheckoutSessionRental(bookingData);
+            window.location.href = session.url;
+            const toast = await this.toastController.create({
+              message: 'Reserva creada correctamente',
+              duration: 2000
+            });
+            toast.present();
+          } catch (error) {
+            const toast = await this.toastController.create({
+              message: 'Error al crear la reserva',
+              duration: 2000
+            });
+            toast.present();
+          }
+        } else {
+          this.restService
+            .createBooking(bookingData)
+            .then((_) => {
+              toast.message = 'Reserva creada correctamente';
+              toast.present();
+            })
+            .catch((_) => {
+              toast.message = 'Error al crear la reserva';
+              toast.present();
+            });
         }
-      } else {
-        this.restService
-          .createBooking(bookingData)
-          .then((_) => {
-            toast.message = 'Reserva creada correctamente';
-            toast.present();
-          })
-          .catch((_) => {
-            toast.message = 'Error al crear la reserva';
-            toast.present();
-          });
-      }
 
-      return this.modalCtrl.dismiss(null, 'confirm');
+        return this.modalCtrl.dismiss(null, 'confirm');
+      } else {
+        this.showAlert('La disponibilidad seleccionada no es válida.');
+      }
     }
     return this.modalCtrl.dismiss(null, 'cancel');
   }
@@ -239,5 +227,36 @@ export class GarageBookCreateComponent implements OnInit {
       default:
         return 'CONFIRMED';
     }
+  }
+
+  calculateBookingDuration(availability: any): number {
+    const start = new Date(availability.start_date);
+    const end = new Date(availability.end_date);
+    console.log('Start date:', start);
+    console.log('End date:', end);
+    console.log('AAAA', availability);
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      console.error('Invalid start or end date:', availability.start, availability.end);
+      return 0;  // Retorna 0 o algún otro valor predeterminado
+    }
+
+    return Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+  }
+  calculateTotalPrice(selectedAvailabilityIndex: number): number {
+    const selectedAvailability = this.availabilities[selectedAvailabilityIndex];
+
+    if (!selectedAvailability) {
+      console.log('No availability selected.');
+      return 1;  // Retorna 0 o algún otro valor predeterminado
+    }
+
+    const duration = this.calculateBookingDuration(selectedAvailability);
+    const pricePerDay = this.currentGarage.price || 2;  // Si this.currentGarage.price es undefined o null, usa 0
+    this.totalPrice = duration * pricePerDay;
+    console.log('Selected availability:', selectedAvailability);
+    console.log('Duration:', duration);
+    console.log('Total price:', this.totalPrice);
+    return this.totalPrice;
   }
 }

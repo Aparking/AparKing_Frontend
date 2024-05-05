@@ -12,6 +12,7 @@ import { RestService } from 'src/app/service/rest.service';
 })
 export class GarageBookListComponent implements OnInit {
   myBookings: any = [];
+  totalPrice: number= 0;
 
   constructor(
     private modalCtrl: ModalController,
@@ -57,11 +58,12 @@ export class GarageBookListComponent implements OnInit {
                 'No se pudieron cargar los datos. Intente más tarde.';
               toast.present();
               this.closeModal();
-            });
+            });  
           promises.push(availabilityPromise);
         }
         try {
           await Promise.all(promises);
+          this.calculateTotalPrice();
         } catch (error) {
           toast.message = 'No se pudieron cargar los datos. Intente más tarde.';
           toast.present();
@@ -77,6 +79,7 @@ export class GarageBookListComponent implements OnInit {
           this.closeModal();
         }
       });
+      
   }
 
   async closeModal() {
@@ -139,5 +142,12 @@ export class GarageBookListComponent implements OnInit {
         toast.message = 'No se pudo cancelar la reserva. Intente más tarde.';
         toast.present();
       });
+  }
+
+  calculateTotalPrice() {
+    this.totalPrice = this.myBookings.reduce((total: number, booking: any) => {
+      const price = Number(booking.garage.price);
+      return total + (isNaN(price) ? 0 : price);
+    }, 0);
   }
 }
