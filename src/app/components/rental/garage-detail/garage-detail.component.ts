@@ -30,8 +30,8 @@ export class GarageDetailComponent implements OnInit {
   currentGarage?: any;
   currentGarageImages: any[] = [];
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
+  async ngOnInit() {
+    await this.route.paramMap.subscribe((params: ParamMap) => {
       let id = params.get('id');
       if (id) this.garageId = id;
       else {
@@ -39,8 +39,8 @@ export class GarageDetailComponent implements OnInit {
         this.router.navigate([`${this.base_url}`]);
       }
     });
-    this.retrieveGarage();
-    this.checkIsOwner();
+    await this.retrieveGarage();
+    await this.checkIsOwner();
   }
 
   async showAlert(text: string) {
@@ -52,8 +52,8 @@ export class GarageDetailComponent implements OnInit {
     await alert.present();
   }
 
-  retrieveGarage() {
-    this.restService
+  async retrieveGarage() {
+    await this.restService
       .getGarageById(this.garageId)
       .then((garage) => {
         this.currentGarage = garage;
@@ -63,13 +63,13 @@ export class GarageDetailComponent implements OnInit {
         this.router.navigate([`${this.base_url}/${this.garageId}`]);
       });
 
-    this.restService.getImagesByGarageId(this.garageId).then((images) => {
+    await this.restService.getImagesByGarageId(this.garageId).then((images) => {
       this.currentGarageImages = images;
     });
   }
 
-  checkIsOwner() {
-    this.restService
+  async checkIsOwner() {
+    await this.restService
       .getUserData()
       .then((user) => {
         if (user.id === this.currentGarage.owner) {
