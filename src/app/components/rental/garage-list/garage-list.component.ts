@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import {
+  AlertController,
+  ModalController,
+  NavController,
+} from '@ionic/angular';
+import { MembershipType } from 'src/app/models/payments';
+import { DataManagementService } from 'src/app/service/data-management.service';
 import { GarageStateService } from 'src/app/service/garage-state.service';
 import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
@@ -15,6 +21,7 @@ import { MyGaragesComponent } from '../my-garages/my-garages.component';
 })
 export class GarageListComponent implements OnInit {
   component = GarageDetailComponent;
+  userInfo: any | null;
   garages: any[] = [];
   _filterTitle: string = '';
   _filterPriceMin: number = 0;
@@ -98,7 +105,9 @@ export class GarageListComponent implements OnInit {
     private restService: RestService,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
-    private garageStateService: GarageStateService
+    private garageStateService: GarageStateService,
+    private dataManagementService: DataManagementService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -163,6 +172,7 @@ export class GarageListComponent implements OnInit {
     return await modal.present();
   }
 
+
   async openMyGarageDetailModal(garage: any) {
     const modal = await this.modalCtrl.create({
       component: GarageDetailComponent,
@@ -180,8 +190,51 @@ export class GarageListComponent implements OnInit {
     return await modal.present();
   }
 
+  async navigateToCreateGarage() {
+    await this.dataManagementService
+      .subscription()
+      .then((data) => {
+        this.userInfo = data.user_info;
+      })
+      .catch((_) => {
+        this.userInfo = null;
+      });
 
-  navigateToCreateGarage() {
-    this.navCtrl.navigateForward('/G11/aparKing/garages/create');
+    if (!this.userInfo) {
+      const alert = await this.alertController.create({
+        header: 'No puedes crear garajes',
+        message:
+          'Para poder crear garajes necesitas tener una suscripción activa',
+        buttons: ['OK'],
+      });
+      await alert.present();
+      return;
+    } else {
+      let myGarages = await this.restService
+        .getMyGarages()
+        .then((data) => {
+          return data.length;
+        })
+        .catch((_) => 0);
+
+      if (
+        (this.userInfo.membership.type === MembershipType.FREE &&
+          myGarages + 1 > 1) ||
+        (this.userInfo.membership.type === MembershipType.NOBLE &&
+          myGarages + 1 > 3) ||
+        (this.userInfo.membership.type === MembershipType.KING &&
+          myGarages + 1 > 5)
+      ) {
+        const alert = await this.alertController.create({
+          header: 'No puedes crear más garajes',
+          message:
+            'Has alcanzado el límite de garajes que puedes crear con tu suscripción',
+          buttons: ['OK'],
+        });
+        await alert.present();
+        return;
+      }
+      this.navCtrl.navigateForward('/G11/aparKing/garages/create');
+    }
   }
 }
