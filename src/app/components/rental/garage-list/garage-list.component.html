@@ -1,7 +1,6 @@
 <ion-grid>
   <ion-buttons>
     <ion-button
-      [routerLink]="'create'"
       color="danger"
       shape="round"
       size="small"
@@ -15,7 +14,16 @@
       size="small"
       >Mis reservas</ion-button
     >
-  </ion-buttons>
+
+    <ion-button
+    (click)="openMyGaragesModal()"
+    color="orange"
+    shape="round"
+    size="small"
+    >Mis Garajes</ion-button
+    >
+    </ion-buttons>
+
 
   <ion-card>
     <ion-card-content>
