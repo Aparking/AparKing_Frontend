@@ -137,6 +137,7 @@ export class GarageBookCreateComponent implements OnInit {
 
 
   async confirmBooking() {
+    console.log(String(this.bookForm.value.paymentMethod)); // Añade esta línea
     const toast = await this.toastController.create({
       duration: 2000, // Duración del toast en milisegundos
       position: 'bottom', // Posición del toast (top, middle, bottom)
@@ -151,6 +152,12 @@ export class GarageBookCreateComponent implements OnInit {
 
     this.bookForm.patchValue({ user: this.user.id });
     if (this.bookForm.valid) {
+      console.log(this.bookForm.value);
+      console.log(this.bookForm.value.payment_method); // Añade esta línea
+
+      //console.log(this.bookForm.value.get('payment_method')); // Añade esta línea
+
+
       const translatedPaymentMethod = this.translatePaymentMethod(
         this.bookForm.value.paymentMethod
       );
@@ -165,7 +172,7 @@ export class GarageBookCreateComponent implements OnInit {
         url: this.path
       };
 
-      if (bookingData.payment_method === 'CARD') {
+      if (this.bookForm.value.payment_method === 'CARD') {
         try {
           const session = await this.dataManagementService.createCheckoutSessionRental(bookingData);
           window.location.href = session.url;
@@ -210,10 +217,11 @@ export class GarageBookCreateComponent implements OnInit {
   }
 
   translatePaymentMethod(paymentMethod: string): string {
+    console.log(paymentMethod); // Añade esta línea
     switch (paymentMethod) {
-      case 'Efectivo':
+      case 'CASH':
         return 'CASH';
-      case 'Tarjeta':
+      case 'CARD':
         return 'CARD';
       default:
         return 'CARD';
