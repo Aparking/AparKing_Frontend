@@ -214,5 +214,14 @@ export class DataManagementService {
       });
   }
 
+  async createCheckoutSessionCredit(credit: number, url: string): Promise<any> {
+    return await this.rest
+      .createCheckoutSessionCredit(credit, url)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
 }
 

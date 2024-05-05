@@ -17,6 +17,7 @@ import { RestService } from 'src/app/service/rest.service';
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
+  credit: number | undefined;
   ngOnInit() {
     this.dataManagementService.subscription();
     this.getUserInfo();
@@ -55,6 +56,15 @@ export class SubscriptionComponent implements OnInit {
       console.error(error);
     }
     await this.updateUserGaragesWithPlan(planId);
+  }
+
+  async buyCredit(credit: number) {
+    try {
+      const session = await this.dataManagementService.createCheckoutSessionCredit(credit, this.path);
+      window.location.href = session.url;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async getUserInfo() {
