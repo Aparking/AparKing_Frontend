@@ -157,7 +157,7 @@ export class GarageBookCreateComponent implements OnInit {
       const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability); // Obtener el índice de la disponibilidad seleccionada
       if (selectedAvailabilityIndex !== -1) {
         const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex); // Calcular el precio total
-        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.paymentMethod);
+        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.payment_method);
         const translatedStatus = this.translateBookingStatus(this.bookForm.value.status);
         const bookingData = {
           ...this.bookForm.value,
