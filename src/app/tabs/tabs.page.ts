@@ -17,7 +17,7 @@ export class TabsPage {
     private datamanagement: DataManagementService,
     private loadingCtrl: LoadingController,
     private wsService: WebsocketService
-  ) { }
+  ) {}
 
   async logout() {
     const loading = await this.loadingCtrl.create({
@@ -25,10 +25,9 @@ export class TabsPage {
     });
     await this.wsService.disconnect();
     loading.present();
-    this.datamanagement.postLogout().then((_) => {
-      this.navCtrl.navigateRoot('/');
-      loading.dismiss();
-    });
+    this.datamanagement.postLogout();
+    this.navCtrl.navigateRoot('/');
+    loading.dismiss();
   }
 
   async goToCesion() {
@@ -39,10 +38,7 @@ export class TabsPage {
     this.navCtrl.navigateForward('/registerVehicle');
   }
 
-
   async goToSubscriptions() {
     this.navCtrl.navigateRoot('/api/subscriptions');
   }
-
 }
-
