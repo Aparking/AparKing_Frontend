@@ -221,4 +221,8 @@ export class RestService extends WsAbstractService {
     }
   }
 
+  async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
+    return await this.makePutRequest(`${this.path}/updateVehicle/`, vehicleId);
+  }
+
 }
