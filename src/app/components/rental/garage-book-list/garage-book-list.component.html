@@ -3,7 +3,11 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="closeModal()">Volver</ion-button>
     </ion-buttons>
-    <ion-title>Mis reservas</ion-title>
+    <ion-title>| Mis reservas</ion-title>
+    <ion-title>| Total: {{ totalPrice }}</ion-title>
+    <!-- @for (book of myBookings; track book.id) {
+      {{book.garage.price}}
+    } -->
   </ion-toolbar>
 </ion-header>
 

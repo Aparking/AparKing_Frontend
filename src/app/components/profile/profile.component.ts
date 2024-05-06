@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import {
   AlertController,
   LoadingController,
+  NavController,
   ToastController,
 } from '@ionic/angular';
 import { User } from 'src/app/models/authentication';
@@ -31,12 +32,12 @@ export class ProfileComponent implements OnInit {
     private toastController: ToastController,
     private loadingCtrl: LoadingController,
     private persistenceService: PersistenceService,
-    private router: Router
+    private router: Router,
+    private navCtrl: NavController,
   ) {
     this.userForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      confirmPassword: new FormControl('', [Validators.required]),
       dni: new FormControl('', [Validators.required, this.validateDNI]),
       birth_date: new FormControl('', [
         Validators.required,
@@ -154,7 +155,7 @@ export class ProfileComponent implements OnInit {
       .catch(async (err) => {
         let serverErr = err.error;
         let message = '';
-
+        console.log(this.userForm.value);
         for (let key in serverErr) {
           message += (serverErr[key] as string[]).join(', ');
         }
@@ -219,5 +220,9 @@ export class ProfileComponent implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  async goRegisterVehicle() {
+    this.navCtrl.navigateForward('/G11/aparKing/tab3/registerVehicle');
   }
 }

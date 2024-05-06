@@ -3,7 +3,8 @@
     <ion-buttons slot="start">
       <ion-button color="medium" (click)="cancel()">Cancelar</ion-button>
     </ion-buttons>
-    <ion-title>Formulario de reserva</ion-title>
+    <ion-title>| Formulario de reserva</ion-title>
+    <ion-title>| Total: {{totalPrice}}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="confirmBooking()" [strong]="true">Confirmar</ion-button>
     </ion-buttons>
@@ -62,14 +63,11 @@
         <ion-item-divider>
           <ion-label class="ion-text-uppercase" color="dark">Reserva</ion-label>
         </ion-item-divider>
-        <form [formGroup]="bookForm" (ngSubmit)="confirm()">
+        <form [formGroup]="bookForm">
           <ion-item class="borde-interior">
             <ion-select label="Método de pago" formControlName="payment_method">
-              <ion-select-option
-                *ngFor="let method of payment_methods"
-                [value]="method"
-                >{{ method }}</ion-select-option
-              >
+              <ion-select-option value="CASH">Efectivo</ion-select-option>
+              <ion-select-option value="CARD">Tarjeta</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item class="borde-interior">

@@ -4,10 +4,12 @@ import { Token, User, Vehicle } from '../models/authentication';
 import { Availability, Book, Garage, Image } from '../models/garagement';
 
 import {
+  CesionParking,
   City,
   Location,
+  Parking,
   ParkingCreate,
-  ParkingResponse,
+  ParkingResponse
 } from '../models/parking';
 
 import { CombinedDataPayment } from '../models/payments';
@@ -65,7 +67,7 @@ export class RestService extends WsAbstractService {
   }
 
   async updateUser(data: User): Promise<any> {
-    return await this.makePostRequest(`${this.path}/user/profile`, data);
+    return await this.makePutRequest(`${this.path}/user/profile/`, data);
   }
   async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
@@ -196,4 +198,31 @@ export class RestService extends WsAbstractService {
       throw error;
     }
   }
+  async getParkingCesion(): Promise<CesionParking> {
+    return await this.makeGetRequest(`${this.path}/parking/getParkingCesion/`);
+  }
+
+  async getVehicles(): Promise<{ vehicles: Vehicle[] } | undefined> {
+    return await this.makeGetRequest(`${this.path}/parking/getVehicles/`);
+  }
+
+  async updateParkingCesion(parkingId: number): Promise<Parking> {
+    return await this.makePutRequest(`${this.path}/parking/updateParkingCesion/`, parkingId);
+  }
+
+  async createCheckoutSessionCredit(credit: number, url: string): Promise<any> {
+    try {
+      return await this.makePostRequest(
+        `${this.path}/payment/credits/`,
+        { credit, url }
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
+    return await this.makePutRequest(`${this.path}/updateVehicle/`, vehicleId);
+  }
+
 }

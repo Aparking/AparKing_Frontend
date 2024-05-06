@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { Tab3Page } from './tab3.page';
 
 import { ProfileComponent } from '../components/profile/profile.component';
+import { registerVehicleComponent } from '../components/registerVehicle/registerVehicle.component';
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
 @NgModule({
@@ -15,8 +16,8 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     Tab3PageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [Tab3Page, ProfileComponent],
-  exports: [ProfileComponent],
+  declarations: [Tab3Page, ProfileComponent, registerVehicleComponent],
+  exports: [ProfileComponent, registerVehicleComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class Tab3PageModule {}
+export class Tab3PageModule { }

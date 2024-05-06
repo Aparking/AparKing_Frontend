@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<resources>
+    <string name="app_name">AparKing</string>
+    <string name="title_activity_main">AparKing</string>
+    <string name="package_name">com.sergiosantiago.aparking</string>
+    <string name="custom_url_scheme">com.sergiosantiago.aparking</string>
+    <string name="admob_app_id">ca-app-pub-6591188318686915~1817913238</string>
+</resources>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AdMob, BannerAdOptions, BannerAdPosition, BannerAdSize } from '@capacitor-community/admob';
+import {
+  AdMob,
+  BannerAdOptions,
+  BannerAdPosition,
+  BannerAdSize,
+} from '@capacitor-community/admob';
 import { NavController, Platform, isPlatform } from '@ionic/angular';
 import { constants } from 'src/app/constants.ts';
 
@@ -14,17 +19,18 @@ export class StartPagePage implements OnInit {
 
   constructor(private platform: Platform, private navCtr: NavController) {
     this.checkDarkMode();
-    this.initialize();
-    this.showBanner();
+    this.initialize().then((_) => this.showBanner());
   }
 
   async initialize() {
-    const {status} = await AdMob.trackingAuthorizationStatus();
-    if(status === 'notDetermined'){
+    const { status } = await AdMob.trackingAuthorizationStatus();
+    if (status === 'notDetermined') {
       console.log('Requesting tracking authorization');
+      await AdMob.requestTrackingAuthorization();
     }
     AdMob.initialize({
-      initializeForTesting: false,
+      testingDevices: ['3EE684B8616110F9640E39F68D0D8593'],
+      initializeForTesting: true,
     });
   }
 
@@ -51,7 +57,9 @@ export class StartPagePage implements OnInit {
   }
 
   async showBanner() {
-    const adId = isPlatform('ios') ? 'ca-app-pub-6591188318686915/6336576890' : 'ca-app-pub-6591188318686915/7924990732';
+    const adId = isPlatform('ios')
+      ? 'ca-app-pub-6591188318686915/6336576890'
+      : 'ca-app-pub-6591188318686915/7924990732';
     const options: BannerAdOptions = {
       adId,
       adSize: BannerAdSize.ADAPTIVE_BANNER,
@@ -60,6 +68,5 @@ export class StartPagePage implements OnInit {
     };
 
     await AdMob.showBanner(options);
-
   }
 }

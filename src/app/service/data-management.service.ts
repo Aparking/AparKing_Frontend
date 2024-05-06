@@ -6,10 +6,12 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
 import { Token, User, Vehicle } from '../models/authentication';
 import {
+  CesionParking,
   City,
   Location,
+  Parking,
   ParkingCreate,
-  ParkingResponse,
+  ParkingResponse
 } from '../models/parking';
 import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
@@ -180,5 +182,55 @@ export class DataManagementService {
         return err;
       });
   }
+  async getParkingCesion(): Promise<CesionParking> {
+    return this.rest.getParkingCesion()
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
+  async getVehicle(): Promise<{ vehicles: Vehicle[] } | undefined> {
+    return this.rest.getVehicles()
+      .then((data) => {
+        console.log(data);
+        return data;
+      })
+      .catch((err) => {
+        console.error(err);
+        throw err;
+      });
+  }
+
+  async updateParkingCesion(parkingId: number): Promise<Parking> {
+    return await this.rest
+      .updateParkingCesion(parkingId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  async createCheckoutSessionCredit(credit: number, url: string): Promise<any> {
+    return await this.rest
+      .createCheckoutSessionCredit(credit, url)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
+    return await this.rest
+      .updateVehiculoPrincipal(vehicleId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
 }
 

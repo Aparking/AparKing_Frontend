@@ -50,6 +50,12 @@ export class MapComponent implements OnInit {
     private persistence: PersistenceService
   ) {
     this.intervalUpdate = setInterval(() => this.updateUserLocation(), 3000);
+    this.map?.on('drag', function (event) {
+      console.log('El usuario está arrastrando el mapa');
+    });
+    this.map?.on('dragend', function (event) {
+      console.log('El usuario está arrastrando el mapa2');
+    });
   }
 
   async ngOnInit() {
@@ -73,7 +79,7 @@ export class MapComponent implements OnInit {
     } else {
       this.toastController
         .create({
-          message: 'No hay parqueos cercanos',
+          message: 'No hay aparcamientos cercanos',
           duration: 2000,
         })
         .then((toast) => {
@@ -193,10 +199,13 @@ export class MapComponent implements OnInit {
     if (parkings) {
       for (const parking of parkings) {
         const markPoint = this.createMarker(parking);
-        this.layerGroup?.addLayer(markPoint);
-        this.map.addLayer(markPoint);
+        markPoint.addTo(this.layerGroup);
+        this.map.addLayer(this.layerGroup);
       }
     }
+    this.map.on('dragend', (event) => {
+      this.movePoint = false;
+    });
   }
 
   manageSocketAdd(socket: ParkingSocket) {
@@ -268,7 +277,7 @@ export class MapComponent implements OnInit {
       }
     }
     this.parkings.forEach((parking) => {
-      this.layerGroup?.addLayer(this.createMarker(parking));
+      this.createMarker(parking).addTo(this.layerGroup);
     });
     this.map?.addLayer(this.layerGroup);
   }

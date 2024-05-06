@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Listado de Cesiones de aparcamiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-list>
+
+    <ion-card *ngFor="let item of parking?.parking; let i = index">
+      <ion-card-header>
+        <ion-card-title>Tipo de cesion vehiculo: {{item[0].size }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Fecha y hora a la que quedará libre la plaza: {{ item[0].cesion_parking | date: 'yyyy-MM-dd/HH:mm:ss' }}
+        <br>
+        Matricula coche a la que se cede: {{item[1].carModel}} <br>
+        <a
+          href="https://www.google.com/maps?q={{ parseLocation(item[0].location)?.latitude }},{{ parseLocation(item[0].location)?.longitude }}">Ir
+          a la plaza</a><br>
+        <ion-card-content>
+          <ion-button *ngIf="!item[0].booked_by" slot="end"
+            style="background-color: transparent; --background: transparent; " color="light"
+            (click)="updateParkingCesion(item[0].id)">
+            Obtener
+            aparcamiento
+          </ion-button>
+        </ion-card-content>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
+</ion-content>

@@ -31,13 +31,8 @@ export class TabsPage {
     });
   }
 
-  goRegisterVehicle() {
-    this.navCtrl.navigateForward('/registerVehicle');
-  }
-
-
-  async goToSubscriptions() {
-    this.navCtrl.navigateRoot('/api/subscriptions');
+  async goToCesion() {
+    this.navCtrl.navigateRoot('G11/aparKing/list-parking-cesion');
   }
 
 }

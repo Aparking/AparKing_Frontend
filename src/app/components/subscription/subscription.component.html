@@ -3,9 +3,9 @@
     <ion-title>
       <h1>Plan de Suscripción Aparking</h1>
     </ion-title>
-    <ion-button slot="end" style="background-color: transparent; --background: transparent;" color="light"
-      href="/aparking/map">
-      Mapa
+    <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
+      (click)="goMap()"> Mapa
+
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -34,7 +34,8 @@
       </ion-card-header>
       <ion-card-content>
         Price: {{ plans[0].price }}
-        <ion-button expand="block" (click)="selectPlan(plans[0].id)">Select Plan</ion-button>
+        <ion-button expand="block" [disabled]="userInfo?.membership?.type==='Gratuita'"
+          (click)="selectPlan(plans[0].id)">Select Plan</ion-button>
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -43,7 +44,8 @@
       </ion-card-header>
       <ion-card-content>
         Price: {{ plans[1].price }}
-        <ion-button expand="block" (click)="selectPlan(plans[1].id)">Select Plan</ion-button>
+        <ion-button expand="block" [disabled]="userInfo?.membership?.type==='Noble'"
+          (click)="selectPlan(plans[1].id)">Select Plan</ion-button>
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -52,8 +54,23 @@
       </ion-card-header>
       <ion-card-content>
         Price: {{ plans[2].price }}
-        <ion-button expand="block" (click)="selectPlan(plans[2].id)">Select Plan</ion-button>
+        <ion-button expand="block" [disabled]="userInfo?.membership?.type==='King'"
+          (click)="selectPlan(plans[2].id)">Select Plan</ion-button>
       </ion-card-content>
     </ion-card>
+
+    <h2>COMPRA CRÉDITOS</h2>
+    <h6>**debes realizar una compra minima de 10 creditos</h6>
+    <ion-item>
+      <ion-label position="floating">Introduce un número</ion-label>
+      <ion-input type="number" [(ngModel)]="credit" min="10" placeholder="10 o más" required>
+      </ion-input>
+    </ion-item>
+    <ion-button expand="full" [disabled]="credit === undefined || credit < 10  "
+      (click)="credit !== undefined && buyCredit(credit)">Comprar créditos</ion-button>
   </div>
+
+
+
+
 </ion-content>

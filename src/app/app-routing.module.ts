@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { parkingCesionComponent } from 'src/app/components/parkingCesion/parkingCesion.component';
 import { SubscriptionComponent } from 'src/app/components/subscription/subscription.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NeedAuthGuard } from './guards/need-auth.guard';
@@ -34,13 +35,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'registerVehicle',
-    loadChildren: () =>
-      import('./pages/registerVehicle/registerVehicle.module').then(
-        (m) => m.RegisterPageModule
-      ),
-  },
-  {
     path: 'verify-user',
     loadChildren: () =>
       import('./pages/verify-user/verify-user.module').then(
@@ -54,6 +48,7 @@ const routes: Routes = [
         (m) => m.AboutUsPageModule
       ),
   },
+  { path: 'G11/aparKing/list-parking-cesion', component: parkingCesionComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [
