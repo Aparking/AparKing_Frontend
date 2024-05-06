@@ -9,6 +9,7 @@ import { GarageAvailabilityListCreateComponent } from '../components/rental/gara
 import { GarageBookCreateComponent } from '../components/rental/garage-book-create/garage-book-create.component';
 import { GarageBookListComponent } from '../components/rental/garage-book-list/garage-book-list.component';
 import { GarageCreateComponent } from '../components/rental/garage-create/garage-create.component';
+import { MyGaragesComponent } from '../components/rental/my-garages/my-garages.component';
 import { GarageDetailComponent } from '../components/rental/garage-detail/garage-detail.component';
 import { GarageListComponent } from '../components/rental/garage-list/garage-list.component';
 import { Tab2PageRoutingModule } from './tab2-routing.module';
@@ -26,6 +27,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     Tab2Page,
     GarageListComponent,
     GarageCreateComponent,
+    MyGaragesComponent,
     GarageDetailComponent,
     GarageBookCreateComponent,
     GarageBookListComponent,
@@ -34,6 +36,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
   exports: [
     GarageListComponent,
     GarageCreateComponent,
+    MyGaragesComponent,
     GarageDetailComponent,
     GarageBookCreateComponent,
     GarageBookListComponent,

@@ -214,5 +214,23 @@ export class DataManagementService {
       });
   }
 
+  async createCheckoutSessionCredit(credit: number, url: string): Promise<any> {
+    return await this.rest
+      .createCheckoutSessionCredit(credit, url)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
+    return await this.rest
+      .updateVehiculoPrincipal(vehicleId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
 }
 

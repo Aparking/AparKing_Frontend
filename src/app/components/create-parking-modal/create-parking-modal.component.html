@@ -10,16 +10,11 @@
     <form [formGroup]="parkingForm" (submit)="onSubmit()">
       <ion-list>
         <ion-item>
-          <ion-select
-            label="Tamaño"
-            formControlName="size"
-            placeholder="Tamaño de la plaza"
-            fill="outline"
-          >
+          <ion-select label="Tamaño" formControlName="size" placeholder="Tamaño de la plaza" fill="outline">
             @for (item of parkingCreateResponse?.parking_sizes; track $index) {
             <ion-select-option value="{{ item[1] }}">{{
               item[1]
-            }}</ion-select-option>
+              }}</ion-select-option>
             }
           </ion-select>
         </ion-item>
@@ -27,27 +22,24 @@
         <div style="height: 30px"></div>
 
         <ion-item>
-          <ion-select
-            label="Tipo de cesión"
-            formControlName="parking_type"
-            placeholder="----"
-            fill="outline"
-          >
+          <ion-select label="Tipo de cesión" formControlName="parking_type" placeholder="----" fill="outline">
             @for (item of parkingCreateResponse?.parking_types; track $index) {
             <ion-select-option value="{{ item[1] }}">{{
               item[1]
-            }}</ion-select-option>
+              }}</ion-select-option>
             }
           </ion-select>
         </ion-item>
+        <div *ngIf="parkingForm.get('parking_type')?.value === 'Cesión'">
+          <ion-item>
+            <ion-label>Fecha y hora de la cesión:</ion-label>
+            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD YYYY HH:mm"
+              formControlName="appointmentDateTime"></ion-datetime>
+          </ion-item>
+        </div>
       </ion-list>
 
-      <ion-button
-        (click)="onSubmit()"
-        disabled="{{ parkingForm.invalid }}"
-        expand="block"
-        color="primary"
-      >
+      <ion-button (click)="onSubmit()" disabled="{{ parkingForm.invalid }}" expand="block" color="primary">
         Publicar plaza
       </ion-button>
     </form>

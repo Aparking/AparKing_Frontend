@@ -14,7 +14,8 @@
         <ion-card-title>Tipo de cesion vehiculo: {{item[0].size }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Aviso creado: {{item[0].created_at}} <br>
+        Fecha y hora a la que quedará libre la plaza: {{ item[0].cesion_parking | date: 'yyyy-MM-dd/HH:mm:ss' }}
+        <br>
         Matricula coche a la que se cede: {{item[1].carModel}} <br>
         <a
           href="https://www.google.com/maps?q={{ parseLocation(item[0].location)?.latitude }},{{ parseLocation(item[0].location)?.longitude }}">Ir

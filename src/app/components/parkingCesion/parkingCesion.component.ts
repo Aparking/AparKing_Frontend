@@ -47,7 +47,7 @@ export class parkingCesionComponent implements OnInit {
   async getVehicles() {
     this.dataManagementService.getVehicle().then((data: { vehicles: Vehicle[] } | undefined) => {
       if (!data || data.vehicles.length === 0) {
-        this.router.navigate(['/registerVehicle']);
+        this.router.navigate(['/G11/aparKing/tab3/registerVehicle']);
         return data?.vehicles.length;
       } else {
         this.vehicle = data.vehicles;

@@ -1,0 +1,74 @@
+<ion-content>
+  <ion-card-header>
+    <ion-card-title>Registrar un vehículo</ion-card-title>
+  </ion-card-header>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="registerForm" (submit)="registerSubmit()">
+        <ion-item>
+          <ion-label position="floating">carModel</ion-label>
+          <ion-input placeholder="1234 ABC" formControlName="carModel" type="text" [autocapitalize]="true"></ion-input>
+        </ion-item>
+        <app-error-message [field]="registerForm.get('carModel')!"
+          [message]="'Debe introducir la matricula del vehiculo'" [error]="'required'"></app-error-message>
+
+        <ion-item>
+          <ion-label position="floating">color</ion-label>
+          <ion-input placeholder="azul" formControlName="color" type="text"></ion-input>
+        </ion-item>
+        <app-error-message [field]="registerForm.get('color')!" [message]="'El color es obligatorio'"
+          [error]="'required'"></app-error-message>
+
+        <ion-item>
+          <ion-label position="floating">height</ion-label>
+          <ion-input placeholder="altura" formControlName="height" type="number" step="0.01"></ion-input>
+        </ion-item>
+        <app-error-message [field]="registerForm.get('height')!" [message]="'La altura del coche es obligatoria'"
+          [error]="'required'"></app-error-message>
+
+        <ion-item>
+          <ion-label position="floating">width</ion-label>
+          <ion-input placeholder="anchura" formControlName="width" type="number" step="0.01"></ion-input>
+        </ion-item>
+        <app-error-message [field]="registerForm.get('width')!" [message]="'La anchura del coche es obligatoria'"
+          [error]="'required'"></app-error-message>
+
+        <ion-item>
+          <ion-label position="floating">length</ion-label>
+          <ion-input placeholder="largo" formControlName="length" type="number" step="0.01"></ion-input>
+        </ion-item>
+        <app-error-message [field]="registerForm.get('length')!" [message]="'El largo del coche es obligatorio'"
+          [error]="'required'"></app-error-message>
+        <ion-item>
+          <ion-button expand="full" type="submit" [disabled]="!registerForm.valid" shape="round">
+            Registra tu vehiculo
+          </ion-button>
+        </ion-item>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+
+    <ion-card *ngFor="let item of vehicle; let i = index">
+      <ion-card-header>
+        <ion-card-title>Matricula coche: {{item.carModel}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Color: {{item.color}} <br>
+        Tamaño: {{item.height}} <br>
+        Ancho: {{item.width}} <br>
+        Longitud: {{item.length}} <br>
+        <ion-card-content>
+          <ion-button *ngIf="item.principalCar !== true" slot="end" [disabled]="item.principalCar"
+            style="background-color: transparent; --background: transparent;" color="light"
+            (click)="item.id !== undefined ? updateVehiculoPrincipal(item.id) : null">
+            Convertir en coche principal
+          </ion-button>
+
+        </ion-card-content>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-list>
+</ion-content>
