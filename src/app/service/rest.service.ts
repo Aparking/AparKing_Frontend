@@ -67,7 +67,7 @@ export class RestService extends WsAbstractService {
   }
 
   async updateUser(data: User): Promise<any> {
-    return await this.makePostRequest(`${this.path}/user/profile`, data);
+    return await this.makePutRequest(`${this.path}/user/profile/`, data);
   }
   async getAllGarages(): Promise<Garage[]> {
     return await this.makeGetRequest(`${this.path}/garages/`);
@@ -219,6 +219,10 @@ export class RestService extends WsAbstractService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
+    return await this.makePutRequest(`${this.path}/updateVehicle/`, vehicleId);
   }
 
 }

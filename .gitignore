@@ -68,5 +68,4 @@ testem.log
 Thumbs.db
 .vercel
 
-ios/*
-android/*
+package-lock.json

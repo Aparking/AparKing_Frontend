@@ -223,5 +223,14 @@ export class DataManagementService {
       });
   }
 
+  async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
+    return await this.rest
+      .updateVehiculoPrincipal(vehicleId)
+      .then((data) => data)
+      .catch((err) => {
+        return err;
+      });
+  }
+
 }
 

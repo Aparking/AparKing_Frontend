@@ -138,6 +138,7 @@ export class GarageBookCreateComponent implements OnInit {
   }
 
   async confirmBooking() {
+    console.log(String(this.bookForm.value.paymentMethod)); // Añade esta línea
     const toast = await this.toastController.create({
       duration: 2000,
       position: 'bottom',
@@ -156,7 +157,7 @@ export class GarageBookCreateComponent implements OnInit {
       const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability); // Obtener el índice de la disponibilidad seleccionada
       if (selectedAvailabilityIndex !== -1) {
         const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex); // Calcular el precio total
-        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.paymentMethod);
+        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.payment_method);
         const translatedStatus = this.translateBookingStatus(this.bookForm.value.status);
         const bookingData = {
           ...this.bookForm.value,
@@ -166,7 +167,7 @@ export class GarageBookCreateComponent implements OnInit {
           url: this.path,
         };
 
-        if (bookingData.payment_method === 'CARD') {
+        if (this.bookForm.value.payment_method === 'CARD') {
           try {
             const session = await this.dataManagementService.createCheckoutSessionRental(bookingData);
             window.location.href = session.url;
@@ -204,10 +205,11 @@ export class GarageBookCreateComponent implements OnInit {
   }
 
   translatePaymentMethod(paymentMethod: string): string {
+    console.log(paymentMethod); // Añade esta línea
     switch (paymentMethod) {
-      case 'Efectivo':
+      case 'CASH':
         return 'CASH';
-      case 'Tarjeta':
+      case 'CARD':
         return 'CARD';
       default:
         return 'CARD';
@@ -233,22 +235,22 @@ export class GarageBookCreateComponent implements OnInit {
     console.log('Start date:', start);
     console.log('End date:', end);
     console.log('AAAA', availability);
-  
+
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
       console.error('Invalid start or end date:', availability.start, availability.end);
       return 0;  // Retorna 0 o algún otro valor predeterminado
     }
-  
+
     return Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   }
   calculateTotalPrice(selectedAvailabilityIndex: number): number {
     const selectedAvailability = this.availabilities[selectedAvailabilityIndex];
-    
+
     if (!selectedAvailability) {
       console.log('No availability selected.');
       return 1;  // Retorna 0 o algún otro valor predeterminado
     }
-  
+
     const duration = this.calculateBookingDuration(selectedAvailability);
     const pricePerDay = this.currentGarage.price || 2;  // Si this.currentGarage.price es undefined o null, usa 0
     this.totalPrice = duration * pricePerDay;
