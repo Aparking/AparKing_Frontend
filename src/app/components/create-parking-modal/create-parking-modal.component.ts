@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import {
   ParkingCreate,
   ParkingSize,
@@ -25,12 +25,16 @@ export class CreateParkingModalComponent implements OnInit {
     private locationService: LocationService,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
-    private router: Router
+    private router: Router,
+    private modalCtrl: ModalController
   ) {
     this.parkingForm = this.formBuilder.group({
       size: ['', Validators.required],
       parking_type: ['', Validators.required],
-      appointmentDateTime: [{ value: new Date().toISOString(), disabled: false }, Validators.required]
+      appointmentDateTime: [
+        { value: new Date().toISOString(), disabled: false },
+        Validators.required,
+      ],
     });
   }
 
@@ -86,7 +90,7 @@ export class CreateParkingModalComponent implements OnInit {
 
             this.dataManagement.postCreateParking(postData).then((_) => {
               loading.dismiss();
-              window.location.reload();
+              this.modalCtrl.dismiss();
             });
           }
         }
