@@ -78,12 +78,12 @@
       
       <div class="input-container">
         <ion-input fill="outline" placeholder="ESXX YYYY XXXX YYYY XXXX YYYY" label-placement="floating" label="IBAN"
-          formControlName="IBAN" type="text"></ion-input>
+          formControlName="iban" type="text"></ion-input>
         <div class="error-conatiner">
-          <app-error-message [field]="userForm.get('IBAN')!" [message]="'El IBAN es obligatorio'"
+          <app-error-message [field]="userForm.get('iban')!" [message]="'El IBAN es obligatorio'"
             [error]="'required'"></app-error-message>
-          <app-error-message [field]="userForm.get('IBAN')!" [message]="'El IBAN no es válido'"
-            [error]="'IBANInvalid'"></app-error-message>
+          <app-error-message [field]="userForm.get('iban')!" [message]="'El IBAN no es válido'"
+            [error]="'ibanInvalid'"></app-error-message>
         </div>
       </div>
     </form>

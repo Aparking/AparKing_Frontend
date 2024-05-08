@@ -9,5 +9,6 @@ export interface User {
     phone?: string;
     password?: string;
     is_staff?:string;
+    iban?: string;
 }
 

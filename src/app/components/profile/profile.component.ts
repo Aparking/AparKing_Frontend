@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
         Validators.required,
         this.phoneNumberValidator(),
       ]),
-      IBAN: new FormControl('', [Validators.required, this.validateIBAN]),
+      iban: new FormControl('', [Validators.required, this.validateiban]),
     });
   }
 
@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
       birth_date: this.user.birth_date,
       countryCode: this.user.phone.substring(1, 3),
       phone: this.user.phone.substring(3),
-      IBAN: this.user.iban,
+      iban: this.user.iban,
     });
   }
 
@@ -104,8 +104,8 @@ export class ProfileComponent implements OnInit {
     return null;
   }
 
-  validateIBAN(): ValidatorFn {
-    console.log('validateIBAN');
+  validateiban(): ValidatorFn {
+    console.log('validateiban');
     return (control: AbstractControl): { [key: string]: any } | null => {
       const ibanPattern = /^[A-Z]{2}[0-9]{2}( [A-Z0-9]{4}){4}[0-9]{2}$/;
       const isValid = ibanPattern.test(control.value);
