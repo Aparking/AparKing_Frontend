@@ -3,9 +3,13 @@
     <ion-title>
       <h1>Plan de Suscripción Aparking</h1>
     </ion-title>
-    <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
-      (click)="goMap()"> Mapa
-
+    <ion-button
+      slot="end"
+      style="background-color: transparent; --background: transparent"
+      color="light"
+      (click)="goMap()"
+    >
+      Mapa
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -20,8 +24,13 @@
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <h2>Cantidad de Créditos: <strong>{{ userInfo?.credit?.value }}</strong></h2>
-        <h2>Tipo de Plan: <strong>{{ userInfo?.membership?.type }}</strong></h2>
+        <h2>
+          Cantidad de créditos disponibles:
+          <strong>{{ userInfo?.credit?.value }}</strong>
+        </h2>
+        <h2>
+          Tipo de plan actual: <strong>{{ userInfo?.membership?.type }}</strong>
+        </h2>
       </ion-card-content>
     </ion-card>
   </div>
@@ -33,9 +42,24 @@
         <ion-card-title>{{ plans[0].name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Price: {{ plans[0].price }}
-        <ion-button expand="block" [disabled]="userInfo?.membership?.type==='Gratuita'"
-          (click)="selectPlan(plans[0].id)">Select Plan</ion-button>
+        <ion-badge color="success" style="font-size: large">
+          Precio: {{ plans[0].price.replace("/month", " al mes") }}
+        </ion-badge>
+        <ul style="list-style-type: none; padding-left: 0">
+          <li style="font-size: 1.2em">
+            <ion-icon name="search-circle-outline"></ion-icon> 50 créditos para
+            buscar aparcamiento
+          </li>
+          <li style="font-size: 1.2em">
+            <ion-icon name="ribbon-outline"></ion-icon> 1 garaje para alquilar
+          </li>
+        </ul>
+        <ion-button
+          expand="block"
+          [disabled]="userInfo?.membership?.type === 'Gratuita'"
+          (click)="selectPlan(plans[0].id)"
+          >Select Plan</ion-button
+        >
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -43,9 +67,24 @@
         <ion-card-title>{{ plans[1].name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Price: {{ plans[1].price }}
-        <ion-button expand="block" [disabled]="userInfo?.membership?.type==='Noble'"
-          (click)="selectPlan(plans[1].id)">Select Plan</ion-button>
+        <ion-badge color="success" style="font-size: large">
+          Precio: {{ plans[1].price.replace("/month", " al mes") }}
+        </ion-badge>
+        <ul style="list-style-type: none; padding-left: 0">
+          <li style="font-size: 1.2em">
+            <ion-icon name="search-circle-outline"></ion-icon> 300 créditos para
+            buscar aparcamiento
+          </li>
+          <li style="font-size: 1.2em">
+            <ion-icon name="ribbon-outline"></ion-icon> 3 garajes para alquilar
+          </li>
+        </ul>
+        <ion-button
+          expand="block"
+          [disabled]="userInfo?.membership?.type === 'Noble'"
+          (click)="selectPlan(plans[1].id)"
+          >Select Plan</ion-button
+        >
       </ion-card-content>
     </ion-card>
     <ion-card>
@@ -53,9 +92,24 @@
         <ion-card-title>{{ plans[2].name }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Price: {{ plans[2].price }}
-        <ion-button expand="block" [disabled]="userInfo?.membership?.type==='King'"
-          (click)="selectPlan(plans[2].id)">Select Plan</ion-button>
+        <ion-badge color="success" style="font-size: large">
+          Precio: {{ plans[2].price.replace("/month", " al mes") }}
+        </ion-badge>
+        <ul style="list-style-type: none; padding-left: 0">
+          <li style="font-size: 1.2em">
+            <ion-icon name="search-circle-outline"></ion-icon> 1000 créditos
+            para buscar aparcamiento
+          </li>
+          <li style="font-size: 1.2em">
+            <ion-icon name="ribbon-outline"></ion-icon> 5 garajes para alquilar
+          </li>
+        </ul>
+        <ion-button
+          expand="block"
+          [disabled]="userInfo?.membership?.type === 'King'"
+          (click)="selectPlan(plans[2].id)"
+          >Select Plan</ion-button
+        >
       </ion-card-content>
     </ion-card>
 
@@ -63,14 +117,20 @@
     <h6>**debes realizar una compra minima de 10 creditos</h6>
     <ion-item>
       <ion-label position="floating">Introduce un número</ion-label>
-      <ion-input type="number" [(ngModel)]="credit" min="10" placeholder="10 o más" required>
+      <ion-input
+        type="number"
+        [(ngModel)]="credit"
+        min="10"
+        placeholder="10 o más"
+        required
+      >
       </ion-input>
     </ion-item>
-    <ion-button expand="full" [disabled]="credit === undefined || credit < 10  "
-      (click)="credit !== undefined && buyCredit(credit)">Comprar créditos</ion-button>
+    <ion-button
+      expand="full"
+      [disabled]="credit === undefined || credit < 10"
+      (click)="credit !== undefined && buyCredit(credit)"
+      >Comprar créditos</ion-button
+    >
   </div>
-
-
-
-
 </ion-content>
