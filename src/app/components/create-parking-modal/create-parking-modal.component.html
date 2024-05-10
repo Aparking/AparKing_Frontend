@@ -1,10 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>¡Aquí hay aparcamiento!</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<ion-content scroll-y="true">
   <div class="draggable">
     @if (parkingForm) {
     <form [formGroup]="parkingForm" (submit)="onSubmit()">
@@ -19,8 +13,6 @@
           </ion-select>
         </ion-item>
 
-        <div style="height: 30px"></div>
-
         <ion-item>
           <ion-select label="Tipo de cesión" formControlName="parking_type" placeholder="----" fill="outline">
             @for (item of parkingCreateResponse?.parking_types; track $index) {
@@ -30,18 +22,21 @@
             }
           </ion-select>
         </ion-item>
-        <div *ngIf="parkingForm.get('parking_type')?.value === 'Cesión'">
-          <ion-item>
-            <ion-label>Fecha y hora de la cesión:</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD YYYY HH:mm"
-              formControlName="appointmentDateTime"></ion-datetime>
-          </ion-item>
-        </div>
+        <ion-item>
+          <div *ngIf="parkingForm.get('parking_type')?.value === 'Cesión'">
+            <ion-item>
+              <ion-label>Fecha y hora de la cesión:</ion-label>
+              <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD YYYY HH:mm"
+                formControlName="appointmentDateTime"></ion-datetime>
+            </ion-item>
+            <ion-button (click)="onSubmit()" disabled="{{ parkingForm.invalid }}" expand="block" color="primary">
+              Publicar plaza
+            </ion-button>
+          </div>
+        </ion-item>
       </ion-list>
 
-      <ion-button (click)="onSubmit()" disabled="{{ parkingForm.invalid }}" expand="block" color="primary">
-        Publicar plaza
-      </ion-button>
+
     </form>
     }
   </div>
