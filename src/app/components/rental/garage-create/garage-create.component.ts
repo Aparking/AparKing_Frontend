@@ -35,7 +35,6 @@ export class GarageCreateComponent implements OnInit {
   ) {
     this.garageForm = this.formGargeBuilder.group({
       address: this.formGargeBuilder.group({
-        unit_number: [null, Validators.required],
         street_number: [null, Validators.required],
         address_line: [null, Validators.required],
         city: [null, Validators.required],
@@ -100,7 +99,6 @@ export class GarageCreateComponent implements OnInit {
         this.currentGarage = garage;
         this.garageForm.setValue({
           address: {
-            unit_number: garage.address.unit_number,
             street_number: garage.address.street_number,
             address_line: garage.address.address_line,
             city: garage.address.city,
