@@ -112,25 +112,46 @@
         >
       </ion-card-content>
     </ion-card>
+  </div>
 
-    <h2>COMPRA CRÉDITOS</h2>
-    <h6>**debes realizar una compra minima de 10 creditos</h6>
-    <ion-item>
-      <ion-label position="floating">Introduce un número</ion-label>
-      <ion-input
-        type="number"
-        [(ngModel)]="credit"
-        min="10"
-        placeholder="10 o más"
-        required
-      >
-      </ion-input>
-    </ion-item>
-    <ion-button
-      expand="full"
-      [disabled]="credit === undefined || credit < 10"
-      (click)="credit !== undefined && buyCredit(credit)"
-      >Comprar créditos</ion-button
-    >
+  <div class="plans-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title
+          ><h2 style="text-align: center; font-size: 1.5em">
+            COMPRA CRÉDITOS
+          </h2></ion-card-title
+        >
+      </ion-card-header>
+      <ion-card-content>
+        <h6 style="text-align: center; font-size: 1em; color: #888888">
+          (Debes realizar una compra minima de 10 creditos)
+        </h6>
+        <ion-item>
+          <ion-label
+            position="floating"
+            style="font-size: 1.2em; color: #4a4a4a"
+          >
+            Introduce un número</ion-label
+          >
+          <ion-input
+            type="number"
+            [(ngModel)]="credit"
+            min="10"
+            placeholder="10 o más"
+            required
+            style="font-size: 1.2em"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-button
+          expand="full"
+          [disabled]="credit === undefined || credit < 10"
+          (click)="credit !== undefined && buyCredit(credit)"
+          style="font-size: 1.2em; background-color: #90ee90"
+          >Comprar créditos</ion-button
+        >
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
