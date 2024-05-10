@@ -144,7 +144,10 @@ export class GarageCreateComponent implements OnInit {
       const formData = new FormData();
       formData.append('garage', this.garageId);
       formData.append('image', this.selectedFile, this.selectedFile.name);
-      formData.append('alt', this.imageForm.get('image')?.get('alt')?.value);
+      const altText = this.imageForm.get('image')?.get('alt')?.value;
+      if (altText) {
+        formData.append('alt', altText ? altText : 'imagen de garaje');
+      }
 
       this.restService.getCreateImage(formData).then(async (_) => {
         toast.message = `Imagen subida correctamente.`;
@@ -171,7 +174,7 @@ export class GarageCreateComponent implements OnInit {
     });
 
     this.garageForm.patchValue({ owner: this.user.id });
-    if (this.garageForm.valid) {
+    if (this.garageForm.valid && this.imageForm.valid) {
       if (this.garageId) {
         this.restService
           .updateGarage(this.garageId, this.garageForm.value)
@@ -208,6 +211,8 @@ export class GarageCreateComponent implements OnInit {
       }
     } else {
       //TODO - Imprimir mensajes de error en el formulario
+      toast.message = `Debe rellenar todos los campos del garaje`;
+      await toast.present();
       console.log('El formulario de garaje no es válido');
     }
   }

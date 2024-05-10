@@ -13,7 +13,6 @@ import { GarageBookListComponent } from '../garage-book-list/garage-book-list.co
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
 import { MyGaragesComponent } from '../my-garages/my-garages.component';
 
-
 @Component({
   selector: 'app-garage-list',
   templateUrl: './garage-list.component.html',
@@ -111,7 +110,7 @@ export class GarageListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.garageStateService.garages$.subscribe((garages) => {
+    this.garageStateService.garages$.subscribe(async (garages) => {
       this.garages = garages.map((garage) => {
         return {
           id: garage.id,
@@ -124,7 +123,7 @@ export class GarageListComponent implements OnInit {
           dimensionsNumber: garage.width * garage.height * garage.length,
         };
       });
-      this.loadGaragesImages();
+      await this.loadGaragesImages();
       this.filteredGarages = this.garages;
     });
     this.garageStateService.refreshGarages();
@@ -171,7 +170,6 @@ export class GarageListComponent implements OnInit {
     });
     return await modal.present();
   }
-
 
   async openMyGarageDetailModal(garage: any) {
     const modal = await this.modalCtrl.create({

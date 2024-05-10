@@ -16,14 +16,13 @@
     >
 
     <ion-button
-    (click)="openMyGaragesModal()"
-    color="orange"
-    shape="round"
-    size="small"
-    >Mis Garajes</ion-button
+      (click)="openMyGaragesModal()"
+      color="orange"
+      shape="round"
+      size="small"
+      >Mis Garajes</ion-button
     >
-    </ion-buttons>
-
+  </ion-buttons>
 
   <ion-card>
     <ion-card-content>
@@ -116,7 +115,7 @@
           Dirección: {{ garage.address }}
         </p>
         <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Precio: {{ garage.price }}
+          Precio: {{ garage.price }} €/día
         </p>
         <p style="font-size: 20px; font-family: 'Arial', sans-serif">
           Dimensiones: {{ garage.dimensionsText }}
