@@ -27,7 +27,7 @@
             <ion-item>
               <ion-label>Fecha y hora de la cesión:</ion-label>
               <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD YYYY HH:mm"
-                formControlName="appointmentDateTime"></ion-datetime>
+                formControlName="appointmentDateTime" [min]="minDateTime"></ion-datetime>
             </ion-item>
             <ion-button (click)="onSubmit()" disabled="{{ parkingForm.invalid }}" expand="block" color="primary">
               Publicar plaza

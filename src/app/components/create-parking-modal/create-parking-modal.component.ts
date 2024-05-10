@@ -17,7 +17,7 @@ import { LocationService } from 'src/app/service/location.service';
 })
 export class CreateParkingModalComponent implements OnInit {
   parkingCreateResponse: ParkingCreate | undefined;
-
+  minDateTime?: string;
   parkingForm: FormGroup | undefined;
 
   constructor(
@@ -27,10 +27,11 @@ export class CreateParkingModalComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private router: Router
   ) {
+    this.minDateTime = new Date().toISOString();
     this.parkingForm = this.formBuilder.group({
       size: ['', Validators.required],
       parking_type: ['', Validators.required],
-      appointmentDateTime: [{ value: new Date().toISOString(), disabled: false }, Validators.required]
+      appointmentDateTime: [this.minDateTime, Validators.required]
     });
   }
 
@@ -81,8 +82,6 @@ export class CreateParkingModalComponent implements OnInit {
               isTransfer: false,
               appointmentDateTime: this.parkingForm.value.appointmentDateTime,
             };
-
-            // Añadir el campo de fecha y hora de la cesión si es necesario
 
             this.dataManagement.postCreateParking(postData).then((_) => {
               loading.dismiss();
