@@ -1,19 +1,8 @@
 <ion-grid>
   <ion-buttons>
-    <ion-button
-      color="danger"
-      shape="round"
-      size="small"
-      (click)="navigateToCreateGarage()"
-      >Añadir Garaje</ion-button
-    >
-    <ion-button
-      (click)="openBookListModal()"
-      color="success"
-      shape="round"
-      size="small"
-      >Mis reservas
-      </ion-button>
+    <ion-button color="danger" shape="round" size="small" (click)="navigateToCreateGarage()">Añadir Garaje</ion-button>
+    <ion-button (click)="openBookListModal()" color="success" shape="round" size="small">Mis reservas
+    </ion-button>
 
     <!-- <ion-button
     (click)="openMyGaragesModal()"
@@ -22,71 +11,40 @@
     size="small"
     >Mis Garajes
   </ion-button>-->
-  
-    </ion-buttons> 
+
+  </ion-buttons>
 
 
   <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label>Mis Garages</ion-label>
+        <ion-label>Mis Garajes</ion-label>
         <ion-checkbox slot="start" [(ngModel)]="filterMyGarages"></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          type="text"
-          label="Nombre"
-          [clearInput]="true"
-          [counter]="true"
-          maxlength="70"
-          placeholder="Introduce un nombre de garaje"
-          [(ngModel)]="filterTitle"
-        ></ion-input>
+        <ion-input type="text" label="Nombre" [clearInput]="true" [counter]="true" maxlength="70"
+          placeholder="Introduce un nombre de garaje" [(ngModel)]="filterTitle"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          type="number"
-          label="Precio mínimo"
-          placeholder="0.00€"
-          [clearInput]="true"
-          [(ngModel)]="filterPriceMin"
-        ></ion-input>
+        <ion-input type="number" label="Precio mínimo" placeholder="0.00€" [clearInput]="true"
+          [(ngModel)]="filterPriceMin"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          type="number"
-          label="Precio máximo"
-          placeholder="783.75€"
-          [clearInput]="true"
-          [(ngModel)]="filterPriceMax"
-        ></ion-input>
+        <ion-input type="number" label="Precio máximo" placeholder="783.75€" [clearInput]="true"
+          [(ngModel)]="filterPriceMax"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          type="number"
-          label="Dimensión mínima"
-          min="0.00"
-          max="9999.99"
-          placeholder="3.00"
-          [clearInput]="true"
-          [(ngModel)]="filterDimensionMin"
-        ></ion-input>
+        <ion-input type="number" label="Dimensión mínima" min="0.00" max="9999.99" placeholder="3.00"
+          [clearInput]="true" [(ngModel)]="filterDimensionMin"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input
-          type="text"
-          label="Ciudad"
-          [clearInput]="true"
-          [counter]="true"
-          maxlength="50"
-          placeholder="Introduce una ciudad"
-          [(ngModel)]="filterCity"
-        ></ion-input>
+        <ion-input type="text" label="Ciudad" [clearInput]="true" [counter]="true" maxlength="50"
+          placeholder="Introduce una ciudad" [(ngModel)]="filterCity"></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -105,11 +63,7 @@
     </ion-card>
   </ion-row>
   <ion-row *ngIf="garages.length >= 1">
-    <ion-card
-      *ngFor="let garage of filteredGarages"
-      [routerLink]="[garage.id]"
-      style="width: 100%"
-    >
+    <ion-card *ngFor="let garage of filteredGarages" [routerLink]="[garage.id]" style="width: 100%">
       <ion-img [src]="garage.image"></ion-img>
       <ion-card-header>
         <ion-card-title>{{ garage.title }}</ion-card-title>
