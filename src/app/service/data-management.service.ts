@@ -58,12 +58,12 @@ export class DataManagementService {
       });
   }
 
-  async postCreateParking(parking: any): Promise<ParkingResponse> {
+  async postCreateParking(parking: any): Promise<ParkingResponse | number> {
     return this.rest
       .postCreateParking(parking)
       .then((data) => data)
       .catch((err) => {
-        return err;
+        throw err;
       });
   }
 
