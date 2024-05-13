@@ -1,34 +1,87 @@
-.borde-interior {
-  margin-bottom: 3px;
-  margin-top: 5px;
-  padding-top: 5px;
-  border-radius: 15px;
+$primary-color: #4CAF50;
+$secondary-color: #f9f9f9;
+$border-color: #ccc;
+$font-family: Arial, sans-serif;
+
+.fullscreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $secondary-color;
+}
+
+.garage-card {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  margin: auto; // Añadido para centrar el formulario
+}
+
+.card-content {
+  padding: 2em;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.col {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  font-family: $font-family;
+}
+
+.col:focus {
+  border-color: $primary-color;
+  outline: none;
+}
+
+.form {
+  border-radius: 5px;
+  padding: 20px;
+  // más estilos aquí si es necesario
+}
+
+.card {
+  margin-bottom: 20px;
+  // más estilos aquí si es necesario
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // más estilos aquí si es necesario
+}
+
+.item {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
+  // más estilos aquí si es necesario
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  // más estilos aquí si es necesario
 }
 
 .boton-crear {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 15px;
-  background-color: #4caf50;
+  font-size: 18px;
+  padding: 10px;
+  background-color: green;
   color: white;
-  padding: 14px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  transition-duration: 0.4s;
-}
-
-.boton-crear:hover {
-  background-color: #45a049;
-  color: white;
-}
-
-.garage-title {
-  display: flex;
-  justify-content: space-between;
+  width: 90%;
+  height: 50px;
+  border-radius: 25px;
 }

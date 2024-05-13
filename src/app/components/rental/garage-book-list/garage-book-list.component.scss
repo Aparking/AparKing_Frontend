@@ -1,0 +1,50 @@
+$primary-font: "Lobster", sans-serif;
+$secondary-font: 'Times New Roman', Times, serif;
+$primary-color: #403E39;
+$error-color: red;
+$border-width: thin;
+$border-style: solid;
+$border-radius: 3px;
+$default-padding: 20px;
+$default-margin: 5px;
+$card-margin: 16px;
+$card-padding: 16px;
+
+.garage-card {
+    position: relative;
+    max-width: 400px;
+    margin: $card-margin;
+    border-color: $primary-color;
+    border-width: $border-width;
+    border-style: $border-style;
+    border-radius: $border-radius;
+    padding: $default-padding;
+    font-family: $secondary-font;
+
+    @media (max-width: 600px) {
+        max-width: 100%;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: x-large;
+    }
+
+    .invalid-field {
+        border-color: $error-color;
+    }
+
+    ion-button {
+        padding: $default-margin;
+        width: 90%;
+        height: 50px;
+    }
+}
+
+.close-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    font-size: 30px;
+}

@@ -1,13 +1,14 @@
 /* Estilos generales */
 ion-title {
-  font-size: 28px;
-  /* Tamaño de fuente aumentado */
+  font-size: xxx-large;
+  font-weight: 800;
+  font-family: "Lobster", sans-serif;
 }
 
 .about-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px;
+  padding: 20px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -24,37 +25,29 @@ h1 {
 
 /* Estilos para el título */
 .about-container h2 {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 36px;
+  /* Tamaño de fuente aumentado */
+  font-weight: 900;
+  font-family: "Lobster", sans-serif;
   color: #333;
   margin-bottom: 20px;
 }
 
 /* Estilos para el texto */
 .about-container p {
-  font-size: 18px;
+  font-size: 20px;
+  /* Tamaño de fuente aumentado */
   line-height: 1.6;
   color: #666;
   margin-bottom: 20px;
 }
 
-/* Estilos para la imagen del equipo */
-.team-image {
-  width: 100%;
-  max-width: 400px;
+.icon {
+  width: 40px;
+  /* Tamaño fijo para el icono */
   height: auto;
   margin: 20px auto;
   display: block;
-  border-radius: 10px;
-}
-
-.icon {
-  width: 100%;
-  max-width: 40px;
-  height: auto;
-  margin-left: 40px auto;
-  display: block;
-
 }
 
 /* Estilos para los enlaces de redes sociales */
@@ -67,7 +60,8 @@ h1 {
   margin-right: 10px;
   text-decoration: none;
   color: #333;
-  font-size: 20px;
+  font-size: 24px;
+  /* Tamaño de fuente aumentado */
   transition: color 0.3s ease;
 }
 
@@ -75,34 +69,48 @@ h1 {
   color: #007bff;
 }
 
-/* Estilos para el contenido en dispositivos móviles */
-@media only screen and (max-width: 600px) {
-  .about-container {
-    padding: 20px;
-  }
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 
-  .about-container h2 {
-    font-size: 20px;
-  }
-
-  .about-container p {
-    font-size: 16px;
-  }
-
-  .team-image {
-    max-width: 300px;
-  }
-
-  .social-links a {
-    font-size: 18px;
-  }
+.team-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .portrait {
   width: 150px;
-  /* Ajusta el ancho según sea necesario */
-  height: auto;
-  /* Aplica un borde redondeado para una apariencia más elegante */
-  margin: 10px;
-  /* Añade espacio entre las imágenes */
+  /* Ajusta el valor según tus necesidades */
+  height: 150px;
+  /* Ajusta el valor según tus necesidades */
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Estilos para el contenido en dispositivos móviles */
+@media only screen and (max-width: 600px) {
+  .about-container {
+    padding: 10px;
+  }
+
+  .about-container h2 {
+    font-size: 24px;
+    /* Tamaño de fuente reducido */
+  }
+
+  .about-container p {
+    font-size: 16px;
+    /* Tamaño de fuente reducido */
+  }
+
+  .social-links a {
+    font-size: 18px;
+    /* Tamaño de fuente reducido */
+  }
 }

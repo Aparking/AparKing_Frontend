@@ -2,16 +2,11 @@
   font-weight: bold;
   font-family: "Lobster", sans-serif;
 }
+
 .invalid-field {
   border-color: red;
 }
 
-.box {
-  border: 2px solid #d6d6d6;
-  width: 90%;
-  height: 60px;
-  padding: 10px;
-}
 .body {
   margin: 0;
   display: flex;
@@ -22,34 +17,28 @@
   text-align: center;
   width: 100%;
   height: 60%;
+}
 
-  .subtitle {
-    font-weight: bold;
-    text-align: start;
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
+.profile-header {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e7e7e7;
+}
 
-  .logo {
-    height: 300px;
-    width: 600px;
-    margin: 0;
-    padding: 0;
-  }
+.profile-content {
+  background-color: #f8f8f8;
+  padding: 20px;
+}
 
-  .column {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 5px;
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-    ion-button {
-      padding: 5px;
-      width: 90%;
-    }
-  }
+.profile-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 ion-content {
@@ -60,13 +49,11 @@ ion-content {
   flex-direction: column;
   padding: 20px;
   text-align: center;
-  width: 100%;
-  height: 100%;
-  margin-top: 20px;
+
   .title {
     font-weight: bold;
     font-size: x-large;
-    font-family: "Times New Roman", Times, serif;
+    font-family: 'Times New Roman', Times, serif;
   }
 }
 
@@ -80,7 +67,7 @@ form {
   flex-direction: column;
   margin: 0;
 
-  .input-container {
+  .input-group {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -98,13 +85,12 @@ form {
     }
   }
 
-  ion-button {
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 20px;
+  .register-vehicle-button {
+    padding: 5px;
     width: 90%;
     height: 50px;
-    margin-bottom: 10%;
+    position: absolute;
+    bottom: 30px;
   }
 }
 
@@ -116,19 +102,12 @@ form {
   padding: 0 5%;
 }
 
-.error-conatiner {
+.error-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
   padding-left: 5%;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin: 10px auto; // Ajusta como sea necesario
 }
 
 .checkbox-container {
@@ -139,9 +118,4 @@ form {
 
 ion-checkbox {
   margin-right: 10px;
-}
-
-.error-container {
-  width: 90%;
-  padding-left: 10px;
 }

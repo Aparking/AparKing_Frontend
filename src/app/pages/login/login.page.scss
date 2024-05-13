@@ -1,60 +1,78 @@
-.appbar {
+$primary-font: "Lobster", sans-serif;
+$secondary-font: 'Times New Roman', Times, serif;
+$primary-color: #403E39;
+$error-color: red;
+$border-width: thin;
+$border-style: solid;
+$border-radius: 3px;
+$default-padding: 20px;
+$default-margin: 5px;
+
+.appbar,
+.subtitle,
+.title {
   font-weight: bold;
-  font-family:  "Lobster", sans-serif;
 }
+
+.appbar {
+  font-family: $primary-font;
+}
+
+.title {
+  font-size: x-large;
+  font-family: $secondary-font;
+}
+
 .invalid-field {
-  border-color: red;
+  border-color: $error-color;
 }
 
 .box {
-  border-color: #403E39;
-  border-width: thin;
-  border-style: solid;
-  border-radius: 3px;
+  border-color: $primary-color;
+  border-width: $border-width;
+  border-style: $border-style;
+  border-radius: $border-radius;
   width: 90%;
   height: 50px;
 }
-.body {
 
+.body {
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0px;
+  padding: 0;
   text-align: center;
   width: 100%;
   height: 60%;
 
   .subtitle {
-    font-weight: bold;
     text-align: start;
     font-size: 20px;
-    margin-bottom: 5px;
+    margin-bottom: $default-margin;
   }
 
-    .logo {
-      height: 300px;
-      width: 600px;
-      margin: 0;
-      padding: 0;
-    }
+  .logo {
+    height: 300px;
+    width: 600px;
+    margin: 0;
+    padding: 0;
+  }
 
-  .column {
+  .form-column {
     display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 5px;
+    margin-top: $default-margin;
 
     ion-button {
-      padding: 5px;
+      padding: $default-margin;
       width: 90%;
     }
-
   }
-
 }
 
 ion-content {
@@ -63,13 +81,8 @@ ion-content {
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: $default-padding;
   text-align: center;
-  .title {
-    font-weight: bold;
-    font-size: x-large;
-    font-family: 'Times New Roman', Times, serif;
-  }
 }
 
 form {
@@ -82,26 +95,26 @@ form {
   flex-direction: column;
   margin: 0;
 
-    .input-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      margin: 0 20px;
+  .input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $default-padding;
+    margin: 0 $default-padding;
 
-      ion-input{
-        width: 90%;
-        padding: 20px;
-        text-align: start;
-        --padding-end: 10px;
-        --padding-start: 10px;
-        border: 2px solid #d6d6d6;
-      }
+    ion-input {
+      width: 90%;
+      padding: $default-padding;
+      text-align: start;
+      --padding-end: $default-padding;
+      --padding-start: $default-padding;
+      border: 2px solid #d6d6d6;
     }
+  }
 
   ion-button {
-    padding: 5px;
+    padding: $default-margin;
     width: 90%;
     height: 50px;
     position: absolute;
@@ -109,16 +122,10 @@ form {
   }
 }
 
-.error-conatiner {
+.error-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   align-items: flex-start;
   padding-left: 5%;
 }
-
-
-
-
-
-

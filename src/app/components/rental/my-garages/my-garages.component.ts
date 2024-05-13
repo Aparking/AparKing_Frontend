@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Garage } from 'src/app/models/garagement';
 import { RestService } from 'src/app/service/rest.service';
 
@@ -11,7 +12,9 @@ export class MyGaragesComponent implements OnInit {
   garages!: any[];
   garage: Garage[] = [];
 
-  constructor(private restService: RestService) {}
+  constructor(private restService: RestService, private modalController: ModalController) { }
+
+
 
   ngOnInit(): void {
     this.getMyGarages();
@@ -22,5 +25,9 @@ export class MyGaragesComponent implements OnInit {
       this.garages = garages;
       console.log(this.garages);
     });
+  }
+
+  async closePopup() {
+    await this.modalController.dismiss();
   }
 }

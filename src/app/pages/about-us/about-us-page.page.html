@@ -9,20 +9,11 @@
 
 <ion-content>
   <div class="about-container">
-    <h1>Sobre Nosotros</h1>
+    <h2>Sobre Nosotros</h2>
     <div>
-      <img
-        src="assets/icons/carIcon.png"
-        *ngIf="!isDarkMode"
-        alt="logo"
-        style="width: 50%; margin-bottom: 20px"
-      />
-      <img
-        src="assets/icons/aparkingCarDark.png"
-        *ngIf="isDarkMode"
-        alt="logo"
-        style="width: 50%; margin-bottom: 20px"
-      />
+      <img src="assets/icons/carIcon.png" *ngIf="!isDarkMode" alt="logo" style="width: 50%; margin-bottom: 20px" />
+      <img src="assets/icons/aparkingCarDark.png" *ngIf="isDarkMode" alt="logo"
+        style="width: 50%; margin-bottom: 20px" />
     </div>
     <h2>Nuestra Misión</h2>
     <p>
@@ -42,20 +33,78 @@
     </p>
 
     <h2>Nuestro Equipo</h2>
-    <img src="assets/icons/pedro.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/alberto.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/Alejandro.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/carmen.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/enrique.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/ismael.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/ivan.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/jose.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/juancarlos.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/laura.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/sergio.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/maria.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/virgilio.png" alt="Equipo" class="portrait" />
-    <img src="assets/icons/mario.png" alt="Equipo" class="portrait" />
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="assets/icons/alcobendas.png" alt="Alcobendas" class="portrait" />
+        <h3>Jose Javier Alcobendas Santos</h3>
+        <p>Frontend, Tester</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/mario.png" alt="Mario" class="portrait" />
+        <h3>Mario Aroca Páez</h3>
+        <p>Backend, Analista</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/enrique.png" alt="Enrique" class="portrait" />
+        <h3>Enrique Caballero Muñoz</h3>
+        <p>Frontend, Tester</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/virgilio.png" alt="Virgilio" class="portrait" />
+        <h3>Virgilio Oliva Alonso</h3>
+        <p>Backend, Frontend</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/alberto.png" alt="Alberto" class="portrait" />
+        <h3>Alberto Perea León</h3>
+        <p>Coordinador, Analista, DevOps</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/alejandro.png" alt="Alejandro" class="portrait" />
+        <h3>Alejandro Pérez Vázquez</h3>
+        <p>Frontend, Backend</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/jc.png" alt="Juan Carlos" class="portrait" />
+        <h3>Juan Carlos Ramírez López</h3>
+        <p>DevOps, Frontend, Backend</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/laura.png" alt="Laura" class="portrait" />
+        <h3>Laura Roldán Merat</h3>
+        <p>Backend, Analista</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/pedro.png" alt="Pedro" class="portrait" />
+        <h3>Pedro Jesús Ruiz Aguilar</h3>
+        <p>Frontend, Backend</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/ismael.png" alt="Ismael" class="portrait" />
+        <h3>Ismael Ruiz Jurado</h3>
+        <p>Backend, Frontend</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/carmen.png" alt="Carmen" class="portrait" />
+        <h3>Carmen Ruíz Porcel</h3>
+        <p>Administrador BD, Backend, Tester, CM</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/ivan.png" alt="Ivan" class="portrait" />
+        <h3>Iván Sánchez San José</h3>
+        <p>Frontend, Tester</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/sergio.png" alt="Sergio" class="portrait" />
+        <h3>Sergio Santiago Sánchez</h3>
+        <p>Frontend, Backend</p>
+      </div>
+      <div class="team-card">
+        <img src="assets/icons/maria.png" alt="Maria" class="portrait" />
+        <h3>María Vico Martín</h3>
+        <p>Coordnadora, DevOps, Analista</p>
+      </div>
+    </div>
     <p>
       Aquí está nuestro equipo de Aparking, apasionado por resolver los desafíos
       del estacionamiento en la ciudad. Desde desarrolladores hasta diseñadores,
@@ -63,17 +112,13 @@
     </p>
     <p>
       Para contactar con nosotros escribanos a este correo
-      aparking.g11&#64;gmail.com
+      <a href="mailto:aparking.g11@gmail.com">aparking.g11&#64;gmail.com</a>
     </p>
 
     <h2>Redes Sociales</h2>
     <div class="social-links">
-      <a href="https://www.instagram.com/aparking.g11"
-        ><img src="assets/icons/insta.png" class="icon"
-      /></a>
-      <a href="mailto:aparking.g11@gmail.com"
-        ><img src="assets/icons/gmail.png" class="icon"
-      /></a>
+      <a href="https://www.instagram.com/aparking.g11"><img src="assets/icons/insta.png" class="icon" /></a>
+      <a href="https://www.tiktok.com/@aparking11"><img src="assets/icons/tiktok.jpg" class="icon" /></a>
     </div>
   </div>
 </ion-content>
