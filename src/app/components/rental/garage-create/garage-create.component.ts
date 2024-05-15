@@ -35,13 +35,13 @@ export class GarageCreateComponent implements OnInit {
   ) {
     this.garageForm = this.formGargeBuilder.group({
       address: this.formGargeBuilder.group({
-        unit_number: [null, Validators.required],
-        street_number: [null, Validators.required],
+        unit_number: [null,  [Validators.required, Validators.pattern('^[0-9]*$')]],
+        street_number: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
         address_line: [null, Validators.required],
         city: [null, Validators.required],
         region: [null, Validators.required],
         country: [null],
-        postal_code: [null, Validators.required],
+        postal_code: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
       }),
       name: [null, Validators.required],
       description: [null, Validators.required],
