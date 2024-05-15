@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
       return isValid ? null : { ibanInvalid: true };
     };
   }
-
+  
   private minimumAgeValidator(minimumAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (Validators.required(control)) {
