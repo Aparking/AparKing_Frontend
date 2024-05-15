@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import {
+  LoadingController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import {
   ParkingCreate,
   ParkingSize,
@@ -25,12 +29,17 @@ export class CreateParkingModalComponent implements OnInit {
     private locationService: LocationService,
     private formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController,
+    private toastController: ToastController,
     private router: Router
   ) {
     this.parkingForm = this.formBuilder.group({
       size: ['', Validators.required],
       parking_type: ['', Validators.required],
-      appointmentDateTime: [{ value: new Date().toISOString(), disabled: false }, Validators.required]
+      appointmentDateTime: [
+        { value: new Date().toISOString(), disabled: false },
+        Validators.required,
+      ],
     });
   }
 
@@ -84,10 +93,23 @@ export class CreateParkingModalComponent implements OnInit {
 
             // Añadir el campo de fecha y hora de la cesión si es necesario
 
-            this.dataManagement.postCreateParking(postData).then((_) => {
-              loading.dismiss();
-              window.location.reload();
-            });
+            this.dataManagement
+              .postCreateParking(postData)
+              .then((_) => {
+                loading.dismiss();
+                this.modalCtrl.dismiss();
+              })
+              .catch(async (error) => {
+                if (error.status === 400 && error.error.error['location']) {
+                  loading.dismiss();
+                  const toast = await this.toastController.create({
+                    message: 'Ya existe una plaza creada demasiado cerca',
+                    duration: 2000,
+                  });
+                  this.modalCtrl.dismiss();
+                  toast.present();
+                }
+              });
           }
         }
       });

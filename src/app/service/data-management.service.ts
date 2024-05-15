@@ -11,7 +11,7 @@ import {
   Location,
   Parking,
   ParkingCreate,
-  ParkingResponse
+  ParkingResponse,
 } from '../models/parking';
 import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
@@ -25,7 +25,7 @@ export class DataManagementService {
     private rest: RestService,
     private router: Router,
     private persistenceService: PersistenceService
-  ) { }
+  ) {}
   public userLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -58,12 +58,12 @@ export class DataManagementService {
       });
   }
 
-  async postCreateParking(parking: any): Promise<ParkingResponse> {
+  async postCreateParking(parking: any): Promise<ParkingResponse | number> {
     return this.rest
       .postCreateParking(parking)
       .then((data) => data)
       .catch((err) => {
-        return err;
+        throw err;
       });
   }
 
@@ -125,15 +125,11 @@ export class DataManagementService {
   }
 
   async postLogout(): Promise<void> {
-    return this.rest
-      .logout()
-      .then((_) => {
-        this.persistenceService.removeValue(constants.TOKEN);
-        this.persistenceService.removeValue(constants.PROVISIONAL_TOKEN);
-      })
-      .catch((err: HttpErrorResponse) => {
-        throw err;
-      });
+    this.rest.logout().catch((err: HttpErrorResponse) => {
+      throw err;
+    });
+    this.persistenceService.removeValue(constants.TOKEN);
+    this.persistenceService.removeValue(constants.PROVISIONAL_TOKEN);
   }
 
   async createCheckoutSessionRental(data: any): Promise<any> {
@@ -144,7 +140,6 @@ export class DataManagementService {
         return err;
       });
   }
-
 
   async getCities(location: Location, query: string): Promise<City[]> {
     return this.rest
@@ -183,7 +178,8 @@ export class DataManagementService {
       });
   }
   async getParkingCesion(): Promise<CesionParking> {
-    return this.rest.getParkingCesion()
+    return this.rest
+      .getParkingCesion()
       .then((data) => {
         console.log(data);
         return data;
@@ -194,7 +190,8 @@ export class DataManagementService {
       });
   }
   async getVehicle(): Promise<{ vehicles: Vehicle[] } | undefined> {
-    return this.rest.getVehicles()
+    return this.rest
+      .getVehicles()
       .then((data) => {
         console.log(data);
         return data;
@@ -231,6 +228,4 @@ export class DataManagementService {
         return err;
       });
   }
-
 }
-
