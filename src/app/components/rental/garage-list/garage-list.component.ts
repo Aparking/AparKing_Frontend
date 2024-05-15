@@ -28,6 +28,7 @@ export class GarageListComponent implements OnInit {
   _filterPriceMax: number = 0;
   _filterDimensionMin: number = 0;
   _filterCity: string = '';
+  _filterMyGarages: boolean = false;
   filteredGarages!: any[];
   currentUserGarages!: any[];
 
@@ -41,7 +42,8 @@ export class GarageListComponent implements OnInit {
       this.filterPriceMin,
       this.filterPriceMax,
       this.filterDimensionMin,
-      this.filterCity
+      this.filterCity,
+      this.filterMyGarages
     );
   }
 
@@ -55,7 +57,8 @@ export class GarageListComponent implements OnInit {
       value,
       this.filterPriceMax,
       this.filterDimensionMin,
-      this.filterCity
+      this.filterCity,
+      this.filterMyGarages
     );
   }
 
@@ -69,13 +72,15 @@ export class GarageListComponent implements OnInit {
       this.filterPriceMin,
       value,
       this.filterDimensionMin,
-      this.filterCity
+      this.filterCity,
+      this.filterMyGarages
     );
   }
 
   get filterDimensionMin() {
     return this._filterDimensionMin;
   }
+
   set filterDimensionMin(value: number) {
     this._filterDimensionMin = value;
     this.filteredGarages = this.filterGarages(
@@ -84,6 +89,21 @@ export class GarageListComponent implements OnInit {
       this.filterPriceMax,
       value,
       this.filterCity
+    );
+  }
+
+  get filterMyGarages() {
+    return this._filterMyGarages;
+  }
+  set filterMyGarages(value: boolean) {
+    this._filterMyGarages = value;
+    this.filteredGarages = this.filterGarages(
+      this.filterTitle,
+      this.filterPriceMin,
+      this.filterPriceMax,
+      this.filterDimensionMin,
+      this.filterCity,
+      value
     );
   }
 
@@ -111,6 +131,10 @@ export class GarageListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.restService.getMyGarages().then(garages => {
+      this.currentUserGarages = garages.map(garage => garage.id);
+    });
+
     this.garageStateService.garages$.subscribe((garages) => {
       this.garages = garages.map((garage) => {
         return {
@@ -122,12 +146,14 @@ export class GarageListComponent implements OnInit {
           price: garage.price,
           dimensionsText: `${garage.width * garage.height * garage.length} m³`,
           dimensionsNumber: garage.width * garage.height * garage.length,
+          mygarage: this.currentUserGarages.includes(garage.id),
         };
       });
-      this.loadGaragesImages();
       this.filteredGarages = this.garages;
     });
+
     this.garageStateService.refreshGarages();
+    this.loadGaragesImages();
   }
 
   async loadGaragesImages() {
@@ -151,7 +177,8 @@ export class GarageListComponent implements OnInit {
     priceMin: number = 0,
     priceMax: number = 0,
     dimensionMin: number = 0,
-    city: string = ''
+    city: string = '',
+    My_garages: boolean = false
   ) {
     return this.garages.filter(
       (garage) =>
@@ -159,7 +186,8 @@ export class GarageListComponent implements OnInit {
         (!priceMin || Number(garage.price) >= priceMin) &&
         (!priceMax || Number(garage.price) <= priceMax) &&
         (!dimensionMin || garage.dimensionsNumber >= dimensionMin) &&
-        (!city || garage.city.toLowerCase().includes(city.toLowerCase()))
+        (!city || garage.city.toLowerCase().includes(city.toLowerCase())) &&
+        (!My_garages || this.currentUserGarages.includes(garage.id))
     );
   }
 
