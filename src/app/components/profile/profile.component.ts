@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
   validateIBAN(): ValidatorFn {
     console.log('validateIBAN');
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const ibanPattern = /^[A-Z]{2}[0-9]{2}( [A-Z0-9]{4}){4}[0-9]{2}$/;
+      const ibanPattern = /^[A-Z]{2}[0-9A-Z]{2,32}$/;
       const isValid = ibanPattern.test(control.value);
       return isValid ? null : { ibanInvalid: true };
     };
