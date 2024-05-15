@@ -105,14 +105,17 @@ form {
 
     --padding-end: $default-padding;
     --padding-start: $default-padding;
+
     border: 2px solid #d6d6d6;
 
     ion-input {
       width: 90%;
       padding: $default-padding;
       text-align: start;
+
       --padding-end: $default-padding;
       --padding-start: $default-padding;
+
       border: 2px solid #d6d6d6;
     }
   }
