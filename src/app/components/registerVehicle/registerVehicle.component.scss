@@ -61,6 +61,13 @@ ion-content {
     font-size: x-large;
     font-family: 'Times New Roman', Times, serif;
   }
+
+  .card-title {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #000;
+    font-weight: bold;
+  }
 }
 
 form {
@@ -106,4 +113,20 @@ form {
   width: 100%;
   align-items: flex-start;
   padding-left: 5%;
+}
+
+.form-item {
+  margin-bottom: 20px;
+}
+
+.form-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.item {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
 }
