@@ -160,11 +160,6 @@ ion-card {
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid green;
-  transition: transform 0.3s ease-in-out;
-}
-
-ion-card:hover {
-  transform: scale(1.05);
 }
 
 ion-card-title {
@@ -172,4 +167,16 @@ ion-card-title {
   font-weight: bold;
   color: #000000;
   text-align: center;
+}
+
+.error {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: red;
+}
+
+.error-container {
+  width: 90%;
+  padding-left: 10px;
 }

@@ -19,19 +19,27 @@
           <ion-label position="floating">Email</ion-label>
           <ion-input fill="outline" placeholder="example@mail.com" formControlName="email" type="email"></ion-input>
         </ion-item>
-        <app-error-message [field]="loginForm.get('email')!" [message]="'El email es obligatorio'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="loginForm.get('email')!" [message]="'El email no es válido'"
-          [error]="'email'"></app-error-message>
+        <div class="error">
+          <app-error-message [field]="loginForm.get('email')!" [message]="'El email es obligatorio'"
+            [error]="'required'"></app-error-message>
+        </div>
+        <div class="error">
+          <app-error-message [field]="loginForm.get('email')!" [message]="'El email no es válido'"
+            [error]="'email'"></app-error-message>
+        </div>
         <ion-item class="input-item">
           <ion-label position="floating">Contraseña</ion-label>
           <ion-input fill="outline" placeholder="Escriba su contraseña" formControlName="password"
             type="password"></ion-input>
         </ion-item>
-        <app-error-message [field]="loginForm.get('password')!" [message]="'La contraseña es obligatoria'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="loginForm.get('password')!" [message]="'Longitud mínima 6 caracteres'"
-          [error]="'minlength'"></app-error-message>
+        <div class="error">
+          <app-error-message [field]="loginForm.get('password')!" [message]="'La contraseña es obligatoria'"
+            [error]="'required'"></app-error-message>
+        </div>
+        <div class="error">
+          <app-error-message [field]="loginForm.get('password')!" [message]="'Longitud mínima 6 caracteres'"
+            [error]="'minlength'"></app-error-message>
+        </div>
       </ion-card-content>
     </ion-card>
     <ion-button expand="full" type="submit" [disabled]="!loginForm.valid" shape="round"
