@@ -52,13 +52,13 @@ export class GarageCreateComponent implements OnInit {
       creation_date: [this.getCurrentDate(), Validators.required],
       modification_date: [this.getCurrentDate(), Validators.required],
       is_active: [true, Validators.required],
-      owner: [null, Validators.required],
+      owner: [null],
     });
     this.imageForm = this.formImageBuilder.group({
       image: this.formImageBuilder.group({
         garage: [1, Validators.required],
         image: [null, Validators.required],
-        alt: [null, Validators.required],
+        alt: [null],
         publication_date: [this.getCurrentDate(), Validators.required],
       }),
     });
@@ -209,8 +209,8 @@ export class GarageCreateComponent implements OnInit {
           });
       }
     } else {
-      //TODO - Imprimir mensajes de error en el formulario
-      console.log('El formulario de garaje no es válido');
+      toast.message = `Formulario incompleto, rellene todos los campos.`;
+      await toast.present();
     }
   }
 }

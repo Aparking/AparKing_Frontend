@@ -318,9 +318,13 @@
               </ion-card>
             </form>
 
-            <button class="boton-crear" expand="full" type="submit">
-              Publicar Garaje
-            </button>
+            <ion-button
+              expand="full"
+              type="submit"
+              [disabled]="!garageForm.valid"
+              shape="round"
+              >Publicar Garaje</ion-button
+            >
           </form>
         </ion-col>
       </ion-row>
