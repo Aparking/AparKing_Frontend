@@ -1,5 +1,5 @@
 $primary-font: "Lobster", sans-serif;
-$secondary-font: 'Times New Roman', Times, serif;
+$secondary-font: 'Times New Roman', times, serif;
 $primary-color: #403E39;
 $error-color: red;
 $border-width: thin;
@@ -101,7 +101,11 @@ form {
     flex-direction: column;
     align-items: center;
     padding: $default-padding;
-    margin: 0 $default-padding;
+    text-align: start;
+
+    --padding-end: $default-padding;
+    --padding-start: $default-padding;
+    border: 2px solid #d6d6d6;
 
     ion-input {
       width: 90%;

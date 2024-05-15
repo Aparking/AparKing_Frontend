@@ -1,5 +1,5 @@
 $primary-font: "Lobster", sans-serif;
-$secondary-font: 'Times New Roman', Times, serif;
+$secondary-font: 'Times New Roman', times, serif;
 $primary-color: #403E39;
 $error-color: red;
 $border-width: thin;
@@ -21,7 +21,7 @@ $card-padding: 16px;
     padding: $default-padding;
     font-family: $secondary-font;
 
-    @media (max-width: 600px) {
+    @media (max-width: 600px) and (min-width: 0px) {
         max-width: 100%;
     }
 
