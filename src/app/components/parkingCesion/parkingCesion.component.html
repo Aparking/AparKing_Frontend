@@ -8,15 +8,14 @@
 
 <ion-content>
   <ion-list>
-
-    <ion-card *ngFor="let item of parking?.parking; let i = index">
+    <ion-card *ngFor="let item of parking?.parking; let i = index" class="principal">
       <ion-card-header>
-        <ion-card-title>Tipo de cesion vehiculo: {{item[0].size }}</ion-card-title>
+        <ion-card-title>Tipo de cesión: {{item[0].size }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         Fecha y hora a la que quedará libre la plaza: {{ item[0].cesion_parking | date: 'yyyy-MM-dd/HH:mm:ss' }}
         <br>
-        Matricula coche a la que se cede: {{item[1].carModel}} <br>
+        Matrcula coche a la que se cede: {{item[1].carModel}} <br>
         <a
           href="https://www.google.com/maps?q={{ parseLocation(item[0].location)?.latitude }},{{ parseLocation(item[0].location)?.longitude }}">Ir
           a la plaza</a><br>
