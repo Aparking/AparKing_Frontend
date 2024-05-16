@@ -1,155 +1,3 @@
-.appbar {
-  font-weight: bold;
-  font-family: "Lobster", sans-serif;
-}
-
-.invalid-field {
-  border-color: red;
-}
-
-.body {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  width: 100%;
-  height: 60%;
-}
-
-.profile-header {
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #e7e7e7;
-}
-
-.profile-content {
-  background-color: #f8f8f8;
-  padding: 20px;
-}
-
-.profile-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.profile-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-ion-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-
-  .title {
-    font-weight: bold;
-    font-size: x-large;
-    font-family: 'Times New Roman', Times, serif;
-  }
-
-  .card-title {
-    margin-top: 20px;
-    font-size: 24px;
-    color: #000;
-    font-weight: bold;
-  }
-}
-
-form {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  margin: 0;
-
-  .input-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    margin: 0 20px;
-
-    ion-input {
-      width: 90%;
-      padding: 20px;
-      text-align: start;
-      --padding-end: 10px;
-      --padding-start: 10px;
-      border: 2px solid #d6d6d6;
-
-    }
-  }
-
-  ion-button {
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 20px;
-    width: 90%;
-    height: 50px;
-    margin-bottom: 10%;
-  }
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin: 0 20px;
-  padding: 0 5%;
-}
-
-.error-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: flex-start;
-  padding-left: 5%;
-}
-
-.checkbox-container {
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-ion-checkbox {
-  margin-right: 10px;
-}
-
-.error-container {
-  width: 90%;
-  padding-left: 10px;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.prefix,
-.phone {
-  flex: 1;
-}
-
-.prefix ion-input,
-.phone ion-input {
-  width: 100%;
-}
-
-.prefix {
-  margin-right: 10px;
-}
-
 .error {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -173,4 +21,35 @@ ion-card-title {
 
 ion-card-header {
   text-align: center;
+}
+
+form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.prefix,
+.phone {
+  flex: 1;
+}
+
+.prefix ion-input,
+.phone ion-input {
+  width: 100%;
+}
+
+.prefix {
+  margin-right: 10px;
 }

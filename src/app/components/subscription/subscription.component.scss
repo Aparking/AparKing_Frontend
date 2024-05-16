@@ -1,73 +1,7 @@
-.subscription-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-
-    &:hover {
-      background-color: #45a049;
-    }
-  }
-}
-
-.user-info-card {
-  font-size: 1.2rem; // Aumenta el tamaño del texto
-
-  ion-card-title {
-    font-size: 1.4rem; // Tamaño del título del usuario
-  }
-}
-
-ion-item {
-  --padding-start: 0; // Reduce el espacio interno si es necesario
-  --inner-padding-end: 0; // Reduce el espacio interno si es necesario
-
-  ion-label {
-    h2 {
-      font-size: 1.1rem; // Ajustar el tamaño de la fuente del nombre del plan
-    }
-
-    p {
-      font-size: 1rem; // Ajustar el tamaño de la fuente del precio
-    }
-  }
-
-  ion-button {
-    margin-top: 4px; // Un pequeño margen por encima del botón
-  }
-}
-
 .user-card-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 16px; // Añade un margen entre la tarjeta de usuario y los planes
-}
-
-.user-info-card {
-  width: 100%;
-  max-width: 600px; // Ajustar según la anchura deseada
-}
-
-.plans-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 16px; // Añade un poco de espacio entre las tarjetas de planes
-  width: 100%;
-  max-width: 600px; // Ajustar según la anchura deseada
-  margin: auto;
-
+  margin-bottom: 16px;
 }
 
 ion-card {
@@ -87,9 +21,37 @@ ion-card-header {
   text-align: center;
 }
 
+.plans-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 16px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
 ion-content {
   --padding-start: 0;
   --padding-end: 0;
   --padding-top: 0;
   --padding-bottom: 0;
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+
+  ion-label {
+    h2 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  ion-button {
+    margin-top: 4px;
+  }
 }

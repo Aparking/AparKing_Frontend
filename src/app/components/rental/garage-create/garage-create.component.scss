@@ -1,15 +1,6 @@
 $primary-color: #4CAF50;
-$secondary-color: #f9f9f9;
 $border-color: #ccc;
 $font-family: Arial, sans-serif;
-
-.fullscreen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: $secondary-color;
-}
 
 .garage-card {
   width: 100%;
@@ -18,62 +9,29 @@ $font-family: Arial, sans-serif;
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-  margin: auto; // Añadido para centrar el formulario
-}
-
-.card-content {
-  padding: 2em;
-}
-
-.row {
-  display: flex;
-  flex-direction: column;
-}
-
-.col {
-  width: 100%;
-  padding: 0.75em;
-  border: 1px solid $border-color;
-  border-radius: 4px;
-  margin-bottom: 1em;
-  font-family: $font-family;
-}
-
-.col:focus {
-  border-color: $primary-color;
-  outline: none;
-}
-
-.form {
-  border-radius: 5px;
-  padding: 20px;
-  // más estilos aquí si es necesario
+  margin: auto;
 }
 
 .card {
   margin-bottom: 20px;
-  // más estilos aquí si es necesario
 }
 
 .list {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // más estilos aquí si es necesario
 }
 
 .item {
   width: 100%;
   max-width: 500px;
   margin-bottom: 10px;
-  // más estilos aquí si es necesario
 }
 
 .button-container {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  // más estilos aquí si es necesario
 }
 
 .boton-crear {

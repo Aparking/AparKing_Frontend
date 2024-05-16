@@ -1,106 +1,33 @@
- .card {
-   border: 1px solid #ccc;
-   border-radius: 5px;
-   margin-bottom: 20px;
- }
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
 
- .card-header {
-   background-color: #f0f0f0;
-   padding: 10px 20px;
-   border-bottom: 1px solid #ccc;
-   border-top-left-radius: 5px;
-   border-top-right-radius: 5px;
- }
+.garage-card {
+  max-width: 400px;
+  margin: 16px;
+}
 
- .card-body {
-   padding: 20px;
- }
+.atributo {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
- .table {
-   width: 100%;
- }
+ion-card {
+  border: 1px solid green;
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  border-radius: 10px;
+}
 
- .table-striped tbody tr:nth-of-type(odd) {
-   background-color: #f9f9f9;
- }
+ion-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
 
- .table-bordered {
-   border: 1px solid #ccc;
- }
-
- .table th,
- .table td {
-   padding: 13px;
- }
-
- .btn {
-   padding: 6px 10px;
-   border-radius: 4px;
-   cursor: pointer;
- }
-
- .btn-primary {
-   background-color: #007bff;
-   border: none;
-   color: #fff;
- }
-
- .btn-secondary {
-   background-color: #14f62ec6;
-   border: none;
-   color: #fff;
- }
-
- .btn-danger {
-   background-color: #dc3545;
-   border: none;
-   color: #fff;
- }
-
- .float-end {
-   float: right;
-
- }
-
- ion-col {
-   background-color: #a0a7a7;
-   border: solid 1px #fff;
-   color: #fff;
-   text-align: center;
-   size: 6px;
- }
-
- .garage-list {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: space-around;
-   padding: 16px;
- }
-
- .garage-card {
-   max-width: 400px;
-   margin: 16px;
- }
-
- ion-card {
-   border: 1px solid green;
-   transition: transform 0.3s ease-in-out;
-   padding: 20px;
-   border-radius: 10px;
- }
-
- ion-card-title {
-   font-size: 24px;
-   font-weight: bold;
-   color: #000;
-   text-align: center;
- }
-
- ion-card-header {
-   text-align: center;
- }
-
- .atributo {
-   margin-top: 10px;
-   margin-bottom: 10px;
- }
+ion-card-header {
+  text-align: center;
+}
