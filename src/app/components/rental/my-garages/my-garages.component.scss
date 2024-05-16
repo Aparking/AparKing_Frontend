@@ -44,7 +44,7 @@ $card-padding: 16px;
   padding: $default-padding;
   font-family: $secondary-font;
 
-  @media (max-width: 600px) {
+  @media (width <=600px) {
     max-width: 100%;
   }
 
