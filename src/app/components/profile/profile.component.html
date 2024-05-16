@@ -1,74 +1,128 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Mi perfil</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="saveChanges()">
-        <ion-icon name="save"></ion-icon>
-      </ion-button>
-      <ion-button color="danger" (click)="deleteProfile()">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="body">
-    <form [formGroup]="userForm">
-      <div class="input-group">
-        <ion-input fill="outline" placeholder="Miguel Cervantes" label-placement="floating" label="Nombre"
-          formControlName="username" type="text" [autocapitalize]="true"></ion-input>
-        <app-error-message [field]="userForm.get('username')!" [message]="'Debe introducir su nombre'"
-          [error]="'required'"></app-error-message>
-      </div>
+  <form [formGroup]="userForm">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Datos perfil</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
 
-      <div class="input-group">
-        <ion-input fill="outline" placeholder="example@mail.com" label-placement="floating" label="Email"
-          formControlName="email" type="email"></ion-input>
-        <app-error-message [field]="userForm.get('email')!" [message]="'El email es obligatorio'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="userForm.get('email')!" [message]="'El email no es válido'"
-          [error]="'email'"></app-error-message>
-      </div>
+        <ion-item class="input-item">
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input fill="outline" placeholder="Miguel Cervantes" formControlName="username" type="text"
+            [autocapitalize]="true"></ion-input>
+        </ion-item>
 
-      <div class="input-group">
-        <ion-input fill="outline" placeholder="Escriba su DNI" label-placement="floating" label="DNI"
-          formControlName="dni" type="text"></ion-input>
-        <app-error-message [field]="userForm.get('dni')!" [message]="'El dni es obligatorio'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="userForm.get('dni')!" [message]="'El dni no es válido'"
-          [error]="'dniInvalid'"></app-error-message>
-      </div>
-
-      <div class="input-group">
-        <ion-input fill="outline" placeholder="Escriba su fecha de nacimeinto" label-placement="floating"
-          label="Fecha de nacimiento" formControlName="birth_date" type="date"></ion-input>
-        <app-error-message [field]="userForm.get('birth_date')!" [message]="'La fecha de nacimiento es obligatoria'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="userForm.get('birth_date')!" [message]="'Debe tener mínimo 18 años'"
-          [error]="'minimumAge'"></app-error-message>
-      </div>
-
-      <div class="input-group">
-        <div class="row">
-          <ion-input style="width: 100px" fill="outline" placeholder="34" label-placement="floating" label="Prefijo"
-            formControlName="countryCode" type="number"></ion-input>
-          <ion-input fill="outline" placeholder="123456789" label-placement="floating" label="Número de teléfono"
-            formControlName="phone" type="number"></ion-input>
+        <div class="error">
+          <app-error-message [field]="userForm.get('username')!" [message]="'Debe introducir su nombre'"
+            [error]="'required'"></app-error-message>
         </div>
-        <app-error-message [field]="userForm.get('phone')!" [message]="'Debe introducir su número de teléfono'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="userForm.get('phone')!" [message]="'Número inválido'"
-          [error]="'phoneNumber'"></app-error-message>
-        <app-error-message [field]="userForm.get('countryCode')!" [message]="'Debe introducir su prefijo'"
-          [error]="'required'"></app-error-message>
-        <app-error-message [field]="userForm.get('countryCode')!" [message]="'Prefijo inválido'"
-          [error]="'minLength'"></app-error-message>
-      </div>
 
-      <ion-button slot="end" class="register-vehicle-button" color="success" (click)="goRegisterVehicle()">
-        Pulsa aqui para registrar tu vehiculo
+        <ion-item class="input-item">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input fill="outline" placeholder="example@mail.com" formControlName="email" type="email"></ion-input>
+        </ion-item>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('email')!" [message]="'El email es obligatorio'"
+            [error]="'required'"></app-error-message>
+        </div>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('email')!" [message]="'El email no es válido'"
+            [error]="'email'"></app-error-message>
+        </div>
+
+        <ion-item class="input-item">
+          <ion-label position="floating">DNI</ion-label>
+          <ion-input fill="outline" placeholder="Escriba su DNI" formControlName="dni" type="text"></ion-input>
+        </ion-item>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('dni')!" [message]="'El dni es obligatorio'"
+            [error]="'required'"></app-error-message>
+        </div>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('dni')!" [message]="'El dni no es válido'"
+            [error]="'dniInvalid'"></app-error-message>
+        </div>
+
+        <ion-item class="input-item">
+          <ion-label position="floating">Fecha de nacimiento</ion-label>
+          <ion-input fill="outline" placeholder="Escriba su fecha de nacimeinto" formControlName="birth_date"
+            type="date"></ion-input>
+        </ion-item>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('birth_date')!" [message]="'La fecha de nacimiento es obligatoria'"
+            [error]="'required'"></app-error-message>
+        </div>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('birth_date')!" [message]="'Debe tener mínimo 18 años'"
+            [error]="'minimumAge'"></app-error-message>
+        </div>
+
+        <ion-item class="input-item-row">
+          <div class="row">
+            <div class="prefix">
+              <ion-label position="floating">Prefijo</ion-label>
+              <ion-input style="width: 100px" fill="outline" placeholder="34" formControlName="countryCode"
+                type="number"></ion-input>
+            </div>
+            <div class="phone">
+              <ion-label position="floating">Teléfono</ion-label>
+              <ion-input fill="outline" placeholder="123456789" formControlName="phone" type="number"></ion-input>
+            </div>
+          </div>
+        </ion-item>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('phone')!" [message]="'Debe introducir su número de teléfono'"
+            [error]="'required'"></app-error-message>
+        </div>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('phone')!" [message]="'Número inválido'"
+            [error]="'phoneNumber'"></app-error-message>
+        </div>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('countryCode')!" [message]="'Debe introducir su prefijo'"
+            [error]="'required'"></app-error-message>
+        </div>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('countryCode')!" [message]="'Prefijo inválido'"
+            [error]="'minLength'"></app-error-message>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveChanges()">
+        <div
+          style="color: white; background-color: green; border-radius: 10px; padding: 5px; font-size: 24px; text-align: center; display: flex; align-items: center; justify-content: center;">
+          <ion-icon name="save" style="margin-right: 5px;"></ion-icon>
+          <span style="font-size: 14px;">Guardar</span>
+        </div>
       </ion-button>
-    </form>
-  </div>
+      <ion-button color="danger" (click)="deleteProfile()">
+        <div
+          style="color: white; background-color: red; border-radius: 10px; padding: 5px; font-size: 24px; text-align: center; display: flex; align-items: center; justify-content: center;">
+          <ion-icon name="trash" style="margin-right: 5px;"></ion-icon>
+          <span style="font-size: 14px;">Borrar</span>
+        </div>
+      </ion-button>
+      <ion-button slot="end" class="register-vehicle-button" color="primary" (click)="goRegisterVehicle()">
+        <div
+          style="color: white; background-color: blue; border-radius: 10px; padding: 5px; font-size: 24px; text-align: center; display: flex; align-items: center; justify-content: center;">
+          <ion-icon name="car" style="margin-right: 5px;"></ion-icon>
+          <span style="font-size: 14px;">Vehiculos</span>
+        </div>
+      </ion-button>
+    </ion-buttons>
+  </form>
 </ion-content>
