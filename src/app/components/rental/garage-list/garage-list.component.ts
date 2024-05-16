@@ -131,9 +131,11 @@ export class GarageListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.currentUserGarages = [];
+
     this.restService.getMyGarages().then(garages => {
       this.currentUserGarages = garages.map(garage => garage.id);
-    });
+    }).catch(async error => {});
 
     this.garageStateService.garages$.subscribe((garages) => {
       this.garages = garages.map((garage) => {
