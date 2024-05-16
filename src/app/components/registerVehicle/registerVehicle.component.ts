@@ -25,9 +25,9 @@ export class registerVehicleComponent implements OnInit {
       {
         carModel: new FormControl('', [Validators.required]),
         color: new FormControl('', [Validators.required]),
-        height: new FormControl('', [Validators.required]),
-        width: new FormControl('', [Validators.required]),
-        length: new FormControl('', [Validators.required]),
+        height: new FormControl('', [Validators.required, Validators.min(1)]),
+        width: new FormControl('', [Validators.required, Validators.min(1)]),
+        length: new FormControl('', [Validators.required, Validators.min(1)]),
       },
     );
   }

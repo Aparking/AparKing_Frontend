@@ -107,12 +107,12 @@ export class ProfileComponent implements OnInit {
   validateiban(): ValidatorFn {
     console.log('validateiban');
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const ibanPattern = /^[A-Z]{2}[0-9]{2}( [A-Z0-9]{4}){4}[0-9]{2}$/;
+      const ibanPattern = /^[A-Z]{2}[0-9A-Z]{2,32}$/;
       const isValid = ibanPattern.test(control.value);
       return isValid ? null : { ibanInvalid: true };
     };
   }
-
+  
   private minimumAgeValidator(minimumAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (Validators.required(control)) {
