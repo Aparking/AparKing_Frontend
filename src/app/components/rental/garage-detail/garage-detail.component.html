@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Detalle de Garaje</ion-title>
+    <ion-title>Detalles del garaje</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -18,19 +18,12 @@
           </a>
         </ion-buttons>
 
-        <ion-card-title
-          id="garage-card-title"
-          class="ion-text-uppercase ion-align-items-center"
-          >{{ currentGarage.name }}</ion-card-title
-        >
+        <ion-card-title id="garage-card-title" class="ion-text-uppercase ion-align-items-center">{{ currentGarage.name
+          }}</ion-card-title>
 
         <ion-buttons slot="end">
           @if (isOwner) { } @else {
-          <ion-button
-            color="success"
-            id="book-garage"
-            (click)="checkBookingConditions()"
-          >
+          <ion-button color="success" id="book-garage" (click)="checkBookingConditions()">
             <ion-icon name="add-circle-outline"></ion-icon>
             <br />
             <ion-label style="font-size: 0.7em">Añadir Reserva</ion-label>
@@ -42,33 +35,29 @@
             </ion-button>
           </a>
 
-          <ion-button
-            color="danger"
-            id="delete-garage"
-            (click)="alertDeleteConfirmation()"
-          >
+          <ion-button color="danger" id="delete-garage" (click)="alertDeleteConfirmation()">
             <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
           </ion-button>
           }
         </ion-buttons>
       </div>
-      <ion-item>
-        @if (isOwner) {
-        <ion-button
-          color="success"
-          id="book-garage"
-          (click)="createAvailabilityModal()"
-        >
-          <ion-icon name="add-circle-outline"></ion-icon>
-          <br />
-          <ion-label style="font-size: 0.7em">Añadir Disponibilidad</ion-label>
-        </ion-button>
-        }
-      </ion-item>
-      <ion-item>
-        <ion-badge color="success" style="font-size: large">
-          {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
-        </ion-badge>
+
+      <ion-item style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
+        <div *ngIf="isOwner" style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
+          <ion-button color="success" id="book-garage" (click)="createAvailabilityModal()" style="margin-right: 10px;">
+            <ion-icon name="add-circle-outline"></ion-icon>
+            <br />
+            <ion-label style="font-size: 0.7em">Añadir Disponibilidad</ion-label>
+          </ion-button>
+          <ion-badge color="success" style="font-size: large; margin-top: 10px; margin-bottom: 10px;">
+            {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
+          </ion-badge>
+        </div>
+        <div *ngIf="!isOwner" style="display: flex; justify-content: center; align-items: center;">
+          <ion-badge color="success" style="font-size: large; margin-top: 10px; margin-bottom: 10px;">
+            {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
+          </ion-badge>
+        </div>
       </ion-item>
     </ion-card-header>
 
@@ -76,8 +65,7 @@
       <ion-item-group>
         <ion-item-divider>
           <ion-label class="ion-text-uppercase" color="dark"
-            >Características</ion-label
-          >
+            style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Características</ion-label>
         </ion-item-divider>
 
         <ion-item>
@@ -102,12 +90,10 @@
               <p>{{ currentGarage.is_active ? "Activo" : "Inactivo" }}</p>
             </div>
             @if (isOwner) {
-            <ion-toggle
-              aria-label="Estado"
-              [enableOnOffLabels]="true"
-              [checked]="currentGarage.is_active"
-              (ionChange)="toggleGarageStatus()"
-            ></ion-toggle>
+            <div style="display: flex; justify-content: flex-end;">
+              <ion-toggle aria-label="Estado" [enableOnOffLabels]="true" [checked]="currentGarage.is_active"
+                (ionChange)="toggleGarageStatus()"></ion-toggle>
+            </div>
             }
           </ion-label>
         </ion-item>
@@ -126,8 +112,7 @@
 
         <ion-item-divider>
           <ion-label class="ion-text-uppercase" color="dark"
-            >Ubicación</ion-label
-          >
+            style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Ubicación</ion-label>
         </ion-item-divider>
 
         <ion-item>
@@ -154,7 +139,7 @@
 
   <ion-card>
     <ion-card-header>
-      <ion-card-title>GALERÍA</ion-card-title>
+      <ion-card-title>Galería</ion-card-title>
     </ion-card-header>
     <swiper-container>
       <swiper-slide *ngFor="let image of currentGarageImages">

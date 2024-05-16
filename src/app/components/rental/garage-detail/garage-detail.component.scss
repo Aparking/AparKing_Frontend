@@ -12,6 +12,25 @@
   align-items: center;
   justify-content: space-between;
 }
-#status-label > ion-toggle {
+
+#status-label>ion-toggle {
   margin: auto;
+}
+
+ion-card {
+  border: 1px solid green;
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+ion-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+}
+
+ion-card-header {
+  text-align: center;
 }
