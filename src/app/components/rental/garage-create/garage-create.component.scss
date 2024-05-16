@@ -7,10 +7,11 @@ $font-family: arial, sans-serif;
   max-width: 600px;
   border: 1px solid $border-color;
   border-radius: 5px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 15%);
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.15);
   margin: auto;
 }
+
 
 .card {
   margin-bottom: 20px;
