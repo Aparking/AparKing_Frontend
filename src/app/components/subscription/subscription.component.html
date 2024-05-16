@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      <h1>Plan de Suscripción Aparking</h1>
+      <h1>Planes de Suscripción</h1>
     </ion-title>
     <ion-button slot="end" style="background-color: transparent; --background: transparent" color="light"
       (click)="goMap()">
@@ -11,12 +11,11 @@
 </ion-header>
 
 <ion-content>
-  <!-- Sección de Información del Usuario -->
   <div class="user-card-container">
-    <ion-card class="user-info-card">
+    <ion-card>
       <ion-card-header>
         <ion-card-title>
-          <h1>{{ userInfo?.user?.username }}</h1>
+          {{ userInfo?.user?.username }}
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -31,17 +30,19 @@
     </ion-card>
   </div>
 
-  <!-- Sección de Planes de Suscripción -->
   <div class="plans-container">
     <ion-card>
-      <ion-card-header>
+      <ion-card-header style="display: flex; justify-content: space-between; align-items: center;">
         <ion-card-title>{{ plans[0].name }}</ion-card-title>
+        <ion-badge color="success" style="font-size: large">
+          {{ plans[0].price.replace("/month", " al mes") }}
+        </ion-badge>
       </ion-card-header>
       <ion-card-content>
-        <ion-badge color="success" style="font-size: large">
-          Precio: {{ plans[0].price.replace("/month", " al mes") }}
-        </ion-badge>
         <ul style="list-style-type: none; padding-left: 0">
+          <li style="font-size: 1.4em">
+            ¿Qué contiene?
+          </li>
           <li style="font-size: 1.2em">
             <ion-icon name="search-circle-outline"></ion-icon> 50 créditos para
             buscar aparcamiento
@@ -51,18 +52,21 @@
           </li>
         </ul>
         <ion-button expand="block" [disabled]="userInfo?.membership?.type === 'Gratuita'"
-          (click)="selectPlan(plans[0].id)">Select Plan</ion-button>
+          (click)="selectPlan(plans[0].id)">Seleccionar</ion-button>
       </ion-card-content>
     </ion-card>
     <ion-card>
-      <ion-card-header>
+      <ion-card-header style="display: flex; justify-content: space-between; align-items: center;">
         <ion-card-title>{{ plans[1].name }}</ion-card-title>
+        <ion-badge color="success" style="font-size: large">
+          {{ plans[1].price.replace("/month", " al mes") }}
+        </ion-badge>
       </ion-card-header>
       <ion-card-content>
-        <ion-badge color="success" style="font-size: large">
-          Precio: {{ plans[1].price.replace("/month", " al mes") }}
-        </ion-badge>
         <ul style="list-style-type: none; padding-left: 0">
+          <li style="font-size: 1.4em">
+            ¿Qué contiene?
+          </li>
           <li style="font-size: 1.2em">
             <ion-icon name="search-circle-outline"></ion-icon> 300 créditos para
             buscar aparcamiento
@@ -72,18 +76,21 @@
           </li>
         </ul>
         <ion-button expand="block" [disabled]="userInfo?.membership?.type === 'Noble'"
-          (click)="selectPlan(plans[1].id)">Select Plan</ion-button>
+          (click)="selectPlan(plans[1].id)">Seleccionar</ion-button>
       </ion-card-content>
     </ion-card>
     <ion-card>
-      <ion-card-header>
+      <ion-card-header style="display: flex; justify-content: space-between; align-items: center;">
         <ion-card-title>{{ plans[2].name }}</ion-card-title>
+        <ion-badge color="success" style="font-size: large">
+          {{ plans[2].price.replace("/month", " al mes") }}
+        </ion-badge>
       </ion-card-header>
       <ion-card-content>
-        <ion-badge color="success" style="font-size: large">
-          Precio: {{ plans[2].price.replace("/month", " al mes") }}
-        </ion-badge>
         <ul style="list-style-type: none; padding-left: 0">
+          <li style="font-size: 1.4em">
+            ¿Qué contiene?
+          </li>
           <li style="font-size: 1.2em">
             <ion-icon name="search-circle-outline"></ion-icon> 1000 créditos
             para buscar aparcamiento
@@ -93,7 +100,7 @@
           </li>
         </ul>
         <ion-button expand="block" [disabled]="userInfo?.membership?.type === 'King'"
-          (click)="selectPlan(plans[2].id)">Select Plan</ion-button>
+          (click)="selectPlan(plans[2].id)">Seleccionar</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
@@ -102,25 +109,22 @@
     <ion-card>
       <ion-card-header>
         <ion-card-title>
-          <h2 style="text-align: center; font-size: 1.5em">
-            COMPRA CRÉDITOS
-          </h2>
+          Compra créditos
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <h6 style="text-align: center; font-size: 1em; color: #888888">
-          (Debes realizar una compra minima de 10 creditos)
+          (Debe realizar una compra minima de 10 creditos)
         </h6>
         <ion-item>
           <ion-label position="floating" style="font-size: 1.2em; color: #4a4a4a">
-            Introduce un número</ion-label>
+            Introduce la cantidad</ion-label>
           <ion-input type="number" [(ngModel)]="credit" min="10" placeholder="10 o más" required
             style="font-size: 1.2em">
           </ion-input>
         </ion-item>
         <ion-button expand="full" [disabled]="credit === undefined || credit < 10"
-          (click)="credit !== undefined && buyCredit(credit)"
-          style="font-size: 1.2em; background-color: #90ee90">Comprar créditos</ion-button>
+          (click)="credit !== undefined && buyCredit(credit)">Comprar créditos</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
