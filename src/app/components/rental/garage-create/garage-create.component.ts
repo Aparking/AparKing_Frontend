@@ -48,7 +48,7 @@ export class GarageCreateComponent implements OnInit {
       height: [null, Validators.required],
       width: [null, Validators.required],
       length: [null, Validators.required],
-      price: [null, Validators.required],
+      price: [null, [Validators.required, Validators.min(1)]],
       creation_date: [this.getCurrentDate(), Validators.required],
       modification_date: [this.getCurrentDate(), Validators.required],
       is_active: [true, Validators.required],
