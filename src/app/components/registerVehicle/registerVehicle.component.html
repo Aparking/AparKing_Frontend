@@ -80,32 +80,4 @@
       </ion-card-content>
     </form>
   </ion-card>
-
-  <ion-list>
-    <ion-card *ngFor="let item of vehicle; let i = index">
-      <ion-card-header>
-        <ion-card-title>Matrícula: {{item.carModel}}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <div class="atributos">
-          <p><strong>Color:</strong> {{item.color}}</p>
-          <p><strong>Tamaño:</strong> {{item.height.toString().replace('.', ',')}} metros</p>
-          <p><strong>Ancho:</strong> {{item.width.toString().replace('.', ',')}} metros</p>
-          <p><strong>Longitud:</strong> {{item.length.toString().replace('.', ',')}} metros</p>
-        </div>
-        <div *ngIf="item.principalCar === true"
-          style="margin-top: 10px; text-align: center; font-size: 1.2em; color: goldenrod; font-weight: bold;">PRINCIPAL
-        </div>
-        <ion-card-content>
-          <div style="display: flex; justify-content: center;">
-            <ion-button *ngIf="item.principalCar !== true" slot="end" [disabled]="item.principalCar"
-              style="background-color: transparent; --background: transparent;" color="success" shape="round"
-              (click)="item.id ? updateVehiculoPrincipal(item.id) : null">
-              <ion-icon name="car"></ion-icon>
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
 </ion-content>

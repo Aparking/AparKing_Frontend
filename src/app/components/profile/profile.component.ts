@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
       return isValid ? null : { ibanInvalid: true };
     };
   }
-  
+
   private minimumAgeValidator(minimumAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (Validators.required(control)) {
@@ -235,7 +235,7 @@ export class ProfileComponent implements OnInit {
     await alert.present();
   }
 
-  async goRegisterVehicle() {
-    this.navCtrl.navigateForward('/G11/aparKing/tab3/registerVehicle');
+  redirectToVehicleList() {
+    this.router.navigate(['/G11/aparKing/tab3/listVehicle']);
   }
 }
