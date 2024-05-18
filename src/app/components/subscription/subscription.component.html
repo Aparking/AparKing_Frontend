@@ -123,6 +123,16 @@
             style="font-size: 1.2em">
           </ion-input>
         </ion-item>
+
+        <div class="total-price">
+          <div class="title-text">
+            Precio total
+          </div>
+          <div class="text">
+            {{credit ? (credit * 0.049).toFixed(2).replace('.', ',') : '0,00'}} €
+          </div>
+        </div>
+
         <ion-button expand="full" [disabled]="credit === undefined || credit < 10"
           (click)="credit !== undefined && buyCredit(credit)">Comprar créditos</ion-button>
       </ion-card-content>

@@ -17,7 +17,8 @@ import { RestService } from 'src/app/service/rest.service';
   styleUrls: ['./subscription.component.scss'],
 })
 export class SubscriptionComponent implements OnInit {
-  credit: number | undefined;
+  credit: number = 10; // Inicializa credit con un valor por defecto
+
   ngOnInit() {
     this.dataManagementService.subscription();
     this.getUserInfo();
@@ -43,7 +44,7 @@ export class SubscriptionComponent implements OnInit {
     private navCtrl: NavController,
     private restService: RestService,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   async selectPlan(planId: string) {
     try {
