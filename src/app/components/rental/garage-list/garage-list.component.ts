@@ -128,12 +128,10 @@ export class GarageListComponent implements OnInit {
     private garageStateService: GarageStateService,
     private dataManagementService: DataManagementService,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.restService.getMyGarages().then(garages => {
-      this.currentUserGarages = garages.map(garage => garage.id);
-    });
+    this.currentUserGarages = [];
 
     this.garageStateService.garages$.subscribe((garages) => {
       this.garages = garages.map((garage) => {
@@ -147,11 +145,17 @@ export class GarageListComponent implements OnInit {
           dimensionsText: `${garage.width * garage.height * garage.length} m³`,
           dimensionsNumber: garage.width * garage.height * garage.length,
           mygarage: this.currentUserGarages.includes(garage.id),
+
         };
       });
-      this.filteredGarages = this.garages;
-    });
 
+      this.restService.getMyGarages().then(garages => {
+        this.currentUserGarages = garages.map(garage => garage.id);
+      }).catch(async error => { });
+
+      this.filteredGarages = this.garages;
+
+    });
     this.garageStateService.refreshGarages();
     this.loadGaragesImages();
   }
