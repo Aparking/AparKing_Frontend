@@ -50,12 +50,12 @@
             <ion-label style="font-size: 0.7em">Añadir Disponibilidad</ion-label>
           </ion-button>
           <ion-badge color="success" style="font-size: large; margin-top: 10px; margin-bottom: 10px;">
-            {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
+            {{ currentGarage.price.replace('.', ',') }} €
           </ion-badge>
         </div>
         <div *ngIf="!isOwner" style="display: flex; justify-content: center; align-items: center;">
           <ion-badge color="success" style="font-size: large; margin-top: 10px; margin-bottom: 10px;">
-            {{ currentGarage.price | currency : "EUR" : "symbol-narrow" }}
+            {{ currentGarage.price.replace('.', ',') }} €
           </ion-badge>
         </div>
       </ion-item>
@@ -78,8 +78,9 @@
           <ion-label>
             <h2>Dimensiones</h2>
             <p>
-              {{ currentGarage.height }}m x {{ currentGarage.width }}m x
-              {{ currentGarage.length }}m
+              {{ currentGarage.height.toString().replace('.', ',') }} x
+              {{ currentGarage.width.toString().replace('.', ',') }} x
+              {{ currentGarage.length.toString().replace('.', ',') }} m
             </p>
           </ion-label>
         </ion-item>

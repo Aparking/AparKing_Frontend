@@ -35,7 +35,7 @@
       <ion-card-header style="display: flex; justify-content: space-between; align-items: center;">
         <ion-card-title>{{ plans[0].name }}</ion-card-title>
         <ion-badge color="success" style="font-size: large">
-          {{ plans[0].price.replace("/month", " al mes") }}
+          {{ plans[0].price.replace("/month", " al mes").replace('.', ',') }}
         </ion-badge>
       </ion-card-header>
       <ion-card-content>
@@ -59,7 +59,7 @@
       <ion-card-header style="display: flex; justify-content: space-between; align-items: center;">
         <ion-card-title>{{ plans[1].name }}</ion-card-title>
         <ion-badge color="success" style="font-size: large">
-          {{ plans[1].price.replace("/month", " al mes") }}
+          {{ plans[1].price.replace("/month", " al mes").replace('.', ',') }}
         </ion-badge>
       </ion-card-header>
       <ion-card-content>
@@ -83,7 +83,7 @@
       <ion-card-header style="display: flex; justify-content: space-between; align-items: center;">
         <ion-card-title>{{ plans[2].name }}</ion-card-title>
         <ion-badge color="success" style="font-size: large">
-          {{ plans[2].price.replace("/month", " al mes") }}
+          {{ plans[2].price.replace("/month", " al mes").replace('.', ',') }}
         </ion-badge>
       </ion-card-header>
       <ion-card-content>

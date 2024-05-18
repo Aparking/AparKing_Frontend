@@ -17,7 +17,7 @@
       <ion-card-title>Búsqueda por filtros</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
+      <ion-item *ngIf="garages && garages.length > 0">
         <ion-label>Mostrar mis garajes</ion-label>
         <ion-checkbox slot="start" [(ngModel)]="filterMyGarages"></ion-checkbox>
       </ion-item>
@@ -28,17 +28,17 @@
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Precio mínimo" placeholder="0.00€" [clearInput]="true"
+        <ion-input type="number" label="Precio mínimo" placeholder="0,00€" [clearInput]="true"
           [(ngModel)]="filterPriceMin"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Precio máximo" placeholder="783.75€" [clearInput]="true"
+        <ion-input type="number" label="Precio máximo" placeholder="783,75€" [clearInput]="true"
           [(ngModel)]="filterPriceMax"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Dimensión mínima" min="0.00" max="9999.99" placeholder="3.00"
+        <ion-input type="number" label="Dimensión mínima" min="0.00" max="9999.99" placeholder="3,00"
           [clearInput]="true" [(ngModel)]="filterDimensionMin"></ion-input>
       </ion-item>
 
@@ -76,10 +76,10 @@
           <p style="font-weight: bold;">Dirección:</p> {{ garage.address }}
         </div>
         <div class="atributo">
-          <p style="font-weight: bold;">Precio:</p> {{ garage.price }} €
+          <p style="font-weight: bold;">Precio:</p> {{ garage.price.replace('.', ',') }} €
         </div>
         <div class="atributo">
-          <p style="font-weight: bold;">Dimensiones:</p>{{ garage.dimensionsText }}
+          <p style="font-weight: bold;">Dimensiones:</p>{{ garage.dimensionsText.replace('.', ',') }}
         </div>
       </ion-card-content>
     </ion-card>
