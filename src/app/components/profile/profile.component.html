@@ -99,6 +99,20 @@
           <app-error-message [field]="userForm.get('countryCode')!" [message]="'Prefijo inválido'"
             [error]="'minLength'"></app-error-message>
         </div>
+
+        <ion-item class="input-item">
+          <ion-label position="floating">IBAN</ion-label>
+          <ion-input fill="outline" placeholder="ESXX YYYY XXXX YYYY XXXX YYYY" formControlName="iban"
+            type="text"></ion-input>
+        </ion-item>
+
+        <div class="error">
+          <app-error-message [field]="userForm.get('iban')!" [message]="'El IBAN es obligatorio'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('iban')!" [message]="'El IBAN no es válido'"
+            [error]="'ibanInvalid'"></app-error-message>
+        </div>
+
       </ion-card-content>
     </ion-card>
     <ion-buttons slot="end">

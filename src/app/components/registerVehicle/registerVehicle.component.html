@@ -18,14 +18,16 @@
     </ion-card-header>
     <form [formGroup]="registerForm" (submit)="registerSubmit()">
       <ion-card-content>
+
         <ion-item class="input-item">
           <ion-label position="floating">Matrícula</ion-label>
-          <ion-input placeholder="1234 ABC" formControlName="carModel" type="text" [autocapitalize]="true"></ion-input>
+          <ion-input formControlName="carModel" placeholder="1234 ABC" type="text" [autocapitalize]="true"></ion-input>
+          <div class="error-message"
+            *ngIf="registerForm.controls['carModel'].invalid && (registerForm.controls['carModel'].dirty || registerForm.controls['carModel'].touched)">
+            La matricula del vehiculo es obligatoria
+          </div>
         </ion-item>
-        <div class="error">
-          <app-error-message [field]="registerForm.get('carModel')"
-            [message]="'Debe introducir la matricula del vehiculo'" [error]="'required'"></app-error-message>
-        </div>
+
         <ion-item class="input-item">
           <ion-label position="floating">Color</ion-label>
           <ion-select formControlName="color">
@@ -40,39 +42,38 @@
             <ion-select-option value="negro">Negro</ion-select-option>
             <ion-select-option value="gris">Gris</ion-select-option>
           </ion-select>
+          <div class="error-message"
+            *ngIf="registerForm.controls['color'].invalid && (registerForm.controls['color'].dirty || registerForm.controls['color'].touched)">
+            El color es obligatorio
+          </div>
         </ion-item>
-        <div class="error">
-          <app-error-message [field]="registerForm.get('color')" [message]="'El color es obligatorio'"
-            [error]="'required'"></app-error-message>
-        </div>
+
         <ion-item class="input-item">
           <ion-label position="floating">Altura</ion-label>
-          <ion-input placeholder="En metros" formControlName="height" type="number" step="0.01"></ion-input>
+          <ion-input formControlName="height" placeholder="En metros" type="number" step="0.01"></ion-input>
+          <div class="error-message"
+            *ngIf="registerForm.controls['height'].invalid && (registerForm.controls['height'].dirty || registerForm.controls['height'].touched)">
+            La altura del coche es obligatoria y debe ser positiva
+          </div>
         </ion-item>
-        <div class="error">
-          <app-error-message [field]="registerForm.get('height')" [message]="'La altura del coche es obligatoria'"
-            [error]="'required'"></app-error-message>
-        </div>
+
         <ion-item class="input-item">
           <ion-label position="floating">Anchura</ion-label>
-          <ion-input placeholder="En metros" formControlName="width" type="number" step="0.01"></ion-input>
+          <ion-input formControlName="width" placeholder="En metros" type="number" step="0.01"></ion-input>
+          <div class="error-message"
+            *ngIf="registerForm.controls['width'].invalid && (registerForm.controls['width'].dirty || registerForm.controls['width'].touched)">
+            La anchura del coche es obligatoria y debe ser positiva
+          </div>
         </ion-item>
-        <div class="error">
-          <app-error-message [field]="registerForm.get('width')" [message]="'La anchura del coche es obligatoria'"
-            [error]="'required'"></app-error-message>
-        </div>
-        <ion-item>
-          <ion-label position="floating">Longitud</ion-label>
-          <ion-input placeholder="En metros" formControlName="length" type="number" step="0.01"></ion-input>
+
+        <ion-item class="input-item">
+          <ion-label position="floating">Largo</ion-label>
+          <ion-input formControlName="length" placeholder="En metros" type="number" step="0.01"></ion-input>
+          <div class="error-message"
+            *ngIf="registerForm.controls['length'].invalid && (registerForm.controls['length'].dirty || registerForm.controls['length'].touched)">
+            El largo del coche es obligatorio y debe ser positiva
+          </div>
         </ion-item>
-        <div class="error">
-          <app-error-message [field]="registerForm.get('length')" [message]="'El largo del coche es obligatorio'"
-            [error]="'required'"></app-error-message>
-        </div>
-        <div class="error">
-          <app-error-message [field]="registerForm.get('length')" [message]="'El largo no puede ser negativo'"
-            [error]="'min'"></app-error-message>
-        </div>
         <ion-button expand="full" type="submit" [disabled]="!registerForm.valid" shape="round" color="success">
           Registrar
         </ion-button>
