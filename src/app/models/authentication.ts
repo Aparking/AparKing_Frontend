@@ -22,6 +22,7 @@ export interface User {
   gender: Gender;
   phone: PhoneNumber;
   username: string;
+  iban: string;
 }
 
 export interface Vehicle {

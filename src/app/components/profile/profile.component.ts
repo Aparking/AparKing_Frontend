@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
         Validators.required,
         this.phoneNumberValidator(),
       ]),
+      iban: new FormControl('', [Validators.required, this.validateiban]),
     });
   }
 
@@ -71,6 +72,7 @@ export class ProfileComponent implements OnInit {
       birth_date: this.user.birth_date,
       countryCode: this.user.phone.substring(1, 3),
       phone: this.user.phone.substring(3),
+      iban: this.user.iban,
     });
   }
 
@@ -102,6 +104,15 @@ export class ProfileComponent implements OnInit {
     return null;
   }
 
+  validateiban(): ValidatorFn {
+    console.log('validateiban');
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const ibanPattern = /^[A-Z]{2}[0-9A-Z]{2,32}$/;
+      const isValid = ibanPattern.test(control.value);
+      return isValid ? null : { ibanInvalid: true };
+    };
+  }
+  
   private minimumAgeValidator(minimumAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (Validators.required(control)) {
@@ -129,6 +140,8 @@ export class ProfileComponent implements OnInit {
   }
 
   async saveChanges() {
+    console.log(this.userForm.value);
+    console.log(this.userForm.value.iban);
     const loading = await this.loadingCtrl.create({
       message: 'Actualizando perfil',
     });
