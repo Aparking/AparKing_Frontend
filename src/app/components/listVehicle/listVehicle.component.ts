@@ -12,6 +12,7 @@ import { DataManagementService } from 'src/app/service/data-management.service';
 export class listVehicleComponent implements OnInit {
     vehicle?: Vehicle[] | undefined;
     private vehicleSubscription: Subscription = new Subscription();
+    private vehicleUpdateSubscription: Subscription = new Subscription();
 
     constructor(
         private dataManagement: DataManagementService,
@@ -23,12 +24,18 @@ export class listVehicleComponent implements OnInit {
         this.vehicleSubscription = this.dataManagement.vehicleRegistered.subscribe(() => {
             this.getVehicles();
         });
+        this.vehicleUpdateSubscription = this.dataManagement.vehicleUpdated.subscribe(() => {
+            this.getVehicles();
+        });
 
     }
 
     ngOnDestroy() {
         if (this.vehicleSubscription) {
             this.vehicleSubscription.unsubscribe();
+        }
+        if (this.vehicleUpdateSubscription) {
+            this.vehicleUpdateSubscription.unsubscribe();
         }
     }
 
@@ -46,7 +53,6 @@ export class listVehicleComponent implements OnInit {
     async updateVehiculoPrincipal(vehicleId: number) {
         try {
             await this.dataManagement.updateVehiculoPrincipal(vehicleId);
-            window.location.reload();
         } catch (error) {
             console.error(error);
         }

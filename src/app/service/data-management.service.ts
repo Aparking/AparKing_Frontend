@@ -38,6 +38,7 @@ export class DataManagementService {
   public userId: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   vehicleRegistered = new Subject<void>();
+  vehicleUpdated = new Subject<void>();
 
   formCorreo!: FormGroup;
 
@@ -227,9 +228,12 @@ export class DataManagementService {
   async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
     return await this.rest
       .updateVehiculoPrincipal(vehicleId)
-      .then((data) => data)
-      .catch((err) => {
-        return err;
+      .then(async (data) => {
+        this.vehicleUpdated.next();
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
       });
   }
 }
