@@ -241,22 +241,22 @@ export class ProfileComponent implements OnInit {
   }
 
   async checkForActiveBookings(): Promise<boolean> {
-    const garages = await this.restService.getMyGarages();
-    const allBookings = await this.restService.getBookings();
-    var res = false;
-
-    for (const garage of garages) {
-      const availabilities = await this.restService.getAvailabilitiesByGarageId(garage.id);
-
-      for (const availability of availabilities) {
-        const activeBook = allBookings.find(booking => booking.availability === availability.id);
-        if (activeBook) {
-          res = true;
-          return res;
+    const garages = await this.restService.getMyGarages().then(g => g).catch(() => {return [];});
+    const allBookings = await this.restService.getAllBookings().then(b => b).catch(() => {return [];});
+    if (garages) {
+      for (const garage of garages) {
+        const availabilities = await this.restService.getAvailabilitiesByGarageId(garage.id);
+        for (const availability of availabilities) {
+          if (allBookings){
+            const activeBook = allBookings.find(booking => booking.availability === availability.id);
+            if (activeBook) {
+              return true;
+            }
+          }
         }
       }
     }
-    return res;
+    return false;
   }
 
   async goRegisterVehicle() {
