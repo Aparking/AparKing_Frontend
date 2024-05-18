@@ -166,6 +166,24 @@ export class ProfileComponent implements OnInit {
   }
 
   async deleteProfile() {
+    const hasActiveBookings = await this.checkForActiveBookings();
+    if (hasActiveBookings) {
+      const toast = await this.toastController.create({
+        message: 'No puedes eliminar tu perfil mientras tengas reservas en tu garaje.',
+        duration: 3000,
+        position: 'bottom',
+        color: 'danger',
+        buttons: [
+          {
+            text: 'Cerrar',
+            role: 'cancel',
+          },
+        ],
+      });
+      await toast.present();
+      return;
+    }
+
     const alert = await this.alertCtrl.create({
       header: 'Eliminar perfil',
       message: '¿Estás seguro de que deseas eliminar tu perfil?',
@@ -220,6 +238,25 @@ export class ProfileComponent implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  async checkForActiveBookings(): Promise<boolean> {
+    const garages = await this.restService.getMyGarages();
+    const allBookings = await this.restService.getBookings();
+    var res = false;
+
+    for (const garage of garages) {
+      const availabilities = await this.restService.getAvailabilitiesByGarageId(garage.id);
+
+      for (const availability of availabilities) {
+        const activeBook = allBookings.find(booking => booking.availability === availability.id);
+        if (activeBook) {
+          res = true;
+          return res;
+        }
+      }
+    }
+    return res;
   }
 
   async goRegisterVehicle() {
