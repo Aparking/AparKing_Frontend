@@ -12,6 +12,8 @@ import { environment } from 'src/environments/environment';
 import { GarageBookListComponent } from '../garage-book-list/garage-book-list.component';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
 import { MyGaragesComponent } from '../my-garages/my-garages.component';
+import { isEmpty, onErrorResumeNext } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -96,6 +98,7 @@ export class GarageListComponent implements OnInit {
     return this._filterMyGarages;
   }
   set filterMyGarages(value: boolean) {
+
     this._filterMyGarages = value;
     this.filteredGarages = this.filterGarages(
       this.filterTitle,
@@ -128,13 +131,11 @@ export class GarageListComponent implements OnInit {
     private garageStateService: GarageStateService,
     private dataManagementService: DataManagementService,
     private alertController: AlertController
-  ) {}
-
+  ) { }
+ 
   ngOnInit() {
-    this.restService.getMyGarages().then(garages => {
-      this.currentUserGarages = garages.map(garage => garage.id);
-    });
-
+    this.currentUserGarages = [];  
+  
     this.garageStateService.garages$.subscribe((garages) => {
       this.garages = garages.map((garage) => {
         return {
@@ -147,14 +148,23 @@ export class GarageListComponent implements OnInit {
           dimensionsText: `${garage.width * garage.height * garage.length} m³`,
           dimensionsNumber: garage.width * garage.height * garage.length,
           mygarage: this.currentUserGarages.includes(garage.id),
+          
         };
       });
+      this.restService.getMyGarages().then(garages => {
+        this.currentUserGarages = garages.map(garage => garage.id);
+         this.garageStateService.refreshGarages();
+         this.hasGarages();
+      }).catch(async error => {});
+  
       this.filteredGarages = this.garages;
+      
     });
-
     this.garageStateService.refreshGarages();
     this.loadGaragesImages();
+    this.hasGarages();
   }
+
 
   async loadGaragesImages() {
     const garageImagePromise = this.garages.map(async (garage) => {
@@ -189,6 +199,17 @@ export class GarageListComponent implements OnInit {
         (!city || garage.city.toLowerCase().includes(city.toLowerCase())) &&
         (!My_garages || this.currentUserGarages.includes(garage.id))
     );
+  }
+  
+
+  hasGarages(): boolean {
+    if (this.currentUserGarages === undefined) {
+      return false;    
+    }
+    if (this.currentUserGarages.length > 0) {
+      return true;
+    }
+    return false; 
   }
 
   // MODALS AND OTHER COMPONENTS

@@ -4,14 +4,14 @@
     <ion-button (click)="openBookListModal()" color="success" shape="round" size="small">Mis reservas
     </ion-button>
 
-    <!-- <ion-button
+     <ion-button
     (click)="openMyGaragesModal()"
     color="orange"
     shape="round"
     size="small"
     >Mis Garajes
-  </ion-button>-->
-
+  </ion-button> 
+  
   </ion-buttons>
 
 
@@ -19,7 +19,8 @@
     <ion-card-content>
       <ion-item>
         <ion-label>Mis Garajes</ion-label>
-        <ion-checkbox slot="start" [(ngModel)]="filterMyGarages"></ion-checkbox>
+       
+        <ion-checkbox [disabled]="!hasGarages()" slot="start" [(ngModel)]="filterMyGarages"></ion-checkbox>
       </ion-item>
 
       <ion-item>
