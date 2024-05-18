@@ -16,7 +16,7 @@
         Fecha y hora a la que quedará libre la plaza: {{ item[0].cesion_parking | date: 'yyyy-MM-dd/HH:mm:ss' }}
         <br>
         Matrícula coche a la que se cede: {{item[1].carModel}} <br>
-        <a
+        <a target="_blank"
           href="https://www.google.com/maps?q={{ parseLocation(item[0].location)?.latitude }},{{ parseLocation(item[0].location)?.longitude }}">Ir
           a la plaza</a><br>
         <ion-card-content>
