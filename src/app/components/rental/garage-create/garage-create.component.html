@@ -44,6 +44,22 @@
                     formControlName="name"
                   ></ion-input>
                 </ion-item>
+                <div class="error-conatiner">
+                  <app-error-message
+                    [field]="garageForm.get('name')!"
+                    [message]="'No debe estar vacío'"
+                    [error]="'required'"
+                  ></app-error-message>
+                  <div
+                    class="error-conatiner"
+                    *ngIf="
+                      garageForm.get('name')?.invalid &&
+                      garageForm.get('name')?.touched
+                    "
+                  >
+                    <p style="color: red">Invalido</p>
+                  </div>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -52,6 +68,15 @@
                     formControlName="description"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('description')?.invalid &&
+                    garageForm.get('description')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -60,6 +85,15 @@
                     formControlName="height"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('height')?.invalid &&
+                    garageForm.get('height')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -68,6 +102,15 @@
                     formControlName="width"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('width')?.invalid &&
+                    garageForm.get('width')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -76,6 +119,15 @@
                     formControlName="length"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('length')?.invalid &&
+                    garageForm.get('length')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -84,6 +136,15 @@
                     formControlName="price"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('price')?.invalid &&
+                    garageForm.get('price')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-checkbox formControlName="is_active"
@@ -102,6 +163,22 @@
                     formControlName="unit_number"
                   ></ion-input>
                 </ion-item>
+                <div class="error-conatiner">
+                  <app-error-message
+                    [field]="garageForm.get('address')?.get('unit_number')!"
+                    [message]="'No debe estar vacío'"
+                    [error]="'required'"
+                  ></app-error-message>
+                </div>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('address')?.get('unit_number')?.invalid &&
+                    garageForm.get('address')?.get('unit_number')?.touched
+                  "
+                >
+                  <p style="color: red">Debe ser un número positivo</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -110,6 +187,22 @@
                     formControlName="street_number"
                   ></ion-input>
                 </ion-item>
+                <div class="error-conatiner">
+                  <app-error-message
+                    [field]="garageForm.get('address')?.get('street_number')!"
+                    [message]="'No debe estar vacío'"
+                    [error]="'required'"
+                  ></app-error-message>
+                </div>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('address')?.get('street_number')?.invalid &&
+                    garageForm.get('address')?.get('street_number')?.touched
+                  "
+                >
+                  <p style="color: red">Debe ser un número positivo</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -118,6 +211,15 @@
                     formControlName="address_line"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('address')?.get('address_line')?.invalid &&
+                    garageForm.get('address')?.get('address_line')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -126,6 +228,15 @@
                     formControlName="city"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('address')?.get('city')?.invalid &&
+                    garageForm.get('address')?.get('city')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-input
@@ -134,6 +245,15 @@
                     formControlName="region"
                   ></ion-input>
                 </ion-item>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('address')?.get('region')?.invalid &&
+                    garageForm.get('address')?.get('region')?.touched
+                  "
+                >
+                  <p style="color: red">Invalido</p>
+                </div>
 
                 <ion-item class="borde-interior">
                   <ion-select label="País" formControlName="country">
@@ -151,6 +271,22 @@
                     formControlName="postal_code"
                   ></ion-input>
                 </ion-item>
+                <div class="error-conatiner">
+                  <app-error-message
+                    [field]="garageForm.get('address')?.get('postal_code')!"
+                    [message]="'No debe estar vacío'"
+                    [error]="'required'"
+                  ></app-error-message>
+                </div>
+                <div
+                  class="error-conatiner"
+                  *ngIf="
+                    garageForm.get('address')?.get('postal_code')?.invalid &&
+                    garageForm.get('address')?.get('postal_code')?.touched
+                  "
+                >
+                  <p style="color: red">Debe ser un número positivo</p>
+                </div>
               </ion-list>
             </ion-card>
 
@@ -182,9 +318,13 @@
               </ion-card>
             </form>
 
-            <button class="boton-crear" expand="full" type="submit">
-              Publicar Garaje
-            </button>
+            <ion-button
+              expand="full"
+              type="submit"
+              [disabled]="!garageForm.valid"
+              shape="round"
+              >Publicar Garaje</ion-button
+            >
           </form>
         </ion-col>
       </ion-row>
