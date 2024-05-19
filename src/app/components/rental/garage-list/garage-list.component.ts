@@ -37,14 +37,7 @@ export class GarageListComponent implements OnInit {
   }
   set filterTitle(value: string) {
     this._filterTitle = value;
-    this.filteredGarages = this.filterGarages(
-      value,
-      this.filterPriceMin,
-      this.filterPriceMax,
-      this.filterDimensionMin,
-      this.filterCity,
-      this.filterMyGarages
-    );
+    this.applyFilters();
   }
 
   get filterPriceMin() {
@@ -52,14 +45,7 @@ export class GarageListComponent implements OnInit {
   }
   set filterPriceMin(value: number) {
     this._filterPriceMin = value;
-    this.filteredGarages = this.filterGarages(
-      this.filterTitle,
-      value,
-      this.filterPriceMax,
-      this.filterDimensionMin,
-      this.filterCity,
-      this.filterMyGarages
-    );
+    this.applyFilters();
   }
 
   get filterPriceMax() {
@@ -67,45 +53,23 @@ export class GarageListComponent implements OnInit {
   }
   set filterPriceMax(value: number) {
     this._filterPriceMax = value;
-    this.filteredGarages = this.filterGarages(
-      this.filterTitle,
-      this.filterPriceMin,
-      value,
-      this.filterDimensionMin,
-      this.filterCity,
-      this.filterMyGarages
-    );
+    this.applyFilters();
   }
 
   get filterDimensionMin() {
     return this._filterDimensionMin;
   }
-
   set filterDimensionMin(value: number) {
     this._filterDimensionMin = value;
-    this.filteredGarages = this.filterGarages(
-      this.filterTitle,
-      this.filterPriceMin,
-      this.filterPriceMax,
-      value,
-      this.filterCity
-    );
+    this.applyFilters();
   }
 
   get filterMyGarages() {
     return this._filterMyGarages;
   }
   set filterMyGarages(value: boolean) {
-
     this._filterMyGarages = value;
-    this.filteredGarages = this.filterGarages(
-      this.filterTitle,
-      this.filterPriceMin,
-      this.filterPriceMax,
-      this.filterDimensionMin,
-      this.filterCity,
-      value
-    );
+    this.applyFilters();
   }
 
   get filterCity() {
@@ -113,13 +77,7 @@ export class GarageListComponent implements OnInit {
   }
   set filterCity(value: string) {
     this._filterCity = value;
-    this.filteredGarages = this.filterGarages(
-      this.filterTitle,
-      this.filterPriceMin,
-      this.filterPriceMax,
-      this.filterDimensionMin,
-      value
-    );
+    this.applyFilters();
   }
 
   constructor(
@@ -134,38 +92,34 @@ export class GarageListComponent implements OnInit {
   ngOnInit() {
     this.currentUserGarages = [];
 
-    // Cargar garajes del usuario actual antes de suscribirse al observable
-    this.restService.getMyGarages().then(garages => {
-      this.currentUserGarages = garages.map(garage => garage.id);
-
-      // Suscribirse al observable garages$ después de cargar los garajes del usuario
-      this.garageStateService.garages$.subscribe((garages) => {
-        this.garages = garages.map((garage) => {
-          return {
-            id: garage.id,
-            title: garage.name,
-            description: garage.description,
-            address: `${garage.address.street_number}, ${garage.address.address_line}, ${garage.address.city}`,
-            city: garage.address.city,
-            price: garage.price,
-            dimensionsText: `${garage.width * garage.height * garage.length} m³`,
-            dimensionsNumber: garage.width * garage.height * garage.length,
-            mygarage: this.currentUserGarages.includes(garage.id),
-          };
-        });
-
-        this.filteredGarages = this.garages;
-        this.hasGarages();
+    this.garageStateService.garages$.subscribe((garages) => {
+      this.garages = garages.map((garage) => {
+        return {
+          id: garage.id,
+          title: garage.name,
+          description: garage.description,
+          address: `${garage.address.street_number}, ${garage.address.address_line}, ${garage.address.city}`,
+          city: garage.address.city,
+          price: garage.price,
+          dimensionsText: `${garage.width * garage.height * garage.length} m³`,
+          dimensionsNumber: garage.width * garage.height * garage.length,
+          mygarage: this.currentUserGarages.includes(garage.id),
+        };
       });
 
-      this.garageStateService.refreshGarages();
-    }).catch(async error => {
+      this.filteredGarages = this.garages;
 
     });
-
+    this.restService.getMyGarages().then(garages => {
+      this.currentUserGarages = garages.map(garage => garage.id);
+      console.log("hola")
+      this.garageStateService.refreshGarages();
+      this.hasGarages();
+    }).catch(async error => { });
+    this.garageStateService.refreshGarages();
     this.loadGaragesImages();
+    this.hasGarages();
   }
-
 
   async loadGaragesImages() {
     const garageImagePromise = this.garages.map(async (garage) => {
@@ -183,13 +137,24 @@ export class GarageListComponent implements OnInit {
     await Promise.all(garageImagePromise);
   }
 
+  applyFilters() {
+    this.filteredGarages = this.filterGarages(
+      this.filterTitle,
+      this.filterPriceMin,
+      this.filterPriceMax,
+      this.filterDimensionMin,
+      this.filterCity,
+      this.filterMyGarages
+    );
+  }
+
   filterGarages(
     title: string,
     priceMin: number = 0,
     priceMax: number = 0,
     dimensionMin: number = 0,
     city: string = '',
-    My_garages: boolean = false
+    myGarages: boolean = false
   ) {
     return this.garages.filter(
       (garage) =>
@@ -198,19 +163,12 @@ export class GarageListComponent implements OnInit {
         (!priceMax || Number(garage.price) <= priceMax) &&
         (!dimensionMin || garage.dimensionsNumber >= dimensionMin) &&
         (!city || garage.city.toLowerCase().includes(city.toLowerCase())) &&
-        (!My_garages || this.currentUserGarages.includes(garage.id))
+        (!myGarages || this.currentUserGarages.includes(garage.id))
     );
   }
 
-
   hasGarages(): boolean {
-    if (this.currentUserGarages === undefined) {
-      return false;
-    }
-    if (this.currentUserGarages.length > 0) {
-      return true;
-    }
-    return false;
+    return this.currentUserGarages && this.currentUserGarages.length > 0;
   }
 
   // MODALS AND OTHER COMPONENTS
@@ -221,7 +179,6 @@ export class GarageListComponent implements OnInit {
     });
     return await modal.present();
   }
-
 
   async openMyGarageDetailModal(garage: any) {
     const modal = await this.modalCtrl.create({
