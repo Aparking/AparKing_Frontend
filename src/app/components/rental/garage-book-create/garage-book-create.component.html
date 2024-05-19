@@ -6,7 +6,7 @@
     <ion-title>| Formulario de reserva</ion-title>
     <ion-title>| Total: {{totalPrice}}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirmBooking()" [strong]="true">Confirmar</ion-button>
+      <ion-button (click)="confirmBooking()" [strong]="true"">Confirmar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -80,6 +80,14 @@
                 {{ availability.end_date | date : "yyyy-MM-dd" }}
               </ion-select-option>
             </ion-select>
+          </ion-item>
+          <ion-item class="borde-interior">
+            <ion-label>Fecha de inicio</ion-label>
+            <ion-input type="date" formControlName="start_date"></ion-input>
+          </ion-item>
+          <ion-item class="borde-interior">
+            <ion-label>Fecha de fin</ion-label>
+            <ion-input type="date" formControlName="end_date"></ion-input>
           </ion-item>
         </form>
       </ion-item-group>
