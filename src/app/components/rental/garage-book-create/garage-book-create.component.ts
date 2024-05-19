@@ -32,8 +32,6 @@ export class GarageBookCreateComponent implements OnInit {
   apiPath = '';
   path = this.serverUrl + this.apiPath;
   totalPrice = 0;
-  minStartDate: any;
-  maxEndDate: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -52,8 +50,6 @@ export class GarageBookCreateComponent implements OnInit {
       status: new FormControl(BookingStatus.CONFIRMED, Validators.required),
       user: new FormControl(null, Validators.required),
       availability: new FormControl(1, Validators.required),
-      start_date: new FormControl(Date(), Validators.required),
-      end_date: new FormControl(Date(), Validators.required)
     });
   }
 
@@ -66,6 +62,14 @@ export class GarageBookCreateComponent implements OnInit {
         });
         if (this.availabilities.length === 0) {
           this.cancel();
+        } else {
+          // Agregar un observador al campo de disponibilidad
+          this.bookForm.get('availability')!.valueChanges.subscribe(selectedAvailability => {
+            const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability);
+            if (selectedAvailabilityIndex !== -1) {
+              this.calculateTotalPrice(selectedAvailabilityIndex);
+            }
+          });
         }
       })
       .catch((_) => {
@@ -96,7 +100,7 @@ export class GarageBookCreateComponent implements OnInit {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  async confirmBooking() {
+  async confirm() {
     const toast = await this.toastController.create({
       duration: 2000,
       position: 'bottom',
@@ -114,8 +118,45 @@ export class GarageBookCreateComponent implements OnInit {
       const selectedAvailability = this.bookForm.value.availability; // Obtener la disponibilidad seleccionada
       const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability); // Obtener el índice de la disponibilidad seleccionada
       if (selectedAvailabilityIndex !== -1) {
-        console.log(this.bookForm.value.start_date, this.bookForm.value.end_date);
-        const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex, this.bookForm.value.start_date, this.bookForm.value.end_date); // Calcular el precio total
+        const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex); // Calcular el precio total
+        const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.paymentMethod);
+        const translatedStatus = this.translateBookingStatus(this.bookForm.value.status);
+        const bookingData = {
+          ...this.bookForm.value,
+          payment_method: translatedPaymentMethod,
+          status: translatedStatus,
+          total_price: totalPrice, // Agregar el precio total al objeto de reserva
+          url: this.path,
+        };
+
+        // Resto del código para crear la reserva...
+
+      } else {
+        this.showAlert('La disponibilidad seleccionada no es válida.');
+      }
+    }
+  }
+
+  async confirmBooking() {
+    console.log(String(this.bookForm.value.paymentMethod)); // Añade esta línea
+    const toast = await this.toastController.create({
+      duration: 2000,
+      position: 'bottom',
+      color: 'dark',
+      buttons: [
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    this.bookForm.patchValue({ user: this.user.id });
+    if (this.bookForm.valid) {
+      const selectedAvailability = this.bookForm.value.availability; // Obtener la disponibilidad seleccionada
+      const selectedAvailabilityIndex = this.availabilities.findIndex(avail => avail.id === selectedAvailability); // Obtener el índice de la disponibilidad seleccionada
+      if (selectedAvailabilityIndex !== -1) {
+        const totalPrice = this.calculateTotalPrice(selectedAvailabilityIndex); // Calcular el precio total
         const translatedPaymentMethod = this.translatePaymentMethod(this.bookForm.value.payment_method);
         const translatedStatus = this.translateBookingStatus(this.bookForm.value.status);
         const bookingData = {
@@ -124,8 +165,6 @@ export class GarageBookCreateComponent implements OnInit {
           status: translatedStatus,
           total_price: totalPrice, // Agregar el precio total al objeto de reserva
           url: this.path,
-          start_date: this.bookForm.value.start_date,
-          end_date: this.bookForm.value.end_date
         };
 
         if (this.bookForm.value.payment_method === 'CARD') {
@@ -166,6 +205,7 @@ export class GarageBookCreateComponent implements OnInit {
   }
 
   translatePaymentMethod(paymentMethod: string): string {
+    console.log(paymentMethod); // Añade esta línea
     switch (paymentMethod) {
       case 'CASH':
         return 'CASH';
@@ -189,40 +229,30 @@ export class GarageBookCreateComponent implements OnInit {
     }
   }
 
-  calculateBookingDuration(availability: any, start_date: any, end_date: any): any {
-    const start = new Date(start_date);
-    const end = new Date(end_date);
-    this.maxEndDate = new Date(availability.end_date);
-    this.minStartDate = new Date(availability.start_date);
-    console.log(this.maxEndDate, this.minStartDate);
-    console.log(start < this.minStartDate || end > this.maxEndDate);
-    if (start.getTime() >= end.getTime()) {
-      this.showAlert('Start date must be before end date');
-      return this.modalCtrl.dismiss(null, 'cancel');
-    }
+  calculateBookingDuration(availability: any): number {
+    const start = new Date(availability.start_date);
+    const end = new Date(availability.end_date);
+    console.log('Start date:', start);
+    console.log('End date:', end);
+    console.log('AAAA', availability);
 
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-      this.showAlert('Invalid start or end date');
-      return this.modalCtrl.dismiss(null, 'cancel');
+      console.error('Invalid start or end date:', availability.start, availability.end);
+      return 0;  // Retorna 0 o algún otro valor predeterminado
     }
 
-    if (start.getTime() < this.minStartDate.getTime() || end.getTime() > this.maxEndDate.getTime()) {
-      this.showAlert('Las fechas elegidas no están dentro de la disponibilidad del garaje.');
-      return this.modalCtrl.dismiss(null, 'cancel');
-    } else {
-      return Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-    }
+    return Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   }
-  calculateTotalPrice(selectedAvailabilityIndex: number, start_date: any, end_date: any): number {
+  calculateTotalPrice(selectedAvailabilityIndex: number): number {
     const selectedAvailability = this.availabilities[selectedAvailabilityIndex];
 
     if (!selectedAvailability) {
       console.log('No availability selected.');
-      return 0;  // Retorna 0 o algún otro valor predeterminado
+      return 1;  // Retorna 0 o algún otro valor predeterminado
     }
 
-    const duration = this.calculateBookingDuration(selectedAvailability, start_date, end_date);
-    const pricePerDay = this.currentGarage.price || 0;  // Si this.currentGarage.price es undefined o null, usa 0
+    const duration = this.calculateBookingDuration(selectedAvailability);
+    const pricePerDay = this.currentGarage.price || 2;  // Si this.currentGarage.price es undefined o null, usa 0
     this.totalPrice = duration * pricePerDay;
     console.log('Selected availability:', selectedAvailability);
     console.log('Duration:', duration);
