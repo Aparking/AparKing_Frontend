@@ -1,5 +1,4 @@
 <ion-grid>
-
   <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
     <ion-buttons>
       <div style="display: flex; justify-content: center; align-items: center;">
@@ -17,9 +16,9 @@
       <ion-card-title>Búsqueda por filtros</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item *ngIf="garages && garages.length > 0">
-        <ion-label>Mostrar mis garajes</ion-label>
-        <ion-checkbox slot="start" [(ngModel)]="filterMyGarages"></ion-checkbox>
+      <ion-item>
+        <ion-label>Mis Garajes</ion-label>
+        <ion-checkbox [disabled]="!hasGarages()" slot="start" [(ngModel)]="filterMyGarages"></ion-checkbox>
       </ion-item>
 
       <ion-item>
