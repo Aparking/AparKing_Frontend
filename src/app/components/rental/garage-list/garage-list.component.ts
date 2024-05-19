@@ -147,8 +147,7 @@ export class GarageListComponent implements OnInit {
           price: garage.price,
           dimensionsText: `${garage.width * garage.height * garage.length} m³`,
           dimensionsNumber: garage.width * garage.height * garage.length,
-          mygarage: this.currentUserGarages.includes(garage.id),
-          
+          mygarage: this.currentUserGarages.includes(garage.id),        
         };
       });
       this.restService.getMyGarages().then(garages => {

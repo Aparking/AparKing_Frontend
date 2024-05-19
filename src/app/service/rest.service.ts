@@ -123,6 +123,9 @@ export class RestService extends WsAbstractService {
   async getBookings(): Promise<Book[]> {
     return await this.makeGetRequest(`${this.path}/bookings/`);
   }
+  async getAllBookings(): Promise<Book[]> {
+    return await this.makeGetRequest(`${this.path}/bookings/all/`);
+  }
   async getBookingById(id: string): Promise<Book> {
     return await this.makeGetRequest(`${this.path}/bookings/${id}/`);
   }
