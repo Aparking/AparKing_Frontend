@@ -162,7 +162,7 @@ export class GarageDetailComponent implements OnInit {
       .getAvailabilitiesByGarageId(this.garageId)
       .then((availabilities) => {
         availabilityExist = availabilities.some(
-          (availability) => availability.status === 'AVAILABLE'
+          (availability) => availability.status === "AVAILABLE" || availability.status === "Disponible"
         );
         if (availabilityExist) {
           this.createBookingModal();

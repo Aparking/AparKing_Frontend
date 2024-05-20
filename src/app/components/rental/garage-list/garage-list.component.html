@@ -1,15 +1,20 @@
 <ion-grid>
-  <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-    <ion-buttons>
-      <div style="display: flex; justify-content: center; align-items: center;">
-        <ion-button style="background-color: red; color: white; border-radius: 10px;" shape="round" size="small"
-          (click)="navigateToCreateGarage()">Añadir Garaje</ion-button>
-        <ion-button style="background-color: green; color: white; border-radius: 10px;" (click)="openBookListModal()"
-          shape="round" size="small">Mis reservas
-        </ion-button>
-      </div>
-    </ion-buttons>
-  </div>
+  <ion-buttons>
+    <ion-button
+      color="danger"
+      shape="round"
+      size="small"
+      (click)="navigateToCreateGarage()"
+      >Añadir Garaje</ion-button
+    >
+    <ion-button
+      (click)="openBookListModal()"
+      color="success"
+      shape="round"
+      size="small"
+      >Mis reservas
+    </ion-button>
+  </ion-buttons>
 
   <ion-card>
     <ion-card-header>
@@ -18,32 +23,68 @@
     <ion-card-content>
       <ion-item>
         <ion-label>Mis Garajes</ion-label>
-        <ion-checkbox [disabled]="!hasGarages()" [(ngModel)]="filterMyGarages"></ion-checkbox>
+
+        <ion-checkbox
+          [disabled]="!hasGarages()"
+          slot="start"
+          [(ngModel)]="filterMyGarages"
+        ></ion-checkbox>
       </ion-item>
 
       <ion-item>
-        <ion-input type="text" label="Nombre" [clearInput]="true" [counter]="true" maxlength="70"
-          placeholder="Introduce el nombre" [(ngModel)]="filterTitle"></ion-input>
+        <ion-input
+          type="text"
+          label="Nombre"
+          [clearInput]="true"
+          [counter]="true"
+          maxlength="70"
+          placeholder="Introduce un nombre de garaje"
+          [(ngModel)]="filterTitle"
+        ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Precio mínimo" placeholder="0,00€" [clearInput]="true"
-          [(ngModel)]="filterPriceMin"></ion-input>
+        <ion-input
+          type="number"
+          label="Precio mínimo"
+          placeholder="0.00€"
+          [clearInput]="true"
+          [(ngModel)]="filterPriceMin"
+        ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Precio máximo" placeholder="783,75€" [clearInput]="true"
-          [(ngModel)]="filterPriceMax"></ion-input>
+        <ion-input
+          type="number"
+          label="Precio máximo"
+          placeholder="783.75€"
+          [clearInput]="true"
+          [(ngModel)]="filterPriceMax"
+        ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Dimensión mínima" min="0.00" max="9999.99" placeholder="3,00"
-          [clearInput]="true" [(ngModel)]="filterDimensionMin"></ion-input>
+        <ion-input
+          type="number"
+          label="Dimensión mínima"
+          min="0.00"
+          max="9999.99"
+          placeholder="3.00"
+          [clearInput]="true"
+          [(ngModel)]="filterDimensionMin"
+        ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="text" label="Ciudad" [clearInput]="true" [counter]="true" maxlength="50"
-          placeholder="Introduce una ciudad" [(ngModel)]="filterCity"></ion-input>
+        <ion-input
+          type="text"
+          label="Ciudad"
+          [clearInput]="true"
+          [counter]="true"
+          maxlength="50"
+          placeholder="Introduce una ciudad"
+          [(ngModel)]="filterCity"
+        ></ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -62,25 +103,37 @@
     </ion-card>
   </ion-row>
   <ion-row *ngIf="garages.length >= 1">
-    <ion-card *ngFor="let garage of filteredGarages" [routerLink]="[garage.id]" style="width: 100%">
-      <ion-img [src]="garage.image"></ion-img>
+    @for (garage of filteredGarages; track $index) {
+    <ion-card
+      *ngIf="filterMyGarages ? garage.mygarage : true"
+      [routerLink]="[garage.id]"
+      style="width: 100%"
+    >
       <ion-card-header>
+        <ion-card-image>
+          <ion-img [src]="garage.image"></ion-img>
+        </ion-card-image>
         <ion-card-title>{{ garage.title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <div class="atributo">
-          <p style="font-weight: bold;">Descripción:</p> {{ garage.description }}
+          <p style="font-weight: bold">Descripción:</p>
+          {{ garage.description }}
         </div>
         <div class="atributo">
-          <p style="font-weight: bold;">Dirección:</p> {{ garage.address }}
+          <p style="font-weight: bold">Dirección:</p>
+          {{ garage.address }}
         </div>
         <div class="atributo">
-          <p style="font-weight: bold;">Precio:</p> {{ garage.price.replace('.', ',') }} €
+          <p style="font-weight: bold">Precio:</p>
+          {{ garage.price.replace(".", ",") }} €
         </div>
         <div class="atributo">
-          <p style="font-weight: bold;">Dimensiones:</p>{{ garage.dimensionsText.replace('.', ',') }}
+          <p style="font-weight: bold">Dimensiones:</p>
+          {{ garage.dimensionsText?.replace(".", ",") }}
         </div>
       </ion-card-content>
     </ion-card>
+    }
   </ion-row>
 </ion-grid>

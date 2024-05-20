@@ -35,13 +35,22 @@ export class GarageCreateComponent implements OnInit {
   ) {
     this.garageForm = this.formGargeBuilder.group({
       address: this.formGargeBuilder.group({
-        unit_number: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
-        street_number: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        unit_number: [
+          null,
+          [Validators.required, Validators.pattern('^[0-9]*$')],
+        ],
+        street_number: [
+          null,
+          [Validators.required, Validators.pattern('^[0-9]*$')],
+        ],
         address_line: [null, Validators.required],
         city: [null, Validators.required],
         region: [null, Validators.required],
         country: [null],
-        postal_code: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        postal_code: [
+          null,
+          [Validators.required, Validators.pattern('^[0-9]*$')],
+        ],
       }),
       name: [null, Validators.required],
       description: [null, Validators.required],
@@ -100,7 +109,6 @@ export class GarageCreateComponent implements OnInit {
         this.currentGarage = garage;
         this.garageForm.setValue({
           address: {
-            unit_number: garage.address.unit_number,
             street_number: garage.address.street_number,
             address_line: garage.address.address_line,
             city: garage.address.city,
@@ -146,7 +154,10 @@ export class GarageCreateComponent implements OnInit {
       const formData = new FormData();
       formData.append('garage', this.garageId);
       formData.append('image', this.selectedFile, this.selectedFile.name);
-      formData.append('alt', this.imageForm.get('image')?.get('alt')?.value);
+      const altText = this.imageForm.get('image')?.get('alt')?.value;
+      if (altText) {
+        formData.append('alt', altText ? altText : 'imagen de garaje');
+      }
 
       this.restService.getCreateImage(formData).then(async (_) => {
         toast.message = `Imagen subida correctamente.`;
@@ -173,7 +184,7 @@ export class GarageCreateComponent implements OnInit {
     });
 
     this.garageForm.patchValue({ owner: this.user.id });
-    if (this.garageForm.valid) {
+    if (this.garageForm.valid && this.imageForm.valid) {
       if (this.garageId) {
         this.restService
           .updateGarage(this.garageId, this.garageForm.value)

@@ -12,8 +12,8 @@ export class GarageStateService {
 
   constructor(private restService: RestService) {}
 
-  loadGarages() {
-    this.restService.getAllGarages().then(
+  loadGarages(): Promise<void> {
+    return this.restService.getAllGarages().then(
       (garages: Garage[]) => {
         this.garagesSource.next(garages);
       },
