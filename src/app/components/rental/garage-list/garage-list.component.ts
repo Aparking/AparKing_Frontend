@@ -11,7 +11,6 @@ import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
 import { GarageBookListComponent } from '../garage-book-list/garage-book-list.component';
 import { GarageDetailComponent } from '../garage-detail/garage-detail.component';
-import { MyGaragesComponent } from '../my-garages/my-garages.component';
 
 @Component({
   selector: 'app-garage-list',
@@ -91,7 +90,7 @@ export class GarageListComponent implements OnInit {
   ngOnInit() {
     this.currentUserGarages = [];
 
-    this.garageStateService.garages$.subscribe((garages) => {
+    this.garageStateService.garages$.subscribe(async (garages) => {
       this.garages = garages.map((garage) => {
         return {
           id: garage.id,
@@ -103,47 +102,37 @@ export class GarageListComponent implements OnInit {
           dimensionsText: `${garage.width * garage.height * garage.length} m³`,
           dimensionsNumber: garage.width * garage.height * garage.length,
           mygarage: this.currentUserGarages.includes(garage.id),
+          image: garage.image
+            ? garage.image
+            : 'https://ionicframework.com/docs/img/demos/card-media.png',
         };
       });
-      this.restService
-        .getMyGarages()
-        .then((garages) => {
-          this.currentUserGarages = garages.map((garage) => garage.id);
-          this.garageStateService.refreshGarages();
-          this.hasGarages();
-        })
-        .catch(async (error) => {});
 
+      await this.loadGaragesImages();
       this.filteredGarages = this.garages;
     });
     this.restService
       .getMyGarages()
-      .then((garages) => {
+      .then(async (garages) => {
         this.currentUserGarages = garages.map((garage) => garage.id);
-        console.log('hola');
-        this.garageStateService.refreshGarages();
-        this.hasGarages();
+        await this.garageStateService.refreshGarages();
+        this.garages = garages;
+        // this.filteredGarages = garages;
+        console.dir(this.filteredGarages);
       })
       .catch(async (error) => {});
-    this.garageStateService.refreshGarages();
-    this.loadGaragesImages();
-    this.hasGarages();
   }
 
   async loadGaragesImages() {
-    const garageImagePromise = this.garages.map(async (garage) => {
-      return await this.restService
-        .getImagesByGarageId(garage.id)
-        .then((images) => {
-          garage.image = `${environment.restUrl}${images[0].image}`;
-        })
-        .catch((_) => {
-          garage.image =
-            'https://ionicframework.com/docs/img/demos/card-media.png';
-        });
+    this.garages.map(async (garage) => {
+      const images = await this.restService.getImagesByGarageId(garage.id);
+      if (images) {
+        garage.image = `${environment.restUrl}${images[0].image}`;
+      } else {
+        garage.image =
+          'https://ionicframework.com/docs/img/demos/card-media.png';
+      }
     });
-
-    await Promise.all(garageImagePromise);
   }
 
   applyFilters() {
@@ -201,13 +190,6 @@ export class GarageListComponent implements OnInit {
       componentProps: {
         garage: garage,
       },
-    });
-    return await modal.present();
-  }
-
-  async openMyGaragesModal() {
-    const modal = await this.modalCtrl.create({
-      component: MyGaragesComponent,
     });
     return await modal.present();
   }

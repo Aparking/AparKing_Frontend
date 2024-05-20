@@ -14,14 +14,6 @@
       size="small"
       >Mis reservas
     </ion-button>
-
-    <ion-button
-      (click)="openMyGaragesModal()"
-      color="orange"
-      shape="round"
-      size="small"
-      >Mis Garajes
-    </ion-button>
   </ion-buttons>
 
   <ion-card>
@@ -111,13 +103,16 @@
     </ion-card>
   </ion-row>
   <ion-row *ngIf="garages.length >= 1">
+    @for (garage of filteredGarages; track $index) {
     <ion-card
-      *ngFor="let garage of filteredGarages"
+      *ngIf="filterMyGarages ? garage.mygarage : true"
       [routerLink]="[garage.id]"
       style="width: 100%"
     >
-      <ion-img [src]="garage.image"></ion-img>
       <ion-card-header>
+        <ion-card-image>
+          <ion-img [src]="garage.image"></ion-img>
+        </ion-card-image>
         <ion-card-title>{{ garage.title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -135,9 +130,10 @@
         </div>
         <div class="atributo">
           <p style="font-weight: bold">Dimensiones:</p>
-          {{ garage.dimensionsText.replace(".", ",") }}
+          {{ garage.dimensionsText?.replace(".", ",") }}
         </div>
       </ion-card-content>
     </ion-card>
+    }
   </ion-row>
 </ion-grid>
