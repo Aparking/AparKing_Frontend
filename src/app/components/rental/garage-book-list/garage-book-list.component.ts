@@ -12,14 +12,14 @@ import { RestService } from 'src/app/service/rest.service';
 })
 export class GarageBookListComponent implements OnInit {
   myBookings: any = [];
-  totalPrice: number= 0;
+  totalPrice: number = 0;
 
   constructor(
     private modalCtrl: ModalController,
     private restService: RestService,
     private toastController: ToastController,
     private alertController: AlertController
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadBookings();
@@ -58,7 +58,7 @@ export class GarageBookListComponent implements OnInit {
                 'No se pudieron cargar los datos. Intente más tarde.';
               toast.present();
               this.closeModal();
-            });  
+            });
           promises.push(availabilityPromise);
         }
         try {
@@ -79,7 +79,7 @@ export class GarageBookListComponent implements OnInit {
           this.closeModal();
         }
       });
-      
+
   }
 
   async closeModal() {

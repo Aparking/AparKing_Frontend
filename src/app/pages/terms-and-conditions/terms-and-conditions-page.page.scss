@@ -1,93 +1,81 @@
-/* Estilos generales */
 ion-title {
-    font-size: 28px;
-    /* Tamaño de fuente aumentado */
+    font-size: xxx-large;
+    font-weight: 800;
+    font-family: Lobster, sans-serif;
 }
 
-.about-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    /* Centrar el contenido */
-}
-
-h1 {
-    font-size: 36px;
-    /* Tamaño de fuente aumentado */
-    color: #000;
-    /* Color de texto negro */
-}
-
-/* Estilos para el título */
-.about-container h2 {
-    font-size: 24px;
-    font-weight: bold;
+.container {
+    font-family: 'Lobster', sans-serif;
     color: #333;
-    margin-bottom: 20px;
-}
-
-/* Estilos para el texto */
-.about-container p {
-    font-size: 18px;
     line-height: 1.6;
-    color: #666;
-    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    h1,
+    h2,
+    h4,
+    h5,
+    h6 {
+        font-weight: 900;
+        margin-top: 20px;
+    }
+
+    h3,
+    p,
+    ul {
+        font-family: 'Arial', sans-serif;
+        color: #666;
+
+        &.subtitle {
+            font-size: 24px;
+        }
+
+        &.text {
+            font-size: 18px;
+        }
+
+        &.section {
+            font-size: 16px;
+        }
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    blockquote {
+        margin: 20px 0;
+        padding: 10px 20px;
+        border-left: 5px solid #ccc;
+        color: #666;
+        font-style: italic;
+    }
+
+    pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    code {
+        font-family: 'Courier New', monospace;
+    }
+
+    h1 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+    }
 }
 
-/* Estilos para la imagen del equipo */
-.team-image {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    margin: 20px auto;
-    display: block;
-    border-radius: 10px;
-}
-
-.icon {
-    width: 100%;
-    max-width: 40px;
-    height: auto;
-    margin-left: 40px auto;
-    display: block;
-
-}
-
-/* Estilos para los enlaces de redes sociales */
-.social-links {
-    margin-top: 20px;
-}
-
-.social-links a {
-    display: inline-block;
-    margin-right: 10px;
-    text-decoration: none;
-    color: #333;
-    font-size: 20px;
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #007bff;
-}
-
-/* Estilos para el contenido en dispositivos móviles */
 @media only screen and (max-width: 600px) {
-    .about-container {
-        padding: 20px;
+    .container {
+        p {
+            font-size: 16px;
+        }
     }
-
-    .about-container h2 {
-        font-size: 20px;
-    }
-
-    .about-container p {
-        font-size: 16px;
-    }
-
-
 }

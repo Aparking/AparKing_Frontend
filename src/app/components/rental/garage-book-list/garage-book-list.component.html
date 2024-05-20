@@ -1,57 +1,48 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="medium" (click)="closeModal()">Volver</ion-button>
+      <ion-icon name="close" class="close-icon" (click)="closeModal()"></ion-icon>
     </ion-buttons>
-    <ion-title>| Mis reservas</ion-title>
-    <ion-title>| Total: {{ totalPrice }}</ion-title>
-    <!-- @for (book of myBookings; track book.id) {
-      {{book.garage.price}}
-    } -->
+    <ion-title class="title">Mis reservas</ion-title>
+    <ion-title class="total">Total: {{ totalPrice }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  @if(myBookings.length === 0) {
-  <ion-card>
-    <ion-text color="medium">
-      <h1 style="margin: auto">No tienes reservas</h1>
-    </ion-text>
-  </ion-card>
-  } @else {
-  <ion-list>
-    @for (book of myBookings; track book.id) {
+  <div *ngIf="myBookings.length === 0" class="empty-message">
     <ion-card>
-      @if (book.garage) {
-      <ion-card-header>
-        <div style="display: flex; justify-content: space-between">
-          <ion-card-title style="align-content: center">{{
-            book.garage.name
-          }}</ion-card-title>
+      <div class="center-content">
+        <h1>No tienes reservas</h1>
+      </div>
+    </ion-card>
+  </div>
+  <ion-list *ngIf="myBookings.length > 0">
+    <ion-card *ngFor="let book of myBookings">
+      <ion-card-header *ngIf="book.garage">
+        <div class="card-header">
+          <ion-card-title>{{ book.garage.name }}</ion-card-title>
           <ion-buttons slot="end">
             <ion-button (click)="alertCancelBooking(book.id)">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-button>
           </ion-buttons>
         </div>
-        <ion-card-subtitle
-          >{{ book.garage.address.city }},
+        <ion-card-subtitle>{{ book.garage.address.city }},
           {{ book.garage.address.address_line }},
-          {{ book.garage.address.street_number }}</ion-card-subtitle
-        >
+          {{ book.garage.address.street_number }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <ion-item>
           <ion-label>Fecha de inicio</ion-label>
           <ion-text>{{
             book.availability.start_date | date : "yyyy-MM-dd"
-          }}</ion-text>
+            }}</ion-text>
         </ion-item>
         <ion-item>
           <ion-label>Fecha de fin</ion-label>
           <ion-text>{{
             book.availability.end_date | date : "yyyy-MM-dd"
-          }}</ion-text>
+            }}</ion-text>
         </ion-item>
         <ion-item>
           <ion-label>Precio</ion-label>
@@ -61,12 +52,9 @@
           <ion-label>Estado</ion-label>
           <ion-text>{{
             book.status === "CONFIRMED" ? "Confirmada" : book.status
-          }}</ion-text>
+            }}</ion-text>
         </ion-item>
       </ion-card-content>
-      }
     </ion-card>
-    }
   </ion-list>
-  }
 </ion-content>

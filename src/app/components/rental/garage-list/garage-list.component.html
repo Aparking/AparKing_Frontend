@@ -1,44 +1,43 @@
 <ion-grid>
-  <ion-buttons>
-    <ion-button color="danger" shape="round" size="small" (click)="navigateToCreateGarage()">Añadir Garaje</ion-button>
-    <ion-button (click)="openBookListModal()" color="success" shape="round" size="small">Mis reservas
-    </ion-button>
-
-    <!-- <ion-button
-    (click)="openMyGaragesModal()"
-    color="orange"
-    shape="round"
-    size="small"
-    >Mis Garajes
-  </ion-button> -->
-  </ion-buttons>
-
+  <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+    <ion-buttons>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <ion-button style="background-color: red; color: white; border-radius: 10px;" shape="round" size="small"
+          (click)="navigateToCreateGarage()">Añadir Garaje</ion-button>
+        <ion-button style="background-color: green; color: white; border-radius: 10px;" (click)="openBookListModal()"
+          shape="round" size="small">Mis reservas
+        </ion-button>
+      </div>
+    </ion-buttons>
+  </div>
 
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>Búsqueda por filtros</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
       <ion-item>
         <ion-label>Mis Garajes</ion-label>
-
         <ion-checkbox [disabled]="!hasGarages()" [(ngModel)]="filterMyGarages"></ion-checkbox>
       </ion-item>
 
       <ion-item>
         <ion-input type="text" label="Nombre" [clearInput]="true" [counter]="true" maxlength="70"
-          placeholder="Introduce un nombre de garaje" [(ngModel)]="filterTitle"></ion-input>
+          placeholder="Introduce el nombre" [(ngModel)]="filterTitle"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Precio mínimo" placeholder="0.00€" [clearInput]="true"
+        <ion-input type="number" label="Precio mínimo" placeholder="0,00€" [clearInput]="true"
           [(ngModel)]="filterPriceMin"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Precio máximo" placeholder="783.75€" [clearInput]="true"
+        <ion-input type="number" label="Precio máximo" placeholder="783,75€" [clearInput]="true"
           [(ngModel)]="filterPriceMax"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-input type="number" label="Dimensión mínima" min="0.00" max="9999.99" placeholder="3.00"
+        <ion-input type="number" label="Dimensión mínima" min="0.00" max="9999.99" placeholder="3,00"
           [clearInput]="true" [(ngModel)]="filterDimensionMin"></ion-input>
       </ion-item>
 
@@ -56,7 +55,7 @@
       </ion-card-header>
       <ion-card-content>
         <p>
-          No hay garajes disponibles en este momento, por favor, intente más
+          No hay garajes disponibles en este momento, por favor, inténtelo más
           tarde.
         </p>
       </ion-card-content>
@@ -69,18 +68,18 @@
         <ion-card-title>{{ garage.title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Descripción: {{ garage.description }}
-        </p>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Dirección: {{ garage.address }}
-        </p>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Precio: {{ garage.price }}
-        </p>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Dimensiones: {{ garage.dimensionsText }}
-        </p>
+        <div class="atributo">
+          <p style="font-weight: bold;">Descripción:</p> {{ garage.description }}
+        </div>
+        <div class="atributo">
+          <p style="font-weight: bold;">Dirección:</p> {{ garage.address }}
+        </div>
+        <div class="atributo">
+          <p style="font-weight: bold;">Precio:</p> {{ garage.price.replace('.', ',') }} €
+        </div>
+        <div class="atributo">
+          <p style="font-weight: bold;">Dimensiones:</p>{{ garage.dimensionsText.replace('.', ',') }}
+        </div>
       </ion-card-content>
     </ion-card>
   </ion-row>

@@ -112,7 +112,7 @@ export class ProfileComponent implements OnInit {
       return isValid ? null : { ibanInvalid: true };
     };
   }
-  
+
   private minimumAgeValidator(minimumAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (Validators.required(control)) {
@@ -253,14 +253,18 @@ export class ProfileComponent implements OnInit {
     await alert.present();
   }
 
+  redirectToVehicleList() {
+    this.router.navigate(['/G11/aparKing/tab3/listVehicle']);
+  }
+
   async checkForActiveBookings(): Promise<boolean> {
-    const garages = await this.restService.getMyGarages().then(g => g).catch(() => {return [];});
-    const allBookings = await this.restService.getAllBookings().then(b => b).catch(() => {return [];});
+    const garages = await this.restService.getMyGarages().then(g => g).catch(() => { return []; });
+    const allBookings = await this.restService.getAllBookings().then(b => b).catch(() => { return []; });
     if (garages) {
       for (const garage of garages) {
         const availabilities = await this.restService.getAvailabilitiesByGarageId(garage.id);
         for (const availability of availabilities) {
-          if (allBookings){
+          if (allBookings) {
             const activeBook = allBookings.find(booking => booking.availability === availability.id);
             if (activeBook) {
               return true;

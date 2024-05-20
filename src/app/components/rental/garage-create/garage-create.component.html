@@ -3,12 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Publicar Garaje</ion-title>
+    <ion-title>Publicar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
+  <ion-card class="garage-card">
     <ion-card-header>
       <div class="garage-title">
         <ion-buttons slot="start">
@@ -18,313 +18,212 @@
             </ion-button>
           </a>
         </ion-buttons>
-        <ion-card-title style="display: flex; margin: auto"
-          >Publicar Garaje</ion-card-title
-        >
+        <ion-card-title class="title" style="display: flex; justify-content: center; align-items: center;">Datos del
+          garaje</ion-card-title>
       </div>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
         <ion-col size-xs="12" size-md="8" offset-md="2">
-          <form
-            [formGroup]="garageForm"
-            (ngSubmit)="saveGarage()"
-            style="border-radius: 5px"
-          >
-            <ion-card-header class="borde-interior">
+          <form [formGroup]="garageForm" (ngSubmit)="saveGarage()" style="border-radius: 5px; padding: 20px;">
+            <ion-card-header>
               <ion-card-title> </ion-card-title>
             </ion-card-header>
 
-            <ion-card class="borde-interior">
-              <ion-list class="borde-interior">
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Título"
-                    type="text"
-                    formControlName="name"
-                  ></ion-input>
+            <ion-card class="card">
+              <ion-list class="list">
+                <ion-item class="item">
+                  <ion-label position="floating">Título</ion-label>
+                  <ion-input fill="outline" placeholder="ej. Mi garaje" formControlName="name" type="text"></ion-input>
                 </ion-item>
                 <div class="error-conatiner">
-                  <app-error-message
-                    [field]="garageForm.get('name')!"
-                    [message]="'No debe estar vacío'"
-                    [error]="'required'"
-                  ></app-error-message>
-                  <div
-                    class="error-conatiner"
-                    *ngIf="
+                  <app-error-message [field]="garageForm.get('name')!" [message]="'No debe estar vacío'"
+                    [error]="'required'"></app-error-message>
+                  <div class="error-conatiner" *ngIf="
                       garageForm.get('name')?.invalid &&
                       garageForm.get('name')?.touched
-                    "
-                  >
+                    ">
                     <p style="color: red">Invalido</p>
                   </div>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Descripción"
-                    type="text"
-                    formControlName="description"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Descripción</ion-label>
+                  <ion-input fill="outline" placeholder="ej. Garaje en las afueras" type="text"
+                    formControlName="description"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('description')?.invalid &&
                     garageForm.get('description')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Altura"
-                    type="number"
-                    formControlName="height"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Altura</ion-label>
+                  <ion-input fill="outline" placeholder="Especifique en metros" type="number"
+                    formControlName="height"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('height')?.invalid &&
                     garageForm.get('height')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Ancho"
-                    type="number"
-                    formControlName="width"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Ancho</ion-label>
+                  <ion-input fill="outline" placeholder="Especifique en metros" type="number"
+                    formControlName="width"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('width')?.invalid &&
                     garageForm.get('width')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    type="number"
-                    label="Longitud"
-                    formControlName="length"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Longitud</ion-label>
+                  <ion-input fill="outline" placeholder="Especifique en metros" type="number"
+                    formControlName="length"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('length')?.invalid &&
                     garageForm.get('length')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    type="number"
-                    label="Precio"
-                    formControlName="price"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Precio</ion-label>
+                  <ion-input fill="outline" placeholder="ej. 23.50" type="number" formControlName="price"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('price')?.invalid &&
                     garageForm.get('price')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <div class="input-container">
                   <ion-checkbox formControlName="is_active"
-                    >Disponible</ion-checkbox
-                  >
-                </ion-item>
+                    [class.invalid-field]="!garageForm.get('is_active')?.value">Disponible</ion-checkbox>
+                </div>
               </ion-list>
             </ion-card>
 
-            <ion-card class="borde-interior">
-              <ion-list formGroupName="address" class="borde-interior">
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Número de Plazas"
-                    type="text"
-                    formControlName="unit_number"
-                  ></ion-input>
+            <ion-card class="card">
+              <ion-list class="list" formGroupName="address">
+                <ion-item class="item">
+                  <ion-label position="floating">Número de Plazas</ion-label>
+                  <ion-input fill="outline" placeholder="ej. 1" type="text" formControlName="unit_number"></ion-input>
                 </ion-item>
                 <div class="error-conatiner">
-                  <app-error-message
-                    [field]="garageForm.get('address')?.get('unit_number')!"
-                    [message]="'No debe estar vacío'"
-                    [error]="'required'"
-                  ></app-error-message>
+                  <app-error-message [field]="garageForm.get('address')?.get('unit_number')!"
+                    [message]="'No debe estar vacío'" [error]="'required'"></app-error-message>
                 </div>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('address')?.get('unit_number')?.invalid &&
                     garageForm.get('address')?.get('unit_number')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Debe ser un número positivo</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Número de Calle"
-                    type="text"
-                    formControlName="street_number"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Número de Calle</ion-label>
+                  <ion-input fill="outline" placeholder="ej. 2" type="text" formControlName="street_number"></ion-input>
                 </ion-item>
                 <div class="error-conatiner">
-                  <app-error-message
-                    [field]="garageForm.get('address')?.get('street_number')!"
-                    [message]="'No debe estar vacío'"
-                    [error]="'required'"
-                  ></app-error-message>
+                  <app-error-message [field]="garageForm.get('address')?.get('street_number')!"
+                    [message]="'No debe estar vacío'" [error]="'required'"></app-error-message>
                 </div>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('address')?.get('street_number')?.invalid &&
                     garageForm.get('address')?.get('street_number')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Debe ser un número positivo</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Dirección"
-                    type="text"
-                    formControlName="address_line"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Dirección</ion-label>
+                  <ion-input fill="outline" placeholder="ej. Calle Aparcamiento" type="text"
+                    formControlName="address_line"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('address')?.get('address_line')?.invalid &&
                     garageForm.get('address')?.get('address_line')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Ciudad"
-                    type="text"
-                    formControlName="city"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Ciudad</ion-label>
+                  <ion-input fill="outline" placeholder="ej. Sevilla" type="text" formControlName="city"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('address')?.get('city')?.invalid &&
                     garageForm.get('address')?.get('city')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-input
-                    label="Región"
-                    type="text"
-                    formControlName="region"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Región</ion-label>
+                  <ion-input fill="outline" placeholder="ej. Sevilla" type="text" formControlName="region"></ion-input>
                 </ion-item>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('address')?.get('region')?.invalid &&
                     garageForm.get('address')?.get('region')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
                   <ion-select label="País" formControlName="country">
                     <ion-select-option value="ES">España</ion-select-option>
                     <ion-select-option value="FR">Francia</ion-select-option>
                     <ion-select-option value="IT">Italia</ion-select-option>
-                    <!-- Add more options as needed -->
                   </ion-select>
                 </ion-item>
 
-                <ion-item>
-                  <ion-input
-                    label="Código Postal"
-                    type="text"
-                    formControlName="postal_code"
-                  ></ion-input>
+                <ion-item class="item">
+                  <ion-label position="floating">Código Postal</ion-label>
+                  <ion-input fill="outline" placeholder="ej. 12345" type="text"
+                    formControlName="postal_code"></ion-input>
                 </ion-item>
                 <div class="error-conatiner">
-                  <app-error-message
-                    [field]="garageForm.get('address')?.get('postal_code')!"
-                    [message]="'No debe estar vacío'"
-                    [error]="'required'"
-                  ></app-error-message>
+                  <app-error-message [field]="garageForm.get('address')?.get('postal_code')!"
+                    [message]="'No debe estar vacío'" [error]="'required'"></app-error-message>
                 </div>
-                <div
-                  class="error-conatiner"
-                  *ngIf="
+                <div class="error-conatiner" *ngIf="
                     garageForm.get('address')?.get('postal_code')?.invalid &&
                     garageForm.get('address')?.get('postal_code')?.touched
-                  "
-                >
+                  ">
                   <p style="color: red">Debe ser un número positivo</p>
                 </div>
               </ion-list>
             </ion-card>
 
-            <!-- IMAGE -->
-            <form
-              [formGroup]="imageForm"
-              (ngSubmit)="saveGarage()"
-              style="border-radius: 5px"
-            >
-              <ion-card class="borde-interior">
-                <ion-list formGroupName="image" class="borde-interior">
-                  <ion-item class="borde-interior">
-                    <input
-                      label="Imagen"
-                      type="file"
-                      formControlName="image"
-                      (change)="onFileSelected($event)"
-                    />
+            <form [formGroup]="imageForm" (ngSubmit)="saveGarage()" class="form">
+              <ion-card class="card">
+                <ion-list formGroupName="image" class="list">
+                  <ion-item class="item">
+                    <input class="form-input" label="Imagen" type="file" formControlName="image"
+                      (change)="onFileSelected($event)" />
                   </ion-item>
 
-                  <ion-item class="borde-interior">
-                    <ion-input
-                      label="Descripción de Imagen"
-                      type="text"
-                      formControlName="alt"
-                    ></ion-input>
+                  <ion-item class="item">
+                    <ion-label position="floating">Descripción imagen</ion-label>
+                    <ion-input fill="outline" placeholder="Añada una descripción a su imagen" type="text"
+                      formControlName="alt"></ion-input>
                   </ion-item>
                 </ion-list>
               </ion-card>
             </form>
 
-            <ion-button
-              expand="full"
-              type="submit"
-              [disabled]="!garageForm.valid"
-              shape="round"
-              >Publicar Garaje</ion-button
-            >
+            <ion-button expand="full" type="submit" [disabled]="!garageForm.valid" shape="round">Publicar
+              Garaje</ion-button>
           </form>
         </ion-col>
       </ion-row>
