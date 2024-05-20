@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar style="--background: transparent; --border-color: transparent;">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/G11/aparKing/tab3"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Lista de vehículos</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list *ngIf="vehicle && vehicle.length > 0; else noVehicles">
+                <ion-card *ngFor="let item of vehicle; let i = index">
+                    <ion-card-header>
+                        <ion-card-title>Matrícula: {{item.carModel}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <div class="atributos">
+                            <p><strong>Color:</strong> {{item.color}}</p>
+                            <p><strong>Tamaño:</strong> {{item.height.toString().replace('.', ',')}} metros</p>
+                            <p><strong>Ancho:</strong> {{item.width.toString().replace('.', ',')}} metros</p>
+                            <p><strong>Longitud:</strong> {{item.length.toString().replace('.', ',')}} metros</p>
+                        </div>
+                        <div *ngIf="item.principalCar === true"
+                            style="margin-top: 10px; text-align: center; font-size: 1.2em; color: goldenrod; font-weight: bold;">
+                            PRINCIPAL
+                        </div>
+                        <ion-card-content>
+                            <div style="display: flex; justify-content: center;">
+                                <ion-button *ngIf="item.principalCar !== true" slot="end" [disabled]="item.principalCar"
+                                    style="background-color: transparent; --background: transparent;" color="success"
+                                    shape="round" (click)="item.id ? updateVehiculoPrincipal(item.id) : null">
+                                    <ion-icon name="car"></ion-icon>
+                                </ion-button>
+                            </div>
+                        </ion-card-content>
+                    </ion-card-content>
+                </ion-card>
+            </ion-list>
+
+            <ng-template #noVehicles>
+                <div style="text-align: center; margin-top: 20px;">
+                    No hay vehículos registrados
+                </div>
+            </ng-template>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button color="success" (click)="redirectToRegisterVehicle()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

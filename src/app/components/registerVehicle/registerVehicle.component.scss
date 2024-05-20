@@ -1,40 +1,48 @@
-.appbar {
-  font-weight: bold;
-  font-family: "Lobster", sans-serif;
-}
-
-.invalid-field {
-  border-color: red;
+.error {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: red;
 }
 
 ion-card {
-  width: 90%;
-  margin: 20px auto;
-  padding: 10px;
+  border: 1px solid green;
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 ion-card-title {
+  font-size: 24px;
   font-weight: bold;
-  font-size: x-large;
-  font-family: 'Times New Roman', Times, serif;
+  color: #000;
   text-align: center;
 }
 
-ion-item {
-  --inner-padding-start: 10px;
-  --inner-padding-end: 10px;
-  border: 2px solid #d6d6d6;
-  margin: 10px 0;
+ion-card-header {
+  text-align: center;
 }
 
-.error-container {
-  width: 90%;
-  margin: 0 auto;
-  padding-left: 10px;
+form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 0;
 }
 
-ion-button {
-  margin-top: 20px;
-  width: 90%;
-  height: 50px;
+.input-item {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
