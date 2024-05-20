@@ -28,12 +28,12 @@
         <ion-item>
           <ion-label>Fecha de inicio</ion-label>
           <ion-text>{{
-            availability.start_date | date : "yyyy-MM-dd"
+            availability.start_date | date : "dd/MM/yyyy HH:mm"
           }}</ion-text>
         </ion-item>
         <ion-item>
           <ion-label>Fecha de fin</ion-label>
-          <ion-text>{{ availability.end_date | date : "yyyy-MM-dd" }}</ion-text>
+          <ion-text>{{ availability.end_date | date : "dd/MM/yyyy HH:mm" }}</ion-text>
         </ion-item>
         <ion-item>
           <ion-label>Estado</ion-label>
@@ -59,7 +59,7 @@
                 label-placement="floating"
                 label="Fecha de inicio"
                 formControlName="start_date"
-                type="date"
+                type="datetime-local"
               ></ion-input>
               <div class="error-container">
                 <app-error-message
@@ -83,7 +83,7 @@
                 label-placement="floating"
                 label="Fecha de fin"
                 formControlName="end_date"
-                type="date"
+                type="datetime-local"
               ></ion-input>
               <div class="error-container">
                 <app-error-message

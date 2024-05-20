@@ -76,8 +76,8 @@
                 *ngFor="let availability of availabilities"
                 [value]="availability.id"
               >
-                {{ availability.start_date | date : "yyyy-MM-dd" }} -
-                {{ availability.end_date | date : "yyyy-MM-dd" }}
+                {{ availability.start_date | date : "dd/MM/yyyy HH:mm" }} -
+                {{ availability.end_date | date : "dd/MM/yyyy HH:mm" }}
               </ion-select-option>
             </ion-select>
           </ion-item>
