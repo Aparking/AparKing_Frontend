@@ -3,12 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Publicar Garaje</ion-title>
+    <ion-title>Publicar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card>
+  <ion-card class="garage-card">
     <ion-card-header>
       <div class="garage-title">
         <ion-buttons slot="start">
@@ -18,8 +18,10 @@
             </ion-button>
           </a>
         </ion-buttons>
-        <ion-card-title style="display: flex; margin: auto"
-          >Publicar Garaje</ion-card-title
+        <ion-card-title
+          class="title"
+          style="display: flex; justify-content: center; align-items: center"
+          >Datos del garaje</ion-card-title
         >
       </div>
     </ion-card-header>
@@ -29,19 +31,21 @@
           <form
             [formGroup]="garageForm"
             (ngSubmit)="saveGarage()"
-            style="border-radius: 5px"
+            style="border-radius: 5px; padding: 20px"
           >
-            <ion-card-header class="borde-interior">
+            <ion-card-header>
               <ion-card-title> </ion-card-title>
             </ion-card-header>
 
-            <ion-card class="borde-interior">
-              <ion-list class="borde-interior">
-                <ion-item class="borde-interior">
+            <ion-card class="card">
+              <ion-list class="list">
+                <ion-item class="item">
+                  <ion-label position="floating">Título</ion-label>
                   <ion-input
-                    label="Título"
-                    type="text"
+                    fill="outline"
+                    placeholder="ej. Mi garaje"
                     formControlName="name"
+                    type="text"
                   ></ion-input>
                 </ion-item>
                 <div class="error-conatiner">
@@ -61,9 +65,11 @@
                   </div>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Descripción</ion-label>
                   <ion-input
-                    label="Descripción"
+                    fill="outline"
+                    placeholder="ej. Garaje en las afueras"
                     type="text"
                     formControlName="description"
                   ></ion-input>
@@ -78,9 +84,11 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Altura</ion-label>
                   <ion-input
-                    label="Altura"
+                    fill="outline"
+                    placeholder="Especifique en metros"
                     type="number"
                     formControlName="height"
                   ></ion-input>
@@ -95,9 +103,11 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Ancho</ion-label>
                   <ion-input
-                    label="Ancho"
+                    fill="outline"
+                    placeholder="Especifique en metros"
                     type="number"
                     formControlName="width"
                   ></ion-input>
@@ -112,10 +122,12 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Longitud</ion-label>
                   <ion-input
+                    fill="outline"
+                    placeholder="Especifique en metros"
                     type="number"
-                    label="Longitud"
                     formControlName="length"
                   ></ion-input>
                 </ion-item>
@@ -129,10 +141,12 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Precio</ion-label>
                   <ion-input
+                    fill="outline"
+                    placeholder="ej. 23.50"
                     type="number"
-                    label="Precio"
                     formControlName="price"
                   ></ion-input>
                 </ion-item>
@@ -146,11 +160,13 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
-                  <ion-checkbox formControlName="is_active"
+                <div class="input-container">
+                  <ion-checkbox
+                    formControlName="is_active"
+                    [class.invalid-field]="!garageForm.get('is_active')?.value"
                     >Disponible</ion-checkbox
                   >
-                </ion-item>
+                </div>
               </ion-list>
             </ion-card>
 
@@ -204,9 +220,11 @@
                   <p style="color: red">Debe ser un número positivo</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Dirección</ion-label>
                   <ion-input
-                    label="Dirección"
+                    fill="outline"
+                    placeholder="ej. Calle Aparcamiento"
                     type="text"
                     formControlName="address_line"
                   ></ion-input>
@@ -221,9 +239,11 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Ciudad</ion-label>
                   <ion-input
-                    label="Ciudad"
+                    fill="outline"
+                    placeholder="ej. Sevilla"
                     type="text"
                     formControlName="city"
                   ></ion-input>
@@ -238,9 +258,11 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
+                  <ion-label position="floating">Región</ion-label>
                   <ion-input
-                    label="Región"
+                    fill="outline"
+                    placeholder="ej. Sevilla"
                     type="text"
                     formControlName="region"
                   ></ion-input>
@@ -255,18 +277,19 @@
                   <p style="color: red">Invalido</p>
                 </div>
 
-                <ion-item class="borde-interior">
+                <ion-item class="item">
                   <ion-select label="País" formControlName="country">
                     <ion-select-option value="ES">España</ion-select-option>
                     <ion-select-option value="FR">Francia</ion-select-option>
                     <ion-select-option value="IT">Italia</ion-select-option>
-                    <!-- Add more options as needed -->
                   </ion-select>
                 </ion-item>
 
-                <ion-item>
+                <ion-item class="item">
+                  <ion-label position="floating">Código Postal</ion-label>
                   <ion-input
-                    label="Código Postal"
+                    fill="outline"
+                    placeholder="ej. 12345"
                     type="text"
                     formControlName="postal_code"
                   ></ion-input>
@@ -290,16 +313,16 @@
               </ion-list>
             </ion-card>
 
-            <!-- IMAGE -->
             <form
               [formGroup]="imageForm"
               (ngSubmit)="saveGarage()"
-              style="border-radius: 5px"
+              class="form"
             >
-              <ion-card class="borde-interior">
-                <ion-list formGroupName="image" class="borde-interior">
-                  <ion-item class="borde-interior">
+              <ion-card class="card">
+                <ion-list formGroupName="image" class="list">
+                  <ion-item class="item">
                     <input
+                      class="form-input"
                       label="Imagen"
                       type="file"
                       formControlName="image"
@@ -307,9 +330,13 @@
                     />
                   </ion-item>
 
-                  <ion-item class="borde-interior">
+                  <ion-item class="item">
+                    <ion-label position="floating"
+                      >Descripción imagen</ion-label
+                    >
                     <ion-input
-                      label="Descripción de Imagen"
+                      fill="outline"
+                      placeholder="Añada una descripción a su imagen"
                       type="text"
                       formControlName="alt"
                     ></ion-input>

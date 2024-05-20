@@ -1,0 +1,48 @@
+.error {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: red;
+}
+
+ion-card {
+  border: 1px solid green;
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+
+ion-card-header {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  margin: 0;
+}
+
+.input-item {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

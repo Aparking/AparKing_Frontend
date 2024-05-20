@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
 import { Token, User, Vehicle } from '../models/authentication';
@@ -25,7 +26,7 @@ export class DataManagementService {
     private rest: RestService,
     private router: Router,
     private persistenceService: PersistenceService
-  ) {}
+  ) { }
   public userLogged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -35,6 +36,9 @@ export class DataManagementService {
   public role: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   public userId: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  vehicleRegistered = new Subject<void>();
+  vehicleUpdated = new Subject<void>();
 
   formCorreo!: FormGroup;
 
@@ -153,6 +157,7 @@ export class DataManagementService {
     return this.rest
       .postVehicleRegister(vehicle)
       .then(async (data) => {
+        this.vehicleRegistered.next();
         return data;
       })
       .catch((err: HttpErrorResponse) => {
@@ -223,9 +228,12 @@ export class DataManagementService {
   async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
     return await this.rest
       .updateVehiculoPrincipal(vehicleId)
-      .then((data) => data)
-      .catch((err) => {
-        return err;
+      .then(async (data) => {
+        this.vehicleUpdated.next();
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
       });
   }
 }

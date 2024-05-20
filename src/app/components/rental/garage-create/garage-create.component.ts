@@ -197,7 +197,9 @@ export class GarageCreateComponent implements OnInit {
               this.uploadImage(toast);
             }
             this.garageStateService.refreshGarages();
-            this.navCtr.navigateBack('G11/aparKing/garages');
+            this.navCtr.navigateBack('G11/aparKing/garages').then(() => {
+              window.location.reload();
+            });
           })
           .catch(async (_) => {
             toast.message = `Error al actualizar el garaje, vuelva a intentarlo.`;
@@ -212,7 +214,9 @@ export class GarageCreateComponent implements OnInit {
               this.uploadImage(toast); // Sube la imagen asociada al garaje
             }
             this.garageStateService.refreshGarages();
-            this.navCtr.navigateBack('G11/aparKing/garages');
+            this.navCtr.navigateBack('G11/aparKing/garages').then(() => {
+              window.location.reload();
+            });
           })
           .catch(async (_) => {
             toast.message = `Error al crear el garaje, vuelva a intentarlo.`;

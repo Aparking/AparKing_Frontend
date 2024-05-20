@@ -1,79 +1,33 @@
-.subscription-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-
-    &:hover {
-      background-color: #45a049;
-    }
-  }
-}
-
-.user-info-card {
-  font-size: 1.2rem; // Aumenta el tamaño del texto
-
-  ion-card-title {
-    font-size: 1.4rem; // Tamaño del título del usuario
-  }
-}
-
-ion-item {
-  --padding-start: 0; // Reduce el espacio interno si es necesario
-  --inner-padding-end: 0; // Reduce el espacio interno si es necesario
-
-  ion-label {
-    h2 {
-      font-size: 1.1rem; // Ajustar el tamaño de la fuente del nombre del plan
-    }
-
-    p {
-      font-size: 1rem; // Ajustar el tamaño de la fuente del precio
-    }
-  }
-
-  ion-button {
-    margin-top: 4px; // Un pequeño margen por encima del botón
-  }
-}
-
 .user-card-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 16px; // Añade un margen entre la tarjeta de usuario y los planes
+  margin-bottom: 16px;
 }
 
-.user-info-card {
-  width: 100%;
-  max-width: 600px; // Ajustar según la anchura deseada
+ion-card {
+  border: 1px solid green;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+
+ion-card-header {
+  text-align: center;
 }
 
 .plans-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 16px; // Añade un poco de espacio entre las tarjetas de planes
+  grid-gap: 16px;
   width: 100%;
-  max-width: 600px; // Ajustar según la anchura deseada
+  max-width: 600px;
   margin: auto;
-
-}
-
-ion-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; // Esto asegura que el botón esté alineado en la parte inferior de la tarjeta
 }
 
 ion-content {
@@ -81,4 +35,38 @@ ion-content {
   --padding-end: 0;
   --padding-top: 0;
   --padding-bottom: 0;
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+
+  ion-label {
+    h2 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  ion-button {
+    margin-top: 4px;
+  }
+}
+
+.title-text {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.text {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  text-align: center;
 }

@@ -1,34 +1,46 @@
-.borde-interior {
-  margin-bottom: 3px;
-  margin-top: 5px;
-  padding-top: 5px;
-  border-radius: 15px;
+$primary-color: #4CAF50;
+$border-color: #ccc;
+$font-family: arial, sans-serif;
+
+.garage-card {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.15);
+  margin: auto;
+}
+
+
+.card {
+  margin-bottom: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .boton-crear {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 15px;
-  background-color: #4caf50;
+  font-size: 18px;
+  padding: 10px;
+  background-color: green;
   color: white;
-  padding: 14px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border: none;
-  transition-duration: 0.4s;
-}
-
-.boton-crear:hover {
-  background-color: #45a049;
-  color: white;
-}
-
-.garage-title {
-  display: flex;
-  justify-content: space-between;
+  width: 90%;
+  height: 50px;
+  border-radius: 25px;
 }

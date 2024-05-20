@@ -187,9 +187,9 @@ export class MapComponent implements OnInit {
       this.map = map
         ? map.setView([location.latitude, location.longitude], 18)
         : L.map('mapId', { zoomControl: false }).setView(
-            [location.latitude, location.longitude],
-            18
-          );
+          [location.latitude, location.longitude],
+          18
+        );
     }
     this.map.invalidateSize();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -233,20 +233,17 @@ export class MapComponent implements OnInit {
     markPoint.bindPopup(`
     <div style="width:140px;">
         <p><b>Tipo:</b>
-          ${
-            ParkingType[
-              parking.parking_type as unknown as keyof typeof ParkingType
-            ]
-          }</p>
+          ${ParkingType[
+      parking.parking_type as unknown as keyof typeof ParkingType
+      ]
+      }</p>
         <p><b>Tamaño:</b>
-          ${
-            ParkingSize[parking.size as unknown as keyof typeof ParkingSize]
-          }</p>
+          ${ParkingSize[parking.size as unknown as keyof typeof ParkingSize]
+      }</p>
           <p><b>Estado:</b>
           ${parking.is_assignment ? 'Alguien de camino</p>' : 'Aun libre</p>'}
-        <a href="https://www.google.com/maps?q=${parking.location.latitude},${
-      parking.location.longitude
-    }">Ir a la plaza</a>
+        <a target="_blank" href="https://www.google.com/maps?q=${parking.location.latitude},${parking.location.longitude
+      }">Ir a la plaza</a>
       </div>
    `);
     return markPoint;
@@ -293,9 +290,9 @@ export class MapComponent implements OnInit {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(this.gradesToRadian(location1.latitude)) *
-        Math.cos(this.gradesToRadian(location2.latitude)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(this.gradesToRadian(location2.latitude)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = radiusEarthKm * c; // Distancia en kilómetros
     return distance;

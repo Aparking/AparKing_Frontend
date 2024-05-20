@@ -2,9 +2,9 @@
   <ion-toolbar>
     <ion-title class="appbar"><a href="/about-us">{{constants.APP_NAME}}</a></ion-title>
 
-    <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
-      (click)="logout()"> Salir
-
+    <ion-button slot="end" style="background-color: transparent; --background: transparent; margin-right: 10px;"
+      color="light" (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +18,7 @@
 
     <ion-tab-button tab="garages">
       <ion-icon aria-hidden="true" name="reader-outline"></ion-icon>
-      <ion-label>Alquileres</ion-label>
+      <ion-label>Alquiler</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="tab3">
@@ -28,12 +28,12 @@
 
     <ion-tab-button tab="list-parking-cesion" (click)="goToCesion()">
       <ion-icon name="car"></ion-icon>
-      <ion-label>Cesiones</ion-label>
+      <ion-label>Cesión</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="tab5">
       <ion-icon name="wallet"></ion-icon>
-      <ion-label>Suscripciones</ion-label>
+      <ion-label>Planes</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

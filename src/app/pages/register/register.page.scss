@@ -1,158 +1,93 @@
 .appbar {
   font-weight: bold;
-  font-family:  "Lobster", sans-serif;
-}
-.invalid-field {
-  border-color: red;
-}
-
-.box {
-  border: 2px solid #d6d6d6;
-  width: 90%;
-  height: 60px;
-  padding: 10px;
-}
-.body {
-
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0px;
-  text-align: center;
-  width: 100%;
-  height: 60%;
-
-  .subtitle {
-    font-weight: bold;
-    text-align: start;
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
-
-    .logo {
-      height: 300px;
-      width: 600px;
-      margin: 0;
-      padding: 0;
-    }
-
-  .column {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 5px;
-
-    ion-button {
-      padding: 5px;
-      width: 90%;
-    }
-
-  }
-
+  font-family: Lobster, sans-serif;
 }
 
 ion-content {
-  justify-content: center;
-  margin: 0;
-  align-items: center;
   display: flex;
-  flex-direction: column;
-  padding: 20px;
-  text-align: center;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  margin-top: 20px;
-  .title {
-    font-weight: bold;
-    font-size: x-large;
-    font-family: 'Times New Roman', Times, serif;
-  }
 }
 
 form {
   display: flex;
   width: 100%;
   align-items: center;
-  align-content: center;
   justify-content: center;
-  text-align: center;
   flex-direction: column;
   margin: 0;
+}
 
-    .input-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px;
-      margin: 0 20px;
+.input-item {
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
 
-      ion-input{
-        width: 90%;
-        padding: 20px;
-        text-align: start;
-        --padding-end: 10px;
-        --padding-start: 10px;
-        border: 2px solid #d6d6d6;
-      }
-    }
+.error {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.8em;
+  color: red;
+}
 
-  ion-button {
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 20px;
-    width: 90%;
-    height: 50px;
-    margin-bottom: 10%;
+ion-card {
+  border: 1px solid green;
+  transition: transform 0.3s ease-in-out;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+ion-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+}
+
+ion-card-header {
+  text-align: center;
+}
+
+.checkbox-row {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+
+  ion-label {
+    font-size: 0.7em;
+    text-align: left;
   }
-
-
 }
 
 .row {
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin: 0 20px;
-  padding: 0 5%;
-}
-
-.error-conatiner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: flex-start;
-  padding-left: 5%;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin: 10px auto; // Ajusta como sea necesario
-}
-
-
-.checkbox-container {
-  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 }
 
-ion-checkbox {
+.prefix {
   margin-right: 10px;
 }
 
-.error-container {
-  width: 90%;
-  padding-left: 10px;
+.prefix,
+.phone {
+  flex: 1;
 }
 
+.prefix ion-input,
+.phone ion-input {
+  width: 100%;
+}
 
-
-
-
+ion-button {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 20px;
+  width: 90%;
+  height: 50px;
+  margin-bottom: 10%;
+}
