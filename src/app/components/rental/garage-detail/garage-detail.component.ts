@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { RestService } from 'src/app/service/rest.service';
 import { environment } from 'src/environments/environment';
 
@@ -20,8 +20,9 @@ export class GarageDetailComponent implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private modalCtrl: ModalController,
-    private garageStateService: GarageStateService
-  ) {}
+    private garageStateService: GarageStateService,
+    private navCtr: NavController,
+  ) { }
 
   MEDIA_BASE_ULR = environment.restUrl;
   base_url = '/G11/aparKing/garages';
@@ -128,7 +129,9 @@ export class GarageDetailComponent implements OnInit {
       .deleteGarage(this.garageId)
       .then(() => {
         this.garageStateService.refreshGarages();
-        this.router.navigate(['/G11/aparKing/garages']);
+        this.navCtr.navigateBack('G11/aparKing/garages').then(() => {
+          window.location.reload();
+        });
       })
       .catch((_) => {
         this.showAlert('No se ha podido borrar el garaje.');
@@ -159,7 +162,7 @@ export class GarageDetailComponent implements OnInit {
       .getAvailabilitiesByGarageId(this.garageId)
       .then((availabilities) => {
         availabilityExist = availabilities.some(
-          (availability) => availability.status === 'AVAILABLE'
+          (availability) => availability.status === "AVAILABLE" || availability.status === "Disponible"
         );
         if (availabilityExist) {
           this.createBookingModal();

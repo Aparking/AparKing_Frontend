@@ -1,16 +1,20 @@
-<ion-grid>
+<ion-grid class="garage-list">
+  <ion-icon name="close" class="close-icon" (click)="closePopup()"></ion-icon>
   <ion-row *ngFor="let garage of garages">
     <ion-col size="12">
-      <ion-card>
+      <ion-card class="garage-card">
         <ion-card-header>
-          <ion-card-title><a [routerLink]="['G11/aparKing/garages', garage.id]">{{ garage.name }}</a></ion-card-title>
+          <ion-card-title class="title">
+            <a [routerLink]="['G11/aparKing/garages', garage.id]">{{ garage.name }}</a>
+          </ion-card-title>
           <ion-card-subtitle>{{ garage.description }}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <p>Dimensiones: {{ garage.height }} x {{ garage.width }} x {{ garage.length }}</p>
           <p>Precio: {{ garage.price }}</p>
           <p>Día de subida: {{ garage.creation_date }}</p>
-          <p>Estado: {{ garage.is_active ? 'Active' : 'Inactive' }}</p>
+          <p>Estado: <span [class.invalid-field]="!garage.is_active">{{ garage.is_active ? 'Active' : 'Inactive'
+              }}</span></p>
           <p>Propietario: {{ garage.owner }}</p>
         </ion-card-content>
       </ion-card>

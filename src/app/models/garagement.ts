@@ -23,6 +23,7 @@ export interface Garage {
   is_active: boolean;
   owner: string;
   address: Address;
+  image: string;
 }
 
 export interface Image {

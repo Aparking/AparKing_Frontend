@@ -12,21 +12,25 @@
       color="success"
       shape="round"
       size="small"
-      >Mis reservas</ion-button
-    >
-
-    <ion-button
-    (click)="openMyGaragesModal()"
-    color="orange"
-    shape="round"
-    size="small"
-    >Mis Garajes</ion-button
-    >
-    </ion-buttons>
-
+      >Mis reservas
+    </ion-button>
+  </ion-buttons>
 
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>Búsqueda por filtros</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
+      <ion-item>
+        <ion-label>Mis Garajes</ion-label>
+
+        <ion-checkbox
+          [disabled]="!hasGarages()"
+          slot="start"
+          [(ngModel)]="filterMyGarages"
+        ></ion-checkbox>
+      </ion-item>
+
       <ion-item>
         <ion-input
           type="text"
@@ -92,36 +96,44 @@
       </ion-card-header>
       <ion-card-content>
         <p>
-          No hay garajes disponibles en este momento, por favor, intente más
+          No hay garajes disponibles en este momento, por favor, inténtelo más
           tarde.
         </p>
       </ion-card-content>
     </ion-card>
   </ion-row>
   <ion-row *ngIf="garages.length >= 1">
+    @for (garage of filteredGarages; track $index) {
     <ion-card
-      *ngFor="let garage of filteredGarages"
+      *ngIf="filterMyGarages ? garage.mygarage : true"
       [routerLink]="[garage.id]"
       style="width: 100%"
     >
-      <ion-img [src]="garage.image"></ion-img>
       <ion-card-header>
+        <ion-card-image>
+          <ion-img [src]="garage.image"></ion-img>
+        </ion-card-image>
         <ion-card-title>{{ garage.title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Descripción: {{ garage.description }}
-        </p>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Dirección: {{ garage.address }}
-        </p>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Precio: {{ garage.price }}
-        </p>
-        <p style="font-size: 20px; font-family: 'Arial', sans-serif">
-          Dimensiones: {{ garage.dimensionsText }}
-        </p>
+        <div class="atributo">
+          <p style="font-weight: bold">Descripción:</p>
+          {{ garage.description }}
+        </div>
+        <div class="atributo">
+          <p style="font-weight: bold">Dirección:</p>
+          {{ garage.address }}
+        </div>
+        <div class="atributo">
+          <p style="font-weight: bold">Precio:</p>
+          {{ garage.price.replace(".", ",") }} €
+        </div>
+        <div class="atributo">
+          <p style="font-weight: bold">Dimensiones:</p>
+          {{ garage.dimensionsText?.replace(".", ",") }}
+        </div>
       </ion-card-content>
     </ion-card>
+    }
   </ion-row>
 </ion-grid>

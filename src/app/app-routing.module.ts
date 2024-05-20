@@ -48,6 +48,13 @@ const routes: Routes = [
         (m) => m.AboutUsPageModule
       ),
   },
+  {
+    path: 'terms-and-conditions',
+    loadChildren: () =>
+      import('./pages/terms-and-conditions/terms-and-conditions-page.module').then(
+        (m) => m.TermsAndConditionsPageModule
+      ),
+  },
   { path: 'G11/aparKing/list-parking-cesion', component: parkingCesionComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({

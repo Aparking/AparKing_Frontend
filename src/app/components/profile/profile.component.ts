@@ -51,6 +51,7 @@ export class ProfileComponent implements OnInit {
         Validators.required,
         this.phoneNumberValidator(),
       ]),
+      iban: new FormControl('', [Validators.required, this.validateiban]),
     });
   }
 
@@ -71,6 +72,7 @@ export class ProfileComponent implements OnInit {
       birth_date: this.user.birth_date,
       countryCode: this.user.phone.substring(1, 3),
       phone: this.user.phone.substring(3),
+      iban: this.user.iban,
     });
   }
 
@@ -102,6 +104,15 @@ export class ProfileComponent implements OnInit {
     return null;
   }
 
+  validateiban(): ValidatorFn {
+    console.log('validateiban');
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const ibanPattern = /^[A-Z]{2}[0-9A-Z]{2,32}$/;
+      const isValid = ibanPattern.test(control.value);
+      return isValid ? null : { ibanInvalid: true };
+    };
+  }
+
   private minimumAgeValidator(minimumAge: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (Validators.required(control)) {
@@ -129,6 +140,8 @@ export class ProfileComponent implements OnInit {
   }
 
   async saveChanges() {
+    console.log(this.userForm.value);
+    console.log(this.userForm.value.iban);
     const loading = await this.loadingCtrl.create({
       message: 'Actualizando perfil',
     });
@@ -166,6 +179,24 @@ export class ProfileComponent implements OnInit {
   }
 
   async deleteProfile() {
+    const hasActiveBookings = await this.checkForActiveBookings();
+    if (hasActiveBookings) {
+      const toast = await this.toastController.create({
+        message: 'No puedes eliminar tu perfil mientras tengas reservas en tu garaje.',
+        duration: 3000,
+        position: 'bottom',
+        color: 'danger',
+        buttons: [
+          {
+            text: 'Cerrar',
+            role: 'cancel',
+          },
+        ],
+      });
+      await toast.present();
+      return;
+    }
+
     const alert = await this.alertCtrl.create({
       header: 'Eliminar perfil',
       message: '¿Estás seguro de que deseas eliminar tu perfil?',
@@ -220,6 +251,29 @@ export class ProfileComponent implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  redirectToVehicleList() {
+    this.router.navigate(['/G11/aparKing/tab3/listVehicle']);
+  }
+
+  async checkForActiveBookings(): Promise<boolean> {
+    const garages = await this.restService.getMyGarages().then(g => g).catch(() => { return []; });
+    const allBookings = await this.restService.getAllBookings().then(b => b).catch(() => { return []; });
+    if (garages) {
+      for (const garage of garages) {
+        const availabilities = await this.restService.getAvailabilitiesByGarageId(garage.id);
+        for (const availability of availabilities) {
+          if (allBookings) {
+            const activeBook = allBookings.find(booking => booking.availability === availability.id);
+            if (activeBook) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
   }
 
   async goRegisterVehicle() {

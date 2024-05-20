@@ -35,30 +35,39 @@ export class GarageCreateComponent implements OnInit {
   ) {
     this.garageForm = this.formGargeBuilder.group({
       address: this.formGargeBuilder.group({
-        unit_number: [null, Validators.required],
-        street_number: [null, Validators.required],
+        unit_number: [
+          null,
+          [Validators.required, Validators.pattern('^[0-9]*$')],
+        ],
+        street_number: [
+          null,
+          [Validators.required, Validators.pattern('^[0-9]*$')],
+        ],
         address_line: [null, Validators.required],
         city: [null, Validators.required],
         region: [null, Validators.required],
         country: [null],
-        postal_code: [null, Validators.required],
+        postal_code: [
+          null,
+          [Validators.required, Validators.pattern('^[0-9]*$')],
+        ],
       }),
       name: [null, Validators.required],
       description: [null, Validators.required],
       height: [null, Validators.required],
       width: [null, Validators.required],
       length: [null, Validators.required],
-      price: [null, Validators.required],
+      price: [null, [Validators.required, Validators.min(1)]],
       creation_date: [this.getCurrentDate(), Validators.required],
       modification_date: [this.getCurrentDate(), Validators.required],
       is_active: [true, Validators.required],
-      owner: [null, Validators.required],
+      owner: [null],
     });
     this.imageForm = this.formImageBuilder.group({
       image: this.formImageBuilder.group({
         garage: [1, Validators.required],
         image: [null, Validators.required],
-        alt: [null, Validators.required],
+        alt: [null],
         publication_date: [this.getCurrentDate(), Validators.required],
       }),
     });
@@ -100,7 +109,6 @@ export class GarageCreateComponent implements OnInit {
         this.currentGarage = garage;
         this.garageForm.setValue({
           address: {
-            unit_number: garage.address.unit_number,
             street_number: garage.address.street_number,
             address_line: garage.address.address_line,
             city: garage.address.city,
@@ -146,7 +154,10 @@ export class GarageCreateComponent implements OnInit {
       const formData = new FormData();
       formData.append('garage', this.garageId);
       formData.append('image', this.selectedFile, this.selectedFile.name);
-      formData.append('alt', this.imageForm.get('image')?.get('alt')?.value);
+      const altText = this.imageForm.get('image')?.get('alt')?.value;
+      if (altText) {
+        formData.append('alt', altText ? altText : 'imagen de garaje');
+      }
 
       this.restService.getCreateImage(formData).then(async (_) => {
         toast.message = `Imagen subida correctamente.`;
@@ -173,7 +184,7 @@ export class GarageCreateComponent implements OnInit {
     });
 
     this.garageForm.patchValue({ owner: this.user.id });
-    if (this.garageForm.valid) {
+    if (this.garageForm.valid && this.imageForm.valid) {
       if (this.garageId) {
         this.restService
           .updateGarage(this.garageId, this.garageForm.value)
@@ -186,7 +197,9 @@ export class GarageCreateComponent implements OnInit {
               this.uploadImage(toast);
             }
             this.garageStateService.refreshGarages();
-            this.navCtr.navigateBack('G11/aparKing/garages');
+            this.navCtr.navigateBack('G11/aparKing/garages').then(() => {
+              window.location.reload();
+            });
           })
           .catch(async (_) => {
             toast.message = `Error al actualizar el garaje, vuelva a intentarlo.`;
@@ -201,7 +214,9 @@ export class GarageCreateComponent implements OnInit {
               this.uploadImage(toast); // Sube la imagen asociada al garaje
             }
             this.garageStateService.refreshGarages();
-            this.navCtr.navigateBack('G11/aparKing/garages');
+            this.navCtr.navigateBack('G11/aparKing/garages').then(() => {
+              window.location.reload();
+            });
           })
           .catch(async (_) => {
             toast.message = `Error al crear el garaje, vuelva a intentarlo.`;
@@ -209,8 +224,8 @@ export class GarageCreateComponent implements OnInit {
           });
       }
     } else {
-      //TODO - Imprimir mensajes de error en el formulario
-      console.log('El formulario de garaje no es válido');
+      toast.message = `Formulario incompleto, rellene todos los campos.`;
+      await toast.present();
     }
   }
 }

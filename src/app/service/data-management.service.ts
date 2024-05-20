@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { constants } from '../constants.ts';
 import { Token, User, Vehicle } from '../models/authentication';
@@ -11,7 +12,7 @@ import {
   Location,
   Parking,
   ParkingCreate,
-  ParkingResponse
+  ParkingResponse,
 } from '../models/parking';
 import { CombinedDataPayment } from '../models/payments.js';
 import { PersistenceService } from './persistence.service';
@@ -36,6 +37,9 @@ export class DataManagementService {
 
   public userId: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
+  vehicleRegistered = new Subject<void>();
+  vehicleUpdated = new Subject<void>();
+
   formCorreo!: FormGroup;
 
   // parking
@@ -58,12 +62,12 @@ export class DataManagementService {
       });
   }
 
-  async postCreateParking(parking: any): Promise<ParkingResponse> {
+  async postCreateParking(parking: any): Promise<ParkingResponse | number> {
     return this.rest
       .postCreateParking(parking)
       .then((data) => data)
       .catch((err) => {
-        return err;
+        throw err;
       });
   }
 
@@ -125,15 +129,11 @@ export class DataManagementService {
   }
 
   async postLogout(): Promise<void> {
-    return this.rest
-      .logout()
-      .then((_) => {
-        this.persistenceService.removeValue(constants.TOKEN);
-        this.persistenceService.removeValue(constants.PROVISIONAL_TOKEN);
-      })
-      .catch((err: HttpErrorResponse) => {
-        throw err;
-      });
+    this.rest.logout().catch((err: HttpErrorResponse) => {
+      throw err;
+    });
+    this.persistenceService.removeValue(constants.TOKEN);
+    this.persistenceService.removeValue(constants.PROVISIONAL_TOKEN);
   }
 
   async createCheckoutSessionRental(data: any): Promise<any> {
@@ -144,7 +144,6 @@ export class DataManagementService {
         return err;
       });
   }
-
 
   async getCities(location: Location, query: string): Promise<City[]> {
     return this.rest
@@ -158,6 +157,7 @@ export class DataManagementService {
     return this.rest
       .postVehicleRegister(vehicle)
       .then(async (data) => {
+        this.vehicleRegistered.next();
         return data;
       })
       .catch((err: HttpErrorResponse) => {
@@ -183,7 +183,8 @@ export class DataManagementService {
       });
   }
   async getParkingCesion(): Promise<CesionParking> {
-    return this.rest.getParkingCesion()
+    return this.rest
+      .getParkingCesion()
       .then((data) => {
         console.log(data);
         return data;
@@ -194,7 +195,8 @@ export class DataManagementService {
       });
   }
   async getVehicle(): Promise<{ vehicles: Vehicle[] } | undefined> {
-    return this.rest.getVehicles()
+    return this.rest
+      .getVehicles()
       .then((data) => {
         console.log(data);
         return data;
@@ -226,11 +228,12 @@ export class DataManagementService {
   async updateVehiculoPrincipal(vehicleId: number): Promise<any> {
     return await this.rest
       .updateVehiculoPrincipal(vehicleId)
-      .then((data) => data)
-      .catch((err) => {
-        return err;
+      .then(async (data) => {
+        this.vehicleUpdated.next();
+        return data;
+      })
+      .catch((err: HttpErrorResponse) => {
+        throw err;
       });
   }
-
 }
-
