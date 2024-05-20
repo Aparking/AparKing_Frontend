@@ -34,8 +34,8 @@ export class MapComponent implements OnInit {
   cities: City[] = [];
 
   private icon = L.icon({
-    iconUrl: 'marker-icon.png',
-    iconSize: [25, 35],
+    iconUrl: '../../../assets/marker.png',
+    iconSize: [35, 35],
   });
   private layerGroup: L.LayerGroup = L.layerGroup();
 

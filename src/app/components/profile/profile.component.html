@@ -75,6 +75,17 @@
             [error]="'minLength'"></app-error-message>
         </div>
       </div>
+      
+      <div class="input-container">
+        <ion-input fill="outline" placeholder="ESXX YYYY XXXX YYYY XXXX YYYY" label-placement="floating" label="IBAN"
+          formControlName="iban" type="text"></ion-input>
+        <div class="error-conatiner">
+          <app-error-message [field]="userForm.get('iban')!" [message]="'El IBAN es obligatorio'"
+            [error]="'required'"></app-error-message>
+          <app-error-message [field]="userForm.get('iban')!" [message]="'El IBAN no es válido'"
+            [error]="'ibanInvalid'"></app-error-message>
+        </div>
+      </div>
     </form>
     <ion-button slot="end" style="background-color: transparent; --background: transparent; " color="light"
       (click)="goRegisterVehicle()"> Pulsa aqui para registrar tu vehiculo

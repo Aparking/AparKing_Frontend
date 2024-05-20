@@ -12,20 +12,30 @@
       color="success"
       shape="round"
       size="small"
-      >Mis reservas</ion-button
-    >
+      >Mis reservas
+    </ion-button>
 
     <ion-button
       (click)="openMyGaragesModal()"
       color="orange"
       shape="round"
       size="small"
-      >Mis Garajes</ion-button
-    >
+      >Mis Garajes
+    </ion-button>
   </ion-buttons>
 
   <ion-card>
     <ion-card-content>
+      <ion-item>
+        <ion-label>Mis Garajes</ion-label>
+
+        <ion-checkbox
+          [disabled]="!hasGarages()"
+          slot="start"
+          [(ngModel)]="filterMyGarages"
+        ></ion-checkbox>
+      </ion-item>
+
       <ion-item>
         <ion-input
           type="text"
